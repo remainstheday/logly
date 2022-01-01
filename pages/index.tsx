@@ -3,7 +3,6 @@ import Link from "next/link";
 
 // Import the generated Lists API and types from Keystone
 import { query } from ".keystone/api";
-import { Lists } from ".keystone/types";
 
 type Post = {
   id: string;
@@ -41,7 +40,7 @@ export async function getStaticProps() {
   const posts = (await query.Post.findMany({
     query: "id title slug",
   })) as Post[];
-  console.log(posts);
+
   return {
     props: {
       posts,

@@ -16,6 +16,10 @@ export default withAuth(
       useMigrations: true,
       idField: { kind: "uuid" },
     },
+    experimental: {
+      generateNextGraphqlAPI: true,
+      generateNodeAPI: true,
+    },
     // This config allows us to set up features of the Admin UI https://keystonejs.com/docs/apis/config#ui
     ui: {
       // For our starter, we check that someone has session data before letting them see the Admin UI.
