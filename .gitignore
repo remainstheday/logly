@@ -37,4 +37,5 @@ yarn-error.log*
 *.tsbuildinfo
 
 # Keystone
+.Keystone
 migrations
