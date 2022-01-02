@@ -56,13 +56,7 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
-  mode: QueryMode
   not: NestedStringFilter
-}
-
-enum QueryMode {
-  default
-  insensitive
 }
 
 input NestedStringFilter {
@@ -130,7 +124,6 @@ input PostRelateToManyForCreateInput {
 type Post {
   id: ID!
   title: String
-  slug: String
   status: String
   content: Post_content_Document
   publishDate: DateTime
@@ -153,7 +146,6 @@ scalar DateTime
 
 input PostWhereUniqueInput {
   id: ID
-  slug: String
 }
 
 input PostWhereInput {
@@ -162,7 +154,6 @@ input PostWhereInput {
   NOT: [PostWhereInput!]
   id: IDFilter
   title: StringFilter
-  slug: StringFilter
   status: StringNullableFilter
   publishDate: DateTimeNullableFilter
   author: UserWhereInput
@@ -180,7 +171,6 @@ input StringNullableFilter {
   contains: String
   startsWith: String
   endsWith: String
-  mode: QueryMode
   not: NestedStringNullableFilter
 }
 
@@ -218,14 +208,12 @@ input TagManyRelationFilter {
 input PostOrderByInput {
   id: OrderDirection
   title: OrderDirection
-  slug: OrderDirection
   status: OrderDirection
   publishDate: OrderDirection
 }
 
 input PostUpdateInput {
   title: String
-  slug: String
   status: String
   content: JSON
   publishDate: DateTime
@@ -253,7 +241,6 @@ input PostUpdateArgs {
 
 input PostCreateInput {
   title: String
-  slug: String
   status: String
   content: JSON
   publishDate: DateTime
@@ -473,6 +460,11 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
   edit
   read
   hidden
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 type KeystoneAdminUISort {
