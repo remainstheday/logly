@@ -1,7 +1,8 @@
 {
-  "name": "keystone-app",
+  "name": "logly-admin",
   "version": "1.0.0",
   "private": true,
+  "main": "keystone.ts",
   "scripts": {
     "dev": "keystone dev",
     "start": "keystone start",

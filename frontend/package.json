@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "logly-ui",
   "private": true,
   "scripts": {
     "dev": "next dev",
