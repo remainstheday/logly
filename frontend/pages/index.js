@@ -39,7 +39,7 @@ export default function Home({ posts }) {
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
           <div className="experience-slider mt-5">
-            {postcss.map((post) => (
+            {posts.map((post) => (
               <div key={post.id} className="experience-post">
                 <img src="stock-museum-2.jpg" alt="" />
                 <strong>{post.title}</strong>
