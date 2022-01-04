@@ -62,8 +62,10 @@ export async function getStaticProps() {
 
   const { data } = await client.query({
     query: gql`
-      query Posts {
-        title
+      query {
+        posts {
+          title
+        }
       }
     `,
   });
