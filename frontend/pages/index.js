@@ -1,7 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
 import postcss from "postcss";
-import { fetchGraphQL, gql } from "../utils";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 export default function Home({ posts }) {
   return (
@@ -56,13 +55,17 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const data = await fetchGraphQL(gql`
-    query {
-      posts {
+  const client = new ApolloClient({
+    uri: `https://admin.tovech.com/api/graphql`,
+    cache: new InMemoryCache(),
+  });
+
+  const { data } = await client.query({
+    query: gql`
+      query Posts {
         title
-        slug
       }
-    }
-  `);
+    `,
+  });
   return { props: { posts: data.posts } };
 }
