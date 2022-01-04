@@ -1,7 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
+import postcss from "postcss";
+import { fetchGraphQL, gql } from "../utils";
 
-export default function Home() {
+export default function Home({ posts }) {
   return (
     <div>
       <Head>
@@ -38,10 +40,12 @@ export default function Home() {
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
           <div className="experience-slider mt-5">
-            <div className="experience-post">
-              <img src="stock-museum-2.jpg" alt="" />
-              <strong>Abstract Visions</strong>
-            </div>
+            {postcss.map((post) => (
+              <div key={post.id} className="experience-post">
+                <img src="stock-museum-2.jpg" alt="" />
+                <strong>{post.title}</strong>
+              </div>
+            ))}
           </div>
         </section>
       </main>
@@ -49,4 +53,16 @@ export default function Home() {
       <footer></footer>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const data = await fetchGraphQL(gql`
+    query {
+      posts {
+        title
+        slug
+      }
+    }
+  `);
+  return { props: { posts: data.posts } };
 }
