@@ -44,9 +44,7 @@ export const lists: Lists = {
           { label: "Published", value: "published" },
           { label: "Draft", value: "draft" },
         ],
-        // We want to make sure new posts start off as a draft when they are created
         defaultValue: "draft",
-        // fields also have the ability to configure their appearance in the Admin UI
         ui: {
           displayMode: "segmented-control",
         },

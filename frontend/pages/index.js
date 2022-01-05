@@ -1,6 +1,7 @@
 import Head from "next/head";
-import postcss from "postcss";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import Link from "next/link";
+import { gql } from "@apollo/client";
+import client from "../apollo-client";
 
 export default function Home({ posts }) {
   return (
@@ -35,15 +36,17 @@ export default function Home({ posts }) {
           </h3>
         </section>
 
-        <section className="experiences mt-10">
+        <section className="experiences mt-10 mx-auto w-5/6">
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
           <div className="experience-slider mt-5">
             {posts.map((post) => (
-              <div key={post.id} className="experience-post">
-                <img src="stock-museum-2.jpg" alt="" />
-                <strong>{post.title}</strong>
-              </div>
+              <Link key={post.id} href={post.slug}>
+                <div className="experience-post">
+                  <img src="stock-museum-2.jpg" />
+                  <strong>{post.title}</strong>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -55,15 +58,11 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const client = new ApolloClient({
-    uri: `https://admin.tovech.com/api/graphql`,
-    cache: new InMemoryCache(),
-  });
-
   const { data } = await client.query({
     query: gql`
       query {
         posts {
+          slug
           title
         }
       }
