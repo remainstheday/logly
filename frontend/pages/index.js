@@ -40,8 +40,15 @@ export default function Home({ posts }) {
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
           <div className="experience-slider mt-5">
-            {posts.map((post) => (
-              <Link key={post.id} href={post.slug}>
+            {posts.map((post, index) => (
+              <Link
+                key={index}
+                href={{
+                  pathname: "/experience/[slug]",
+                  query: { slug: post.slug },
+                }}
+                passHref
+              >
                 <div className="experience-post">
                   <img src="stock-museum-2.jpg" />
                   <strong>{post.title}</strong>
@@ -68,5 +75,7 @@ export async function getStaticProps() {
       }
     `,
   });
+
+  console.log(data);
   return { props: { posts: data.posts } };
 }
