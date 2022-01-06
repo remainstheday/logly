@@ -13,11 +13,6 @@ const { withAuth } = createAuth({
   },
 });
 
-const session = statelessSessions({
-  // The session secret is used to encrypt cookie data (should be an environment variable)
-  secret: process.env.SESSION_SECRET!,
-});
-
 export default withAuth(
   config({
     db: {
@@ -35,6 +30,10 @@ export default withAuth(
       isAccessAllowed: (context) => !!context.session?.data,
     },
     lists,
-    session,
+    session: statelessSessions({
+      secret: process.env.SESSION_SECRET!,
+      maxAge: 60 * 60 * 24,
+      secure: true,
+    }),
   })
 );
