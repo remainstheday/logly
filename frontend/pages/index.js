@@ -1,9 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 
-export default function Home({ posts }) {
+export default function Home({ posts = [] }) {
   return (
     <div>
       <Head>
@@ -14,7 +15,13 @@ export default function Home({ posts }) {
 
       <main>
         <header className="container flex justify-between px-4 py-4">
-          <img src="logly.png" className="w-1/3" />
+          <Image
+            src="/logly.png"
+            className="w-1/3"
+            alt="logly-logo"
+            width="50"
+            height="50"
+          />
           <div className="space-y-2">
             {/* https://www.notimedad.dev/responsive-navbar-tailwind-react/ */}
             <div className="w-8 h-0.5 bg-gray-600"></div>
@@ -27,7 +34,7 @@ export default function Home({ posts }) {
         </h1>
 
         <section className="intro mt-4">
-          <img src="stock-museum-1.jpg" />
+          <Image src="/stock-museum-1.jpg" alt="stock-image" layout="fill" />
           <h3 className="px-4">
             Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Nobis aut impedit, minus doloribus cumque nulla eum molestiae
@@ -41,19 +48,14 @@ export default function Home({ posts }) {
           <hr />
           <div className="experience-slider mt-5">
             {posts.map((post, index) => (
-              <Link
-                key={index}
-                href={{
-                  pathname: "/experience/[slug]",
-                  query: { slug: post.slug },
-                }}
-                passHref
-              >
-                <div className="experience-post">
-                  <img src="stock-museum-2.jpg" />
-                  <strong>{post.title}</strong>
-                </div>
-              </Link>
+              <div key={index} className="experience-post">
+                <Image
+                  src="/stock-museum-2.jpg"
+                  alt="stock-image-2"
+                  layout="fill"
+                />
+                <strong>{post.title}</strong>
+              </div>
             ))}
           </div>
         </section>
@@ -64,17 +66,17 @@ export default function Home({ posts }) {
   );
 }
 
-export async function getStaticProps() {
-  const { data } = await client.query({
-    query: gql`
-      query {
-        posts {
-          slug
-          title
-        }
-      }
-    `,
-  });
+// export async function getStaticProps() {
+//   const { data } = await client.query({
+//     query: gql`
+//       query {
+//         posts {
+//           slug
+//           title
+//         }
+//       }
+//     `,
+//   });
 
-  return { props: { posts: data.posts } };
-}
+//   return { props: { posts: data.posts } };
+// }
