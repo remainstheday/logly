@@ -7,7 +7,7 @@ export default withAuth(
   config({
     db: {
       provider: "postgresql",
-      url: `postgres://emimtxdnnbnxbp:${process.env.PGPASSWORD}@ec2-72-44-41-8.compute-1.amazonaws.com:5432/dbctgrsc52pmqq`,
+      url: process.env.DATABASE_URL || ``,
       enableLogging: true,
       useMigrations: true,
       idField: { kind: "uuid" },
