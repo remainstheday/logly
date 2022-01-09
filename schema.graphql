@@ -48,13 +48,7 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
-  mode: QueryMode
   not: NestedStringFilter
-}
-
-enum QueryMode {
-  default
-  insensitive
 }
 
 input NestedStringFilter {
@@ -103,10 +97,35 @@ type Experience {
   id: ID!
   title: String
   slug: String
+  poster: ImageFieldOutput
   startDate: DateTime
   endDate: DateTime
   status: String
   content: Experience_content_Document
+  artworks(
+    where: ArtworkWhereInput! = {}
+    orderBy: [ArtworkOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Artwork!]
+  artworksCount(where: ArtworkWhereInput! = {}): Int
+}
+
+interface ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
 }
 
 scalar DateTime
@@ -131,6 +150,7 @@ input ExperienceWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
+  artworks: ArtworkManyRelationFilter
 }
 
 input DateTimeNullableFilter {
@@ -155,7 +175,6 @@ input StringNullableFilter {
   contains: String
   startsWith: String
   endsWith: String
-  mode: QueryMode
   not: NestedStringNullableFilter
 }
 
@@ -173,6 +192,12 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
+input ArtworkManyRelationFilter {
+  every: ArtworkWhereInput
+  some: ArtworkWhereInput
+  none: ArtworkWhereInput
+}
+
 input ExperienceOrderByInput {
   id: OrderDirection
   title: OrderDirection
@@ -185,10 +210,29 @@ input ExperienceOrderByInput {
 input ExperienceUpdateInput {
   title: String
   slug: String
+  poster: ImageFieldInput
   startDate: DateTime
   endDate: DateTime
   status: String
   content: JSON
+  artworks: ArtworkRelateToManyForUpdateInput
+}
+
+input ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input ArtworkRelateToManyForUpdateInput {
+  disconnect: [ArtworkWhereUniqueInput!]
+  set: [ArtworkWhereUniqueInput!]
+  create: [ArtworkCreateInput!]
+  connect: [ArtworkWhereUniqueInput!]
 }
 
 input ExperienceUpdateArgs {
@@ -199,10 +243,147 @@ input ExperienceUpdateArgs {
 input ExperienceCreateInput {
   title: String
   slug: String
+  poster: ImageFieldInput
   startDate: DateTime
   endDate: DateTime
   status: String
   content: JSON
+  artworks: ArtworkRelateToManyForCreateInput
+}
+
+input ArtworkRelateToManyForCreateInput {
+  create: [ArtworkCreateInput!]
+  connect: [ArtworkWhereUniqueInput!]
+}
+
+type Artwork {
+  id: ID!
+  title: String
+  artist: String
+  slug: String
+  startDate: DateTime
+  endDate: DateTime
+  status: String
+  spotifyUrl: String
+  soundcloudUrl: String
+  audioFile: FileFieldOutput
+  images: ImageFieldOutput
+  overview: Artwork_overview_Document
+}
+
+interface FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
+}
+
+type Artwork_overview_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
+}
+
+input ArtworkWhereUniqueInput {
+  id: ID
+  slug: String
+}
+
+type LocalFileFieldOutput implements FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
+}
+
+type CloudFileFieldOutput implements FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+type CloudImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+input ArtworkWhereInput {
+  AND: [ArtworkWhereInput!]
+  OR: [ArtworkWhereInput!]
+  NOT: [ArtworkWhereInput!]
+  id: IDFilter
+  title: StringFilter
+  artist: StringFilter
+  slug: StringFilter
+  startDate: DateTimeNullableFilter
+  endDate: DateTimeNullableFilter
+  status: StringNullableFilter
+  spotifyUrl: StringFilter
+  soundcloudUrl: StringFilter
+}
+
+input ArtworkOrderByInput {
+  id: OrderDirection
+  title: OrderDirection
+  artist: OrderDirection
+  slug: OrderDirection
+  startDate: OrderDirection
+  endDate: OrderDirection
+  status: OrderDirection
+  spotifyUrl: OrderDirection
+  soundcloudUrl: OrderDirection
+}
+
+input ArtworkUpdateInput {
+  title: String
+  artist: String
+  slug: String
+  startDate: DateTime
+  endDate: DateTime
+  status: String
+  spotifyUrl: String
+  soundcloudUrl: String
+  audioFile: FileFieldInput
+  images: ImageFieldInput
+  overview: JSON
+}
+
+input FileFieldInput {
+  upload: Upload
+  ref: String
+}
+
+input ArtworkUpdateArgs {
+  where: ArtworkWhereUniqueInput!
+  data: ArtworkUpdateInput!
+}
+
+input ArtworkCreateInput {
+  title: String
+  artist: String
+  slug: String
+  startDate: DateTime
+  endDate: DateTime
+  status: String
+  spotifyUrl: String
+  soundcloudUrl: String
+  audioFile: FileFieldInput
+  images: ImageFieldInput
+  overview: JSON
 }
 
 """
@@ -229,6 +410,15 @@ type Mutation {
   updateExperiences(data: [ExperienceUpdateArgs!]!): [Experience]
   deleteExperience(where: ExperienceWhereUniqueInput!): Experience
   deleteExperiences(where: [ExperienceWhereUniqueInput!]!): [Experience]
+  createArtwork(data: ArtworkCreateInput!): Artwork
+  createArtworks(data: [ArtworkCreateInput!]!): [Artwork]
+  updateArtwork(
+    where: ArtworkWhereUniqueInput!
+    data: ArtworkUpdateInput!
+  ): Artwork
+  updateArtworks(data: [ArtworkUpdateArgs!]!): [Artwork]
+  deleteArtwork(where: ArtworkWhereUniqueInput!): Artwork
+  deleteArtworks(where: [ArtworkWhereUniqueInput!]!): [Artwork]
   endSession: Boolean!
   authenticateUserWithPassword(
     email: String!
@@ -275,6 +465,14 @@ type Query {
   ): [Experience!]
   experience(where: ExperienceWhereUniqueInput!): Experience
   experiencesCount(where: ExperienceWhereInput! = {}): Int
+  artworks(
+    where: ArtworkWhereInput! = {}
+    orderBy: [ArtworkOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Artwork!]
+  artwork(where: ArtworkWhereUniqueInput!): Artwork
+  artworksCount(where: ArtworkWhereInput! = {}): Int
   keystone: KeystoneMeta!
   authenticatedItem: AuthenticatedItem
 }
@@ -351,6 +549,11 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
   edit
   read
   hidden
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 type KeystoneAdminUISort {

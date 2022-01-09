@@ -13,11 +13,16 @@ const { withAuth } = createAuth({
   },
 });
 
+const dbProvider = process.env.DATABASE_URL ? "postgresql" : "sqlite";
+const dbUrl = process.env.DATABASE_URL
+  ? process.env.DATABASE_URL
+  : "file:./keystone.db";
+
 export default withAuth(
   config({
     db: {
-      provider: "postgresql",
-      url: process.env.DATABASE_URL!,
+      provider: dbProvider,
+      url: dbUrl,
       idField: { kind: "uuid" },
     },
     graphql: {
@@ -25,6 +30,16 @@ export default withAuth(
       apolloConfig: {
         debug: true,
       },
+    },
+    images: {
+      upload: "local",
+      local: {
+        storagePath: "frontend/public/images",
+        baseUrl: "/images",
+      },
+    },
+    files: {
+      upload: "local",
     },
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
