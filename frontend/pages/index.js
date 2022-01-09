@@ -4,7 +4,7 @@ import Image from "next/image";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 
-export default function Home({ posts = [] }) {
+export default function Home({ experiences = [] }) {
   return (
     <div>
       <Head>
@@ -33,8 +33,12 @@ export default function Home({ posts = [] }) {
           Welcome to <br /> LOGLY
         </h1>
 
-        <section className="intro mt-4">
-          <Image src="/stock-museum-1.jpg" alt="stock-image" layout="fill" />
+        <section className="container mx-auto mt-4 px-4">
+          <img
+            src="/images/26b0996e-8cdc-4ba1-ac02-e5172f6fb16c.jpg"
+            alt="stock-image"
+            layout="fill"
+          />
           <h3 className="px-4">
             Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Nobis aut impedit, minus doloribus cumque nulla eum molestiae
@@ -43,18 +47,18 @@ export default function Home({ posts = [] }) {
           </h3>
         </section>
 
-        <section className="experiences mt-10 mx-auto w-5/6">
+        <section className="container  mt-4 px-4 mt-10 mx-auto ">
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
-          <div className="experience-slider mt-5">
-            {posts.map((post, index) => (
+          <div className="experience-slider max-w-md mt-5 w-5/6">
+            {experiences.map((experience, index) => (
               <div key={index} className="experience-post">
-                <Image
-                  src="/stock-museum-2.jpg"
+                <img
+                  src={`https://admin.tovech.com${experience.poster.url}`}
                   alt="stock-image-2"
                   layout="fill"
                 />
-                <strong>{post.title}</strong>
+                <strong>{experience.title}</strong>
               </div>
             ))}
           </div>
@@ -66,17 +70,20 @@ export default function Home({ posts = [] }) {
   );
 }
 
-// export async function getStaticProps() {
-//   const { data } = await client.query({
-//     query: gql`
-//       query {
-//         posts {
-//           slug
-//           title
-//         }
-//       }
-//     `,
-//   });
+export async function getStaticProps() {
+  const { data } = await client.query({
+    query: gql`
+      query {
+        experiences {
+          slug
+          title
+          poster {
+            url
+          }
+        }
+      }
+    `,
+  });
 
-//   return { props: { posts: data.posts } };
-// }
+  return { props: { experiences: data.experiences } };
+}
