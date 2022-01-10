@@ -27,10 +27,12 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const allExperiences = await getAllExperiences();
+  const experiences = await getAllExperiences();
+  const paths =
+    experiences.map((item) => ({ params: { experience: item.slug } })) || [];
 
   return {
-    paths: [{ params: { experience: "/sublime-seas" } }],
+    paths,
     fallback: true,
   };
 }
