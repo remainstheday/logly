@@ -1,21 +1,32 @@
 import Head from "next/head";
-import Link from "next/link";
-import Image from "next/image";
 import { getAllExperiences, getExperienceBySlug } from "../lib/api";
+import { useRouter } from "next/router";
 
-export default function Experience({ experience = {} }) {
+export default function Experience({ experience }) {
+  const router = useRouter();
+
+  if (!router.isFallback && !experience?.slug) {
+    return <h1>routing error</h1>;
+  }
+
   return (
-    <div>
-      <Head>
-        <title>Logly</title>
-        <meta name="description" content="Next generation museum tours" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>
+      {router.isFallback ? (
+        <h1>Loading…</h1>
+      ) : (
+        <>
+          <Head>
+            <title>Logly</title>
+            <meta name="description" content="Next generation museum tours" />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
 
-      <main>
-        <h1>{experience.title}</h1>
-      </main>
-    </div>
+          <main>
+            <h1>{experience.title}</h1>
+          </main>
+        </>
+      )}
+    </>
   );
 }
 
