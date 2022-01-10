@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { gql } from "@apollo/client";
-import client from "../apollo-client";
+import { getAllExperiences, getExperienceBySlug } from "../lib/api";
 
 export default function Home({ experiences = [] }) {
   return (
@@ -34,11 +33,11 @@ export default function Home({ experiences = [] }) {
         </h1>
 
         <section className="container mx-auto mt-4 px-4">
-          <img
+          {/* <img
             src="/images/26b0996e-8cdc-4ba1-ac02-e5172f6fb16c.jpg"
             alt="stock-image"
             layout="fill"
-          />
+          /> */}
           <h3 className="px-4">
             Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Nobis aut impedit, minus doloribus cumque nulla eum molestiae
@@ -58,32 +57,21 @@ export default function Home({ experiences = [] }) {
                   alt="stock-image-2"
                   layout="fill"
                 />
-                <strong>{experience.title}</strong>
+                <Link href={`${experience.slug}`} passHref>
+                  <strong>{experience.title}</strong>
+                </Link>
               </div>
             ))}
           </div>
         </section>
       </main>
-
-      <footer></footer>
     </div>
   );
 }
 
 export async function getStaticProps() {
-  const { data } = await client.query({
-    query: gql`
-      query {
-        experiences {
-          slug
-          title
-          poster {
-            url
-          }
-        }
-      }
-    `,
-  });
-
-  return { props: { experiences: data.experiences } };
+  const experiences = await getAllExperiences();
+  return {
+    props: { experiences },
+  };
 }
