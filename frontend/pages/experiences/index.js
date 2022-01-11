@@ -2,6 +2,7 @@ import Head from "next/head";
 import { getAllExperiences, getExperienceBySlug } from "../../lib/api";
 
 export default function Experience({ experiences }) {
+  if (!experiences) return <>loading...</>;
   return (
     <>
       {experiences.map((experience) => (

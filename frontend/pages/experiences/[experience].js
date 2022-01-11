@@ -3,6 +3,7 @@ import { getAllExperiences, getExperienceBySlug } from "../../lib/api";
 import { useRouter } from "next/router";
 
 export default function Experience({ experience }) {
+  if (!experience) return <>loading...</>;
   return (
     <>
       <Head>
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
   const experiences = await getAllExperiences();
   const paths =
     experiences.map((item) => ({ params: { experience: item.slug } })) || [];
-  console.log(paths);
+
   return {
     paths,
     fallback: true,
