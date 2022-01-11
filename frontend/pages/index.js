@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { gql } from "@apollo/client";
-import client from "../apollo-client";
+import { getAllExperiences, getExperienceBySlug } from "../lib/api";
 
 export default function Home({ experiences = [] }) {
   return (
@@ -23,7 +22,6 @@ export default function Home({ experiences = [] }) {
             height="50"
           />
           <div className="space-y-2">
-            {/* https://www.notimedad.dev/responsive-navbar-tailwind-react/ */}
             <div className="w-8 h-0.5 bg-gray-600"></div>
             <div className="w-8 h-0.5 bg-gray-600"></div>
             <div className="w-8 h-0.5 bg-gray-600"></div>
@@ -34,11 +32,6 @@ export default function Home({ experiences = [] }) {
         </h1>
 
         <section className="container mx-auto mt-4 px-4">
-          <img
-            src="/images/26b0996e-8cdc-4ba1-ac02-e5172f6fb16c.jpg"
-            alt="stock-image"
-            layout="fill"
-          />
           <h3 className="px-4">
             Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Nobis aut impedit, minus doloribus cumque nulla eum molestiae
@@ -53,37 +46,22 @@ export default function Home({ experiences = [] }) {
           <div className="experience-slider max-w-md mt-5 w-5/6">
             {experiences.map((experience, index) => (
               <div key={index} className="experience-post">
-                <img
-                  src={`https://admin.tovech.com${experience.poster.url}`}
-                  alt="stock-image-2"
-                  layout="fill"
-                />
-                <strong>{experience.title}</strong>
+                <Link href={`/experiences${experience.slug}`} passHref>
+                  <strong>{experience.title}</strong>
+                </Link>
               </div>
             ))}
           </div>
         </section>
       </main>
-
-      <footer></footer>
     </div>
   );
 }
 
 export async function getStaticProps() {
-  const { data } = await client.query({
-    query: gql`
-      query {
-        experiences {
-          slug
-          title
-          poster {
-            url
-          }
-        }
-      }
-    `,
-  });
+  const experiences = await getAllExperiences();
 
-  return { props: { experiences: data.experiences } };
+  return {
+    props: { experiences },
+  };
 }
