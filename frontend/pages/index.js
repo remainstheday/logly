@@ -1,35 +1,28 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import Header from "../components/Header";
+import Carousel from "../components/Carousel";
+
 import { getAllExperiences, getExperienceBySlug } from "../lib/api";
 
 export default function Home({ experiences = [] }) {
   return (
-    <div>
-      <Head>
-        <title>Logly</title>
-        <meta name="description" content="Next generation museum tours" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <div className="max-w-7xl mx-auto">
+      <Header />
       <main>
-        <header className="container flex justify-between px-4 py-4">
-          <Image
-            src="/logly.png"
-            className="w-1/3"
-            alt="logly-logo"
-            width="50"
-            height="50"
-          />
-          <div className="space-y-2">
-            <div className="w-8 h-0.5 bg-gray-600"></div>
-            <div className="w-8 h-0.5 bg-gray-600"></div>
-            <div className="w-8 h-0.5 bg-gray-600"></div>
-          </div>
-        </header>
-        <h1 className="text-3xl text-center font-bold">
-          Welcome to <br /> LOGLY
+        <p className="uppercase text-center">Welcome to</p>
+        <h1 className="text-3xl leading-3 text-center font-bold mt-0 pt-0">
+          <br /> LOGLY
         </h1>
+
+        <div className="flex relative max-w-full w-full h-96 my-16">
+          <Image
+            src="/stock-museum-1.jpg"
+            layout="fill"
+            className="object-cover"
+          />
+        </div>
 
         <section className="container mx-auto mt-4 px-4">
           <h3 className="px-4">
@@ -44,6 +37,7 @@ export default function Home({ experiences = [] }) {
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
           <div className="experience-slider max-w-md mt-5 w-5/6">
+            <Carousel images={["/stock-museum-1.jpg", "/stock-museum-2.jpg"]} />
             {experiences.map((experience, index) => (
               <div key={index} className="experience-post">
                 <Link href={`/experiences${experience.slug}`} passHref>
