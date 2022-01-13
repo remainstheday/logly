@@ -52,7 +52,7 @@ const Carousel = ({ experiences }) => {
       </span>
     </button>
   );
-  // images={["/stock-museum-1.jpg", "/stock-museum-2.jpg"]}
+
   return (
     <div className="w- flex justify-center">
       <div className="p-12 flex justify-center w-screen md:w-1/2 items-center">

@@ -18,9 +18,11 @@ export default function Home({ experiences = [] }) {
 
         <div className="flex relative max-w-full w-full h-96 my-16">
           <Image
-            src="/stock-museum-1.jpg"
-            layout="fill"
-            className="object-cover"
+            src="/logly.png"
+            className="w-1/3"
+            alt="logly-logo"
+            width="50"
+            height="50"
           />
         </div>
 
