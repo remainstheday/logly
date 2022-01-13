@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 .carousel {
     display: inline-flex;
     overflow-x: hidden;
@@ -10,4 +11,8 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* For Firefox */
     -ms-overflow-style: none; /* For Internet Explorer and Edge */
+}
+
+body {
+    font-family: 'Karla', sans-serif;
 }
