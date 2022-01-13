@@ -1,14 +1,15 @@
 import React from "react";
+import Link from "next/link";
 
-const Carousel = ({ images }) => {
-  const [currentImage, setCurrentImage] = React.useState(0);
-  const refs = images.reduce((acc, val, i) => {
+const Carousel = ({ experiences }) => {
+  const [currentExperience, setCurrentExperience] = React.useState(0);
+  const refs = experiences.reduce((acc, val, i) => {
     acc[i] = React.createRef();
     return acc;
   }, {});
 
   const scrollToImage = (i) => {
-    setCurrentImage(i);
+    setCurrentExperience(i);
     refs[i].current.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -17,21 +18,21 @@ const Carousel = ({ images }) => {
   };
 
   // Some validation for checking the array length could be added if needed
-  const totalImages = images.length;
+  const totalImages = experiences.length;
 
   const nextImage = () => {
-    if (currentImage >= totalImages - 1) {
+    if (currentExperience >= totalImages - 1) {
       scrollToImage(0);
     } else {
-      scrollToImage(currentImage + 1);
+      scrollToImage(currentExperience + 1);
     }
   };
 
   const previousImage = () => {
-    if (currentImage === 0) {
+    if (currentExperience === 0) {
       scrollToImage(totalImages - 1);
     } else {
-      scrollToImage(currentImage - 1);
+      scrollToImage(currentExperience - 1);
     }
   };
 
@@ -51,17 +52,22 @@ const Carousel = ({ images }) => {
       </span>
     </button>
   );
-
+  // images={["/stock-museum-1.jpg", "/stock-museum-2.jpg"]}
   return (
-    <div className="w-screen flex justify-center">
+    <div className="w- flex justify-center">
       <div className="p-12 flex justify-center w-screen md:w-1/2 items-center">
         <div className="relative w-full">
           <div className="carousel">
             {sliderControl(true)}
-            {images.map((img, i) => (
-              <div className="w-full flex-shrink-0" key={img} ref={refs[i]}>
-                <img src={img} className="w-full object-contain" />
-              </div>
+            {experiences.map((experience, index) => (
+                <div key={index} className="w-full flex-shrink-0">
+                  <Link href={`/experiences${experience.slug}`} passHref>
+                    <>
+                    <img src={`https://admin.logly.world${experience.poster.url}`} ref={refs[index]} className="w-full object-contain" />
+                    <strong>{experience.title}</strong>
+                    </>
+                  </Link>
+                </div>
             ))}
             {sliderControl()}
           </div>

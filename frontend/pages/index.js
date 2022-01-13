@@ -37,14 +37,7 @@ export default function Home({ experiences = [] }) {
           <h3 className="pb-3">Pick an Experience</h3>
           <hr />
           <div className="experience-slider max-w-md mt-5 w-5/6">
-            <Carousel images={["/stock-museum-1.jpg", "/stock-museum-2.jpg"]} />
-            {experiences.map((experience, index) => (
-              <div key={index} className="experience-post">
-                <Link href={`/experiences${experience.slug}`} passHref>
-                  <strong>{experience.title}</strong>
-                </Link>
-              </div>
-            ))}
+            <Carousel experiences={experiences} />
           </div>
         </section>
       </main>
