@@ -1,4 +1,4 @@
-const API_URL = `https://admin.tovech.com/api/graphql`;
+const API_URL = `https://admin.logly.world/api/graphql`;
 
 async function fetchAPI(query, { variables } = {}) {
   const headers = { "Content-Type": "application/json" };
