@@ -1,19 +1,18 @@
 import Head from "next/head";
 import { getAllExperiences, getExperienceBySlug } from "../../lib/api";
 import { useRouter } from "next/router";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 export default function Experience({ experience }) {
   if (!experience) return <>loading...</>;
   return (
     <>
-      <Head>
-        <title>Logly</title>
-        <meta name="description" content="Next generation museum tours" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Header />
       <main>
         <h1>{experience.title}</h1>
       </main>
+      <Footer />
     </>
   );
 }
