@@ -12,7 +12,7 @@ export default function Home({ experiences = [] }) {
       <Header />
       <main>
         <p className="uppercase text-center">Welcome to</p>
-        <h1 className="text-3xl leading-3 text-center font-bold mt-0 pt-0">
+        <h1 className="logly-title">
           <br /> LOGLY
         </h1>
 
