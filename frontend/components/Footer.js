@@ -1,12 +1,10 @@
-import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 
 export default function Footer() {
   return (
-    <footer className="w-full px-4 py-4 mt-20 bg-zinc-900 text-white">
-      <div className="flex justify-around">
+    <footer className="w-full py-4 mt-20 bg-zinc-900 text-white">
+      <div className="flex justify-between max-w-4xl mx-auto">
         <ul>
           <li>
             <h3 className="uppercase font-bold">My account</h3>

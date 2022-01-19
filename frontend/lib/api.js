@@ -51,6 +51,13 @@ export async function getExperienceBySlug(slug) {
     `query Experience($slug: String){
       experience(where: {slug: $slug}) {
         title
+        startDate
+        artworks {
+          title
+          images {
+            url
+          }
+        }
       }
 }`,
     { variables: { slug } }
