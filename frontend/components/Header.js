@@ -28,17 +28,19 @@ export default function Header() {
           height="50"
         />
 
-        <Menu right>
-          <Link href={`/`} passHref>
-            Museum Information
-          </Link>
-          <Link href={`/experiences`} passHref>
-            Experiences
-          </Link>
-          <Link href={`/art-social`} passHref>
-            Art Social
-          </Link>
-        </Menu>
+        <div className="relative">
+          <Menu right width={"350px"}>
+            <Link href={`/`} passHref>
+              Museum Information
+            </Link>
+            <Link href={`/experiences`} passHref>
+              Experiences
+            </Link>
+            <Link href={`/art-social`} passHref>
+              Art Social
+            </Link>
+          </Menu>
+        </div>
       </header>
     </>
   );
