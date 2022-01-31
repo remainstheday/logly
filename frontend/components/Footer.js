@@ -11,6 +11,12 @@ export default function Footer() {
           </li>
           <li>Sign In</li>
           <li>Register</li>
+          <li>
+            <div className="flex">
+              <LogoInstagram className="mr-4" color={"#fff"} />
+              <LogoLinkedin color={"#fff"} />
+            </div>
+          </li>
         </ul>
         <ul>
           <li>
@@ -27,10 +33,6 @@ export default function Footer() {
           <li>Terms of Use</li>
           <li>Privacy Policy</li>
         </ul>
-      </div>
-      <div className="flex mt-6 ml-16">
-        <LogoInstagram className="mr-4" color={"#fff"} />
-        <LogoLinkedin color={"#fff"} />
       </div>
     </footer>
   );

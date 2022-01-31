@@ -9,7 +9,7 @@ import { getAllExperiences } from "../lib/api";
 export default function Home({ experiences = [] }) {
   return (
     <>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto min-h-screen">
         <Header />
         <main>
           <p className="uppercase text-center">Welcome to</p>

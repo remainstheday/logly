@@ -9,7 +9,7 @@ export default function Experience({ experience }) {
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto min-h-screen">
         <Link href={`/experiences`} passHref>
           Pick Experience
         </Link>
