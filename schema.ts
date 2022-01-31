@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { list } from "@keystone-6/core";
 import {
   text,
@@ -8,9 +9,16 @@ import {
   image,
   file,
 } from "@keystone-6/core/fields";
-
+import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { document } from "@keystone-6/fields-document";
 import { Lists } from ".keystone/types";
+
+export const cloudinary = {
+  cloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
+  apiKey: process.env.CLOUDINARY_KEY || "",
+  apiSecret: process.env.CLOUDINARY_SECRET || "",
+  folder: "experiences",
+};
 
 export const lists: Lists = {
   User: list({
@@ -40,7 +48,10 @@ export const lists: Lists = {
       title: text(),
       secondaryTitle: text(),
       slug: text({ isIndexed: "unique", isFilterable: true }),
-      poster: image(), // todo: https://devcenter.heroku.com/articles/cloudinary#using-with-node-js
+      poster: cloudinaryImage({
+        cloudinary,
+        label: "Poster",
+      }),
       startDate: timestamp(),
       endDate: timestamp(),
       status: select({

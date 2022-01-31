@@ -104,7 +104,7 @@ type Experience {
   title: String
   secondaryTitle: String
   slug: String
-  poster: ImageFieldOutput
+  poster: CloudinaryImage_File
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -118,21 +118,53 @@ type Experience {
   artworksCount(where: ArtworkWhereInput! = {}): Int
 }
 
-interface ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
 }
 
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
 }
 
 scalar DateTime
@@ -221,17 +253,12 @@ input ExperienceUpdateInput {
   title: String
   secondaryTitle: String
   slug: String
-  poster: ImageFieldInput
+  poster: Upload
   startDate: DateTime
   endDate: DateTime
   status: String
   content: JSON
   artworks: ArtworkRelateToManyForUpdateInput
-}
-
-input ImageFieldInput {
-  upload: Upload
-  ref: String
 }
 
 """
@@ -255,7 +282,7 @@ input ExperienceCreateInput {
   title: String
   secondaryTitle: String
   slug: String
-  poster: ImageFieldInput
+  poster: Upload
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -288,6 +315,23 @@ interface FileFieldOutput {
   filesize: Int!
   ref: String!
   url: String!
+}
+
+interface ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
 }
 
 type Artwork_overview_Document {
@@ -375,6 +419,11 @@ input ArtworkUpdateInput {
 }
 
 input FileFieldInput {
+  upload: Upload
+  ref: String
+}
+
+input ImageFieldInput {
   upload: Upload
   ref: String
 }
