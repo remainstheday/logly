@@ -28,7 +28,6 @@ model Experience {
   poster_height    Int?
   poster_mode      String?
   poster_id        String?
-  secondaryTitle   String    @default("")
   startDate        DateTime?
   endDate          DateTime?
   status           String?   @default("draft")

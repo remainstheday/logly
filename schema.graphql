@@ -104,7 +104,6 @@ type Experience {
   title: String
   slug: String
   poster: ImageFieldOutput
-  secondaryTitle: String
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -154,7 +153,6 @@ input ExperienceWhereInput {
   id: IDFilter
   title: StringFilter
   slug: StringFilter
-  secondaryTitle: StringFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
@@ -211,7 +209,6 @@ input ExperienceOrderByInput {
   id: OrderDirection
   title: OrderDirection
   slug: OrderDirection
-  secondaryTitle: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
   status: OrderDirection
@@ -221,7 +218,6 @@ input ExperienceUpdateInput {
   title: String
   slug: String
   poster: ImageFieldInput
-  secondaryTitle: String
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -255,7 +251,6 @@ input ExperienceCreateInput {
   title: String
   slug: String
   poster: ImageFieldInput
-  secondaryTitle: String
   startDate: DateTime
   endDate: DateTime
   status: String

@@ -2,8 +2,6 @@
 CREATE TABLE "User" (
     "id" UUID NOT NULL,
     "name" TEXT NOT NULL DEFAULT E'',
-    "phone" TEXT NOT NULL DEFAULT E'',
-    "address" TEXT NOT NULL DEFAULT E'',
     "email" TEXT NOT NULL DEFAULT E'',
     "password" TEXT NOT NULL,
 
