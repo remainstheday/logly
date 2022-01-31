@@ -30,12 +30,10 @@ export async function getAllExperiences() {
     slug
     poster {
       id
-      filesize
-      width
-      height
-      extension
-      ref
-      url
+      filename
+      mimetype
+      encoding
+      publicUrl
     }
     startDate
     endDate

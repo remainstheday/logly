@@ -67,10 +67,15 @@ const Carousel = ({ experiences }) => {
               >
                 <div className="w-full flex-shrink-0">
                   <img
-                    src={`https://admin.logly.world${experience.poster.url}`}
+                    src={
+                      experience.poster
+                        ? experience.poster.publicUrl
+                        : "/stock-museum-1.jpg"
+                    }
                     ref={refs[index]}
                     className="w-full object-contain"
                   />
+
                   <strong>{experience.title}</strong>
                 </div>
               </Link>
