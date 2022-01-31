@@ -16,14 +16,11 @@ export const lists: Lists = {
   User: list({
     fields: {
       name: text({ validation: { isRequired: true } }),
-      phone: text(),
-      address: text(),
       email: text({
         validation: { isRequired: true },
         isIndexed: "unique",
         isFilterable: true,
       }),
-
       password: password({ validation: { isRequired: true } }),
     },
     ui: {
@@ -43,6 +40,7 @@ export const lists: Lists = {
       title: text(),
       slug: text({ isIndexed: "unique", isFilterable: true }),
       poster: image(), // todo: https://devcenter.heroku.com/articles/cloudinary#using-with-node-js
+      secondaryTitle: text(),
       startDate: timestamp(),
       endDate: timestamp(),
       status: select({
