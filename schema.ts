@@ -16,6 +16,8 @@ export const lists: Lists = {
   User: list({
     fields: {
       name: text({ validation: { isRequired: true } }),
+      phone: text(),
+      address: text(),
       email: text({
         validation: { isRequired: true },
         isIndexed: "unique",

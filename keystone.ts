@@ -24,7 +24,9 @@ export default withAuth(
       provider: dbProvider,
       url: dbUrl,
       idField: { kind: "uuid" },
+      useMigrations: true,
     },
+
     graphql: {
       path: "/api/graphql",
       apolloConfig: {

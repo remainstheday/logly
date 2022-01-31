@@ -4,6 +4,8 @@
 type User {
   id: ID!
   name: String
+  phone: String
+  address: String
   email: String
   password: PasswordState
 }
@@ -23,6 +25,8 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   id: IDFilter
   name: StringFilter
+  phone: StringFilter
+  address: StringFilter
   email: StringFilter
 }
 
@@ -74,6 +78,8 @@ input NestedStringFilter {
 input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
+  phone: OrderDirection
+  address: OrderDirection
   email: OrderDirection
 }
 
@@ -84,6 +90,8 @@ enum OrderDirection {
 
 input UserUpdateInput {
   name: String
+  phone: String
+  address: String
   email: String
   password: String
 }
@@ -95,6 +103,8 @@ input UserUpdateArgs {
 
 input UserCreateInput {
   name: String
+  phone: String
+  address: String
   email: String
   password: String
 }
