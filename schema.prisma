@@ -21,6 +21,7 @@ model User {
 model Experience {
   id               String    @id @default(uuid()) @postgresql.Uuid
   title            String    @default("")
+  secondaryTitle   String    @default("")
   slug             String    @unique @default("")
   poster_filesize  Int?
   poster_extension String?

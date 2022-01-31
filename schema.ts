@@ -38,6 +38,7 @@ export const lists: Lists = {
     },
     fields: {
       title: text(),
+      secondaryTitle: text(),
       slug: text({ isIndexed: "unique", isFilterable: true }),
       poster: image(), // todo: https://devcenter.heroku.com/articles/cloudinary#using-with-node-js
       startDate: timestamp(),
