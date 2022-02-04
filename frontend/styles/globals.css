@@ -29,6 +29,32 @@ body {
   color: #000000;
 }
 
+.section-title {
+  font-family: "Karla", sans-serif;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: 28px;
+letter-spacing: -0.02em;
+text-align: left;
+
+}
+
+.experience-title {
+  font-family: "Karla", sans-serif;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: 38px;
+letter-spacing: -0.05em;
+text-align: left;
+margin-top: 1rem;
+margin-bottom: 1rem;
+
+}
+
+
+
 /* Position and sizing of burger button */
 .bm-burger-button {
   position: absolute;

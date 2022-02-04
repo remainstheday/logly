@@ -9,7 +9,7 @@ import { getAllExperiences } from "../lib/api";
 export default function Home({ experiences = [] }) {
   return (
     <>
-      <div className="max-w-4xl mx-auto min-h-screen">
+      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-0">
         <Header />
         <main>
           <p className="uppercase text-center">Welcome to</p>
@@ -31,7 +31,7 @@ export default function Home({ experiences = [] }) {
           </section>
 
           <section className="container mt-4 mt-10 mx-auto">
-            <h3 className="pb-3">Pick an Experience</h3>
+            <h3 className="pb-3 section-title">Pick an Experience</h3>
             <hr />
             <div className="w-full mt-4">
               <Carousel experiences={experiences} />
@@ -42,7 +42,7 @@ export default function Home({ experiences = [] }) {
           </section>
 
           <section className="container mt-4  mt-10 mx-auto">
-            <h3 className="pb-3">Art Social</h3>
+            <h3 className="pb-3 section-title">Art Social</h3>
             <hr />
             <div className="w-full mt-4">
               <p>

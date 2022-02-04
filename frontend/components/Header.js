@@ -19,7 +19,7 @@ export default function Header() {
         />
       </Head>
 
-      <header className="flex justify-between max-w-4xl mx-auto py-4">
+      <header className="flex justify-between max-w-4xl mx-auto py-4 mx-3 md:mx-0">
         <Image
           src="/logly.png"
           className="w-1/3"
@@ -28,7 +28,7 @@ export default function Header() {
           height="50"
         />
 
-        <div className="relative">
+        <div className="relative mr-3 md:mr-0">
           <Menu right width={"350px"}>
             <Link href={`/`} passHref>
               Museum Information

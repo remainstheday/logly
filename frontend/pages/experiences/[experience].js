@@ -1,20 +1,23 @@
 import Link from "next/link";
-import Image from "next/image";
 import { getAllExperiences, getExperienceBySlug } from "../../lib/api";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { LogoInstagram, LogoLinkedin, ChevronBack } from "react-ionicons";
 
 export default function Experience({ experience }) {
   if (!experience) return <>loading...</>;
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen">
-        <Link href={`/experiences`} passHref>
-          Pick Experience
+      <div className="max-w-4xl mx-auto min-h-screen mx-3 md:mx-0">
+        <Link href="/" passHref>
+          <span className="inline-flex uppercase my-8">
+            <ChevronBack />
+            Pick Experience
+          </span>
         </Link>
 
-        <h1 className="text-5xl">{experience.title}</h1>
+        <h1 className="experience-title">{experience.title}</h1>
         <h2>{experience.startDate}</h2>
         <h2>{experience.endDate}</h2>
 
