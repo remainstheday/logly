@@ -56,31 +56,33 @@ export default function Experience({ experiences }) {
           />
         </nav>
 
-        {isViewAllSelected &&
-          experiences.map((experience) => (
-            <div key={experience.id} className="w-1/2">
-              <Thumbnail
-                href={
-                  `/stock-museum-1.jpg` ||
-                  `https://admin.logly.world${experience.slug}`
-                }
-                title={experience.title}
-                image={`https://admin.logly.world${experience.poster.url}`}
-              />
-            </div>
-          ))}
-        {isOngoingSelected &&
-          onGoingExperiences.map((experience) => (
-            <h1 key={experience.id}>{experience.title}</h1>
-          ))}
-        {isClosingSoonSelected &&
-          closingSoonExpriences.map((experience) => (
-            <h1 key={experience.id}>{experience.title}</h1>
-          ))}
-        {isLongTermSelected &&
-          longTermExpriences.map((experience) => (
-            <h1 key={experience.id}>{experience.title}</h1>
-          ))}
+        <section className="flex">
+          {isViewAllSelected &&
+            experiences.map((experience) => (
+              <div key={experience.id} className="w-1/2">
+                <Thumbnail
+                  href={
+                    `/stock-museum-1.jpg` ||
+                    `https://admin.logly.world${experience.slug}`
+                  }
+                  title={experience.title}
+                  image={experience.poster.publicUrl}
+                />
+              </div>
+            ))}
+          {isOngoingSelected &&
+            onGoingExperiences.map((experience) => (
+              <h1 key={experience.id}>{experience.title}</h1>
+            ))}
+          {isClosingSoonSelected &&
+            closingSoonExpriences.map((experience) => (
+              <h1 key={experience.id}>{experience.title}</h1>
+            ))}
+          {isLongTermSelected &&
+            longTermExpriences.map((experience) => (
+              <h1 key={experience.id}>{experience.title}</h1>
+            ))}
+        </section>
       </div>
       <Footer />
     </>

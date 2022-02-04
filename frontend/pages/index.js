@@ -5,11 +5,12 @@ import Carousel from "../components/Carousel";
 import Footer from "../components/Footer";
 
 import { getAllExperiences } from "../lib/api";
+import SectionLink from "../components/SectionLink";
 
 export default function Home({ experiences = [] }) {
   return (
     <>
-      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-0">
+      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
         <Header />
         <main>
           <p className="uppercase text-center">Welcome to</p>
@@ -35,9 +36,7 @@ export default function Home({ experiences = [] }) {
             <hr />
             <div className="w-full mt-4">
               <Carousel experiences={experiences} />
-              <Link href={`/experiences`} passHref>
-                See all experiences +
-              </Link>
+              <SectionLink href={`/experiences`} text={"See all experiences"} />
             </div>
           </section>
 
@@ -51,9 +50,7 @@ export default function Home({ experiences = [] }) {
                 eius eos, et ipsam itaque laboriosam magnam minus molestiae,
                 numquam, officiis possimus provident sed. Ipsam.
               </p>
-              <Link href={`/`} passHref>
-                Discover Art Social +
-              </Link>
+              <SectionLink href={`/`} text={"Discover Art Social"} />
             </div>
           </section>
         </main>

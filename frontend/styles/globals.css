@@ -40,6 +40,19 @@ text-align: left;
 
 }
 
+.section-link-text {
+  font-family: "Karla", sans-serif;
+cursor: pointer;
+  font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: 23px;
+letter-spacing: -0.02em;
+text-align: left;
+
+}
+
+
 .experience-title {
   font-family: "Karla", sans-serif;
 font-size: 32px;

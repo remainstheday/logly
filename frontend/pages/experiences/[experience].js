@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getAllExperiences, getExperienceBySlug } from "../../lib/api";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { LogoInstagram, LogoLinkedin, ChevronBack } from "react-ionicons";
+import { ChevronBack } from "react-ionicons";
 
 export default function Experience({ experience }) {
   if (!experience) return <>loading...</>;
