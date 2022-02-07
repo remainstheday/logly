@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+html {
+  width: 100%;
+}
+
+.carousel-container {
+  height: 550px;
+}
+
 .carousel {
   display: inline-flex;
   overflow-x: hidden;
@@ -11,7 +21,19 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* For Firefox */
   -ms-overflow-style: none; /* For Internet Explorer and Edge */
+height: 550px;
 }
+
+.carousel .arrow {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.carousel img {
+  margin: auto;
+  height: 500px;
+}
+
 
 body {
   font-family: "Karla", sans-serif;

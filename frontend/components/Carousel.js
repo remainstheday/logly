@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ChevronBackOutline, ChevronForwardOutline } from "react-ionicons";
 
 const Carousel = ({ experiences }) => {
   const [currentExperience, setCurrentExperience] = React.useState(0);
@@ -36,52 +37,47 @@ const Carousel = ({ experiences }) => {
     }
   };
 
-  // Tailwind styles. Most importantly notice position absolute, this will sit relative to the carousel's outer div.
-  const arrowStyle =
-    "absolute text-white text-2xl z-10 bg-black h-10 w-10 rounded-full opacity-75 flex items-center justify-center";
-
-  const sliderControl = (isLeft) => (
-    <button
-      type="button"
-      onClick={isLeft ? previousImage : nextImage}
-      className={`${arrowStyle} ${isLeft ? "left-2" : "right-2"}`}
-      style={{ top: "40%" }}
-    >
-      <span role="img" aria-label={`Arrow ${isLeft ? "left" : "right"}`}>
-        {isLeft ? "◀" : "▶"}
-      </span>
-    </button>
-  );
-
   return (
-    <div className="w-full flex justify-center">
-      <div className="flex justify-center items-center">
-        <div className="relative w-full">
-          <div className="carousel h-96">
-            {sliderControl(true)}
-            {experiences.map((experience, index) => (
+    <div className="w-full flex justify-center items-center overflow-hidden">
+      <div className="carousel-container relative w-full">
+        <div className="carousel">
+          <ChevronBackOutline
+            onClick={previousImage}
+            className="arrow absolute left-1"
+            width="2em"
+            height="2em"
+            role="img"
+            aria-label="Arrow Left"
+          />
+
+          {experiences.map((experience, index) => (
+            <div className="carousel-card w-full flex-shrink-0">
               <Link
                 key={index}
                 href={`/experiences${experience.slug}`}
                 passHref
               >
-                <div className="w-full flex-shrink-0">
+                <>
                   <img
                     src={
                       experience.poster
                         ? experience.poster.publicUrl
                         : "/stock-museum-1.jpg"
                     }
+                    className="w-full"
                     ref={refs[index]}
-                    className="w-full object-contain"
                   />
-
                   <strong>{experience.title}</strong>
-                </div>
+                </>
               </Link>
-            ))}
-            {sliderControl()}
-          </div>
+            </div>
+          ))}
+          <ChevronForwardOutline
+            onClick={nextImage}
+            className="arrow absolute right-2"
+            width="2em"
+            height="2em"
+          />
         </div>
       </div>
     </div>
