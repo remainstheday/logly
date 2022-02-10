@@ -51,26 +51,20 @@ const Carousel = ({ experiences }) => {
           />
 
           {experiences.map((experience, index) => (
-            <div className="carousel-card w-full flex-shrink-0">
-              <Link
-                key={index}
-                href={`/experiences${experience.slug}`}
-                passHref
-              >
-                <>
-                  <img
-                    src={
-                      experience.poster
-                        ? experience.poster.publicUrl
-                        : "/stock-museum-1.jpg"
-                    }
-                    className="w-full"
-                    ref={refs[index]}
-                  />
-                  <strong>{experience.title}</strong>
-                </>
-              </Link>
-            </div>
+            <Link href={`/experiences${experience.slug}`} key={index} passHref>
+              <div className="carousel-card w-full flex-shrink-0">
+                <img
+                  src={
+                    experience.poster
+                      ? experience.poster.publicUrl
+                      : "/stock-museum-1.jpg"
+                  }
+                  className="w-full"
+                  ref={refs[index]}
+                />
+                <strong>{experience.title}</strong>
+              </div>
+            </Link>
           ))}
           <ChevronForwardOutline
             onClick={nextImage}

@@ -9,7 +9,7 @@ export default function Experience({ experience }) {
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen mx-3 md:mx-0">
+      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
         <Link href="/" passHref>
           <span className="inline-flex uppercase my-8">
             <ChevronBack />

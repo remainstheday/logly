@@ -10,8 +10,8 @@ import SectionLink from "../components/SectionLink";
 export default function Home({ experiences = [] }) {
   return (
     <>
+      <Header />
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-        <Header />
         <main>
           <p className="uppercase text-center">Welcome to</p>
           <h1 className="text-3xl leading-3 text-center font-bold mt-0 pt-0">

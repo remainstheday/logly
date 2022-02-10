@@ -19,7 +19,7 @@ export default function Header() {
         />
       </Head>
 
-      <header className="flex justify-between max-w-4xl mx-auto py-4 mx-3 md:mx-0">
+      <header className="flex justify-between py-4 mx-3 max-w-4xl mx-auto mx-1 md:mx-auto">
         <Image
           src="/logly.png"
           className="w-1/3"
