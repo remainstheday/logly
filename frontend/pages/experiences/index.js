@@ -15,17 +15,28 @@ export default function Experience({ experiences }) {
 
   if (!experiences) return <>loading...</>;
 
-  const onGoingExperiences = experiences.filter(
-    (experience) => experience.endDate
-  );
-  const closingSoonExpriences = experiences.filter(
-    (experience) => experience.endDate
-  );
-  const longTermExpriences = experiences.filter(
-    (experience) => experience.endDate
-  );
-
-  console.log(experiences);
+  const renderExperiences = (filteredExperience, title) => {
+    return (
+      <>
+        <h3 className="pb-3 mt-6 section-title">{title}</h3>
+        <hr />
+        <div className="mt-6 flex flex-row flex-wrap space-y-1">
+          {filteredExperience.map((experience) => (
+            <div key={experience.id} className="w-1/2">
+              <Thumbnail
+                href={
+                  `/stock-museum-1.jpg` ||
+                  `https://admin.logly.world${experience.slug}`
+                }
+                title={experience.title}
+                image={experience.poster.publicUrl}
+              />
+            </div>
+          ))}
+        </div>
+      </>
+    );
+  };
 
   return (
     <>
@@ -56,32 +67,24 @@ export default function Experience({ experiences }) {
           />
         </nav>
 
-        <section className="flex">
-          {isViewAllSelected &&
-            experiences.map((experience) => (
-              <div key={experience.id} className="w-1/2">
-                <Thumbnail
-                  href={
-                    `/stock-museum-1.jpg` ||
-                    `https://admin.logly.world${experience.slug}`
-                  }
-                  title={experience.title}
-                  image={experience.poster.publicUrl}
-                />
-              </div>
-            ))}
-          {isOngoingSelected &&
-            onGoingExperiences.map((experience) => (
-              <h1 key={experience.id}>{experience.title}</h1>
-            ))}
-          {isClosingSoonSelected &&
-            closingSoonExpriences.map((experience) => (
-              <h1 key={experience.id}>{experience.title}</h1>
-            ))}
-          {isLongTermSelected &&
-            longTermExpriences.map((experience) => (
-              <h1 key={experience.id}>{experience.title}</h1>
-            ))}
+        <section className="container mt-4 mt-10 mx-auto">
+          {(isViewAllSelected || isOngoingSelected) &&
+            renderExperiences(
+              experiences.filter((experience) => experience),
+              "On Going"
+            )}
+
+          {(isViewAllSelected || isClosingSoonSelected) &&
+            renderExperiences(
+              experiences.filter((experience) => experience),
+              "Closing Soon"
+            )}
+
+          {(isViewAllSelected || isLongTermSelected) &&
+            renderExperiences(
+              experiences.filter((experience) => experience),
+              "Long Term"
+            )}
         </section>
       </div>
       <Footer />

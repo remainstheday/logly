@@ -36,7 +36,10 @@ export default function Home({ experiences = [] }) {
             <hr />
             <div className="w-full mt-4">
               <Carousel experiences={experiences} />
-              <SectionLink href={`/experiences`} text={"See all experiences"} />
+              <SectionLink
+                href={`/experiences?viewAll=true`}
+                text={"See all experiences"}
+              />
             </div>
           </section>
 
