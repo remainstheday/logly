@@ -12,9 +12,18 @@ html {
   height: 550px;
 }
 
+.date-tag {
+  font-family: "Karla", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #858585;
+}
+
 .thumbnail-text {
-
-
   font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: bold;
@@ -23,10 +32,7 @@ html {
   /* or 100% */
   letter-spacing: -0.02em;
   text-transform: capitalize;
-
   color: #000000;
-
-
 }
 
 .carousel {

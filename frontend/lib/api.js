@@ -44,14 +44,32 @@ export async function getAllExperiences() {
   return data?.experiences;
 }
 
+export async function getAllArtworks() {
+  const data = await fetchAPI(`{
+  artworks {
+    id
+    title
+    artist
+    slug
+  }
+}`);
+
+  return data?.artworks;
+}
+
 export async function getExperienceBySlug(slug) {
   const data = await fetchAPI(
     `query Experience($slug: String){
       experience(where: {slug: $slug}) {
         title
+        slug
         startDate
+        endDate
         artworks {
           title
+          slug
+          startDate
+          endDate
           images {
             url
           }
@@ -62,4 +80,20 @@ export async function getExperienceBySlug(slug) {
   );
 
   return data?.experience;
+}
+
+export async function getArtworkBySlug(slug) {
+  const data = await fetchAPI(
+    `query Artwork($slug: String) {
+      artwork(where: {slug: $slug}) {
+        id
+        title
+        artist
+        slug
+      }
+    }`,
+    { variables: { slug } }
+  );
+
+  return data?.artwork;
 }

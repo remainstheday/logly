@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { getAllExperiences, getExperienceBySlug } from "../../lib/api";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+import { getAllExperiences, getExperienceBySlug } from "../../../lib/api";
+import Header from "../../../components/Header";
+import Footer from "../../../components/Footer";
 import { ChevronBack } from "react-ionicons";
+import { format } from "date-fns";
 
-export default function Experience({ experience }) {
+export default function Index({ experience }) {
   if (!experience) return <>loading...</>;
   return (
     <>
@@ -18,8 +19,12 @@ export default function Experience({ experience }) {
         </Link>
 
         <h1 className="experience-title">{experience.title}</h1>
-        <h2>{experience.startDate}</h2>
-        <h2>{experience.endDate}</h2>
+
+        <span className="date-tag">
+          {format(new Date(experience.startDate), "MMMM dd, yyyy")}
+          {experience.endDate &&
+            ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
+        </span>
 
         <p className="mt-6">
           Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -29,21 +34,26 @@ export default function Experience({ experience }) {
         </p>
 
         <section className="container mt-4 mt-10 mx-auto">
-          <h3 className="pb-3">Exhibition Preview</h3>
+          <h3 className="pb-3 section-title">Exhibition Preview</h3>
           <hr />
           <div className="w-full mt-4">
             <div className="flex">
-              {experience.artworks.map((art, index) => (
-                <Link key={index} href={`/experiences`} passHref>
-                  <div className="w-1/2">
-                    <img
-                      src={`https://admin.logly.world${art.images.url}`}
-                      width="50"
-                      height="50"
-                    />
-                    <h3>{art.title}</h3>
-                  </div>
-                </Link>
+              {experience.artworks.map((artwork, index) => (
+                <div className="w-1/2" key={index}>
+                  <Link
+                    href={`/experiences/${experience.slug}/${artwork.slug}`}
+                    passHref
+                  >
+                    <a>
+                      <img
+                        src={`https://admin.logly.world${artwork.images.url}`}
+                        width="50"
+                        height="50"
+                      />
+                      <h3>{artwork.title}</h3>
+                    </a>
+                  </Link>
+                </div>
               ))}
             </div>
           </div>

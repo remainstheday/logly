@@ -9,7 +9,7 @@ export default function Thumbnail({
   imgHeight = 175,
 }) {
   return (
-    <Link href="/" passHref>
+    <Link href={href} passHref>
       <a>
         <img src={image} width={`${imgWidth}`} height={`${imgHeight}`} />
         <p className="thumbnail-text">{title}</p>
