@@ -12,6 +12,23 @@ html {
   height: 550px;
 }
 
+.thumbnail-text {
+
+
+  font-family: "Karla", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 16px;
+  /* or 100% */
+  letter-spacing: -0.02em;
+  text-transform: capitalize;
+
+  color: #000000;
+
+
+}
+
 .carousel {
   display: inline-flex;
   overflow-x: hidden;

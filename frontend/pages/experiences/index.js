@@ -20,16 +20,15 @@ export default function Experience({ experiences }) {
       <>
         <h3 className="pb-3 mt-6 section-title">{title}</h3>
         <hr />
-        <div className="mt-6 flex flex-row flex-wrap space-y-1">
+        <div className="mt-6 flex flex-row flex-wrap space-y-8">
           {filteredExperience.map((experience) => (
             <div key={experience.id} className="w-1/2">
               <Thumbnail
-                href={
-                  `/stock-museum-1.jpg` ||
-                  `https://admin.logly.world${experience.slug}`
-                }
+                href={`https://admin.logly.world${experience.slug}`}
                 title={experience.title}
                 image={experience.poster.publicUrl}
+                imgWidth={300}
+                imgHeight={200}
               />
             </div>
           ))}

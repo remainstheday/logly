@@ -52,7 +52,7 @@ const Carousel = ({ experiences }) => {
 
           {experiences.map((experience, index) => (
             <Link href={`/experiences${experience.slug}`} key={index} passHref>
-              <div className="carousel-card w-full flex-shrink-0">
+              <a className="carousel-card w-full flex-shrink-0">
                 <img
                   src={
                     experience.poster
@@ -63,7 +63,7 @@ const Carousel = ({ experiences }) => {
                   ref={refs[index]}
                 />
                 <strong>{experience.title}</strong>
-              </div>
+              </a>
             </Link>
           ))}
           <ChevronForwardOutline
