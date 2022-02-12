@@ -45,11 +45,7 @@ export default function Index({ experience }) {
                     passHref
                   >
                     <a>
-                      <img
-                        src={`https://admin.logly.world${artwork.images.url}`}
-                        width="50"
-                        height="50"
-                      />
+                      <img src={`/`} width="50" height="50" />
                       <h3>{artwork.title}</h3>
                     </a>
                   </Link>
