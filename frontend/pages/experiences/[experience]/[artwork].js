@@ -27,6 +27,7 @@ export async function getStaticPaths() {
   const paths = experiences
     .map((experience) => {
       return artworks.map((artwork) => {
+        console.log(`${experience.slug}/${artwork.slug}`)
         return {
           params: {
             experience: experience.slug,

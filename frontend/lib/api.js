@@ -70,9 +70,6 @@ export async function getExperienceBySlug(slug) {
           slug
           startDate
           endDate
-          images {
-            url
-          }
         }
       }
 }`,
