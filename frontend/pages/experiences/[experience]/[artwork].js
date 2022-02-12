@@ -6,6 +6,7 @@ import {
 } from "../../../lib/api";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import React from "react";
 
 export default function Artwork({ artwork }) {
   if (!artwork) return <>loading...</>;
@@ -14,6 +15,14 @@ export default function Artwork({ artwork }) {
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen">
         <h1>{artwork.title}</h1>
+        <img
+            src={
+              artwork.images
+                  ? artwork.images.publicUrl
+                  : "/stock-museum-1.jpg"
+            }
+            className="w-full"
+        />
       </div>
       <Footer />
     </>
@@ -27,7 +36,6 @@ export async function getStaticPaths() {
   const paths = experiences
     .map((experience) => {
       return artworks.map((artwork) => {
-        console.log(`${experience.slug}/${artwork.slug}`)
         return {
           params: {
             experience: experience.slug,

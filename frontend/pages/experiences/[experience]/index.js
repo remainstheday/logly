@@ -4,6 +4,7 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { ChevronBack } from "react-ionicons";
 import { format } from "date-fns";
+import React from "react";
 
 export default function Index({ experience }) {
   if (!experience) return <>loading...</>;
@@ -45,7 +46,14 @@ export default function Index({ experience }) {
                     passHref
                   >
                     <a>
-                      <img src={`/`} width="50" height="50" />
+                      <img
+                          src={
+                            artwork.images
+                                ? artwork.images.publicUrl
+                                : "/stock-museum-1.jpg"
+                          }
+                          className="w-full px-1"
+                      />
                       <h3>{artwork.title}</h3>
                     </a>
                   </Link>

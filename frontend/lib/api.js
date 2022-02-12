@@ -70,6 +70,13 @@ export async function getExperienceBySlug(slug) {
           slug
           startDate
           endDate
+          images {
+            id
+            filename
+            mimetype
+            encoding
+            publicUrl
+          }
         }
       }
 }`,
@@ -87,6 +94,13 @@ export async function getArtworkBySlug(slug) {
         title
         artist
         slug
+        images {
+          id
+          filename
+          mimetype
+          encoding
+          publicUrl
+        }
       }
     }`,
     { variables: { slug } }

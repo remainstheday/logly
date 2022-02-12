@@ -102,8 +102,6 @@ export const lists: Lists = {
           displayMode: "segmented-control",
         },
       }),
-      spotifyUrl: text(),
-      soundcloudUrl: text(),
       audioFile: file(),
       images: cloudinaryImage({
         cloudinary,
