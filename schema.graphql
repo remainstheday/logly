@@ -306,7 +306,7 @@ type Artwork {
   spotifyUrl: String
   soundcloudUrl: String
   audioFile: FileFieldOutput
-  images: ImageFieldOutput
+  images: CloudinaryImage_File
   overview: Artwork_overview_Document
 }
 
@@ -315,23 +315,6 @@ interface FileFieldOutput {
   filesize: Int!
   ref: String!
   url: String!
-}
-
-interface ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
-}
-
-enum ImageExtension {
-  jpg
-  png
-  webp
-  gif
 }
 
 type Artwork_overview_Document {
@@ -353,26 +336,6 @@ type LocalFileFieldOutput implements FileFieldOutput {
 type CloudFileFieldOutput implements FileFieldOutput {
   filename: String!
   filesize: Int!
-  ref: String!
-  url: String!
-}
-
-type LocalImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
-  ref: String!
-  url: String!
-}
-
-type CloudImageFieldOutput implements ImageFieldOutput {
-  id: ID!
-  filesize: Int!
-  width: Int!
-  height: Int!
-  extension: ImageExtension!
   ref: String!
   url: String!
 }
@@ -414,16 +377,11 @@ input ArtworkUpdateInput {
   spotifyUrl: String
   soundcloudUrl: String
   audioFile: FileFieldInput
-  images: ImageFieldInput
+  images: Upload
   overview: JSON
 }
 
 input FileFieldInput {
-  upload: Upload
-  ref: String
-}
-
-input ImageFieldInput {
   upload: Upload
   ref: String
 }
@@ -443,7 +401,7 @@ input ArtworkCreateInput {
   spotifyUrl: String
   soundcloudUrl: String
   audioFile: FileFieldInput
-  images: ImageFieldInput
+  images: Upload
   overview: JSON
 }
 

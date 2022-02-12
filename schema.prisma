@@ -44,12 +44,7 @@ model Artwork {
   audioFile_filesize       Int?
   audioFile_mode           String?
   audioFile_filename       String?
-  images_filesize          Int?
-  images_extension         String?
-  images_width             Int?
-  images_height            Int?
-  images_mode              String?
-  images_id                String?
+  images                   Json?
   overview                 Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   from_Experience_artworks Experience[] @relation("Experience_artworks")
 }

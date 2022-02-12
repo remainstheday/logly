@@ -105,7 +105,10 @@ export const lists: Lists = {
       spotifyUrl: text(),
       soundcloudUrl: text(),
       audioFile: file(),
-      images: image(), // todo: https://github.com/Globobeet/keystone-cloudinary-gallery-field
+      images: cloudinaryImage({
+        cloudinary,
+        label: "Artwork",
+      }),
       overview: document({
         formatting: true,
         layouts: [
@@ -121,5 +124,3 @@ export const lists: Lists = {
     },
   }),
 };
-
-// todo: testing
