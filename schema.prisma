@@ -39,8 +39,6 @@ model Artwork {
   startDate                DateTime?
   endDate                  DateTime?
   status                   String?      @default("draft")
-  spotifyUrl               String       @default("")
-  soundcloudUrl            String       @default("")
   audioFile_filesize       Int?
   audioFile_mode           String?
   audioFile_filename       String?

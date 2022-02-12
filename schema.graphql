@@ -303,8 +303,6 @@ type Artwork {
   startDate: DateTime
   endDate: DateTime
   status: String
-  spotifyUrl: String
-  soundcloudUrl: String
   audioFile: FileFieldOutput
   images: CloudinaryImage_File
   overview: Artwork_overview_Document
@@ -351,8 +349,6 @@ input ArtworkWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
-  spotifyUrl: StringFilter
-  soundcloudUrl: StringFilter
 }
 
 input ArtworkOrderByInput {
@@ -363,8 +359,6 @@ input ArtworkOrderByInput {
   startDate: OrderDirection
   endDate: OrderDirection
   status: OrderDirection
-  spotifyUrl: OrderDirection
-  soundcloudUrl: OrderDirection
 }
 
 input ArtworkUpdateInput {
@@ -374,8 +368,6 @@ input ArtworkUpdateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
-  spotifyUrl: String
-  soundcloudUrl: String
   audioFile: FileFieldInput
   images: Upload
   overview: JSON
@@ -398,8 +390,6 @@ input ArtworkCreateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
-  spotifyUrl: String
-  soundcloudUrl: String
   audioFile: FileFieldInput
   images: Upload
   overview: JSON
