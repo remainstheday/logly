@@ -3,10 +3,12 @@ import { getAllExperiences, getExperienceBySlug } from "../../../lib/api";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { ChevronBack } from "react-ionicons";
+import Carousel from "../../../components/Carousel";
+import SectionLink from "../../../components/SectionLink";
 import { format } from "date-fns";
 import React from "react";
 
-export default function Index({ experience }) {
+export default function Index({ experience, experiences }) {
   if (!experience) return <>loading...</>;
   return (
     <>
@@ -47,12 +49,12 @@ export default function Index({ experience }) {
                   >
                     <a>
                       <img
-                          src={
-                            artwork.images
-                                ? artwork.images.publicUrl
-                                : "/stock-museum-1.jpg"
-                          }
-                          className="w-full px-1"
+                        src={
+                          artwork.images
+                            ? artwork.images.publicUrl
+                            : "/stock-museum-1.jpg"
+                        }
+                        className="w-full px-1"
                       />
                       <h3>{artwork.title}</h3>
                     </a>
@@ -60,6 +62,17 @@ export default function Index({ experience }) {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+        <section className="container mt-4 mt-10 mx-auto">
+          <h3 className="pb-3 section-title">Similar Experiences</h3>
+          <hr />
+          <div className="w-full mt-4">
+            <Carousel experiences={experiences} />
+            <SectionLink
+              href={`/experiences?viewAll=true`}
+              text={"See all experiences"}
+            />
           </div>
         </section>
       </div>
@@ -82,8 +95,8 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const experience = await getExperienceBySlug(`/${params.experience}`);
-
+  const experiences = await getAllExperiences();
   return {
-    props: { experience },
+    props: { experience, experiences },
   };
 }
