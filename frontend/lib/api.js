@@ -94,6 +94,8 @@ export async function getArtworkBySlug(slug) {
         title
         artist
         slug
+        startDate
+        endDate
         images {
           id
           filename

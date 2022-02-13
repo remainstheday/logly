@@ -14,11 +14,13 @@ export default function Index({ experience, experiences }) {
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-        <Link href="/" passHref>
+        <Link href="/experiences?viewAll=true" passHref>
+          <a>
           <span className="inline-flex uppercase my-8">
             <ChevronBack />
             Pick Experience
           </span>
+          </a>
         </Link>
 
         <h1 className="experience-title">{experience.title}</h1>

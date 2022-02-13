@@ -21,6 +21,25 @@ html {
   color: #858585;
 }
 
+.artwork-title {
+  font-family: "Karla", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 37px;
+  letter-spacing: -0.05em;
+  color: #000000;
+}
+
+.artist-title {
+  font-family: "Karla", sans-serif;
+  font-style: normal;
+  font-size: 26px;
+  line-height: 37px;
+  letter-spacing: -0.05em;
+  color: #000000;
+}
+
 .thumbnail-text {
   font-family: "Karla", sans-serif;
   font-style: normal;
