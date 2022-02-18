@@ -29,10 +29,10 @@ export default function Header() {
                   <Link href={`/`} passHref>
                     <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
                       <Image
-                        src="/logly.png"
+                        src="/Logo.png"
                         className="w-1/3"
                         alt="logly-logo"
-                        width="100"
+                        width="50"
                         height="50"
                       />
                     </a>
