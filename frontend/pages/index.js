@@ -1,10 +1,9 @@
 import Image from "next/image";
-import Header from "../components/Header";
-import Carousel from "../components/Carousel";
-import Footer from "../components/Footer";
-
-import { getAllExperiences } from "../lib/api";
-import SectionLink from "../components/SectionLink";
+import Header from "components/Header";
+import Carousel from "components/Carousel";
+import Footer from "components/Footer";
+import { getAllExperiences } from "lib/api";
+import SectionLink from "components/SectionLink";
 
 export default function Home({ experiences = [] }) {
   return (

@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { getAllExperiences } from "../../lib/api";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Tab from "../../components/Tab";
-import Thumbnail from "../../components/Thumbnail";
+import { getAllExperiences } from "lib/api";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import Tab from "components/Tab";
+import Thumbnail from "components/Thumbnail";
 
 export default function Experience({ experiences }) {
   const { query } = useRouter();

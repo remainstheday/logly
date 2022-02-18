@@ -1,11 +1,6 @@
-import {
-  getAllArtworks,
-  getAllExperiences,
-  getArtworkBySlug,
-  getExperienceBySlug,
-} from "../../../lib/api";
-import Header from "../../../components/Header";
-import Footer from "../../../components/Footer";
+import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
+import Header from "components/Header";
+import Footer from "components/Footer";
 import React from "react";
 import { ChevronBack } from "react-ionicons";
 import Link from "next/link";
