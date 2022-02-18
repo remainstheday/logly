@@ -10,7 +10,7 @@ export default function Footer() {
             <h3 className="uppercase font-bold">My account</h3>
           </li>
           <li>
-            <Link href={"/"} passHref>
+            <Link href={"https://logly.world"} passHref>
               <a>Sign In</a>
             </Link>
           </li>
