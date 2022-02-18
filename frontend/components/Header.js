@@ -59,7 +59,7 @@ export default function Header() {
                       </Link>
                     </li>
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
-                      <Link href={`/experiences`} passHref>
+                      <Link href={`/experiences?viewAll=true`} passHref>
                         <a>Experiences</a>
                       </Link>
                     </li>
