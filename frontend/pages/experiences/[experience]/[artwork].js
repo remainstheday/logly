@@ -2,9 +2,9 @@ import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import React from "react";
-import { ChevronBack } from "react-ionicons";
 import Link from "next/link";
 import { format } from "date-fns";
+import BackLink from "components/BackLink";
 
 export default function Artwork({ artwork }) {
   if (!artwork) return <>loading...</>;
@@ -12,14 +12,8 @@ export default function Artwork({ artwork }) {
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen">
-        <Link href="/experiences?viewAll=true" passHref>
-          <a>
-            <span className="inline-flex uppercase my-8">
-              <ChevronBack />
-              Experience/Exhibitions
-            </span>
-          </a>
-        </Link>
+        <BackLink href={"/experiences?viewAll=true"} text={"Pick Experience"} />
+
         <h1 className="artwork-title">{artwork.title}</h1>
         <h2 className="artist-title">{artwork.artist}</h2>
         <span className="date-tag">

@@ -2,11 +2,11 @@ import Link from "next/link";
 import { getAllExperiences, getExperienceBySlug } from "lib/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import { ChevronBack } from "react-ionicons";
 import Carousel from "components/Carousel";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
 import React from "react";
+import BackLink from "components/BackLink";
 
 export default function Index({ experience, experiences }) {
   if (!experience) return <>loading...</>;
@@ -14,14 +14,7 @@ export default function Index({ experience, experiences }) {
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-        <Link href="/experiences?viewAll=true" passHref>
-          <a>
-            <span className="inline-flex uppercase my-8">
-              <ChevronBack />
-              Pick Experience
-            </span>
-          </a>
-        </Link>
+        <BackLink href={"/experiences?viewAll=true"} text={"Pick Experience"} />
 
         <h1 className="experience-title">{experience.title}</h1>
 

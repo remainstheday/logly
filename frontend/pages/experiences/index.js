@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { getAllExperiences } from "lib/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Tab from "components/Tab";
 import Thumbnail from "components/Thumbnail";
+import BackLink from "components/BackLink";
+import React from "react";
+import PageTitle from "components/PageTitle";
 
 export default function Experience({ experiences }) {
   const { query } = useRouter();
@@ -41,8 +43,8 @@ export default function Experience({ experiences }) {
     <>
       <div className="max-w-4xl mx-auto min-h-screen">
         <Header />
-        <Link href={`/`}>HOME</Link>
-        <h1 className="text-5xl text-center">Pick Your Experience</h1>
+        <BackLink href={"/"} text={"Home"} />
+        <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
         <nav className="mt-6 mb-6">
           <Tab
             href="/experiences?viewAll=true"

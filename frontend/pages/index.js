@@ -4,6 +4,7 @@ import Carousel from "components/Carousel";
 import Footer from "components/Footer";
 import { getAllExperiences } from "lib/api";
 import SectionLink from "components/SectionLink";
+import PageTitle from "components/PageTitle";
 
 export default function Home({ experiences = [] }) {
   return (
@@ -11,11 +12,7 @@ export default function Home({ experiences = [] }) {
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
         <main>
-          <p className="uppercase text-center">Welcome to</p>
-          <h1 className="text-3xl leading-3 text-center font-bold mt-0 pt-0">
-            <br /> LOGLY
-          </h1>
-
+          <PageTitle smallText={"welcome to"} largeText={"Logly"} />
           <div className="flex relative max-w-full w-full h-96 my-16">
             <Image src="/stock-museum-1.jpg" className="w-full" layout="fill" />
           </div>

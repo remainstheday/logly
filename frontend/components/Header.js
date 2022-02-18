@@ -54,7 +54,7 @@ export default function Header() {
                 >
                   <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
-                      <Link href={`/`} passHref>
+                      <Link href={`/about`} passHref>
                         <a className="text-right">Museum Information</a>
                       </Link>
                     </li>
@@ -64,7 +64,7 @@ export default function Header() {
                       </Link>
                     </li>
                     <li className="py-2 pr-0 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 block ">
-                      <Link href={`/art-social`} passHref>
+                      <Link href={`/social`} passHref>
                         <a className="text-right block">Art Social</a>
                       </Link>
                     </li>

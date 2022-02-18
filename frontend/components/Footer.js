@@ -9,8 +9,16 @@ export default function Footer() {
           <li>
             <h3 className="uppercase font-bold">My account</h3>
           </li>
-          <li>Sign In</li>
-          <li>Register</li>
+          <li>
+            <Link href={"/"} passHref>
+              <a>Sign In</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={"/"} passHref>
+              <a>Register</a>
+            </Link>
+          </li>
           <li>
             <div className="flex">
               <LogoInstagram className="mr-4" color={"#fff"} />
@@ -22,16 +30,32 @@ export default function Footer() {
           <li>
             <h3 className="uppercase font-bold">About</h3>
           </li>
-          <li>About Logly</li>
-          <li>Media</li>
+          <li>
+            <Link href={"https://logly.world"} passHref>
+              <a>About Logly</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={"https://logly.world"} passHref>
+              <a>Media</a>
+            </Link>
+          </li>
         </ul>
 
         <ul>
           <li>
             <h3 className="uppercase font-bold">Legal</h3>
           </li>
-          <li>Terms of Use</li>
-          <li>Privacy Policy</li>
+          <li>
+            <Link href={"https://logly.world"} passHref>
+              <a>Terms of Use</a>
+            </Link>
+          </li>
+          <li>
+            <Link href={"/"} passHref>
+              <a>Privacy Policy</a>
+            </Link>
+          </li>
         </ul>
       </div>
     </footer>
