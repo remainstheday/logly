@@ -17,6 +17,8 @@ export default function Experience({ experiences }) {
 
   if (!experiences) return <>loading...</>;
 
+  // render each experience
+
   const renderExperiences = (filteredExperience, title) => {
     return (
       <>
