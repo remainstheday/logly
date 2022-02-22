@@ -1,12 +1,12 @@
-import Link from "next/link";
-import { getAllExperiences, getExperienceBySlug } from "lib/api";
-import Header from "components/Header";
+import BackLink from "components/BackLink";
+import ExperienceCarousel from "components/ExperienceCarousel";
 import Footer from "components/Footer";
-import Carousel from "components/Carousel";
+import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
+import { getAllExperiences, getExperienceBySlug } from "lib/api";
+import Link from "next/link";
 import React from "react";
-import BackLink from "components/BackLink";
 
 export default function Index({ experience, experiences }) {
   if (!experience) return <>loading...</>;
@@ -63,7 +63,7 @@ export default function Index({ experience, experiences }) {
           <h3 className="pb-3 section-title">Similar Experiences</h3>
           <hr />
           <div className="w-full mt-4">
-            <Carousel experiences={experiences} />
+            <ExperienceCarousel items={experiences} />
             <SectionLink
               href={`/experiences?viewAll=true`}
               text={"See all experiences"}

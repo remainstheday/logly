@@ -51,6 +51,13 @@ export async function getAllArtworks() {
     title
     artist
     slug
+    images {
+      id
+      filename
+      mimetype
+      encoding
+      publicUrl
+    }
   }
 }`);
 

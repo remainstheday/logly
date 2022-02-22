@@ -1,10 +1,11 @@
-import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import React from "react";
-import Link from "next/link";
-import { format } from "date-fns";
+import ArtworkCard from "components/ArtworkCard";
 import BackLink from "components/BackLink";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import { format } from "date-fns";
+import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
+import Link from "next/link";
+import React from "react";
 
 export default function Artwork({ artwork }) {
   if (!artwork) return <>loading...</>;
@@ -64,6 +65,7 @@ export default function Artwork({ artwork }) {
         </section>
         <section className="container mt-4 mt-10 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
+          <ArtworkCard img={artwork.images.publicUrl} />
         </section>
       </div>
       <Footer />
@@ -96,7 +98,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const artwork = await getArtworkBySlug(`${params.artwork}`);
-
   return {
     props: { artwork },
   };

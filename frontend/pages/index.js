@@ -1,12 +1,13 @@
-import Carousel from "components/Carousel";
+import ArtworkCarousel from "components/ArtworkCarousel";
+import ExperienceCarousel from "components/ExperienceCarousel";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
-import { getAllExperiences } from "lib/api";
+import { getAllArtworks, getAllExperiences } from "lib/api";
 import Image from "next/image";
 
-export default function Home({ experiences = [] }) {
+export default function Home({ experiences = [], artworks = [] }) {
   return (
     <>
       <Header />
@@ -30,7 +31,7 @@ export default function Home({ experiences = [] }) {
             <h3 className="pb-3 section-title">Pick an Experience</h3>
             <hr />
             <div className="w-full mt-4">
-              <Carousel experiences={experiences} />
+              <ExperienceCarousel items={experiences} />
               <SectionLink
                 href={`/experiences?viewAll=true`}
                 text={"See all experiences"}
@@ -42,12 +43,7 @@ export default function Home({ experiences = [] }) {
             <h3 className="pb-3 section-title">Art Social</h3>
             <hr />
             <div className="w-full mt-4">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Accusantium alias aut autem blanditiis consectetur doloribus
-                eius eos, et ipsam itaque laboriosam magnam minus molestiae,
-                numquam, officiis possimus provident sed. Ipsam.
-              </p>
+              <ArtworkCarousel items={artworks} />
               <SectionLink href={`/`} text={"Discover Art Social"} />
             </div>
           </section>
@@ -60,8 +56,9 @@ export default function Home({ experiences = [] }) {
 
 export async function getStaticProps() {
   const experiences = await getAllExperiences();
+  const artworks = await getAllArtworks();
 
   return {
-    props: { experiences },
+    props: { experiences, artworks },
   };
 }

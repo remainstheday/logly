@@ -1,16 +1,15 @@
 import React from "react";
-import Link from "next/link";
 import { ChevronBackOutline, ChevronForwardOutline } from "react-ionicons";
 
-const Carousel = ({ experiences }) => {
-  const [currentExperience, setCurrentExperience] = React.useState(0);
-  const refs = experiences.reduce((acc, val, i) => {
+export default function ArtworkCarousel({ items }) {
+  const [currentItem, setCurrentItem] = React.useState(0);
+  const refs = items.reduce((acc, val, i) => {
     acc[i] = React.createRef();
     return acc;
   }, {});
 
   const scrollToImage = (i) => {
-    setCurrentExperience(i);
+    setCurrentItem(i);
     refs[i].current.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -19,21 +18,21 @@ const Carousel = ({ experiences }) => {
   };
 
   // Some validation for checking the array length could be added if needed
-  const totalImages = experiences.length;
+  const totalItems = items.length;
 
   const nextImage = () => {
-    if (currentExperience >= totalImages - 1) {
+    if (currentItem >= totalItems - 1) {
       scrollToImage(0);
     } else {
-      scrollToImage(currentExperience + 1);
+      scrollToImage(currentItem + 1);
     }
   };
 
   const previousImage = () => {
-    if (currentExperience === 0) {
-      scrollToImage(totalImages - 1);
+    if (currentItem === 0) {
+      scrollToImage(totalItems - 1);
     } else {
-      scrollToImage(currentExperience - 1);
+      scrollToImage(currentItem - 1);
     }
   };
 
@@ -50,21 +49,25 @@ const Carousel = ({ experiences }) => {
             aria-label="Arrow Left"
           />
 
-          {experiences.map((experience, index) => (
-            <Link href={`/experiences${experience.slug}`} key={index} passHref>
-              <a className="carousel-card w-full flex-shrink-0">
+          {items.map((item, index) => (
+            <div className="carousel-card w-full flex-shrink-0" key={index}>
+              <div className="max-w-sm rounded overflow-hidden shadow-lg">
                 <img
-                  src={
-                    experience.poster
-                      ? experience.poster.publicUrl
-                      : "/stock-museum-1.jpg"
-                  }
                   className="w-full"
-                  ref={refs[index]}
+                  src={
+                    item.images ? item.images.publicUrl : "/stock-museum-2.jpg"
+                  }
                 />
-                <strong>{experience.title}</strong>
-              </a>
-            </Link>
+
+                <div className="px-6 py-4">
+                  <p className="text-gray-700 text-base">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                    exercitationem praesentium nihil.
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
           <ChevronForwardOutline
             onClick={nextImage}
@@ -76,6 +79,4 @@ const Carousel = ({ experiences }) => {
       </div>
     </div>
   );
-};
-
-export default Carousel;
+}
