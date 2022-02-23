@@ -18,6 +18,7 @@ export const cloudinary = {
   apiKey: process.env.CLOUDINARY_KEY || "",
   apiSecret: process.env.CLOUDINARY_SECRET || "",
   folder: "experiences",
+  resource_type: "auto",
 };
 
 export const lists: Lists = {
