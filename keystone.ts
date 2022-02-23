@@ -33,6 +33,13 @@ export default withAuth(
         debug: true,
       },
     },
+    images: {
+      upload: "local",
+      local: {
+        storagePath: "frontend/public/images",
+        baseUrl: "/images",
+      },
+    },
     files: {
       upload: "local",
       local: {

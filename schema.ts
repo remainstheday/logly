@@ -47,6 +47,7 @@ export const lists: Lists = {
     },
     fields: {
       title: text(),
+      secondaryTitle: text(),
       slug: text({ isIndexed: "unique", isFilterable: true }),
       poster: cloudinaryImage({
         cloudinary,

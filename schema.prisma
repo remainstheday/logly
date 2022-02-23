@@ -19,15 +19,16 @@ model User {
 }
 
 model Experience {
-  id        String    @id @default(uuid()) @postgresql.Uuid
-  title     String    @default("")
-  slug      String    @unique @default("")
-  poster    Json?
-  startDate DateTime?
-  endDate   DateTime?
-  status    String?   @default("draft")
-  content   Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  artworks  Artwork[] @relation("Experience_artworks")
+  id             String    @id @default(uuid()) @postgresql.Uuid
+  title          String    @default("")
+  secondaryTitle String    @default("")
+  slug           String    @unique @default("")
+  poster         Json?
+  startDate      DateTime?
+  endDate        DateTime?
+  status         String?   @default("draft")
+  content        Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  artworks       Artwork[] @relation("Experience_artworks")
 }
 
 model Artwork {
