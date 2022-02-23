@@ -102,7 +102,6 @@ input UserCreateInput {
 type Experience {
   id: ID!
   title: String
-  secondaryTitle: String
   slug: String
   poster: CloudinaryImage_File
   startDate: DateTime
@@ -185,7 +184,6 @@ input ExperienceWhereInput {
   NOT: [ExperienceWhereInput!]
   id: IDFilter
   title: StringFilter
-  secondaryTitle: StringFilter
   slug: StringFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
@@ -242,7 +240,6 @@ input ArtworkManyRelationFilter {
 input ExperienceOrderByInput {
   id: OrderDirection
   title: OrderDirection
-  secondaryTitle: OrderDirection
   slug: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
@@ -251,7 +248,6 @@ input ExperienceOrderByInput {
 
 input ExperienceUpdateInput {
   title: String
-  secondaryTitle: String
   slug: String
   poster: Upload
   startDate: DateTime
@@ -280,7 +276,6 @@ input ExperienceUpdateArgs {
 
 input ExperienceCreateInput {
   title: String
-  secondaryTitle: String
   slug: String
   poster: Upload
   startDate: DateTime
