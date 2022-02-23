@@ -33,15 +33,12 @@ export default withAuth(
         debug: true,
       },
     },
-    images: {
-      upload: "local",
-      local: {
-        storagePath: "frontend/public/images",
-        baseUrl: "/images",
-      },
-    },
     files: {
       upload: "local",
+      local: {
+        storagePath: "public/files",
+        baseUrl: "/files",
+      },
     },
     ui: {
       isAccessAllowed: (context) => !!context.session?.data,
