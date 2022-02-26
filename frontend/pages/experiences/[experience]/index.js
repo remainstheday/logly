@@ -9,7 +9,20 @@ import Link from "next/link";
 import React from "react";
 
 export default function Index({ experience, experiences }) {
-  if (!experience) return <>loading...</>;
+  if (!experience) {
+    return (
+      <>
+        <Header />
+        <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
+          <BackLink
+            href={"/experiences?viewAll=true"}
+            text={"Pick Experience"}
+          />
+          <p className="text-center">loading...</p>
+        </div>
+      </>
+    );
+  }
   return (
     <>
       <Header />

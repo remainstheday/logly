@@ -30,7 +30,13 @@ export const lists: Lists = {
         isIndexed: "unique",
         isFilterable: true,
       }),
-      password: password({ validation: { isRequired: true } }),
+      password: password({
+        validation: {
+          length: { min: 7, max: 1000 },
+          isRequired: true,
+          rejectCommon: true,
+        },
+      }),
     },
     ui: {
       listView: {
@@ -47,7 +53,12 @@ export const lists: Lists = {
     },
     fields: {
       title: text(),
-      slug: text({ isIndexed: "unique", isFilterable: true }),
+      slug: text({
+        label: "url: https://logly.world/experiences/?",
+        isIndexed: "unique",
+        isFilterable: true,
+        validation: { isRequired: true, match: { regex: new RegExp("/") } },
+      }),
       poster: cloudinaryImage({
         cloudinary,
         label: "Poster",
