@@ -49,26 +49,6 @@ export default function ArtworkCarousel({ items }) {
             aria-label="Arrow Left"
           />
 
-          {items.map((item, index) => (
-            <div className="carousel-card w-full flex-shrink-0" key={index}>
-              <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                <img
-                  className="w-full"
-                  src={
-                    item.images ? item.images.publicUrl : "/stock-museum-2.jpg"
-                  }
-                />
-
-                <div className="px-6 py-4">
-                  <p className="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                    exercitationem praesentium nihil.
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
           <ChevronForwardOutline
             onClick={nextImage}
             className="arrow absolute right-2"
