@@ -54,10 +54,13 @@ export const lists: Lists = {
     fields: {
       title: text(),
       slug: text({
-        label: "url: https://logly.world/experiences/?",
+        label: "https://logly.world/experiences/<insert-slug>",
         isIndexed: "unique",
         isFilterable: true,
-        validation: { isRequired: true, match: { regex: new RegExp("/") } },
+        validation: {
+          isRequired: true,
+          match: { regex: new RegExp("^[^\\/\\ ]*$") },
+        },
       }),
       poster: cloudinaryImage({
         cloudinary,

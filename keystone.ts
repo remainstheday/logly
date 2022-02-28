@@ -24,13 +24,13 @@ export default withAuth(
       provider: dbProvider,
       url: dbUrl,
       idField: { kind: "uuid" },
-      useMigrations: true,
+      useMigrations: !!process.env.DATABASE_URL,
     },
 
     graphql: {
       path: "/api/graphql",
       apolloConfig: {
-        debug: true,
+        debug: !process.env.DATABASE_URL,
       },
     },
     images: {

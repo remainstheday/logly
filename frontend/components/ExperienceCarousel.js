@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 import { ChevronBackOutline, ChevronForwardOutline } from "react-ionicons";
 
 export default function ExperienceCarousel({ items }) {
@@ -42,37 +43,51 @@ export default function ExperienceCarousel({ items }) {
 
   return (
     <div className="w-full flex justify-center items-center overflow-hidden">
-      <div className="carousel-container relative w-full">
+      <div className="relative w-full mb-16">
         <div className="carousel">
-          <ChevronBackOutline
-            onClick={previousImage}
-            className="arrow absolute left-1"
-            width="2em"
-            height="2em"
-            role="img"
-            aria-label="Arrow Left"
-          />
+          {items.length > 1 && (
+            <ChevronBackOutline
+              onClick={previousImage}
+              className="absolute left-0 z-10 cursor-pointer bg-white top-0 bottom-0 flex items-center"
+              width="1.5em"
+              height="2em"
+              role="img"
+              aria-label="Arrow Left"
+            />
+          )}
 
           {items.map((item, index) => (
-            <Link href={`/experiences${item.slug}`} key={index} passHref>
-              <a className="carousel-card w-full flex-shrink-0">
-                <img
-                  src={
-                    item.poster ? item.poster.publicUrl : "/stock-museum-1.jpg"
-                  }
-                  className="w-full"
-                  ref={refs[index]}
-                />
-                <strong>{item.title}</strong>
-              </a>
-            </Link>
+            <div
+              key={index}
+              ref={refs[index]}
+              className="carousel-card w-full flex-shrink-0"
+            >
+              <Link href={`/experiences${item.slug}`} key={index} passHref>
+                <a>
+                  <Image
+                    src={
+                      item.poster
+                        ? item.poster.publicUrl
+                        : "/stock-museum-1.jpg"
+                    }
+                    className="w-full mx-auto"
+                    width={896}
+                    height={384}
+                  />
+                  <strong className="pl-7">{item.title}</strong>
+                </a>
+              </Link>
+            </div>
           ))}
-          <ChevronForwardOutline
-            onClick={nextImage}
-            className="arrow absolute right-2"
-            width="2em"
-            height="2em"
-          />
+
+          {items.length > 1 && (
+            <ChevronForwardOutline
+              onClick={nextImage}
+              className="absolute  z-10 cursor-pointer bg-white right-0 top-0 bottom-0 flex items-center"
+              width="1.5em"
+              height="2em"
+            />
+          )}
         </div>
       </div>
     </div>
