@@ -1,5 +1,5 @@
 import BackLink from "components/BackLink";
-import ContentSlider from "components/ExperienceCarousel";
+import ContentSlider from "components/ContentSlider";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
@@ -76,7 +76,7 @@ export default function Index({ experience, experiences }) {
           <h3 className="pb-3 section-title">Similar Experiences</h3>
           <hr />
           <div className="w-full mt-4">
-            <ContentSlider items={experiences} />
+            <ContentSlider items={experiences} contentType="experience" />
             <SectionLink
               href={`/experiences?viewAll=true`}
               text={"See all experiences"}
