@@ -13,18 +13,14 @@ const { withAuth } = createAuth({
   },
 });
 
-const dbProvider = process.env.DATABASE_URL ? "postgresql" : "sqlite";
-const dbUrl = process.env.DATABASE_URL
-  ? process.env.DATABASE_URL
-  : "file:./keystone.db";
-
 export default withAuth(
   config({
     db: {
-      provider: dbProvider,
-      url: dbUrl,
+      //@ts-ignore
+      provider: process.env.DATABASE_PROVIDER!,
+      url: process.env.DATABASE_URL!,
       idField: { kind: "uuid" },
-      useMigrations: !!process.env.DATABASE_URL,
+      useMigrations: false,
     },
 
     graphql: {
