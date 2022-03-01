@@ -16,11 +16,12 @@ const { withAuth } = createAuth({
 export default withAuth(
   config({
     db: {
-      //@ts-ignore
-      provider: process.env.DATABASE_PROVIDER!,
+      // @ts-ignore
+      provider: process.env.DATABASE_PROVIDER,
       url: process.env.DATABASE_URL!,
       idField: { kind: "uuid" },
-      useMigrations: false,
+      // @ts-ignore
+      useMigrations: process.env.MIGRATIONS,
     },
 
     graphql: {
