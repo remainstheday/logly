@@ -52,7 +52,7 @@ export default function Index({ experience, experiences }) {
               {experience.artworks.map((artwork, index) => (
                 <div className="w-1/2" key={index}>
                   <Link
-                    href={`/experiences${experience.slug}/${artwork.slug}`}
+                    href={`/experiences/${experience.slug}/${artwork.slug}`}
                     passHref
                   >
                     <a>
@@ -102,7 +102,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const experience = await getExperienceBySlug(`/${params.experience}`);
+  const experience = await getExperienceBySlug(`${params.experience}`);
   const experiences = await getAllExperiences();
   return {
     props: { experience, experiences },

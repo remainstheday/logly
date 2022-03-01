@@ -28,9 +28,9 @@ export default function Experience({ experiences }) {
           {filteredExperience.map((experience) => (
             <div key={experience.id} className="w-1/2">
               <Thumbnail
-                href={`/experiences${experience.slug}`}
+                href={`/experiences/${experience.slug}`}
                 title={experience.title}
-                image={experience.poster.publicUrl}
+                image={experience.poster ? experience.poster.publicUrl : ""}
                 imgWidth={300}
                 imgHeight={200}
               />
