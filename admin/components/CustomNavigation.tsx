@@ -14,7 +14,7 @@ export function CustomNavigation({
     <NavigationContainer authenticatedItem={authenticatedItem}>
       <NavItem href="/">Dashboard</NavItem>
       <ListNavItems lists={lists} />
-      <NavItem href="/homepage">Edit Homepage</NavItem>
+      <NavItem href="/pages">Pages</NavItem>
     </NavigationContainer>
   );
 }

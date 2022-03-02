@@ -65,7 +65,7 @@ export default function Artwork({ artwork }) {
         </section>
         <section className="container mt-4 mt-10 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
-          <ArtworkCard img={artwork.images.publicUrl} />
+          <ArtworkCard img={artwork.images ? artwork.images.publicUrl : ""} />
         </section>
       </div>
       <Footer />
