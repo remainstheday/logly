@@ -18,6 +18,13 @@ model User {
   password String
 }
 
+model StaticContent {
+  id          String @id @default(uuid()) @postgresql.Uuid
+  name        String @default("")
+  title       String @default("")
+  description String @default("")
+}
+
 model Experience {
   id        String    @id @default(uuid()) @postgresql.Uuid
   title     String    @default("")

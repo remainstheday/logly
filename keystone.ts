@@ -1,3 +1,5 @@
+import { insertSeedData } from "./seed-data";
+
 require("dotenv").config();
 import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
@@ -22,6 +24,21 @@ export default withAuth(
       idField: { kind: "uuid" },
       // @ts-ignore
       useMigrations: process.env.MIGRATIONS,
+      async onConnect(context) {
+        const staticContentCount = await context.prisma.staticContent.count({
+          where: { name: "homepage" },
+        });
+
+        if (staticContentCount === 0) {
+          await context.prisma.staticContent.create({
+            data: {
+              name: "homepage",
+              title: "Logly Dev",
+              description: "lorem ipsum",
+            },
+          });
+        }
+      },
     },
 
     graphql: {

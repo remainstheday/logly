@@ -45,6 +45,28 @@ export const lists: Lists = {
     },
   }),
 
+  StaticContent: list({
+    ui: {
+      hideCreate: true,
+      hideDelete: true,
+    },
+    fields: {
+      name: text({
+        ui: {
+          itemView: {
+            fieldMode: ({ session, context, item }) => "read",
+          },
+        },
+      }),
+      title: text({}),
+      description: text({
+        ui: {
+          displayMode: "textarea",
+        },
+      }),
+    },
+  }),
+
   Experience: list({
     access: {
       operation: {

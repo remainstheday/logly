@@ -22,6 +22,21 @@ async function fetchAPI(query, { variables } = {}) {
   return json.data;
 }
 
+export async function getStaticContents() {
+  const data = await fetchAPI(`
+  {
+    staticContents {
+      id
+      name
+      title
+      description
+    }
+  }
+  `);
+
+  return data?.staticContents;
+}
+
 export async function getAllExperiences() {
   const data = await fetchAPI(`{
   experiences {
