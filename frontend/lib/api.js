@@ -1,4 +1,6 @@
+ 
 const API_URL = process.env.API_URL;
+
 
 async function fetchAPI(query, { variables } = {}) {
   const headers = { "Content-Type": "application/json" };

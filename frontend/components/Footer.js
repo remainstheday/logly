@@ -20,10 +20,16 @@ export default function Footer() {
             </Link>
           </li>
           <li>
+          
             <div className="flex">
+            <Link href= {"https://www.instagram.com/"} passHref>  
               <LogoInstagram className="mr-4" color={"#fff"} />
+              </Link>
+              <Link href= {"https://www.linkedin.com/"} passHref>
               <LogoLinkedin color={"#fff"} />
+              </Link>
             </div>
+            
           </li>
         </ul>
         <ul>
@@ -32,7 +38,7 @@ export default function Footer() {
           </li>
           <li>
             <Link href={"https://logly.world"} passHref>
-              <a>About Logly</a>
+              <a>About Logly</a> 
             </Link>
           </li>
           <li>
