@@ -1,5 +1,3 @@
-import { insertSeedData } from "./seed-data";
-
 require("dotenv").config();
 import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
