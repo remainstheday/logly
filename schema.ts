@@ -48,7 +48,7 @@ export const lists: Lists = {
   StaticContent: list({
     ui: {
       hideCreate: true,
-      hideDelete: true,
+      hideDelete: false,
     },
     fields: {
       name: text({

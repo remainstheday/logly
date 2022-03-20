@@ -23,15 +23,69 @@ export default withAuth(
       // @ts-ignore
       useMigrations: process.env.MIGRATIONS,
       async onConnect(context) {
-        const staticContentCount = await context.prisma.staticContent.count({
-          where: { name: "homepage" },
+        const homepage = await context.prisma.staticContent.count({
+          where: { name: "Home" },
         });
 
-        if (staticContentCount === 0) {
+        const about = await context.prisma.staticContent.count({
+          where: { name: "About" },
+        });
+
+        const media = await context.prisma.staticContent.count({
+          where: { name: "Media" },
+        });
+
+        const terms = await context.prisma.staticContent.count({
+          where: { name: "Terms of Use" },
+        });
+
+        const privacy = await context.prisma.staticContent.count({
+          where: { name: "Privacy Policy" },
+        });
+
+        if (homepage === 0) {
           await context.prisma.staticContent.create({
             data: {
-              name: "homepage",
-              title: "Logly Dev",
+              name: "Home",
+              title: "Logly Museum",
+              description: "lorem ipsum",
+            },
+          });
+        }
+
+        if (about === 0) {
+          await context.prisma.staticContent.create({
+            data: {
+              name: "About",
+              title: "About",
+              description: "lorem ipsum",
+            },
+          });
+        }
+        if (media === 0) {
+          await context.prisma.staticContent.create({
+            data: {
+              name: "Media",
+              title: "Media",
+              description: "lorem ipsum",
+            },
+          });
+        }
+        if (terms === 0) {
+          await context.prisma.staticContent.create({
+            data: {
+              name: "Terms of Use",
+              title: "Terms of Use",
+              description: "lorem ipsum",
+            },
+          });
+        }
+
+        if (privacy === 0) {
+          await context.prisma.staticContent.create({
+            data: {
+              name: "Privacy Policy",
+              title: "Privacy Policy",
               description: "lorem ipsum",
             },
           });
