@@ -27,15 +27,15 @@ model StaticContent {
 }
 
 model Experience {
-  id        String    @id @default(uuid()) @postgresql.Uuid
-  title     String    @default("")
-  slug      String    @unique @default("")
-  poster    Json?
-  startDate DateTime?
-  endDate   DateTime?
-  status    String?   @default("draft")
-  content   String    @default("")
-  artworks  Artwork[] @relation("Experience_artworks")
+  id          String    @id @default(uuid()) @postgresql.Uuid
+  title       String    @default("")
+  slug        String    @unique @default("")
+  poster      Json?
+  startDate   DateTime?
+  endDate     DateTime?
+  status      String?   @default("draft")
+  description String    @default("")
+  artworks    Artwork[] @relation("Experience_artworks")
 }
 
 model Artwork {
@@ -50,6 +50,6 @@ model Artwork {
   audioFile_mode           String?
   audioFile_filename       String?
   images                   Json?
-  overview                 String       @default("")
+  description              String       @default("")
   from_Experience_artworks Experience[] @relation("Experience_artworks")
 }

@@ -29,12 +29,7 @@ export default function Artwork({ artwork }) {
           className="w-full"
         />
 
-        <p className="mt-6">
-          Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Nobis aut impedit, minus doloribus cumque nulla eum molestiae eligendi
-          obcaecati. Ratione magnam repudiandae dolorum minima aspernatur
-          nostrum sit iusto rem iure.
-        </p>
+        <p className="mt-6">{artwork.description}</p>
 
         <section className="container mt-4 mt-10 mx-auto">
           <Link href="/">

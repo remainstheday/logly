@@ -45,6 +45,7 @@ export async function getAllExperiences() {
     id
     title
     slug
+    description
     poster {
       id
       filename
@@ -68,6 +69,7 @@ export async function getAllArtworks() {
     title
     artist
     slug
+    description
     images {
       id
       filename
@@ -89,6 +91,7 @@ export async function getExperienceBySlug(slug) {
         slug
         startDate
         endDate
+        description
         artworks {
           title
           slug
@@ -120,6 +123,7 @@ export async function getArtworkBySlug(slug) {
         slug
         startDate
         endDate
+        description
         images {
           id
           filename

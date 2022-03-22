@@ -6,11 +6,9 @@ import {
   password,
   timestamp,
   select,
-  image,
   file,
 } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { document } from "@keystone-6/fields-document";
 import { Lists } from ".keystone/types";
 
 export const cloudinary = {
@@ -116,7 +114,7 @@ export const lists: Lists = {
           displayMode: "segmented-control",
         },
       }),
-      content: text({
+      description: text({
         ui: {
           displayMode: "textarea",
         },
@@ -152,7 +150,7 @@ export const lists: Lists = {
         cloudinary,
         label: "Artwork",
       }),
-      overview: text({
+      description: text({
         ui: {
           displayMode: "textarea",
         },
