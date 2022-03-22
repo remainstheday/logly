@@ -3,6 +3,7 @@ import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import { format } from "date-fns";
+import { Formik } from "formik";
 import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
 import Link from "next/link";
 import React from "react";
@@ -60,6 +61,31 @@ export default function Artwork({ artwork }) {
         </section>
         <section className="container mt-4 mt-10 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
+          <Formik
+            initialValues={{ name: "", comments: "" }}
+            onSubmit={(values) => {
+              console.log(values);
+            }}
+          >
+            {({ values, errors, isSubmitting, handleSubmit }) => (
+              <form>
+                <input
+                  type="text"
+                  name="name"
+                  value={values.email}
+                  placeholder="Name"
+                />
+                <input type="textarea" name="comments" />
+                <button type="submit">Submit</button>
+              </form>
+            )}
+          </Formik>
+        </section>
+
+        <section className="container mt-4 mt-10 mx-auto">
+          <h3 className="pb-3 section-title">
+            See What the Community has Shared
+          </h3>
           <ArtworkCard img={artwork.images ? artwork.images.publicUrl : ""} />
         </section>
       </div>
