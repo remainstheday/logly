@@ -68,7 +68,7 @@ export default function Home({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const content = await getStaticContents("");
   const experiences = await getAllExperiences();
   const artworks = await getAllArtworks();
