@@ -94,6 +94,7 @@ export async function getExperienceBySlug(slug) {
         description
         artworks {
           title
+          artist
           slug
           startDate
           endDate

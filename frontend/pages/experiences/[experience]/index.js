@@ -43,9 +43,9 @@ export default function Index({ experience, experiences }) {
           <h3 className="pb-3 section-title">Exhibition Preview</h3>
           <hr />
           <div className="w-full mt-4">
-            <div className="flex">
+            <div className="flex flex-wrap">
               {experience.artworks.map((artwork, index) => (
-                <div className="w-1/2" key={index}>
+                <div className="w-1/2 my-4" key={index}>
                   <Link
                     href={`/experiences/${experience.slug}/${artwork.slug}`}
                     passHref
@@ -59,7 +59,8 @@ export default function Index({ experience, experiences }) {
                         }
                         className="w-full px-1"
                       />
-                      <h3>{artwork.title}</h3>
+                      <h3 className="font-bold">{artwork.artist}</h3>
+                      <h4>{artwork.title}</h4>
                     </a>
                   </Link>
                 </div>
@@ -67,7 +68,7 @@ export default function Index({ experience, experiences }) {
             </div>
           </div>
         </section>
-        <section className="container mt-4 mt-10 mx-auto">
+        <section className="container mt-12 mt-10 mx-auto">
           <h3 className="pb-3 section-title">Similar Experiences</h3>
           <hr />
           <div className="w-full mt-4">
