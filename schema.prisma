@@ -34,7 +34,7 @@ model Experience {
   startDate DateTime?
   endDate   DateTime?
   status    String?   @default("draft")
-  content   Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  content   String    @default("")
   artworks  Artwork[] @relation("Experience_artworks")
 }
 
@@ -50,6 +50,6 @@ model Artwork {
   audioFile_mode           String?
   audioFile_filename       String?
   images                   Json?
-  overview                 Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  overview                 String       @default("")
   from_Experience_artworks Experience[] @relation("Experience_artworks")
 }
