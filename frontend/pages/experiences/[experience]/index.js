@@ -4,11 +4,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
-import {
-  getAllArtworks,
-  getAllExperiences,
-  getExperienceBySlug,
-} from "lib/api";
+import { getAllExperiences, getExperienceBySlug } from "lib/api";
 import Link from "next/link";
 import React from "react";
 
