@@ -3,12 +3,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
-import {
-  getAllArtworks,
-  getAllExperiences,
-  getHomepageContent,
-  getStaticContents,
-} from "lib/api";
+import { getAllArtworks, getAllExperiences, getStaticContents } from "lib/api";
 import Image from "next/image";
 
 export default function Home({
