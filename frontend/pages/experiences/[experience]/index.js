@@ -37,12 +37,7 @@ export default function Index({ experience, experiences }) {
             ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
         </span>
 
-        <p className="mt-6">
-          Brief intro Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Nobis aut impedit, minus doloribus cumque nulla eum molestiae eligendi
-          obcaecati. Ratione magnam repudiandae dolorum minima aspernatur
-          nostrum sit iusto rem iure.
-        </p>
+        <p className="mt-6">{experience.description}</p>
 
         <section className="container mt-4 mt-10 mx-auto">
           <h3 className="pb-3 section-title">Exhibition Preview</h3>

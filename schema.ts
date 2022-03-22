@@ -116,17 +116,10 @@ export const lists: Lists = {
           displayMode: "segmented-control",
         },
       }),
-      content: document({
-        formatting: true,
-        layouts: [
-          [1, 1],
-          [1, 1, 1],
-          [2, 1],
-          [1, 2],
-          [1, 2, 1],
-        ],
-        links: true,
-        dividers: true,
+      content: text({
+        ui: {
+          displayMode: "textarea",
+        },
       }),
       artworks: relationship({ ref: "Artwork", many: true }),
     },
@@ -159,17 +152,10 @@ export const lists: Lists = {
         cloudinary,
         label: "Artwork",
       }),
-      overview: document({
-        formatting: true,
-        layouts: [
-          [1, 1],
-          [1, 1, 1],
-          [2, 1],
-          [1, 2],
-          [1, 2, 1],
-        ],
-        links: true,
-        dividers: true,
+      overview: text({
+        ui: {
+          displayMode: "textarea",
+        },
       }),
     },
   }),
