@@ -1,6 +1,4 @@
- 
 const API_URL = process.env.API_URL;
-
 
 async function fetchAPI(query, { variables } = {}) {
   const headers = { "Content-Type": "application/json" };
@@ -24,17 +22,18 @@ async function fetchAPI(query, { variables } = {}) {
   return json.data;
 }
 
-export async function getStaticContents() {
-  const data = await fetchAPI(`
-  {
-    staticContents {
-      id
-      name
-      title
-      description
-    }
-  }
-  `);
+export async function getStaticContents(name) {
+  const data = await fetchAPI(
+    `query staticContents($name: String) {
+      staticContents(where: {name: {equals: $name}}) {
+        id
+        name
+        title
+        description
+      }
+    }`,
+    { variables: { name } }
+  );
 
   return data?.staticContents;
 }

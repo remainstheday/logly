@@ -7,29 +7,28 @@ export default function Footer() {
       <div className="flex justify-between max-w-4xl mx-auto">
         <ul>
           <li>
-            <h3 className="uppercase font-bold">My account</h3>
+            <h3 className="uppercase font-bold">Social</h3>
           </li>
+
           <li>
-            <Link href={"https://logly.world"} passHref>
-              <a>Sign In</a>
-            </Link>
-          </li>
-          <li>
-            <Link href={"/"} passHref>
-              <a>Register</a>
-            </Link>
-          </li>
-          <li>
-          
             <div className="flex">
-            <Link href= {"https://www.instagram.com/"} passHref>  
-              <LogoInstagram className="mr-4" color={"#fff"} />
-              </Link>
-              <Link href= {"https://www.linkedin.com/"} passHref>
-              <LogoLinkedin color={"#fff"} />
-              </Link>
+              <LogoInstagram
+                className="mr-4"
+                color={"#fff"}
+                onClick={() =>
+                  window.open("https://www.instagram.com/_logly", "_blank")
+                }
+              />
+              <LogoLinkedin
+                color={"#fff"}
+                onClick={() =>
+                  window.open(
+                    "https://www.linkedin.com/company/logly-world/",
+                    "_blank"
+                  )
+                }
+              />
             </div>
-            
           </li>
         </ul>
         <ul>
@@ -38,7 +37,7 @@ export default function Footer() {
           </li>
           <li>
             <Link href={"https://logly.world"} passHref>
-              <a>About Logly</a> 
+              <a>About Logly</a>
             </Link>
           </li>
           <li>
