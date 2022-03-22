@@ -95,7 +95,7 @@ export default function Experience({ experiences }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const experiences = await getAllExperiences();
 
   return {
