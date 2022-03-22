@@ -22,7 +22,7 @@ export default function Privacy({
 }
 
 export async function getStaticProps() {
-  const content = await getStaticContents("Privacy Policy");
+  const content = await getStaticContents("privacy-policy");
   return {
     props: { content },
   };

@@ -80,7 +80,7 @@ export default withAuth(
               name: "Terms of Use",
               title: "Terms of Use",
               description: "lorem ipsum",
-              slug: "terms-of-use",
+              slug: "termsofuse",
             },
           });
         }

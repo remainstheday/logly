@@ -7,6 +7,20 @@ import { getStaticContents } from "lib/api";
 export default function Terms({
   content = [{ name: "blah", title: "blah", description: "blah" }],
 }) {
+  if (!content) {
+    return (
+      <>
+        <Header />
+        <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
+          <BackLink
+            href={"/experiences?viewAll=true"}
+            text={"Pick Experience"}
+          />
+          <p className="text-center">loading...</p>
+        </div>
+      </>
+    );
+  }
   const page = content[0];
   return (
     <>
@@ -22,7 +36,7 @@ export default function Terms({
 }
 
 export async function getStaticProps() {
-  const content = await getStaticContents("Terms of Use");
+  const content = await getStaticContents("termsofuse");
   return {
     props: { content },
   };

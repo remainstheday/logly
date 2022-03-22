@@ -5,12 +5,27 @@ import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
 import { getAllArtworks, getAllExperiences, getStaticContents } from "lib/api";
 import Image from "next/image";
+import BackLink from "components/BackLink";
 
 export default function Home({
   experiences = [],
   artworks = [],
   content = [{ name: "blah", title: "blah", description: "blah" }],
 }) {
+  if (!content) {
+    return (
+      <>
+        <Header />
+        <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
+          <BackLink
+            href={"/experiences?viewAll=true"}
+            text={"Pick Experience"}
+          />
+          <p className="text-center">loading...</p>
+        </div>
+      </>
+    );
+  }
   const homepage = content[0];
   return (
     <>
@@ -54,7 +69,7 @@ export default function Home({
 }
 
 export async function getStaticProps() {
-  const content = await getStaticContents("Home");
+  const content = await getStaticContents("");
   const experiences = await getAllExperiences();
   const artworks = await getAllArtworks();
 

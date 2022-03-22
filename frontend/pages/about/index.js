@@ -22,7 +22,7 @@ export default function About({
 }
 
 export async function getStaticProps() {
-  const content = await getStaticContents("About");
+  const content = await getStaticContents("about");
   return {
     props: { content },
   };

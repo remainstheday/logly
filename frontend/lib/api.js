@@ -22,10 +22,10 @@ async function fetchAPI(query, { variables } = {}) {
   return json.data;
 }
 
-export async function getStaticContents(name) {
+export async function getStaticContents(slug) {
   const data = await fetchAPI(
-    `query staticContents($name: String) {
-      staticContents(where: {name: {equals: $name}}) {
+    `query staticContents($slug: String) {
+      staticContents(where: {slug: {equals: $slug}}) {
         id
         slug
         name
@@ -33,7 +33,7 @@ export async function getStaticContents(name) {
         description
       }
     }`,
-    { variables: { name } }
+    { variables: { slug } }
   );
 
   return data?.staticContents;
