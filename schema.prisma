@@ -22,6 +22,7 @@ model StaticContent {
   id          String @id @default(uuid()) @postgresql.Uuid
   name        String @default("")
   title       String @default("")
+  slug        String @unique @default("")
   description String @default("")
 }
 

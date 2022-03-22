@@ -49,6 +49,7 @@ export default withAuth(
               name: "Home",
               title: "Logly Museum",
               description: "lorem ipsum",
+              slug: "",
             },
           });
         }
@@ -59,6 +60,7 @@ export default withAuth(
               name: "About",
               title: "About",
               description: "lorem ipsum",
+              slug: "about",
             },
           });
         }
@@ -68,6 +70,7 @@ export default withAuth(
               name: "Media",
               title: "Media",
               description: "lorem ipsum",
+              slug: "media",
             },
           });
         }
@@ -77,6 +80,7 @@ export default withAuth(
               name: "Terms of Use",
               title: "Terms of Use",
               description: "lorem ipsum",
+              slug: "terms-of-use",
             },
           });
         }
@@ -87,6 +91,7 @@ export default withAuth(
               name: "Privacy Policy",
               title: "Privacy Policy",
               description: "lorem ipsum",
+              slug: "privacy-policy",
             },
           });
         }

@@ -103,11 +103,13 @@ type StaticContent {
   id: ID!
   name: String
   title: String
+  slug: String
   description: String
 }
 
 input StaticContentWhereUniqueInput {
   id: ID
+  slug: String
 }
 
 input StaticContentWhereInput {
@@ -117,6 +119,7 @@ input StaticContentWhereInput {
   id: IDFilter
   name: StringFilter
   title: StringFilter
+  slug: StringFilter
   description: StringFilter
 }
 
@@ -124,12 +127,14 @@ input StaticContentOrderByInput {
   id: OrderDirection
   name: OrderDirection
   title: OrderDirection
+  slug: OrderDirection
   description: OrderDirection
 }
 
 input StaticContentUpdateInput {
   name: String
   title: String
+  slug: String
   description: String
 }
 
@@ -141,6 +146,7 @@ input StaticContentUpdateArgs {
 input StaticContentCreateInput {
   name: String
   title: String
+  slug: String
   description: String
 }
 

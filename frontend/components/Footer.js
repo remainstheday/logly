@@ -36,12 +36,12 @@ export default function Footer() {
             <h3 className="uppercase font-bold">About</h3>
           </li>
           <li>
-            <Link href={"https://logly.world"} passHref>
+            <Link href={"/about"} passHref>
               <a>About Logly</a>
             </Link>
           </li>
           <li>
-            <Link href={"https://logly.world"} passHref>
+            <Link href={"/media"} passHref>
               <a>Media</a>
             </Link>
           </li>
@@ -52,12 +52,12 @@ export default function Footer() {
             <h3 className="uppercase font-bold">Legal</h3>
           </li>
           <li>
-            <Link href={"https://logly.world"} passHref>
+            <Link href={"/terms-of-use"} passHref>
               <a>Terms of Use</a>
             </Link>
           </li>
           <li>
-            <Link href={"/"} passHref>
+            <Link href={"/privacy-policy"} passHref>
               <a>Privacy Policy</a>
             </Link>
           </li>

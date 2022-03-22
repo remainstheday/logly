@@ -27,6 +27,7 @@ export async function getStaticContents(name) {
     `query staticContents($name: String) {
       staticContents(where: {name: {equals: $name}}) {
         id
+        slug
         name
         title
         description

@@ -59,6 +59,22 @@ export const lists: Lists = {
         },
       }),
       title: text({}),
+      slug: text({
+        label: "URL",
+        isIndexed: "unique",
+        isFilterable: true,
+        ui: {
+          createView: {
+            fieldMode: ({ session, context }) => "hidden",
+          },
+          itemView: {
+            fieldMode: ({ session, context, item }) => "read",
+          },
+          listView: {
+            fieldMode: ({ session, context }) => "read",
+          },
+        },
+      }),
       description: text({
         ui: {
           displayMode: "textarea",

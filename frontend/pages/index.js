@@ -57,6 +57,7 @@ export async function getStaticProps() {
   const content = await getStaticContents("Home");
   const experiences = await getAllExperiences();
   const artworks = await getAllArtworks();
+
   return {
     props: { experiences, artworks, content },
   };

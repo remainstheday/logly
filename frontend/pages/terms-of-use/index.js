@@ -1,10 +1,10 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import { getStaticContents } from "lib/api";
 import PageTitle from "components/PageTitle";
+import { getStaticContents } from "lib/api";
 
-export default function About({
+export default function Terms({
   content = [{ name: "blah", title: "blah", description: "blah" }],
 }) {
   const page = content[0];
@@ -22,7 +22,7 @@ export default function About({
 }
 
 export async function getStaticProps() {
-  const content = await getStaticContents("About");
+  const content = await getStaticContents("Terms of Use");
   return {
     props: { content },
   };
