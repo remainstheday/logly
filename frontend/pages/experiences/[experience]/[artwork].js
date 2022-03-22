@@ -100,5 +100,6 @@ export async function getStaticProps({ params }) {
   const artwork = await getArtworkBySlug(`${params.artwork}`);
   return {
     props: { artwork },
+    revalidate: 1,
   };
 }
