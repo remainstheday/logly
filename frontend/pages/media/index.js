@@ -35,7 +35,7 @@ export default function Media({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const content = await getStaticContents("media");
   return {
     props: { content },

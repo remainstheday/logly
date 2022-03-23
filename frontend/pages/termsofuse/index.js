@@ -35,7 +35,7 @@ export default function Terms({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const content = await getStaticContents("termsofuse");
   return {
     props: { content },

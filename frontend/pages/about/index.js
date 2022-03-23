@@ -21,7 +21,7 @@ export default function About({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const content = await getStaticContents("about");
   return {
     props: { content },

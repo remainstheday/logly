@@ -21,7 +21,7 @@ export default function Privacy({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const content = await getStaticContents("privacy-policy");
   return {
     props: { content },
