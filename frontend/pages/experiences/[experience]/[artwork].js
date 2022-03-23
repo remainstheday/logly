@@ -3,7 +3,7 @@ import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import { format } from "date-fns";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
 import Link from "next/link";
 import React from "react";
@@ -68,15 +68,24 @@ export default function Artwork({ artwork }) {
             }}
           >
             {({ values, errors, isSubmitting, handleSubmit }) => (
-              <form>
+              <form className="social-form">
                 <input
+                  className="w-full md:w-1/2"
                   type="text"
                   name="name"
                   value={values.email}
                   placeholder="Name"
                 />
-                <input type="textarea" name="comments" />
-                <button type="submit">Submit</button>
+                <Field
+                  className="w-full md:w-1/2"
+                  as="textarea"
+                  name="comments"
+                  rows="5"
+                  placeholder="write a comment"
+                />
+                <button type="submit" className="w-full md:w-1/2">
+                  Share
+                </button>
               </form>
             )}
           </Formik>
