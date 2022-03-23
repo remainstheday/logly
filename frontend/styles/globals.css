@@ -24,34 +24,31 @@ html {
 
 }
 
-.date-tag {
-  font-family: "Karla", sans-serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 28px;
-  letter-spacing: -0.02em;
-  text-align: left;
-  color: #858585;
-}
 
-.artwork-title {
+
+.section-title {
   font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: bold;
-  font-size: 32px;
   line-height: 37px;
   letter-spacing: -0.05em;
+  text-align: left;
   color: #000000;
 }
 
-.artist-title {
-  font-family: "Karla", sans-serif;
-  font-style: normal;
+.section-title h1 {
+  font-size: 36px;
+}
+
+.section-title h2 {
   font-size: 26px;
-  line-height: 37px;
-  letter-spacing: -0.05em;
-  color: #000000;
+  line-height: 42px;
+}
+
+.section-title h3 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #858585;
 }
 
 .thumbnail-text {

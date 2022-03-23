@@ -13,26 +13,41 @@ export default function Artwork({ artwork }) {
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen">
+      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
         <BackLink href={"/experiences?viewAll=true"} text={"Pick Experience"} />
 
-        <h1 className="artwork-title">{artwork.title}</h1>
-        <h2 className="artist-title">{artwork.artist}</h2>
-        <span className="date-tag">
-          {format(new Date(artwork.startDate), "MMMM dd, yyyy")}
-          {artwork.endDate &&
-            ` - ${format(new Date(artwork.endDate), "MMM dd, yyyy")}`}
-        </span>
-        <img
-          src={
-            artwork.images ? artwork.images.publicUrl : "/stock-museum-1.jpg"
-          }
-          className="w-full"
-        />
+        <section className="container mt-20 md:mt-32 mx-auto">
+          <div className="section-title my-6 space-y-2">
+            <h1>{artwork.title}</h1>
+            <h2>{artwork.artist}</h2>
+            <h3>
+              {format(new Date(artwork.startDate), "MMMM dd, yyyy")}
+              {artwork.endDate &&
+                ` - ${format(new Date(artwork.endDate), "MMM dd, yyyy")}`}
+            </h3>
+          </div>
 
-        <p className="mt-6">{artwork.description}</p>
+          <img
+            src={
+              artwork.images ? artwork.images.publicUrl : "/stock-museum-1.jpg"
+            }
+            className="w-full"
+          />
 
-        <section className="container mt-4 mt-10 mx-auto">
+          <figure className="my-6">
+            <audio controls src="/media/cc0-audio/t-rex-roar.mp3">
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
+          </figure>
+        </section>
+
+        <section className="container mt-20 md:mt-32 mx-auto">
+          <h3 className="pb-3 section-title">Overview</h3>
+          <hr />
+          <p className="mt-6">{artwork.description}</p>
+        </section>
+        <section className="container mt-20 md:mt-32 mx-auto">
           <Link href="/">
             <a>
               <h3 className="pb-3 section-title">Go To Experience</h3>
@@ -59,8 +74,9 @@ export default function Artwork({ artwork }) {
             </div>
           </div>
         </section>
-        <section className="container mt-4 mt-10 mx-auto">
+        <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
+          <hr />
           <Formik
             initialValues={{ name: "", comments: "" }}
             onSubmit={(values) => {
@@ -91,10 +107,12 @@ export default function Artwork({ artwork }) {
           </Formik>
         </section>
 
-        <section className="container mt-4 mt-10 mx-auto">
+        <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">
             See What the Community has Shared
           </h3>
+          <hr />
+          <br />
           <ArtworkCard img={artwork.images ? artwork.images.publicUrl : ""} />
         </section>
       </div>
