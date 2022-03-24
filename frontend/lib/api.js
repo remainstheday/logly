@@ -30,6 +30,13 @@ export async function getStaticContents(slug) {
         slug
         name
         title
+        poster {
+          id
+          filename
+          mimetype
+          encoding
+          publicUrl
+        }
         description
       }
     }`,

@@ -57,6 +57,10 @@ export const lists: Lists = {
         },
       }),
       title: text({}),
+      poster: cloudinaryImage({
+        cloudinary,
+        label: "Poster",
+      }),
       slug: text({
         label: "URL",
         isIndexed: "unique",

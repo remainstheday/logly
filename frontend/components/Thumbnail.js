@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Thumbnail({
   href,
@@ -10,7 +11,7 @@ export default function Thumbnail({
   return (
     <Link href={href} passHref>
       <a>
-        <img src={image} width={`${imgWidth}`} height={`${imgHeight}`} />
+        <Image src={image} width={`${imgWidth}`} height={`${imgHeight}`} />
         <p className="thumbnail-text">{title}</p>
       </a>
     </Link>

@@ -103,69 +103,9 @@ type StaticContent {
   id: ID!
   name: String
   title: String
-  slug: String
-  description: String
-}
-
-input StaticContentWhereUniqueInput {
-  id: ID
-  slug: String
-}
-
-input StaticContentWhereInput {
-  AND: [StaticContentWhereInput!]
-  OR: [StaticContentWhereInput!]
-  NOT: [StaticContentWhereInput!]
-  id: IDFilter
-  name: StringFilter
-  title: StringFilter
-  slug: StringFilter
-  description: StringFilter
-}
-
-input StaticContentOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-  title: OrderDirection
-  slug: OrderDirection
-  description: OrderDirection
-}
-
-input StaticContentUpdateInput {
-  name: String
-  title: String
-  slug: String
-  description: String
-}
-
-input StaticContentUpdateArgs {
-  where: StaticContentWhereUniqueInput!
-  data: StaticContentUpdateInput!
-}
-
-input StaticContentCreateInput {
-  name: String
-  title: String
-  slug: String
-  description: String
-}
-
-type Experience {
-  id: ID!
-  title: String
-  slug: String
   poster: CloudinaryImage_File
-  startDate: DateTime
-  endDate: DateTime
-  status: String
+  slug: String
   description: String
-  artworks(
-    where: ArtworkWhereInput! = {}
-    orderBy: [ArtworkOrderByInput!]! = []
-    take: Int
-    skip: Int! = 0
-  ): [Artwork!]
-  artworksCount(where: ArtworkWhereInput! = {}): Int
 }
 
 type CloudinaryImage_File {
@@ -215,6 +155,74 @@ input CloudinaryImageFormat {
   density: String
   flags: String
   transformation: String
+}
+
+input StaticContentWhereUniqueInput {
+  id: ID
+  slug: String
+}
+
+input StaticContentWhereInput {
+  AND: [StaticContentWhereInput!]
+  OR: [StaticContentWhereInput!]
+  NOT: [StaticContentWhereInput!]
+  id: IDFilter
+  name: StringFilter
+  title: StringFilter
+  slug: StringFilter
+  description: StringFilter
+}
+
+input StaticContentOrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+  title: OrderDirection
+  slug: OrderDirection
+  description: OrderDirection
+}
+
+input StaticContentUpdateInput {
+  name: String
+  title: String
+  poster: Upload
+  slug: String
+  description: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+input StaticContentUpdateArgs {
+  where: StaticContentWhereUniqueInput!
+  data: StaticContentUpdateInput!
+}
+
+input StaticContentCreateInput {
+  name: String
+  title: String
+  poster: Upload
+  slug: String
+  description: String
+}
+
+type Experience {
+  id: ID!
+  title: String
+  slug: String
+  poster: CloudinaryImage_File
+  startDate: DateTime
+  endDate: DateTime
+  status: String
+  description: String
+  artworks(
+    where: ArtworkWhereInput! = {}
+    orderBy: [ArtworkOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Artwork!]
+  artworksCount(where: ArtworkWhereInput! = {}): Int
 }
 
 scalar DateTime
@@ -305,11 +313,6 @@ input ExperienceUpdateInput {
   description: String
   artworks: ArtworkRelateToManyForUpdateInput
 }
-
-"""
-The `Upload` scalar type represents a file upload.
-"""
-scalar Upload
 
 input ArtworkRelateToManyForUpdateInput {
   disconnect: [ArtworkWhereUniqueInput!]

@@ -10,7 +10,7 @@ import BackLink from "components/BackLink";
 export default function Home({
   experiences = [],
   artworks = [],
-  content = [{ name: "blah", title: "blah", description: "blah" }],
+  content = [{ name: "", title: "", description: "" }],
 }) {
   if (!content) {
     return (
@@ -33,8 +33,16 @@ export default function Home({
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
         <main>
           <PageTitle smallText={"welcome to"} largeText={homepage.title} />
-          <div className="flex relative max-w-full w-full h-96 my-16">
-            <Image src="/stock-museum-1.jpg" className="w-full" layout="fill" />
+          <div className="flex relative my-16">
+            <Image
+              src={
+                homepage.poster
+                  ? homepage.poster.publicUrl
+                  : "/stock-museum-1.jpg"
+              }
+              width="1080"
+              height="720"
+            />
           </div>
 
           <section className="container mx-auto mt-4">

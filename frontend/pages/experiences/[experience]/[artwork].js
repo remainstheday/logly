@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Field, Formik } from "formik";
 import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 export default function Artwork({ artwork }) {
@@ -27,11 +28,12 @@ export default function Artwork({ artwork }) {
             </h3>
           </div>
 
-          <img
+          <Image
             src={
               artwork.images ? artwork.images.publicUrl : "/stock-museum-1.jpg"
             }
-            className="w-full"
+            width="1080"
+            height="720"
           />
 
           <figure className="my-6">
@@ -59,13 +61,15 @@ export default function Artwork({ artwork }) {
               <div className="w-1/2">
                 <Link href={`/experiences`} passHref>
                   <a>
-                    <img
+                    <Image
                       src={
                         artwork.images
                           ? artwork.images.publicUrl
                           : "/stock-museum-1.jpg"
                       }
-                      className="w-full px-1"
+                      width="1080"
+                      height="720"
+                      className="px-1"
                     />
                     <h3>{artwork.title}</h3>
                   </a>

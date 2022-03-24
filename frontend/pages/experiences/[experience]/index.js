@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { getAllExperiences, getExperienceBySlug } from "lib/api";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 export default function Index({ experience, experiences }) {
   if (!experience) {
@@ -51,12 +52,14 @@ export default function Index({ experience, experiences }) {
                     passHref
                   >
                     <a>
-                      <img
+                      <Image
                         src={
                           artwork.images
                             ? artwork.images.publicUrl
                             : "/stock-museum-1.jpg"
                         }
+                        width="430"
+                        height="281"
                         className="w-full px-1"
                       />
                       <h3 className="font-bold">{artwork.artist}</h3>

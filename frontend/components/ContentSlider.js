@@ -43,18 +43,13 @@ export default function ContentSlider({ items, contentType }) {
 
   const experiencesContent = () => {
     return items.map((item, index) => (
-      <div
-        key={index}
-        ref={refs[index]}
-        className="carousel-card w-full flex-shrink-0"
-      >
+      <div key={index} ref={refs[index]} className="w-full flex-shrink-0">
         <Link href={`/experiences/${item.slug}`} key={index} passHref>
           <a>
             <Image
               src={item.poster ? item.poster.publicUrl : "/stock-museum-1.jpg"}
-              className="w-full mx-auto"
-              width={896}
-              height={384}
+              width={1080}
+              height={720}
             />
             <strong className="pl-7">{item.title}</strong>
           </a>
@@ -65,11 +60,12 @@ export default function ContentSlider({ items, contentType }) {
 
   const artworkContent = () => {
     return items.map((item, index) => (
-      <div className="carousel-card w-full flex-shrink-0" key={index}>
+      <div className="w-full flex-shrink-0" key={index}>
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <img
-            className="w-full"
+          <Image
             src={item.images ? item.images.publicUrl : "/stock-museum-2.jpg"}
+            width="1080"
+            height="720"
           />
 
           <div className="px-6 py-4">
