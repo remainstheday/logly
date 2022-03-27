@@ -350,6 +350,7 @@ type Artwork {
   startDate: DateTime
   endDate: DateTime
   status: String
+  imageUploader: JSON
   audioFile: FileFieldOutput
   images: CloudinaryImage_File
   description: String
@@ -413,6 +414,7 @@ input ArtworkUpdateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
+  imageUploader: JSON
   audioFile: FileFieldInput
   images: Upload
   description: String
@@ -435,6 +437,7 @@ input ArtworkCreateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
+  imageUploader: JSON
   audioFile: FileFieldInput
   images: Upload
   description: String

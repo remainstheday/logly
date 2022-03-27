@@ -7,6 +7,7 @@ import {
   timestamp,
   select,
   file,
+  json,
 } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { Lists } from ".keystone/types";
