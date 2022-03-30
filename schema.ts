@@ -150,7 +150,7 @@ export const lists: Lists = {
           displayMode: "segmented-control",
         },
       }),
-      audioFile: text(),
+      audioFile: file(),
       images: cloudinaryImage({
         cloudinary,
         label: "Artwork",
