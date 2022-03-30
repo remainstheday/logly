@@ -9,6 +9,18 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "StaticContent" (
+    "id" UUID NOT NULL,
+    "name" TEXT NOT NULL DEFAULT E'',
+    "title" TEXT NOT NULL DEFAULT E'',
+    "poster" JSONB,
+    "slug" TEXT NOT NULL DEFAULT E'',
+    "description" TEXT NOT NULL DEFAULT E'',
+
+    CONSTRAINT "StaticContent_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Experience" (
     "id" UUID NOT NULL,
     "title" TEXT NOT NULL DEFAULT E'',
@@ -17,7 +29,7 @@ CREATE TABLE "Experience" (
     "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
     "status" TEXT DEFAULT E'draft',
-    "content" JSONB NOT NULL DEFAULT E'[{"type":"paragraph","children":[{"text":""}]}]',
+    "description" TEXT NOT NULL DEFAULT E'',
 
     CONSTRAINT "Experience_pkey" PRIMARY KEY ("id")
 );
@@ -31,11 +43,9 @@ CREATE TABLE "Artwork" (
     "startDate" TIMESTAMP(3),
     "endDate" TIMESTAMP(3),
     "status" TEXT DEFAULT E'draft',
-    "audioFile_filesize" INTEGER,
-    "audioFile_mode" TEXT,
-    "audioFile_filename" TEXT,
+    "audioFile" TEXT NOT NULL DEFAULT E'',
     "images" JSONB,
-    "overview" JSONB NOT NULL DEFAULT E'[{"type":"paragraph","children":[{"text":""}]}]',
+    "description" TEXT NOT NULL DEFAULT E'',
 
     CONSTRAINT "Artwork_pkey" PRIMARY KEY ("id")
 );
@@ -48,6 +58,9 @@ CREATE TABLE "_Experience_artworks" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "StaticContent_slug_key" ON "StaticContent"("slug");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Experience_slug_key" ON "Experience"("slug");

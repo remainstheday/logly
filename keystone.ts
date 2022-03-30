@@ -21,7 +21,7 @@ export default withAuth(
       url: process.env.DATABASE_URL!,
       idField: { kind: "uuid" },
       // @ts-ignore
-      useMigrations: process.env.MIGRATIONS,
+      useMigrations: true,
       async onConnect(context) {
         const homepage = await context.prisma.staticContent.count({
           where: { name: "Home" },
