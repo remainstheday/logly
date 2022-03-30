@@ -47,9 +47,7 @@ model Artwork {
   startDate                DateTime?
   endDate                  DateTime?
   status                   String?      @default("draft")
-  audioFile_filesize       Int?
-  audioFile_mode           String?
-  audioFile_filename       String?
+  audioFile                String       @default("")
   images                   Json?
   description              String       @default("")
   from_Experience_artworks Experience[] @relation("Experience_artworks")

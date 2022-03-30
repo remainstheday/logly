@@ -8,6 +8,7 @@ import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
+import ArtworkCarousel from "components/ArtworkCarousel";
 
 export default function Artwork({ artwork }) {
   if (!artwork) return <>loading...</>;
@@ -27,7 +28,7 @@ export default function Artwork({ artwork }) {
                 ` - ${format(new Date(artwork.endDate), "MMM dd, yyyy")}`}
             </h3>
           </div>
-
+          <ArtworkCarousel items={[artwork]} />
           <Image
             src={
               artwork.images ? artwork.images.publicUrl : "/stock-museum-1.jpg"
