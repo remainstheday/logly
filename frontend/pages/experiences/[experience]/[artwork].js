@@ -4,13 +4,18 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import { format } from "date-fns";
 import { Field, Formik } from "formik";
-import { getAllArtworks, getAllExperiences, getArtworkBySlug } from "lib/api";
+import {
+  getAllArtworks,
+  getAllExperiences,
+  getArtworkBySlug,
+  getExperienceBySlug,
+} from "lib/api";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import ArtworkCarousel from "components/ArtworkCarousel";
 
-export default function Artwork({ artwork }) {
+export default function Artwork({ artwork, experience }) {
   if (!artwork) return <>loading...</>;
   return (
     <>
@@ -51,31 +56,37 @@ export default function Artwork({ artwork }) {
           <p className="mt-6">{artwork.description}</p>
         </section>
         <section className="container mt-20 md:mt-32 mx-auto">
-          <Link href="/">
+          <Link href={`/experiences/`}>
             <a>
               <h3 className="pb-3 section-title">Go To Experience</h3>
             </a>
           </Link>
           <hr />
           <div className="w-full mt-4">
-            <div className="flex">
-              <div className="w-1/2">
-                <Link href={`/experiences`} passHref>
-                  <a>
-                    <Image
-                      src={
-                        artwork.images
-                          ? artwork.images.publicUrl
-                          : "/stock-museum-1.jpg"
-                      }
-                      width="1080"
-                      height="720"
-                      className="px-1"
-                    />
-                    <h3>{artwork.title}</h3>
-                  </a>
-                </Link>
-              </div>
+            <div className="flex flex-wrap">
+              {experience.artworks.map((artwork, index) => (
+                <div className="w-1/2 my-4" key={index}>
+                  <Link
+                    href={`/experiences/${experience.slug}/${artwork.slug}`}
+                    passHref
+                  >
+                    <a>
+                      <Image
+                        src={
+                          artwork.images
+                            ? artwork.images.publicUrl
+                            : "/stock-museum-1.jpg"
+                        }
+                        width="430"
+                        height="281"
+                        className="w-full px-1"
+                      />
+                      <h3 className="font-bold">{artwork.artist}</h3>
+                      <h4>{artwork.title}</h4>
+                    </a>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -151,8 +162,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const artwork = await getArtworkBySlug(`${params.artwork}`);
+  const experience = await getExperienceBySlug(`${params.experience}`);
   return {
-    props: { artwork },
+    props: { artwork, experience },
     revalidate: 1,
   };
 }
