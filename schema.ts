@@ -93,9 +93,11 @@ export const lists: Lists = {
       },
     },
     fields: {
-      title: text(),
+      title: text({
+        label: "Name of experience",
+      }),
       slug: text({
-        label: "https://logly.world/experiences/<insert-slug>",
+        label: "URL Slug (e.g. /experience-name)",
         isIndexed: "unique",
         isFilterable: true,
         validation: {
@@ -124,7 +126,7 @@ export const lists: Lists = {
           displayMode: "textarea",
         },
       }),
-      artworks: relationship({ ref: "Artwork", many: true }),
+      artworks: relationship({ ref: "Artwork.experiences", many: true }),
     },
   }),
 
@@ -160,6 +162,7 @@ export const lists: Lists = {
           displayMode: "textarea",
         },
       }),
+      experiences: relationship({ ref: "Experience.artworks", many: true }),
     },
   }),
 };

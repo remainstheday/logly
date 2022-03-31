@@ -353,6 +353,13 @@ type Artwork {
   audioFile: FileFieldOutput
   images: CloudinaryImage_File
   description: String
+  experiences(
+    where: ExperienceWhereInput! = {}
+    orderBy: [ExperienceOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Experience!]
+  experiencesCount(where: ExperienceWhereInput! = {}): Int
 }
 
 interface FileFieldOutput {
@@ -393,6 +400,13 @@ input ArtworkWhereInput {
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
   description: StringFilter
+  experiences: ExperienceManyRelationFilter
+}
+
+input ExperienceManyRelationFilter {
+  every: ExperienceWhereInput
+  some: ExperienceWhereInput
+  none: ExperienceWhereInput
 }
 
 input ArtworkOrderByInput {
@@ -416,11 +430,19 @@ input ArtworkUpdateInput {
   audioFile: FileFieldInput
   images: Upload
   description: String
+  experiences: ExperienceRelateToManyForUpdateInput
 }
 
 input FileFieldInput {
   upload: Upload
   ref: String
+}
+
+input ExperienceRelateToManyForUpdateInput {
+  disconnect: [ExperienceWhereUniqueInput!]
+  set: [ExperienceWhereUniqueInput!]
+  create: [ExperienceCreateInput!]
+  connect: [ExperienceWhereUniqueInput!]
 }
 
 input ArtworkUpdateArgs {
@@ -438,6 +460,12 @@ input ArtworkCreateInput {
   audioFile: FileFieldInput
   images: Upload
   description: String
+  experiences: ExperienceRelateToManyForCreateInput
+}
+
+input ExperienceRelateToManyForCreateInput {
+  create: [ExperienceCreateInput!]
+  connect: [ExperienceWhereUniqueInput!]
 }
 
 """
