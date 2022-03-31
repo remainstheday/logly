@@ -350,14 +350,35 @@ type Artwork {
   startDate: DateTime
   endDate: DateTime
   status: String
-  audioFile: String
+  audioFile: FileFieldOutput
   images: CloudinaryImage_File
   description: String
+}
+
+interface FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
 }
 
 input ArtworkWhereUniqueInput {
   id: ID
   slug: String
+}
+
+type LocalFileFieldOutput implements FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
+}
+
+type CloudFileFieldOutput implements FileFieldOutput {
+  filename: String!
+  filesize: Int!
+  ref: String!
+  url: String!
 }
 
 input ArtworkWhereInput {
@@ -371,7 +392,6 @@ input ArtworkWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
-  audioFile: StringFilter
   description: StringFilter
 }
 
@@ -383,7 +403,6 @@ input ArtworkOrderByInput {
   startDate: OrderDirection
   endDate: OrderDirection
   status: OrderDirection
-  audioFile: OrderDirection
   description: OrderDirection
 }
 
@@ -394,9 +413,14 @@ input ArtworkUpdateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
-  audioFile: String
+  audioFile: FileFieldInput
   images: Upload
   description: String
+}
+
+input FileFieldInput {
+  upload: Upload
+  ref: String
 }
 
 input ArtworkUpdateArgs {
@@ -411,7 +435,7 @@ input ArtworkCreateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
-  audioFile: String
+  audioFile: FileFieldInput
   images: Upload
   description: String
 }
