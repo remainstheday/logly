@@ -6,6 +6,7 @@ import SectionLink from "components/SectionLink";
 import { getAllArtworks, getAllExperiences, getStaticContents } from "lib/api";
 import Image from "next/image";
 import BackLink from "components/BackLink";
+import SocialCarousel from "components/SocialCarousel";
 
 export default function Home({
   experiences = [],
@@ -65,7 +66,7 @@ export default function Home({
             <h3 className="pb-3 section-title">Art Social</h3>
             <hr />
             <div className="w-full mt-4">
-              <ContentSlider items={artworks} contentType="artwork" />
+              <SocialCarousel items={artworks} />
               <SectionLink href={`/`} text={"Discover Art Social"} />
             </div>
           </section>

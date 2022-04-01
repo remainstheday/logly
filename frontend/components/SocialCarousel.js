@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { ChevronBackOutline, ChevronForwardOutline } from "react-ionicons";
 
-export default function ContentSlider({ items, contentType }) {
+export default function SocialCarousel({ items, contentType }) {
   const [currentItem, setCurrentItem] = React.useState(0);
   if (!items) return <></>;
   const refs = items
@@ -41,38 +41,6 @@ export default function ContentSlider({ items, contentType }) {
     }
   };
 
-  const experiencesContent = () =>
-    items.map((item, index) => (
-      <div key={index} ref={refs[index]} className="w-full flex-shrink-0">
-        <Link href={`/experiences/${item.slug}`} key={index} passHref>
-          <a>
-            <Image
-              src={item.poster ? item.poster.publicUrl : "/stock-museum-1.jpg"}
-              width={1080}
-              height={720}
-            />
-            <strong className="pl-7">{item.title}</strong>
-          </a>
-        </Link>
-      </div>
-    ));
-
-  const artworkContent = () =>
-    items.map((item, index) => (
-      <div className="flex w-full">
-        <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <div className="px-6 py-4">
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-        </div>
-      </div>
-    ));
-
   return (
     <div className="w-full flex justify-center items-center overflow-hidden mb-10">
       <div className="relative w-full ">
@@ -88,8 +56,20 @@ export default function ContentSlider({ items, contentType }) {
             />
           )}
 
-          {contentType === "experience" && experiencesContent()}
-          {contentType === "artwork" && artworkContent()}
+          {items.map((item, index) => (
+            <div key={index} className="flex w-full">
+              <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
+              <div className="max-w-sm rounded overflow-hidden shadow-lg">
+                <div className="px-6 py-4">
+                  <p className="text-gray-700 text-base">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                    exercitationem praesentium nihil.
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
 
           {items.length > 1 && (
             <ChevronForwardOutline

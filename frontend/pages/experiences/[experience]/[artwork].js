@@ -1,4 +1,3 @@
-import ArtworkCard from "components/ArtworkCard";
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
@@ -14,6 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import ArtworkCarousel from "components/ArtworkCarousel";
+import SectionLink from "components/SectionLink";
 
 export default function Artwork({ artwork, experience }) {
   if (!artwork) return <>loading...</>;
@@ -99,7 +99,7 @@ export default function Artwork({ artwork, experience }) {
               console.log(values);
             }}
           >
-            {({ values, errors, isSubmitting, handleSubmit }) => (
+            {({ values }) => (
               <form className="social-form">
                 <input
                   className="w-full md:w-1/2"
@@ -129,7 +129,20 @@ export default function Artwork({ artwork, experience }) {
           </h3>
           <hr />
           <br />
-          <ArtworkCard img={artwork.images ? artwork.images.publicUrl : ""} />
+          <div className="flex w-full">
+            <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
+            <div className="max-w-sm rounded overflow-hidden shadow-lg">
+              <div className="px-6 py-4">
+                <p className="text-gray-700 text-base">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                  exercitationem praesentium nihil.
+                </p>
+              </div>
+            </div>
+          </div>
+          <br />
+          <SectionLink href={`/social`} text={"Discover Art Social"} />
         </section>
       </div>
       <Footer />
