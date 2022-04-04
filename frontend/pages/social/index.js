@@ -53,8 +53,8 @@ export default function Social({}) {
           </h3>
           <hr />
           <div className="flex flex-wrap">
-            {[1, 2, 3, 4].map((post) => (
-              <div className="flex w-1/2">
+            {[1, 2, 3, 4].map((post, index) => (
+              <div key={index} className="flex w-1/2">
                 <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
                 <div className="max-w-sm rounded overflow-hidden shadow-lg">
                   <div className="px-6 py-4">
