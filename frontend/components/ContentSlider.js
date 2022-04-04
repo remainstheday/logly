@@ -59,7 +59,7 @@ export default function ContentSlider({ items, contentType }) {
 
   const artworkContent = () =>
     items.map((item, index) => (
-      <div className="flex w-full">
+      <div key={index} className="flex w-full">
         <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
         <div className="max-w-sm rounded overflow-hidden shadow-lg">
           <div className="px-6 py-4">
@@ -75,7 +75,7 @@ export default function ContentSlider({ items, contentType }) {
 
   return (
     <div className="w-full flex justify-center items-center overflow-hidden mb-10">
-      <div className="relative w-full ">
+      <div className="relative w-full">
         <div className="carousel">
           {items.length > 1 && (
             <ChevronBackOutline
