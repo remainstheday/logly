@@ -7,7 +7,6 @@ import {
   timestamp,
   select,
   file,
-  json,
 } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { Lists } from ".keystone/types";
@@ -94,7 +93,7 @@ export const lists: Lists = {
     },
     fields: {
       title: text({
-        label: "Name of experience",
+        label: "Experience Title",
       }),
       slug: text({
         label: "URL Slug (e.g. /experience-name)",
