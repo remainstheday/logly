@@ -6,7 +6,6 @@ import SectionLink from "components/SectionLink";
 import { getAllArtworks, getAllExperiences, getStaticContents } from "lib/api";
 import Image from "next/image";
 import BackLink from "components/BackLink";
-import SocialCarousel from "components/SocialCarousel";
 
 export default function Home({
   experiences = [],
@@ -65,10 +64,21 @@ export default function Home({
           <section className="container mt-20 md:mt-32 mx-auto">
             <h3 className="pb-3 section-title">Art Social</h3>
             <hr />
-            <div className="w-full mt-4">
-              <SocialCarousel items={artworks} />
-              <SectionLink href={`/`} text={"Discover Art Social"} />
+            <br />
+            <div className="flex w-full">
+              <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
+              <div className="max-w-sm ml-2 rounded overflow-hidden shadow-lg">
+                <div className="px-6 py-4">
+                  <p className="text-gray-700 text-base">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                    exercitationem praesentium nihil.
+                  </p>
+                </div>
+              </div>
             </div>
+            <br />
+            <SectionLink href={`/social`} text={"Discover Art Social"} />
           </section>
         </main>
       </div>
