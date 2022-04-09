@@ -102,7 +102,7 @@ export default function Artwork({ artwork, experience }) {
             {({ values }) => (
               <form className="social-form">
                 <input
-                  className="w-full md:w-1/2"
+                  className="w-full"
                   type="text"
                   name="name"
                   value={values.email}
