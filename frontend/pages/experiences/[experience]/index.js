@@ -4,10 +4,11 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
-import { getAllExperiences, getExperienceBySlug } from "lib/api";
+import {GET_ALL_EXPERIENCES, GET_EXPERIENCE_BY_SLUG} from "lib/api";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import client from "lib/apollo-client";
 
 export default function Index({ experience, experiences }) {
   if (!experience) {
@@ -90,9 +91,12 @@ export default function Index({ experience, experiences }) {
 }
 
 export async function getStaticPaths() {
-  const experiences = await getAllExperiences();
+  // const experiences = await getAllExperiences();
+  const experiences = await client.query({
+    query: GET_ALL_EXPERIENCES
+  })
   const paths =
-    experiences.map((item) => ({ params: { experience: item.slug } })) || [];
+    experiences.data.experiences.map((item) => ({ params: { experience: item.slug } })) || [];
 
   return {
     paths,
@@ -101,10 +105,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const experience = await getExperienceBySlug(`${params.experience}`);
-  const experiences = await getAllExperiences();
+
+  const experience = await client.query({
+    query: GET_EXPERIENCE_BY_SLUG,
+    variables: {slug: `${params.experience}`}
+  })
+
+  const experiences = await client.query({
+    query: GET_ALL_EXPERIENCES
+  })
+
   return {
-    props: { experience, experiences },
+    props: { experience: experience.data.experience, experiences: experiences.data.experiences },
     revalidate: 1,
   };
 }

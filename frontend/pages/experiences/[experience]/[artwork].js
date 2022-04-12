@@ -4,16 +4,15 @@ import Header from "components/Header";
 import { format } from "date-fns";
 import { Field, Formik } from "formik";
 import {
-  getAllArtworks,
-  getAllExperiences,
-  getArtworkBySlug,
-  getExperienceBySlug,
+  GET_ALL_ARTWORKS,
+  GET_ALL_EXPERIENCES, GET_ARTWORK_BY_SLUG, GET_EXPERIENCE_BY_SLUG,
 } from "lib/api";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import ArtworkCarousel from "components/ArtworkCarousel";
 import SectionLink from "components/SectionLink";
+import client from "lib/apollo-client";
 
 export default function Artwork({ artwork, experience }) {
   if (!artwork) return <>loading...</>;
@@ -109,13 +108,13 @@ export default function Artwork({ artwork, experience }) {
                   placeholder="Name"
                 />
                 <Field
-                  className="w-full md:w-1/2"
+                  className="w-full"
                   as="textarea"
                   name="comments"
                   rows="5"
                   placeholder="write a comment"
                 />
-                <button type="submit" className="w-full md:w-1/2">
+                <button type="submit" className="w-full">
                   Share
                 </button>
               </form>
@@ -151,12 +150,21 @@ export default function Artwork({ artwork, experience }) {
 }
 
 export async function getStaticPaths() {
-  const experiences = await getAllExperiences();
-  const artworks = await getAllArtworks();
+  // const experiences = await getAllExperiences();
+  const experiences = await client.query({
+    query: GET_ALL_EXPERIENCES
+  })
+  // const artworks = await getAllArtworks();
 
-  const paths = experiences
+  const artworks = await client.query({
+    query: GET_ALL_ARTWORKS
+  })
+
+
+
+  const paths = experiences.data
     .map((experience) => {
-      return artworks.map((artwork) => {
+      return artworks.data.map((artwork) => {
         return {
           params: {
             experience: experience.slug,
@@ -174,10 +182,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const artwork = await getArtworkBySlug(`${params.artwork}`);
-  const experience = await getExperienceBySlug(`${params.experience}`);
+  const artwork = await client.query({
+    query: GET_ARTWORK_BY_SLUG,
+    variables: {slug: `${params.artwork}`}
+  })
+
+  const experience = await client.query({
+    query: GET_EXPERIENCE_BY_SLUG,
+    variables: {slug: `${params.experience}`}
+  })
+
   return {
-    props: { artwork, experience },
+    props: { artwork: artwork.data, experience: experience.data },
     revalidate: 1,
   };
 }

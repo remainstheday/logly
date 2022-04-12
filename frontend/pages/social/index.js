@@ -2,13 +2,13 @@ import Header from "components/Header";
 import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
-import { Field, Formik } from "formik";
 import React from "react";
 
 import Image from "next/image";
+import ClientOnly from "components/ClientOnly";
+import { addComment } from "lib/api";
 
 export default function Social({}) {
-  const socialPosts = [0];
   return (
     <>
       <Header />
@@ -18,34 +18,25 @@ export default function Social({}) {
         <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />
-          <Formik
-            initialValues={{ name: "", comments: "" }}
-            onSubmit={(values) => {
-              console.log(values);
-            }}
-          >
-            {({ values }) => (
-              <form className="social-form">
-                <input
-                  className="w-full md:w-1/2"
-                  type="text"
-                  name="art visitor"
-                  value={values.email}
-                  placeholder="Name"
-                />
-                <Field
-                  className="w-full md:w-1/2"
-                  as="textarea"
-                  name="comments"
-                  rows="5"
-                  placeholder="Leave your thoughts and images at the moment"
-                />
-                <button type="submit" className="w-full md:w-1/2">
-                  Share
-                </button>
-              </form>
-            )}
-          </Formik>
+          <ClientOnly>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await addComment("Im working");
+              }}
+              className="social-form"
+            >
+              <textarea
+                className="w-full"
+                name="comment"
+                rows="5"
+                placeholder="Leave your thoughts and images at the moment"
+              />
+              <button type="submit" className="w-full">
+                Share
+              </button>
+            </form>
+          </ClientOnly>
         </section>
         <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">

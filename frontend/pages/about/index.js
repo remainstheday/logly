@@ -1,8 +1,9 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import { getStaticContents } from "lib/api";
+import {GET_STATIC_CONTENTS} from "lib/api";
 import PageTitle from "components/PageTitle";
+import client from "lib/apollo-client";
 
 export default function About({
   content = [{ name: "blah", title: "blah", description: "blah" }],
@@ -22,8 +23,9 @@ export default function About({
 }
 
 export async function getServerSideProps() {
-  const content = await getStaticContents("about");
-  return {
-    props: { content },
-  };
+    const {data} = await client.query({
+        query: GET_STATIC_CONTENTS,
+        variables: {slug: "about"}
+    })
+    return {props: {content: data.staticContents}}
 }

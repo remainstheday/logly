@@ -3,9 +3,10 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
-import { getAllArtworks, getAllExperiences, getStaticContents } from "lib/api";
+import {GET_ALL_ARTWORKS, GET_ALL_EXPERIENCES, GET_STATIC_CONTENTS} from "lib/api";
 import Image from "next/image";
 import BackLink from "components/BackLink";
+import client from "lib/apollo-client";
 
 export default function Home({
   experiences = [],
@@ -88,11 +89,17 @@ export default function Home({
 }
 
 export async function getServerSideProps() {
-  const content = await getStaticContents("");
-  const experiences = await getAllExperiences();
-  const artworks = await getAllArtworks();
+  const content = await client.query({
+    query: GET_STATIC_CONTENTS, variables: {slug: ''}
+  })
+  const experiences = await client.query({
+    query: GET_ALL_EXPERIENCES
+  })
+  const artworks = await client.query({
+    query: GET_ALL_ARTWORKS
+  })
 
   return {
-    props: { experiences, artworks, content },
+    props: { experiences: experiences.data.experiences, artworks: artworks.data, content: content.data.staticContents },
   };
 }

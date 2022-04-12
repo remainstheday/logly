@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { getAllExperiences } from "lib/api";
+import {GET_ALL_EXPERIENCES} from "lib/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Tab from "components/Tab";
@@ -7,6 +7,7 @@ import Thumbnail from "components/Thumbnail";
 import BackLink from "components/BackLink";
 import React from "react";
 import PageTitle from "components/PageTitle";
+import client from "lib/apollo-client";
 
 export default function Experience({ experiences }) {
   const { query } = useRouter();
@@ -96,9 +97,9 @@ export default function Experience({ experiences }) {
 }
 
 export async function getServerSideProps() {
-  const experiences = await getAllExperiences();
+  const {data} = await client.query({
+    query: GET_ALL_EXPERIENCES
+  })
 
-  return {
-    props: { experiences },
-  };
+  return {props: {experiences: data.experiences}}
 }

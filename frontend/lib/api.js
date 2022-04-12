@@ -1,76 +1,47 @@
-const API_URL = process.env.API_URL;
+import { gql } from "@apollo/client";
 
-async function fetchAPI(query, { variables } = {}) {
-  const headers = { "Content-Type": "application/json" };
-  // todo: check for authorization headers
-
-  const res = await fetch(API_URL, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  });
-
-  const json = await res.json();
-  if (json.errors) {
-    console.error(json.errors);
-    throw new Error("failed to fetch API");
-  }
-
-  return json.data;
-}
-
-export async function getStaticContents(slug) {
-  const data = await fetchAPI(
-    `query staticContents($slug: String) {
-      staticContents(where: {slug: {equals: $slug}}) {
-        id
-        slug
-        name
-        title
-        poster {
-          id
-          filename
-          mimetype
-          encoding
-          publicUrl
-        }
-        description
-      }
-    }`,
-    { variables: { slug } }
-  );
-
-  return data?.staticContents;
-}
-
-export async function getAllExperiences() {
-  const data = await fetchAPI(`{
-  experiences {
-    id
-    title
-    slug
-    description
-    poster {
+export const GET_STATIC_CONTENTS = gql`
+  query staticContents($slug: String) {
+    staticContents(where: { slug: { equals: $slug } }) {
       id
-      filename
-      mimetype
-      encoding
-      publicUrl
+      slug
+      name
+      title
+      poster {
+        id
+        filename
+        mimetype
+        encoding
+        publicUrl
+      }
+      description
     }
-    startDate
-    endDate
-    status
   }
-}`);
+`;
 
-  return data?.experiences;
-}
+export const GET_ALL_EXPERIENCES = gql`
+  {
+    experiences {
+      id
+      title
+      slug
+      description
+      poster {
+        id
+        filename
+        mimetype
+        encoding
+        publicUrl
+      }
+      startDate
+      endDate
+      status
+    }
+  }
+`;
 
-export async function getAllArtworks() {
-  const data = await fetchAPI(`{
+export const GET_ALL_ARTWORKS = gql`
+{
   artworks {
     id
     title
@@ -85,14 +56,11 @@ export async function getAllArtworks() {
       publicUrl
     }
   }
-}`);
-
-  return data?.artworks;
 }
+`;
 
-export async function getExperienceBySlug(slug) {
-  const data = await fetchAPI(
-    `query Experience($slug: String){
+export const GET_EXPERIENCE_BY_SLUG = gql`
+query Experience($slug: String){
       experience(where: {slug: $slug}) {
         title
         slug
@@ -114,16 +82,11 @@ export async function getExperienceBySlug(slug) {
           }
         }
       }
-}`,
-    { variables: { slug } }
-  );
-
-  return data?.experience;
 }
+`;
 
-export async function getArtworkBySlug(slug) {
-  const data = await fetchAPI(
-    `query Artwork($slug: String) {
+export const GET_ARTWORK_BY_SLUG = gql`
+query Artwork($slug: String) {
       artwork(where: {slug: $slug}) {
         id
         title
@@ -140,9 +103,5 @@ export async function getArtworkBySlug(slug) {
           publicUrl
         }
       }
-    }`,
-    { variables: { slug } }
-  );
-
-  return data?.artwork;
-}
+    }
+`
