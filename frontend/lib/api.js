@@ -105,3 +105,11 @@ query Artwork($slug: String) {
       }
     }
 `
+export const GET_ALL_COMMENTS = gql`
+{
+  comments {
+    id
+    comment
+  }
+}
+`;

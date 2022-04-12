@@ -6,9 +6,10 @@ import React from "react";
 
 import Image from "next/image";
 import ClientOnly from "components/ClientOnly";
-import { addComment } from "lib/api";
+import client from "lib/apollo-client";
+import {GET_ALL_COMMENTS} from "lib/api";
 
-export default function Social({}) {
+export default function Social({comments}) {
   return (
     <>
       <Header />
@@ -22,7 +23,6 @@ export default function Social({}) {
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
-                await addComment("Im working");
               }}
               className="social-form"
             >
@@ -43,20 +43,18 @@ export default function Social({}) {
             See what the community has shared
           </h3>
           <hr />
-          <div className="flex flex-wrap">
-            {[1, 2, 3, 4].map((post, index) => (
-              <div key={index} className="flex w-1/2">
+          <div className="flex row flex-wrap w-full">
+            {comments.map((post, index) => (
+                <div className="w-1/2" key={index}>
                 <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
                 <div className="max-w-sm rounded overflow-hidden shadow-lg">
                   <div className="px-6 py-4">
                     <p className="text-gray-700 text-base">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                      exercitationem praesentium nihil.
+                      {post.comment}
                     </p>
                   </div>
                 </div>
-              </div>
+                </div>
             ))}
           </div>
           <br />
@@ -65,4 +63,14 @@ export default function Social({}) {
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const comments = await client.query({
+    query: GET_ALL_COMMENTS
+  })
+
+  return {
+    props: { comments: comments.data.comments },
+  };
 }
