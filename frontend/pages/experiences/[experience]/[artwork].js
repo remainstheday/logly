@@ -162,7 +162,7 @@ export async function getStaticPaths() {
 
 
 
-  const paths = experiences.data
+  const paths = experiences.data.experiences
     .map((experience) => {
       return artworks.data.map((artwork) => {
         return {
