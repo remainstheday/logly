@@ -164,7 +164,7 @@ export async function getStaticPaths() {
 
   const paths = experiences.data.experiences
     .map((experience) => {
-      return artworks.data.map((artwork) => {
+      return artworks.data.artworks.map((artwork) => {
         return {
           params: {
             experience: experience.slug,
