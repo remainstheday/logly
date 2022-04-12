@@ -193,7 +193,7 @@ export async function getStaticProps({ params }) {
   })
 
   return {
-    props: { artwork: artwork.data, experience: experience.data },
+    props: { artwork: artwork.data.artwork, experience: experience.data.experience },
     revalidate: 1,
   };
 }
