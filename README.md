@@ -1,4 +1,5 @@
-# ![Logly.world](https://github.com/remainstheday/logly/blob/master/Logo.png?raw=true) Logly
+### ![Logly.world](https://github.com/remainstheday/logly/blob/master/Logo.png?raw=true)
+
 Logly is a digital space for museums & their communities to connect, share, and create.
 
 ## Getting Started
