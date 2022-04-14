@@ -7,13 +7,13 @@ import React from "react";
 import Image from "next/image";
 import ClientOnly from "components/ClientOnly";
 import client from "lib/apollo-client";
-import {GET_ALL_COMMENTS} from "lib/api";
+import { GET_ALL_COMMENTS } from "lib/api";
 
-export default function Social({comments}) {
+export default function Social({ comments }) {
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen">
+      <div className="max-w-4xl mx-auto">
         <BackLink href={"/"} text={"Home"} />
         <PageTitle largeText={"ART Social"} />
         <section className="container mt-20 md:mt-32 mx-auto">
@@ -38,28 +38,30 @@ export default function Social({comments}) {
             </form>
           </ClientOnly>
         </section>
-        <section className="container mt-20 md:mt-32 mx-auto">
+      </div>
+      <section className="mt-20 md:mt-32 ">
+        <div className="filter max-w-4xl mx-auto">
           <h3 className="pb-3 section-title">
             See what the community has shared
           </h3>
-          <hr />
-          <div className="flex row flex-wrap w-full">
+        </div>
+        <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
+          <div className="grid grid-cols-2 gap-2 mx-auto lg:grid-cols-3">
             {comments.map((post, index) => (
-                <div className="w-1/2" key={index}>
+              <div
+                key={index}
+                className="w-full bg-white rounded overflow-hidden shadow-lg"
+              >
                 <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
-                <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                  <div className="px-6 py-4">
-                    <p className="text-gray-700 text-base">
-                      {post.comment}
-                    </p>
-                  </div>
+                <div className="px-3 py-3">
+                  <p className="text-gray-700 text-base">{post.comment}</p>
                 </div>
-                </div>
+              </div>
             ))}
           </div>
           <br />
-        </section>
-      </div>
+        </div>
+      </section>
       <Footer />
     </>
   );
@@ -67,8 +69,8 @@ export default function Social({comments}) {
 
 export async function getServerSideProps() {
   const comments = await client.query({
-    query: GET_ALL_COMMENTS
-  })
+    query: GET_ALL_COMMENTS,
+  });
 
   return {
     props: { comments: comments.data.comments },
