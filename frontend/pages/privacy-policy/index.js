@@ -2,12 +2,12 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
-import {GET_STATIC_CONTENTS} from "lib/api";
+import { GET_STATIC_CONTENTS } from "lib/api";
 import client from "lib/apollo-client";
+import Loading from "components/Loading";
 
-export default function Privacy({
-  content = [{ name: "blah", title: "blah", description: "blah" }],
-}) {
+export default function Privacy({ content = [] }) {
+  if (!content) return <Loading />;
   const page = content[0];
   return (
     <>
@@ -23,10 +23,11 @@ export default function Privacy({
 }
 
 export async function getServerSideProps() {
-    const content = await client.query({
-        query: GET_STATIC_CONTENTS, variables: {slug: "privacy-policy"}
-    })
+  const content = await client.query({
+    query: GET_STATIC_CONTENTS,
+    variables: { slug: "privacy-policy" },
+  });
   return {
-      props: { content: content.data.staticContents },
+    props: { content: content.data.staticContents },
   };
 }

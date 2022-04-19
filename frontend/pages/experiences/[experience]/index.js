@@ -4,27 +4,15 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
-import {GET_ALL_EXPERIENCES, GET_EXPERIENCE_BY_SLUG} from "lib/api";
+import { GET_ALL_EXPERIENCES, GET_EXPERIENCE_BY_SLUG } from "lib/api";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import client from "lib/apollo-client";
+import Loading from "components/Loading";
 
 export default function Index({ experience, experiences }) {
-  if (!experience) {
-    return (
-      <>
-        <Header />
-        <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-          <BackLink
-            href={"/experiences?viewAll=true"}
-            text={"Pick Experience"}
-          />
-          <p className="text-center">loading...</p>
-        </div>
-      </>
-    );
-  }
+  if (!experience || !experiences) return <Loading />;
   return (
     <>
       <Header />
@@ -93,10 +81,12 @@ export default function Index({ experience, experiences }) {
 export async function getStaticPaths() {
   // const experiences = await getAllExperiences();
   const experiences = await client.query({
-    query: GET_ALL_EXPERIENCES
-  })
+    query: GET_ALL_EXPERIENCES,
+  });
   const paths =
-    experiences.data.experiences.map((item) => ({ params: { experience: item.slug } })) || [];
+    experiences.data.experiences.map((item) => ({
+      params: { experience: item.slug },
+    })) || [];
 
   return {
     paths,
@@ -105,18 +95,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-
   const experience = await client.query({
     query: GET_EXPERIENCE_BY_SLUG,
-    variables: {slug: `${params.experience}`}
-  })
+    variables: { slug: `${params.experience}` },
+  });
 
   const experiences = await client.query({
-    query: GET_ALL_EXPERIENCES
-  })
+    query: GET_ALL_EXPERIENCES,
+  });
 
   return {
-    props: { experience: experience.data.experience, experiences: experiences.data.experiences },
+    props: {
+      experience: experience.data.experience,
+      experiences: experiences.data.experiences,
+    },
     revalidate: 1,
   };
 }

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import {GET_ALL_EXPERIENCES} from "lib/api";
+import { GET_ALL_EXPERIENCES } from "lib/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Tab from "components/Tab";
@@ -8,6 +8,7 @@ import BackLink from "components/BackLink";
 import React from "react";
 import PageTitle from "components/PageTitle";
 import client from "lib/apollo-client";
+import Loading from "components/Loading";
 
 export default function Experience({ experiences }) {
   const { query } = useRouter();
@@ -16,9 +17,7 @@ export default function Experience({ experiences }) {
   const isClosingSoonSelected = !!query.closingSoon;
   const isLongTermSelected = !!query.longTerm;
 
-  if (!experiences) return <>loading...</>;
-
-  // render each experience
+  if (!experiences) return <Loading />;
 
   const renderExperiences = (filteredExperience, title) => {
     return (
@@ -97,9 +96,9 @@ export default function Experience({ experiences }) {
 }
 
 export async function getServerSideProps() {
-  const {data} = await client.query({
-    query: GET_ALL_EXPERIENCES
-  })
+  const { data } = await client.query({
+    query: GET_ALL_EXPERIENCES,
+  });
 
-  return {props: {experiences: data.experiences}}
+  return { props: { experiences: data.experiences } };
 }

@@ -1,13 +1,13 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import {GET_STATIC_CONTENTS} from "lib/api";
+import { GET_STATIC_CONTENTS } from "lib/api";
 import PageTitle from "components/PageTitle";
 import client from "lib/apollo-client";
+import Loading from "components/Loading";
 
-export default function About({
-  content = [{ name: "blah", title: "blah", description: "blah" }],
-}) {
+export default function About({ content = [] }) {
+  if (!content) return <Loading />;
   const page = content[0];
   return (
     <>
@@ -23,9 +23,9 @@ export default function About({
 }
 
 export async function getServerSideProps() {
-    const {data} = await client.query({
-        query: GET_STATIC_CONTENTS,
-        variables: {slug: "about"}
-    })
-    return {props: {content: data.staticContents}}
+  const { data } = await client.query({
+    query: GET_STATIC_CONTENTS,
+    variables: { slug: "about" },
+  });
+  return { props: { content: data.staticContents } };
 }

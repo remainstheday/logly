@@ -5,7 +5,9 @@ import { format } from "date-fns";
 import { Field, Formik } from "formik";
 import {
   GET_ALL_ARTWORKS,
-  GET_ALL_EXPERIENCES, GET_ARTWORK_BY_SLUG, GET_EXPERIENCE_BY_SLUG,
+  GET_ALL_EXPERIENCES,
+  GET_ARTWORK_BY_SLUG,
+  GET_EXPERIENCE_BY_SLUG,
 } from "lib/api";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,9 +15,10 @@ import React from "react";
 import ArtworkCarousel from "components/ArtworkCarousel";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
+import Loading from "components/Loading";
 
 export default function Artwork({ artwork, experience }) {
-  if (!artwork) return <>loading...</>;
+  if (!artwork || !experience) return <Loading />;
   return (
     <>
       <Header />
@@ -152,15 +155,13 @@ export default function Artwork({ artwork, experience }) {
 export async function getStaticPaths() {
   // const experiences = await getAllExperiences();
   const experiences = await client.query({
-    query: GET_ALL_EXPERIENCES
-  })
+    query: GET_ALL_EXPERIENCES,
+  });
   // const artworks = await getAllArtworks();
 
   const artworks = await client.query({
-    query: GET_ALL_ARTWORKS
-  })
-
-
+    query: GET_ALL_ARTWORKS,
+  });
 
   const paths = experiences.data.experiences
     .map((experience) => {
@@ -184,16 +185,19 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const artwork = await client.query({
     query: GET_ARTWORK_BY_SLUG,
-    variables: {slug: `${params.artwork}`}
-  })
+    variables: { slug: `${params.artwork}` },
+  });
 
   const experience = await client.query({
     query: GET_EXPERIENCE_BY_SLUG,
-    variables: {slug: `${params.experience}`}
-  })
+    variables: { slug: `${params.experience}` },
+  });
 
   return {
-    props: { artwork: artwork.data.artwork, experience: experience.data.experience },
+    props: {
+      artwork: artwork.data.artwork,
+      experience: experience.data.experience,
+    },
     revalidate: 1,
   };
 }

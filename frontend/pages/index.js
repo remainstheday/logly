@@ -3,30 +3,22 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
-import {GET_ALL_ARTWORKS, GET_ALL_EXPERIENCES, GET_STATIC_CONTENTS} from "lib/api";
+import {
+  GET_ALL_ARTWORKS,
+  GET_ALL_EXPERIENCES,
+  GET_STATIC_CONTENTS,
+} from "lib/api";
 import Image from "next/image";
-import BackLink from "components/BackLink";
 import client from "lib/apollo-client";
+import Loading from "components/Loading";
 
 export default function Home({
   experiences = [],
   artworks = [],
-  content = [{ name: "", title: "", description: "" }],
+  content = [],
 }) {
-  if (!content) {
-    return (
-      <>
-        <Header />
-        <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-          <BackLink
-            href={"/experiences?viewAll=true"}
-            text={"Pick Experience"}
-          />
-          <p className="text-center">loading...</p>
-        </div>
-      </>
-    );
-  }
+  if (!content) return <Loading />;
+
   const homepage = content[0];
   return (
     <>
@@ -90,16 +82,21 @@ export default function Home({
 
 export async function getServerSideProps() {
   const content = await client.query({
-    query: GET_STATIC_CONTENTS, variables: {slug: ''}
-  })
+    query: GET_STATIC_CONTENTS,
+    variables: { slug: "" },
+  });
   const experiences = await client.query({
-    query: GET_ALL_EXPERIENCES
-  })
+    query: GET_ALL_EXPERIENCES,
+  });
   const artworks = await client.query({
-    query: GET_ALL_ARTWORKS
-  })
+    query: GET_ALL_ARTWORKS,
+  });
 
   return {
-    props: { experiences: experiences.data.experiences, artworks: artworks.data, content: content.data.staticContents },
+    props: {
+      experiences: experiences.data.experiences,
+      artworks: artworks.data,
+      content: content.data.staticContents,
+    },
   };
 }

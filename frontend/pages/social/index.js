@@ -8,8 +8,10 @@ import Image from "next/image";
 import ClientOnly from "components/ClientOnly";
 import client from "lib/apollo-client";
 import { GET_ALL_COMMENTS } from "lib/api";
+import Loading from "components/Loading";
 
 export default function Social({ comments }) {
+  if (!comments) return <Loading />;
   return (
     <>
       <Header />
