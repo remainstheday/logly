@@ -8,7 +8,7 @@ import BackLink from "components/BackLink";
 import React from "react";
 import PageTitle from "components/PageTitle";
 import client from "lib/apollo-client";
-import Loading from "components/Loading";
+import PageLoading from "components/PageLoading";
 
 export default function Experience({ experiences }) {
   const { query } = useRouter();
@@ -17,7 +17,7 @@ export default function Experience({ experiences }) {
   const isClosingSoonSelected = !!query.closingSoon;
   const isLongTermSelected = !!query.longTerm;
 
-  if (!experiences) return <Loading />;
+  if (!experiences) return <PageLoading />;
 
   const renderExperiences = (filteredExperience, title) => {
     return (

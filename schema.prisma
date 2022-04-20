@@ -11,6 +11,12 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
+model Museum {
+  id    String @id @default(uuid()) @postgresql.Uuid
+  Title String @default("")
+  slug  String @default("")
+}
+
 model Artwork {
   id                 String       @id @default(uuid()) @postgresql.Uuid
   title              String       @default("")
@@ -29,6 +35,7 @@ model Artwork {
 
 model User {
   id       String @id @default(uuid()) @postgresql.Uuid
+  museumId String @default("")
   name     String @default("")
   email    String @unique @default("")
   password String

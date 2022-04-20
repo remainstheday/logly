@@ -9,10 +9,10 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import client from "lib/apollo-client";
-import Loading from "components/Loading";
+import PageLoading from "components/PageLoading";
 
 export default function Index({ experience, experiences }) {
-  if (!experience || !experiences) return <Loading />;
+  if (!experience || !experiences) return <PageLoading />;
   return (
     <>
       <Header />

@@ -3,6 +3,12 @@
 
 type Mutation {
   addComment(comment: String!): Comment
+  createMuseum(data: MuseumCreateInput!): Museum
+  createMuseums(data: [MuseumCreateInput!]!): [Museum]
+  updateMuseum(where: MuseumWhereUniqueInput!, data: MuseumUpdateInput!): Museum
+  updateMuseums(data: [MuseumUpdateArgs!]!): [Museum]
+  deleteMuseum(where: MuseumWhereUniqueInput!): Museum
+  deleteMuseums(where: [MuseumWhereUniqueInput!]!): [Museum]
   createArtwork(data: ArtworkCreateInput!): Artwork
   createArtworks(data: [ArtworkCreateInput!]!): [Artwork]
   updateArtwork(
@@ -55,6 +61,96 @@ type Mutation {
   createInitialUser(
     data: CreateInitialUserInput!
   ): UserAuthenticationWithPasswordSuccess!
+}
+
+type Museum {
+  id: ID!
+  Title: String
+  slug: String
+}
+
+input MuseumWhereUniqueInput {
+  id: ID
+}
+
+input MuseumWhereInput {
+  AND: [MuseumWhereInput!]
+  OR: [MuseumWhereInput!]
+  NOT: [MuseumWhereInput!]
+  id: IDFilter
+  Title: StringFilter
+  slug: StringFilter
+}
+
+input IDFilter {
+  equals: ID
+  in: [ID!]
+  notIn: [ID!]
+  lt: ID
+  lte: ID
+  gt: ID
+  gte: ID
+  not: IDFilter
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  mode: QueryMode
+  not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input NestedStringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: NestedStringFilter
+}
+
+input MuseumOrderByInput {
+  id: OrderDirection
+  Title: OrderDirection
+  slug: OrderDirection
+}
+
+enum OrderDirection {
+  asc
+  desc
+}
+
+input MuseumUpdateInput {
+  Title: String
+  slug: String
+}
+
+input MuseumUpdateArgs {
+  where: MuseumWhereUniqueInput!
+  data: MuseumUpdateInput!
+}
+
+input MuseumCreateInput {
+  Title: String
+  slug: String
 }
 
 type Artwork {
@@ -170,51 +266,6 @@ input ArtworkWhereInput {
   experiences: ExperienceManyRelationFilter
 }
 
-input IDFilter {
-  equals: ID
-  in: [ID!]
-  notIn: [ID!]
-  lt: ID
-  lte: ID
-  gt: ID
-  gte: ID
-  not: IDFilter
-}
-
-input StringFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  mode: QueryMode
-  not: NestedStringFilter
-}
-
-enum QueryMode {
-  default
-  insensitive
-}
-
-input NestedStringFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: NestedStringFilter
-}
-
 input DateTimeNullableFilter {
   equals: DateTime
   in: [DateTime!]
@@ -272,11 +323,6 @@ input ArtworkOrderByInput {
   description: OrderDirection
 }
 
-enum OrderDirection {
-  asc
-  desc
-}
-
 input ArtworkUpdateInput {
   title: String
   artist: String
@@ -332,6 +378,7 @@ input ExperienceRelateToManyForCreateInput {
 
 type User {
   id: ID!
+  museumId: String
   name: String
   email: String
   password: PasswordState
@@ -351,17 +398,20 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
   id: IDFilter
+  museumId: StringFilter
   name: StringFilter
   email: StringFilter
 }
 
 input UserOrderByInput {
   id: OrderDirection
+  museumId: OrderDirection
   name: OrderDirection
   email: OrderDirection
 }
 
 input UserUpdateInput {
+  museumId: String
   name: String
   email: String
   password: String
@@ -373,6 +423,7 @@ input UserUpdateArgs {
 }
 
 input UserCreateInput {
+  museumId: String
   name: String
   email: String
   password: String
@@ -587,6 +638,14 @@ input CreateInitialUserInput {
 }
 
 type Query {
+  museums(
+    where: MuseumWhereInput! = {}
+    orderBy: [MuseumOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Museum!]
+  museum(where: MuseumWhereUniqueInput!): Museum
+  museumsCount(where: MuseumWhereInput! = {}): Int
   artworks(
     where: ArtworkWhereInput! = {}
     orderBy: [ArtworkOrderByInput!]! = []

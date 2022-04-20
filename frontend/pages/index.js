@@ -10,14 +10,14 @@ import {
 } from "lib/api";
 import Image from "next/image";
 import client from "lib/apollo-client";
-import Loading from "components/Loading";
+import PageLoading from "components/PageLoading";
 
 export default function Home({
   experiences = [],
   artworks = [],
   content = [],
 }) {
-  if (!content) return <Loading />;
+  if (!content) return <PageLoading />;
 
   const homepage = content[0];
   return (

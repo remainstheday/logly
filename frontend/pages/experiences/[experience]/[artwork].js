@@ -15,10 +15,10 @@ import React from "react";
 import ArtworkCarousel from "components/ArtworkCarousel";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
-import Loading from "components/Loading";
+import PageLoading from "components/PageLoading";
 
 export default function Artwork({ artwork, experience }) {
-  if (!artwork || !experience) return <Loading />;
+  if (!artwork || !experience) return <PageLoading />;
   return (
     <>
       <Header />

@@ -4,10 +4,10 @@ import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
 import { GET_STATIC_CONTENTS } from "lib/api";
 import client from "lib/apollo-client";
-import Loading from "components/Loading";
+import PageLoading from "components/PageLoading";
 
 export default function Privacy({ content = [] }) {
-  if (!content) return <Loading />;
+  if (!content) return <PageLoading />;
   const page = content[0];
   return (
     <>

@@ -3,6 +3,7 @@ import { password, text } from "@keystone-6/core/fields";
 
 export const User = list({
   fields: {
+    museumId: text({}),
     name: text({ validation: { isRequired: true } }),
     email: text({
       validation: { isRequired: true },

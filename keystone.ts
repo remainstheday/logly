@@ -3,6 +3,7 @@ import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
 import { statelessSessions } from "@keystone-6/core/session";
 import { extendGraphqlSchema } from "./mutations";
+import { Museum } from "./schemas/Museum";
 import { Artwork } from "./schemas/Artwork";
 import { User } from "./schemas/User";
 import { Experience } from "./schemas/Experience";
@@ -45,6 +46,7 @@ export default withAuth(
       isAccessAllowed: (context) => !!context.session?.data,
     },
     lists: {
+      Museum,
       Artwork,
       User,
       Experience,
