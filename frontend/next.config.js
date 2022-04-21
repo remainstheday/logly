@@ -1,4 +1,6 @@
-module.exports = {
+const withTM = require("next-transpile-modules")(["pintura", "react-pintura"]);
+
+module.exports = withTM({
   reactStrictMode: true,
   images: {
     domains: [
@@ -7,4 +9,4 @@ module.exports = {
       "res.cloudinary.com",
     ],
   },
-};
+});

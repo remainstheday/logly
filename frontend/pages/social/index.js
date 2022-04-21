@@ -9,6 +9,7 @@ import ClientOnly from "components/ClientOnly";
 import client from "lib/apollo-client";
 import { GET_ALL_COMMENTS } from "lib/api";
 import PageLoading from "components/PageLoading";
+import ImageUploader from "components/ImageUploader";
 
 export default function Social({ comments }) {
   if (!comments) return <PageLoading />;
@@ -21,6 +22,7 @@ export default function Social({ comments }) {
         <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />
+          <ImageUploader />
           <ClientOnly>
             <form
               onSubmit={async (e) => {
