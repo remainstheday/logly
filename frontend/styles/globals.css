@@ -20,11 +20,15 @@ html {
   left: 51px;
   top: 2438px;
   color: #fff;
-  background: #EB4C27;
-
 }
 
+.social-form .submit-btn {
+  background: #EB4C27;
+}
 
+.social-form .upload-btn {
+  background: black;
+}
 
 .section-title {
   font-family: "Karla", sans-serif;

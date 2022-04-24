@@ -22,7 +22,7 @@ export default function Social({ comments }) {
         <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />
-          <ImageUploader />
+
           <ClientOnly>
             <form
               onSubmit={async (e) => {
@@ -30,15 +30,19 @@ export default function Social({ comments }) {
               }}
               className="social-form"
             >
+              <input type="text" />
               <textarea
                 className="w-full"
                 name="comment"
                 rows="5"
                 placeholder="Leave your thoughts and images at the moment"
               />
-              <button type="submit" className="w-full">
-                Share
-              </button>
+              <div className="space-y-3">
+                <ImageUploader />
+                <button type="submit" className="submit-btn w-full">
+                  Share
+                </button>
+              </div>
             </form>
           </ClientOnly>
         </section>
