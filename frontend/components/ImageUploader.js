@@ -10,45 +10,6 @@ import { useDropzone } from "react-dropzone";
 import "pintura/pintura.css";
 import { openDefaultEditor } from "pintura";
 
-const thumbsContainer = {
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
-  marginTop: 16,
-  padding: 20,
-};
-
-const thumb = {
-  position: "relative",
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 8,
-  marginRight: 8,
-  width: 100,
-  height: 100,
-  padding: 4,
-  boxSizing: "border-box",
-};
-
-const thumbInner = {
-  display: "flex",
-  minWidth: 0,
-  overflow: "hidden",
-};
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
-
-const thumbButton = {
-  position: "absolute",
-  right: 10,
-  bottom: 10,
-};
-
 // This function is called when the user taps the edit button, it opens the editor and returns the modified file when done
 const editImage = (image, done) => {
   const imageFile = image.pintura ? image.pintura.file : image;
@@ -74,64 +35,54 @@ const editImage = (image, done) => {
 setPlugins(plugin_crop, plugin_finetune, plugin_filter, plugin_annotate);
 
 export default function ImageUploader() {
-  const [files, setFiles] = useState([]);
+  const [uploadedImage, setUploadedImage] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+      console.log(acceptedFiles);
+      const fileToEdit = acceptedFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
       );
+
+      editImage(fileToEdit[0], (output) => {
+        // revoke preview URL for old image
+        if (fileToEdit[0].preview) URL.revokeObjectURL(fileToEdit[0].preview);
+
+        // set new preview URL
+        Object.assign(output, {
+          preview: URL.createObjectURL(output),
+        });
+
+        setUploadedImage([output]);
+      });
     },
   });
 
-  const thumbs = files.map((file, index) => (
-    <div style={thumb} key={file.name}>
-      <div style={thumbInner}>
-        <img src={file.preview} style={img} alt="" />
+  const thumbs = uploadedImage.map((file, index) => (
+    <div className="" key={file.name}>
+      <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+        <img
+          src={file.preview}
+          className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+        />
       </div>
-      <button
-        style={thumbButton}
-        onClick={() =>
-          editImage(file, (output) => {
-            const updatedFiles = [...files];
-
-            // replace original image with new image
-            updatedFiles[index] = output;
-
-            // revoke preview URL for old image
-            if (file.preview) URL.revokeObjectURL(file.preview);
-
-            // set new preview URL
-            Object.assign(output, {
-              preview: URL.createObjectURL(output),
-            });
-
-            // update view
-            setFiles(updatedFiles);
-          })
-        }
-      >
-        Edit
-      </button>
     </div>
   ));
 
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      uploadedImage.forEach((file) => URL.revokeObjectURL(file.preview));
     },
-    [files]
+    [uploadedImage]
   );
 
   return (
-    <section className="container">
-      {files.length > 0 && <aside style={thumbsContainer}>{thumbs}</aside>}
-      {files.length === 0 && (
+    <>
+      {uploadedImage.length > 0 && <div>{thumbs}</div>}
+      {uploadedImage.length === 0 && (
         <div {...getRootProps({ className: "dropzone" })}>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
             <div className="space-y-1 text-center">
@@ -164,7 +115,6 @@ export default function ImageUploader() {
           </div>
         </div>
       )}
-      {/*<aside style={thumbsContainer}>{thumbs}</aside>*/}
-    </section>
+    </>
   );
 }

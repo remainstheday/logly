@@ -30,7 +30,7 @@ export default function Social({ comments }) {
               }}
               className="social-form"
             >
-              <input type="text" />
+              <input type="text" placeholder="Full Name" />
               <textarea
                 className="w-full"
                 name="comment"
