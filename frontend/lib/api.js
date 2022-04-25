@@ -114,10 +114,11 @@ export const GET_ALL_COMMENTS = gql`
   }
 `;
 
-export const SUBMIT_COMMENT = gql`
-{
-    mutation Comments {
-        
-    }
-}
-`;
+// todo: submit comments from frontend to keystone
+// export const SUBMIT_COMMENT = gql`
+// {
+//     mutation Comments {
+//
+//     }
+// }
+// `;
