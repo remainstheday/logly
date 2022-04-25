@@ -41,60 +41,38 @@ export const GET_ALL_EXPERIENCES = gql`
 `;
 
 export const GET_ALL_ARTWORKS = gql`
-{
-  artworks {
-    id
-    title
-    artist
-    slug
-    description
-    images {
+  {
+    artworks {
       id
-      filename
-      mimetype
-      encoding
-      publicUrl
+      title
+      artist
+      slug
+      description
+      images {
+        id
+        filename
+        mimetype
+        encoding
+        publicUrl
+      }
     }
   }
-}
 `;
 
 export const GET_EXPERIENCE_BY_SLUG = gql`
-query Experience($slug: String){
-      experience(where: {slug: $slug}) {
-        title
-        slug
-        startDate
-        endDate
-        description
-        artworks {
-          title
-          artist
-          slug
-          startDate
-          endDate
-          images {
-            id
-            filename
-            mimetype
-            encoding
-            publicUrl
-          }
-        }
-      }
-}
-`;
-
-export const GET_ARTWORK_BY_SLUG = gql`
-query Artwork($slug: String) {
-      artwork(where: {slug: $slug}) {
-        id
+  query Experience($slug: String) {
+    experience(where: { slug: $slug }) {
+      title
+      slug
+      startDate
+      endDate
+      description
+      artworks {
         title
         artist
         slug
         startDate
         endDate
-        description
         images {
           id
           filename
@@ -104,12 +82,42 @@ query Artwork($slug: String) {
         }
       }
     }
-`
-export const GET_ALL_COMMENTS = gql`
-{
-  comments {
-    id
-    comment
   }
+`;
+
+export const GET_ARTWORK_BY_SLUG = gql`
+  query Artwork($slug: String) {
+    artwork(where: { slug: $slug }) {
+      id
+      title
+      artist
+      slug
+      startDate
+      endDate
+      description
+      images {
+        id
+        filename
+        mimetype
+        encoding
+        publicUrl
+      }
+    }
+  }
+`;
+export const GET_ALL_COMMENTS = gql`
+  {
+    comments {
+      id
+      comment
+    }
+  }
+`;
+
+export const SUBMIT_COMMENT = gql`
+{
+    mutation Comments {
+        
+    }
 }
 `;

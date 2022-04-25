@@ -34,12 +34,11 @@ const editImage = (image, done) => {
 
 setPlugins(plugin_crop, plugin_finetune, plugin_filter, plugin_annotate);
 
-export default function ImageUploader() {
+export default function ImageUploader({ onUpload }) {
   const [uploadedImage, setUploadedImage] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
       const fileToEdit = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
@@ -54,7 +53,7 @@ export default function ImageUploader() {
         Object.assign(output, {
           preview: URL.createObjectURL(output),
         });
-
+        onUpload([output]);
         setUploadedImage([output]);
       });
     },

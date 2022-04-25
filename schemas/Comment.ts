@@ -20,7 +20,7 @@ export const Comment = list({
     }),
     images: cloudinaryImage({
       cloudinary,
-      label: "Comment",
+      label: "Comment Image",
     }),
   },
 });

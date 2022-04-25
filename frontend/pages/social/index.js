@@ -2,7 +2,7 @@ import Header from "components/Header";
 import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
-import React from "react";
+import React, { useState } from "react";
 
 import Image from "next/image";
 import ClientOnly from "components/ClientOnly";
@@ -12,6 +12,39 @@ import PageLoading from "components/PageLoading";
 import ImageUploader from "components/ImageUploader";
 
 export default function Social({ comments }) {
+  const [uploadedImage, setUploadedImage] = useState();
+
+  const processImage = (file) => {
+    const url = `https://api.cloudinary.com/v1_1/djfxpvrca/image/upload`;
+    const xhr = new XMLHttpRequest();
+    const fd = new FormData();
+    xhr.open("POST", url, true);
+    // xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+    // Update progress (can be used to show progress indicator)
+    xhr.upload.addEventListener("progress", (e) => {
+      // setProgress(Math.round((e.loaded * 100.0) / e.total));
+      console.log(Math.round((e.loaded * 100.0) / e.total));
+    });
+
+    xhr.onreadystatechange = (e) => {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        const response = JSON.parse(xhr.responseText);
+
+        // setImage(response.secure_url);
+        console.log(response.secure_url);
+      }
+    };
+
+    fd.append("upload_preset", "ekqp8s1g");
+    fd.append("file", file[0]);
+    xhr.send(fd);
+  };
+
+  const handleFormSubmit = () => {
+    processImage(uploadedImage);
+  };
+
   if (!comments) return <PageLoading />;
   return (
     <>
@@ -27,6 +60,7 @@ export default function Social({ comments }) {
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
+                handleFormSubmit();
               }}
               className="social-form"
             >
@@ -38,7 +72,7 @@ export default function Social({ comments }) {
                 placeholder="Leave your thoughts and images at the moment"
               />
               <div className="space-y-3">
-                <ImageUploader />
+                <ImageUploader onUpload={(image) => setUploadedImage(image)} />
                 <button type="submit" className="submit-btn w-full">
                   Share
                 </button>
