@@ -193,6 +193,8 @@ export async function getStaticProps({ params }) {
     variables: { slug: `${params.experience}` },
   });
 
+  console.log(artwork);
+
   return {
     props: {
       artwork: artwork.data.artwork,
