@@ -2,7 +2,6 @@ import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import { format } from "date-fns";
-import { Field, Formik } from "formik";
 import {
   GET_ALL_ARTWORKS,
   GET_ALL_EXPERIENCES,
