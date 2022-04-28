@@ -105,20 +105,25 @@ export const GET_ARTWORK_BY_SLUG = gql`
     }
   }
 `;
+
 export const GET_ALL_COMMENTS = gql`
   {
     comments {
       id
       comment
+      image
     }
   }
 `;
 
 // todo: submit comments from frontend to keystone
-// export const SUBMIT_COMMENT = gql`
-// {
-//     mutation Comments {
-//
-//     }
-// }
-// `;
+export const CREATE_COMMENT = gql`
+  mutation CreateComment($name: String!, $comment: String!, $image: String) {
+    createComment(data: { name: $name, comment: $comment, image: $image }) {
+      id
+      comment
+      image
+      name
+    }
+  }
+`;

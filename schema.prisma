@@ -64,6 +64,7 @@ model StaticContent {
 
 model Comment {
   id      String @id @default(uuid()) @postgresql.Uuid
+  name    String @default("")
   comment String @default("")
-  images  Json?
+  image   String @default("")
 }

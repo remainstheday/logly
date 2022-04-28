@@ -1,10 +1,29 @@
 import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { cloudinary } from "../cloudinary";
 
 export const Comment = list({
   fields: {
+    name: text({
+      ui: {
+        createView: {
+          fieldMode: ({ session, context }) => "hidden",
+        },
+        itemView: {
+          fieldMode: ({ session, context, item }) => "read",
+        },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
+      hooks: {
+        beforeOperation: async (args) => {
+          console.log(args);
+        },
+        afterOperation: async (args) => {
+          console.log(args);
+        },
+      },
+    }),
     comment: text({
       ui: {
         createView: {
@@ -17,9 +36,27 @@ export const Comment = list({
           fieldMode: ({ session, context }) => "read",
         },
       },
+      hooks: {
+        beforeOperation: async (args) => {
+          console.log(args);
+        },
+        afterOperation: async (args) => {
+          console.log(args);
+        },
+      },
     }),
-    images: cloudinaryImage({
-      cloudinary,
+    image: text({
+      ui: {
+        createView: {
+          fieldMode: ({ session, context }) => "hidden",
+        },
+        itemView: {
+          fieldMode: ({ session, context, item }) => "read",
+        },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
       label: "Comment Image",
     }),
   },

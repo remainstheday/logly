@@ -1,63 +1,73 @@
-import React from "react";
-import { Formik } from "formik";
+import React, { useState } from "react";
 
-export default function SocialForm({}) {
+import processImage from "utils/processImageUpload";
+import ImageUploader from "components/ImageUploader";
+import { useMutation } from "@apollo/client";
+import client from "lib/apollo-client";
+
+import { CREATE_COMMENT } from "lib/api";
+
+export default function SocialForm() {
+  const [uploadedImage, setUploadedImage] = useState();
+  const [commentName, updateCommentName] = useState("");
+  const [commentDescription, updateCommentDescription] = useState("");
+  const [createComment, { data, error, loading }] = useMutation(
+    CREATE_COMMENT,
+    { client }
+  );
+
+  const handleFormSubmit = async () => {
+    let cloudinaryImage = null;
+    if (uploadedImage) cloudinaryImage = await processImage(uploadedImage);
+
+    await createComment({
+      variables: {
+        name: commentName,
+        comment: commentDescription,
+        image: cloudinaryImage,
+      },
+    });
+
+    console.log(data);
+  };
+
+  if (loading) return "loading...";
+  if (error) return <p>error text :(</p>;
   return (
     <>
-      <p className="">Share Thoughts and Images</p>
-      <Formik
-        initialValues={{ username: "", comment: "" }}
-        onSubmit={(values) => console.log(values)}
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await handleFormSubmit();
+        }}
+        className="social-form"
       >
-        {({ values, handleChange, handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <label className="block my-4">
-              <span className="text-gray-700">Name</span>
-              <input
-                type="text"
-                name="username"
-                value={values.username}
-                onChange={handleChange}
-                className="
-                    mt-1
-                    block
-                    w-full
-                    rounded-md
-                    bg-gray-100
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0
-                  "
-              />
-            </label>
-            <label className="block my-6">
-              <span className="text-gray-700">Thoughts & Comments</span>
-              <textarea
-                value={values.comment}
-                onChange={handleChange}
-                className="
-                    mt-1
-                    block
-                    w-full
-                    rounded-md
-                    bg-gray-100
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0
-                  "
-                name="comment"
-                id="comment"
-                cols="30"
-                rows="10"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 font-semibold  bg-red-500 text-white rounded-none shadow-sm w-full mt-4"
-              >
-                Share
-              </button>
-            </label>
-          </form>
-        )}
-      </Formik>
+        <input
+          required
+          onChange={(e) => updateCommentName(e.target.value)}
+          type="text"
+          placeholder="Full Name"
+          className=""
+        />
+        <textarea
+          required
+          onChange={(e) => updateCommentDescription(e.target.value)}
+          className="w-full"
+          name="comment"
+          rows="5"
+          placeholder="Leave your thoughts and images at the moment"
+        />
+        <div className="space-y-3">
+          <ImageUploader onUpload={(image) => setUploadedImage(image)} />
+          <button
+            type="submit"
+            disabled={!commentName || !commentDescription}
+            className="submit-btn w-full disabled:bg-slate-200"
+          >
+            Share
+          </button>
+        </div>
+      </form>
     </>
   );
 }

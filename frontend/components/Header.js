@@ -23,7 +23,7 @@ export default function Header() {
       <header className="py-4 max-w-4xl mx-auto md:mx-auto">
         <div className="flex flex-wrap py-2">
           <div className="w-full">
-            <nav className="relative flex  items-center justify-between py-3 w-full rounded">
+            <nav className="relative flex items-center justify-between py-3 w-full rounded">
               <div className="w-full relative mx-auto flex flex-wrap items-center justify-end text-right">
                 <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                   <Link href={`/`} passHref>

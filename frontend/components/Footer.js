@@ -3,7 +3,7 @@ import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-4 mt-20 bg-zinc-900 text-white">
+    <footer className="w-full px-3 py-10 mt-20 bg-zinc-900 text-white">
       <div className="flex justify-between max-w-4xl mx-auto">
         <ul>
           <li>
