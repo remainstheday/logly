@@ -1,10 +1,3 @@
-import {
-  setPlugins,
-  plugin_crop,
-  plugin_finetune,
-  plugin_filter,
-  plugin_annotate,
-} from "pintura";
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import "pintura/pintura.css";
@@ -18,11 +11,10 @@ const editImage = (image, done) => {
   const editor = openDefaultEditor({
     src: imageFile,
     imageState,
+    enableUtils: false,
   });
 
-  editor.on("close", () => {
-    // nothing
-  });
+  editor.on("close", () => {});
 
   editor.on("process", ({ dest, imageState }) => {
     Object.assign(dest, {
@@ -31,8 +23,6 @@ const editImage = (image, done) => {
     done(dest);
   });
 };
-
-setPlugins(plugin_crop, plugin_finetune, plugin_filter, plugin_annotate);
 
 export default function ImageUploader({ onUpload }) {
   const [uploadedImage, setUploadedImage] = useState([]);
@@ -59,7 +49,7 @@ export default function ImageUploader({ onUpload }) {
     },
   });
 
-  const thumbs = uploadedImage.map((file, index) => (
+  const thumbs = uploadedImage.map((file) => (
     <div className="" key={file.name}>
       <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
         <img

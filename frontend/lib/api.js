@@ -93,12 +93,6 @@ export const GET_ARTWORK_BY_SLUG = gql`
       artist
       slug
       startDate
-      audioFile {
-        filename
-        filesize
-        ref
-        url
-      }
       endDate
       description
       images {

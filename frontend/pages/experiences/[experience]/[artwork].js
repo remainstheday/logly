@@ -44,15 +44,6 @@ export default function Artwork({ artwork, experience }) {
             width="1080"
             height="720"
           />
-
-          {artwork.audioFile && (
-            <figure className="my-6">
-              <audio controls src={artwork.audioFile.url}>
-                Your browser does not support the
-                <code>audio</code> element.
-              </audio>
-            </figure>
-          )}
         </section>
 
         <section className="container mt-20 md:mt-32 mx-auto">
@@ -131,12 +122,9 @@ export default function Artwork({ artwork, experience }) {
 }
 
 export async function getStaticPaths() {
-  // const experiences = await getAllExperiences();
   const experiences = await client.query({
     query: GET_ALL_EXPERIENCES,
   });
-  // const artworks = await getAllArtworks();
-
   const artworks = await client.query({
     query: GET_ALL_ARTWORKS,
   });
@@ -161,21 +149,32 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const artwork = await client.query({
-    query: GET_ARTWORK_BY_SLUG,
-    variables: { slug: `${params.artwork}` },
-  });
+  let artwork = null;
+  let experience = null;
+  try {
+    artwork = await client.query({
+      query: GET_ARTWORK_BY_SLUG,
+      variables: { slug: `${params.artwork}` },
+    });
+    experience = await client.query({
+      query: GET_EXPERIENCE_BY_SLUG,
+      variables: { slug: `${params.experience}` },
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
-  const experience = await client.query({
-    query: GET_EXPERIENCE_BY_SLUG,
-    variables: { slug: `${params.experience}` },
-  });
+  if (!artwork || !experience) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
       artwork: artwork.data.artwork,
       experience: experience.data.experience,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 }
