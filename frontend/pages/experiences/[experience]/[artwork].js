@@ -45,7 +45,7 @@ export default function Artwork({ artwork, experience }) {
           />
 
           <figure className="my-6">
-            <audio controls src="/media/cc0-audio/t-rex-roar.mp3">
+            <audio controls src={artwork.audioFile.url}>
               Your browser does not support the
               <code>audio</code> element.
             </audio>
@@ -192,8 +192,6 @@ export async function getStaticProps({ params }) {
     query: GET_EXPERIENCE_BY_SLUG,
     variables: { slug: `${params.experience}` },
   });
-
-  console.log(artwork);
 
   return {
     props: {
