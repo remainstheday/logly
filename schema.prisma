@@ -18,19 +18,17 @@ model Museum {
 }
 
 model Artwork {
-  id                 String       @id @default(uuid()) @postgresql.Uuid
-  title              String       @default("")
-  artist             String       @default("")
-  slug               String       @unique @default("")
-  startDate          DateTime?
-  endDate            DateTime?
-  status             String?      @default("draft")
-  audioFile_filesize Int?
-  audioFile_mode     String?
-  audioFile_filename String?
-  images             Json?
-  description        String       @default("")
-  experiences        Experience[] @relation("Artwork_experiences")
+  id          String       @id @default(uuid()) @postgresql.Uuid
+  title       String       @default("")
+  artist      String       @default("")
+  slug        String       @unique @default("")
+  startDate   DateTime?
+  endDate     DateTime?
+  status      String?      @default("draft")
+  audioFile   String       @default("")
+  images      Json?
+  description String       @default("")
+  experiences Experience[] @relation("Artwork_experiences")
 }
 
 model User {

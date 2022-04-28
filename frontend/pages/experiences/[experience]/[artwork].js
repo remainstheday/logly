@@ -16,6 +16,8 @@ import ArtworkCarousel from "components/ArtworkCarousel";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
+import ClientOnly from "components/ClientOnly";
+import SocialForm from "components/SocialForm";
 
 export default function Artwork({ artwork, experience }) {
   if (!artwork || !experience) return <PageLoading />;
@@ -44,12 +46,14 @@ export default function Artwork({ artwork, experience }) {
             height="720"
           />
 
-          <figure className="my-6">
-            <audio controls src={artwork.audioFile.url}>
-              Your browser does not support the
-              <code>audio</code> element.
-            </audio>
-          </figure>
+          {artwork.audioFile && (
+            <figure className="my-6">
+              <audio controls src={artwork.audioFile.url}>
+                Your browser does not support the
+                <code>audio</code> element.
+              </audio>
+            </figure>
+          )}
         </section>
 
         <section className="container mt-20 md:mt-32 mx-auto">
@@ -95,34 +99,9 @@ export default function Artwork({ artwork, experience }) {
         <section className="container mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />
-          <Formik
-            initialValues={{ name: "", comments: "" }}
-            onSubmit={(values) => {
-              console.log(values);
-            }}
-          >
-            {({ values }) => (
-              <form className="social-form">
-                <input
-                  className="w-full"
-                  type="text"
-                  name="name"
-                  value={values.email}
-                  placeholder="Name"
-                />
-                <Field
-                  className="w-full"
-                  as="textarea"
-                  name="comments"
-                  rows="5"
-                  placeholder="write a comment"
-                />
-                <button type="submit" className="w-full">
-                  Share
-                </button>
-              </form>
-            )}
-          </Formik>
+          <ClientOnly>
+            <SocialForm />
+          </ClientOnly>
         </section>
 
         <section className="container mt-20 md:mt-32 mx-auto">

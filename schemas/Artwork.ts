@@ -31,7 +31,11 @@ export const Artwork = list({
         displayMode: "segmented-control",
       },
     }),
-    audioFile: file(),
+    audioFile: text({
+      ui: {
+        views: require.resolve("../fields/audiofile/component.tsx"),
+      },
+    }),
     images: cloudinaryImage({
       cloudinary,
       label: "Artwork",

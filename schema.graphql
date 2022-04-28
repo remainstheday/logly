@@ -99,7 +99,7 @@ type Artwork {
   startDate: DateTime
   endDate: DateTime
   status: String
-  audioFile: FileFieldOutput
+  audioFile: String
   images: CloudinaryImage_File
   description: String
   experiences(
@@ -113,13 +113,6 @@ type Artwork {
 
 scalar DateTime
   @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
-
-interface FileFieldOutput {
-  filename: String!
-  filesize: Int!
-  ref: String!
-  url: String!
-}
 
 type CloudinaryImage_File {
   id: ID
@@ -175,20 +168,6 @@ input ArtworkWhereUniqueInput {
   slug: String
 }
 
-type LocalFileFieldOutput implements FileFieldOutput {
-  filename: String!
-  filesize: Int!
-  ref: String!
-  url: String!
-}
-
-type CloudFileFieldOutput implements FileFieldOutput {
-  filename: String!
-  filesize: Int!
-  ref: String!
-  url: String!
-}
-
 input ArtworkWhereInput {
   AND: [ArtworkWhereInput!]
   OR: [ArtworkWhereInput!]
@@ -200,6 +179,7 @@ input ArtworkWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
+  audioFile: StringFilter
   description: StringFilter
   experiences: ExperienceManyRelationFilter
 }
@@ -258,6 +238,7 @@ input ArtworkOrderByInput {
   startDate: OrderDirection
   endDate: OrderDirection
   status: OrderDirection
+  audioFile: OrderDirection
   description: OrderDirection
 }
 
@@ -268,15 +249,10 @@ input ArtworkUpdateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
-  audioFile: FileFieldInput
+  audioFile: String
   images: Upload
   description: String
   experiences: ExperienceRelateToManyForUpdateInput
-}
-
-input FileFieldInput {
-  upload: Upload
-  ref: String
 }
 
 """
@@ -303,7 +279,7 @@ input ArtworkCreateInput {
   startDate: DateTime
   endDate: DateTime
   status: String
-  audioFile: FileFieldInput
+  audioFile: String
   images: Upload
   description: String
   experiences: ExperienceRelateToManyForCreateInput

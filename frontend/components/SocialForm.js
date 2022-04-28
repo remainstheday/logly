@@ -27,8 +27,6 @@ export default function SocialForm() {
         image: cloudinaryImage,
       },
     });
-
-    console.log(data);
   };
 
   if (loading) return "loading...";
