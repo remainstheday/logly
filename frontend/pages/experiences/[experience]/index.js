@@ -22,9 +22,7 @@ export default function Experience({ experience, experiences }) {
             href={"/experiences?viewAll=true"}
             text={"Pick Experience"}
           />
-
           <h1 className="experience-title">{experience.title}</h1>
-
           <span className="date-tag">
             {format(new Date(experience.startDate), "MMMM dd, yyyy")}
             {experience.endDate &&

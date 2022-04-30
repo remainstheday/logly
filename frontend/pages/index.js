@@ -38,11 +38,11 @@ export default function Home({
             />
           </div>
 
-          <section className="mx-6 mt-4">
+          <section className="mx-6 md:mx-auto mt-4">
             <h3>{homepage.description}</h3>
           </section>
 
-          <section className="mx-auto px-6 mt-20 md:mt-32">
+          <section className="mx-auto px-6 md:px-0 mt-20 md:mt-32">
             <h3 className="pb-3 section-title">Pick an Experience</h3>
             <hr />
             <div className="w-full mt-4">
@@ -55,11 +55,11 @@ export default function Home({
           </section>
 
           <section className="mt-20 md:mt-32 mx-auto">
-            <div className="px-6 mb-6">
+            <div className="px-6 md:px-0 mb-6">
               <h3 className="pb-3 section-title">Art Social</h3>
               <hr />
             </div>
-            <div className="flex w-full px-2">
+            <div className="flex w-full">
               <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
               <div className="max-w-sm ml-2 rounded overflow-hidden shadow-lg">
                 <div className="px-6 py-4">
@@ -71,7 +71,7 @@ export default function Home({
                 </div>
               </div>
             </div>
-            <div className="mt-6 px-6">
+            <div className="mt-6 px-6 md:px-0">
               <SectionLink href={`/social`} text={"Discover Art Social"} />
             </div>
           </section>
