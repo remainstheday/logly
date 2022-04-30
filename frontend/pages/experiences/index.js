@@ -24,15 +24,15 @@ export default function Experience({ experiences }) {
       <>
         <h3 className="pb-3 mt-6 section-title">{title}</h3>
         <hr />
-        <div className="mt-6 flex flex-row flex-wrap space-y-8">
+        <div className="mt-6 grid grid-cols-2 gap-4">
           {filteredExperience.map((experience) => (
-            <div key={experience.id} className="w-1/2">
+            <div key={experience.id}>
               <Thumbnail
                 href={`/experiences/${experience.slug}`}
                 title={experience.title}
                 image={experience.poster ? experience.poster.publicUrl : ""}
-                imgWidth={300}
-                imgHeight={200}
+                imgWidth={700}
+                imgHeight={512}
               />
             </div>
           ))}
@@ -70,7 +70,7 @@ export default function Experience({ experiences }) {
           />
         </nav>
 
-        <section className="container mt-4 mt-10 mx-auto">
+        <section className="mt-4 mt-10 mx-auto">
           {(isViewAllSelected || isOngoingSelected) &&
             renderExperiences(
               experiences.filter((experience) => experience),

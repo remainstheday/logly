@@ -51,7 +51,7 @@ export default function ContentSlider({ items, contentType }) {
               width={1080}
               height={720}
             />
-            <strong className="pl-0 md:pl-7">{item.title}</strong>
+            <strong>{item.title}</strong>
           </a>
         </Link>
       </div>
@@ -64,7 +64,7 @@ export default function ContentSlider({ items, contentType }) {
           {items.length > 1 && (
             <ChevronBackOutline
               onClick={previousImage}
-              className="absolute -left-0 z-50 cursor-pointer bg-transparent md:bg-white bg-white top-0 bottom-0 flex items-center"
+              className="absolute left-0 z-50 cursor-pointer bg-transparent bg-white top-0 bottom-0 flex items-center"
               width="1.5em"
               height="2em"
               role="img"
@@ -75,7 +75,7 @@ export default function ContentSlider({ items, contentType }) {
           {items.length > 1 && (
             <ChevronForwardOutline
               onClick={nextImage}
-              className="absolute z-10 cursor-pointer bg-transparent md:bg-white right-0 top-0 bottom-0 flex items-center"
+              className="absolute z-10 cursor-pointer bg-transparent right-0 top-0 bottom-0 flex items-center"
               width="1.5em"
               height="2em"
             />
