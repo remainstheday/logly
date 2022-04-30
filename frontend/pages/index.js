@@ -23,7 +23,7 @@ export default function Home({
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
+      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <main>
           <PageTitle smallText={"welcome to"} largeText={homepage.title} />
           <div className="flex relative my-16">
@@ -38,11 +38,11 @@ export default function Home({
             />
           </div>
 
-          <section className="container mx-auto mt-4">
+          <section className="mx-6 mt-4">
             <h3>{homepage.description}</h3>
           </section>
 
-          <section className="container mt-20 md:mt-32 mx-auto">
+          <section className="mx-auto px-6 mt-20 md:mt-32">
             <h3 className="pb-3 section-title">Pick an Experience</h3>
             <hr />
             <div className="w-full mt-4">
@@ -54,11 +54,12 @@ export default function Home({
             </div>
           </section>
 
-          <section className="container mt-20 md:mt-32 mx-auto">
-            <h3 className="pb-3 section-title">Art Social</h3>
-            <hr />
-            <br />
-            <div className="flex w-full">
+          <section className="mt-20 md:mt-32 mx-auto">
+            <div className="px-6 mb-6">
+              <h3 className="pb-3 section-title">Art Social</h3>
+              <hr />
+            </div>
+            <div className="flex w-full px-2">
               <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
               <div className="max-w-sm ml-2 rounded overflow-hidden shadow-lg">
                 <div className="px-6 py-4">
@@ -70,8 +71,9 @@ export default function Home({
                 </div>
               </div>
             </div>
-            <br />
-            <SectionLink href={`/social`} text={"Discover Art Social"} />
+            <div className="mt-6 px-6">
+              <SectionLink href={`/social`} text={"Discover Art Social"} />
+            </div>
           </section>
         </main>
       </div>

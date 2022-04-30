@@ -51,25 +51,9 @@ export default function ContentSlider({ items, contentType }) {
               width={1080}
               height={720}
             />
-            <strong className="pl-7">{item.title}</strong>
+            <strong className="pl-0 md:pl-7">{item.title}</strong>
           </a>
         </Link>
-      </div>
-    ));
-
-  const artworkContent = () =>
-    items.map((item, index) => (
-      <div key={index} className="flex w-full">
-        <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
-        <div className="max-w-sm rounded overflow-hidden shadow-lg">
-          <div className="px-6 py-4">
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptatibus quia, nulla! Maiores et perferendis eaque,
-              exercitationem praesentium nihil.
-            </p>
-          </div>
-        </div>
       </div>
     ));
 
@@ -80,21 +64,18 @@ export default function ContentSlider({ items, contentType }) {
           {items.length > 1 && (
             <ChevronBackOutline
               onClick={previousImage}
-              className="absolute left-0 z-10 cursor-pointer bg-white top-0 bottom-0 flex items-center"
+              className="absolute -left-0 z-50 cursor-pointer bg-transparent md:bg-white bg-white top-0 bottom-0 flex items-center"
               width="1.5em"
               height="2em"
               role="img"
               aria-label="Arrow Left"
             />
           )}
-
           {contentType === "experience" && experiencesContent()}
-          {contentType === "artwork" && artworkContent()}
-
           {items.length > 1 && (
             <ChevronForwardOutline
               onClick={nextImage}
-              className="absolute  z-10 cursor-pointer bg-white right-0 top-0 bottom-0 flex items-center"
+              className="absolute z-10 cursor-pointer bg-transparent md:bg-white right-0 top-0 bottom-0 flex items-center"
               width="1.5em"
               height="2em"
             />

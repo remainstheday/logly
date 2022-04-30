@@ -4,9 +4,11 @@ export default function PageTitle({ smallText, largeText }) {
   if (!smallText && !largeText) return <></>;
   return (
     <div className="mt-8 mb-16">
-      {smallText && <p className="uppercase text-center">{smallText}</p>}
+      {smallText && (
+        <p className="small-title uppercase text-center">{smallText}</p>
+      )}
       {largeText && (
-        <h1 className="text-6xl leading-8 text-center uppercase font-bold">
+        <h1 className="page-title text-6xl leading-8 text-center uppercase font-bold">
           <br /> {largeText}
         </h1>
       )}

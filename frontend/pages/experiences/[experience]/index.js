@@ -11,31 +11,37 @@ import Image from "next/image";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
 
-export default function Index({ experience, experiences }) {
+export default function Experience({ experience, experiences }) {
   if (!experience || !experiences) return <PageLoading />;
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-        <BackLink href={"/experiences?viewAll=true"} text={"Pick Experience"} />
+      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+        <section className="mx-6 mt-4 md:mx-auto">
+          <BackLink
+            href={"/experiences?viewAll=true"}
+            text={"Pick Experience"}
+          />
 
-        <h1 className="experience-title">{experience.title}</h1>
+          <h1 className="experience-title">{experience.title}</h1>
 
-        <span className="date-tag">
-          {format(new Date(experience.startDate), "MMMM dd, yyyy")}
-          {experience.endDate &&
-            ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
-        </span>
+          <span className="date-tag">
+            {format(new Date(experience.startDate), "MMMM dd, yyyy")}
+            {experience.endDate &&
+              ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
+          </span>
 
-        <p className="mt-6">{experience.description}</p>
+          <p className="mt-6">{experience.description}</p>
+        </section>
 
-        <section className="container mt-4 mt-10 mx-auto">
+        <section className="mx-6 mt-4 md:mx-auto">
           <h3 className="pb-3 section-title">Exhibition Preview</h3>
           <hr />
+
           <div className="w-full mt-4">
-            <div className="flex flex-wrap">
+            <div className="grid grid-cols-2 gap-4">
               {experience.artworks.map((artwork, index) => (
-                <div className="w-1/2 my-4" key={index}>
+                <div className="my-4" key={index}>
                   <Link
                     href={`/experiences/${experience.slug}/${artwork.slug}`}
                     passHref
@@ -47,7 +53,7 @@ export default function Index({ experience, experiences }) {
                             ? artwork.images.publicUrl
                             : "/stock-museum-1.jpg"
                         }
-                        width="430"
+                        width="436"
                         height="281"
                         className="w-full px-1"
                       />
@@ -60,7 +66,7 @@ export default function Index({ experience, experiences }) {
             </div>
           </div>
         </section>
-        <section className="container mt-12 mt-10 mx-auto">
+        <section className="mx-6 mt-4 md:mx-auto">
           <h3 className="pb-3 section-title">Similar Experiences</h3>
           <hr />
           <div className="w-full mt-4">
