@@ -13,6 +13,9 @@ import PageLoading from "components/PageLoading";
 
 export default function Experience({ experience, experiences }) {
   if (!experience || !experiences) return <PageLoading />;
+  const similarExperiences = experiences.filter(
+    (similarExperience) => similarExperience.slug !== experience.slug
+  );
   return (
     <>
       <Header />
@@ -68,7 +71,10 @@ export default function Experience({ experience, experiences }) {
           <h3 className="pb-3 section-title">Similar Experiences</h3>
           <hr />
           <div className="w-full mt-4">
-            <ContentSlider items={experiences} contentType="experience" />
+            <ContentSlider
+              items={similarExperiences}
+              contentType="experience"
+            />
             <SectionLink
               href={`/experiences?viewAll=true`}
               text={"See all experiences"}
