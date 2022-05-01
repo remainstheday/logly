@@ -10,6 +10,10 @@ import SocialForm from "components/SocialForm";
 import ClientOnly from "components/ClientOnly";
 
 export default function Social({ comments }) {
+  const truncateComment = (text) => {
+    return text.length > 280 ? text.slice(0, 280 - 1) + "..." : text;
+  };
+
   return (
     <>
       <Header />
@@ -31,15 +35,19 @@ export default function Social({ comments }) {
           </h3>
         </div>
         <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
-          <div className="grid grid-cols-2 gap-2 mx-auto lg:grid-cols-3">
+          <div className="masonry-2-col md:masonry-3-col">
             {comments.map((post, index) => (
               <div
                 key={index}
-                className="w-full bg-white rounded overflow-hidden shadow-lg"
+                className="break-inside mb-3 bg-white rounded overflow-hidden shadow-lg"
               >
-                <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
+                {post.image.length > 0 && (
+                  <Image src={post.image} width="1080" height="720" />
+                )}
                 <div className="px-3 py-3">
-                  <p className="text-gray-700 text-base">{post.comment}</p>
+                  <p className="text-gray-700 text-base">
+                    {truncateComment(post.comment)}
+                  </p>
                 </div>
               </div>
             ))}

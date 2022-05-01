@@ -16,12 +16,8 @@ export const Comment = list({
         },
       },
       hooks: {
-        beforeOperation: async (args) => {
-          console.log(args);
-        },
-        afterOperation: async (args) => {
-          console.log(args);
-        },
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
       },
     }),
     comment: text({
@@ -37,12 +33,8 @@ export const Comment = list({
         },
       },
       hooks: {
-        beforeOperation: async (args) => {
-          console.log(args);
-        },
-        afterOperation: async (args) => {
-          console.log(args);
-        },
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
       },
     }),
     image: text({

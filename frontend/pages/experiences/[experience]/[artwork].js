@@ -161,7 +161,7 @@ export async function getStaticProps({ params }) {
       variables: { slug: `${params.experience}` },
     });
   } catch (e) {
-    console.log(e);
+    return e;
   }
 
   if (!artwork || !experience) {

@@ -49,6 +49,7 @@ export default function SocialForm() {
         />
         <textarea
           required
+          maxLength="280"
           onChange={(e) => updateCommentDescription(e.target.value)}
           className="w-full"
           name="comment"
