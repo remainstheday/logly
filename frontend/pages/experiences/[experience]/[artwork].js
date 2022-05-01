@@ -90,7 +90,7 @@ export default function Artwork({ artwork, experience }) {
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />
           <ClientOnly>
-            <SocialForm />
+            <SocialForm relatedArtworkId={artwork.id} />
           </ClientOnly>
         </section>
 

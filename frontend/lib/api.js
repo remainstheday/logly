@@ -110,6 +110,7 @@ export const GET_ALL_COMMENTS = gql`
   {
     comments {
       id
+      username
       comment
       image
     }
@@ -118,12 +119,28 @@ export const GET_ALL_COMMENTS = gql`
 
 // todo: submit comments from frontend to keystone
 export const CREATE_COMMENT = gql`
-  mutation CreateComment($name: String!, $comment: String!, $image: String) {
-    createComment(data: { name: $name, comment: $comment, image: $image }) {
+  mutation CreateComment(
+    $username: String!
+    $comment: String!
+    $image: String
+    $relatedExperienceId: String
+    $relatedArtworkId: String
+  ) {
+    createComment(
+      data: {
+        username: $username
+        comment: $comment
+        relatedExperienceId: $relatedExperienceId
+        relatedArtworkId: $relatedArtworkId
+        image: $image
+      }
+    ) {
       id
       comment
       image
-      name
+      username
+      relatedExperienceId
+      relatedArtworkId
     }
   }
 `;

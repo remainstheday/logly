@@ -7,7 +7,7 @@ import client from "lib/apollo-client";
 
 import { CREATE_COMMENT } from "lib/api";
 
-export default function SocialForm() {
+export default function SocialForm({ relatedArtworkId }) {
   const [uploadedImage, setUploadedImage] = useState();
   const [commentName, updateCommentName] = useState("");
   const [commentDescription, updateCommentDescription] = useState("");
@@ -24,6 +24,7 @@ export default function SocialForm() {
       variables: {
         name: commentName,
         comment: commentDescription,
+        relatedArtworkId: relatedArtworkId ? relatedArtworkId : null,
         image: cloudinaryImage,
       },
     });
