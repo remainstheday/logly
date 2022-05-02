@@ -5,21 +5,21 @@ import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
 import {
   GET_ALL_ARTWORKS,
+  GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_STATIC_CONTENTS,
 } from "lib/api";
 import Image from "next/image";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
+import { truncateComment } from "utils/truncateText";
 
-export default function Home({
-  experiences = [],
-  artworks = [],
-  content = [],
-}) {
-  if (!content) return <PageLoading />;
+export default function Home({ content, experiences, comments }) {
+  if (!content || !experiences) return <PageLoading />;
 
   const homepage = content[0];
+  const commentPreview = comments.find((comment) => comment.image.length > 0);
+
   return (
     <>
       <Header />
@@ -60,13 +60,11 @@ export default function Home({
               <hr />
             </div>
             <div className="flex w-full">
-              <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
+              <Image src={commentPreview.image} width="1080" height="720" />
               <div className="max-w-sm ml-2 rounded overflow-hidden shadow-lg">
                 <div className="px-6 py-4">
                   <p className="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                    exercitationem praesentium nihil.
+                    {truncateComment(commentPreview.comment)}
                   </p>
                 </div>
               </div>
@@ -93,12 +91,16 @@ export async function getServerSideProps() {
   const artworks = await client.query({
     query: GET_ALL_ARTWORKS,
   });
+  const comments = await client.query({
+    query: GET_ALL_COMMENTS,
+  });
 
   return {
     props: {
       experiences: experiences.data.experiences,
       artworks: artworks.data,
       content: content.data.staticContents,
+      comments: comments.data.comments,
     },
   };
 }

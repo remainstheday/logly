@@ -8,12 +8,9 @@ import client from "lib/apollo-client";
 import { GET_ALL_COMMENTS } from "lib/api";
 import SocialForm from "components/SocialForm";
 import ClientOnly from "components/ClientOnly";
+import { truncateComment } from "utils/truncateText";
 
 export default function Social({ comments }) {
-  const truncateComment = (text) => {
-    return text.length > 280 ? text.slice(0, 280 - 1) + "..." : text;
-  };
-
   return (
     <>
       <Header />
@@ -36,9 +33,9 @@ export default function Social({ comments }) {
         </div>
         <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
           <div className="masonry-2-col md:masonry-3-col">
-            {comments.map((post, index) => (
+            {comments.map((post) => (
               <div
-                key={index}
+                key={post.id}
                 className="break-inside mb-3 bg-white rounded overflow-hidden shadow-lg"
               >
                 {post.image.length > 0 && (
