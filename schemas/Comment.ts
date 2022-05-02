@@ -6,7 +6,7 @@ export const Comment = list({
     username: text({
       ui: {
         createView: {
-          fieldMode: ({ session, context }) => "hidden",
+          fieldMode: ({ session, context }) => "edit",
         },
         itemView: {
           fieldMode: ({ session, context, item }) => "read",
@@ -57,7 +57,7 @@ export const Comment = list({
     comment: text({
       ui: {
         createView: {
-          fieldMode: ({ session, context }) => "hidden",
+          fieldMode: ({ session, context }) => "edit",
         },
         itemView: {
           fieldMode: ({ session, context, item }) => "read",
@@ -74,7 +74,7 @@ export const Comment = list({
     image: text({
       ui: {
         createView: {
-          fieldMode: ({ session, context }) => "hidden",
+          fieldMode: ({ session, context }) => "edit",
         },
         itemView: {
           fieldMode: ({ session, context, item }) => "read",
