@@ -7,7 +7,7 @@ import Image from "next/image";
 import client from "lib/apollo-client";
 import { GET_ALL_COMMENTS } from "lib/api";
 import SocialForm from "components/SocialForm";
-import ClientOnly from "components/ClientOnly";
+import ClientOnly from "utils/ClientOnly";
 import { truncateComment } from "utils/truncateText";
 
 export default function Social({ comments }) {

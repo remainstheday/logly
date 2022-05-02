@@ -4,6 +4,7 @@ import Header from "components/Header";
 import { format } from "date-fns";
 import {
   GET_ALL_ARTWORKS,
+  GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_ARTWORK_BY_SLUG,
   GET_EXPERIENCE_BY_SLUG,
@@ -15,10 +16,11 @@ import ArtworkCarousel from "components/ArtworkCarousel";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
-import ClientOnly from "components/ClientOnly";
+import ClientOnly from "utils/ClientOnly";
 import SocialForm from "components/SocialForm";
+import CommentCarousel from "components/Carousel";
 
-export default function Artwork({ artwork, experience }) {
+export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
   return (
     <>
@@ -100,18 +102,7 @@ export default function Artwork({ artwork, experience }) {
           </h3>
           <hr />
           <br />
-          <div className="flex w-full">
-            <Image src={`/stock-museum-1.jpg`} width="1080" height="720" />
-            <div className="max-w-sm rounded overflow-hidden shadow-lg">
-              <div className="px-6 py-4">
-                <p className="text-gray-700 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                  exercitationem praesentium nihil.
-                </p>
-              </div>
-            </div>
-          </div>
+          <CommentCarousel comments={comments} />
           <br />
           <SectionLink href={`/social`} text={"Discover Art Social"} />
         </section>
@@ -151,6 +142,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   let artwork = null;
   let experience = null;
+  let comments = null;
   try {
     artwork = await client.query({
       query: GET_ARTWORK_BY_SLUG,
@@ -159,6 +151,9 @@ export async function getStaticProps({ params }) {
     experience = await client.query({
       query: GET_EXPERIENCE_BY_SLUG,
       variables: { slug: `${params.experience}` },
+    });
+    comments = await client.query({
+      query: GET_ALL_COMMENTS,
     });
   } catch (e) {
     return e;
@@ -174,6 +169,7 @@ export async function getStaticProps({ params }) {
     props: {
       artwork: artwork.data.artwork,
       experience: experience.data.experience,
+      comments: comments.data.comments,
     },
     revalidate: 10,
   };
