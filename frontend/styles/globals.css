@@ -62,9 +62,11 @@ html {
   font-family: "Karla", sans-serif;
   font-style: normal;
   font-weight: 800;
-  line-height: 37px;
+  line-height: 46px;
   letter-spacing: -0.05em;
   color: #000000;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .section-title {

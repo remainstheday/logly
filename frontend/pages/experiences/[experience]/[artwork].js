@@ -38,14 +38,18 @@ export default function Artwork({ artwork, experience, comments }) {
                 ` - ${format(new Date(artwork.endDate), "MMM dd, yyyy")}`}
             </h3>
           </div>
-          <ArtworkCarousel items={[artwork]} />
-          <Image
-            src={
-              artwork.images ? artwork.images.publicUrl : "/stock-museum-1.jpg"
-            }
-            width="1080"
-            height="720"
-          />
+
+          <div className="flex relative my-16">
+            <Image
+              src={
+                artwork.images
+                  ? artwork.images.publicUrl
+                  : "/stock-museum-1.jpg"
+              }
+              width="1080"
+              height="720"
+            />
+          </div>
         </section>
 
         <section className="container mt-20 md:mt-32 mx-auto">

@@ -493,6 +493,7 @@ type Comment {
   id: ID!
   username: String
   relatedExperienceId: String
+  relatedMuseumId: String
   relatedArtworkId: String
   comment: String
   image: String
@@ -509,6 +510,7 @@ input CommentWhereInput {
   id: IDFilter
   username: StringFilter
   relatedExperienceId: StringFilter
+  relatedMuseumId: StringFilter
   relatedArtworkId: StringFilter
   comment: StringFilter
   image: StringFilter
@@ -518,6 +520,7 @@ input CommentOrderByInput {
   id: OrderDirection
   username: OrderDirection
   relatedExperienceId: OrderDirection
+  relatedMuseumId: OrderDirection
   relatedArtworkId: OrderDirection
   comment: OrderDirection
   image: OrderDirection
@@ -526,6 +529,7 @@ input CommentOrderByInput {
 input CommentUpdateInput {
   username: String
   relatedExperienceId: String
+  relatedMuseumId: String
   relatedArtworkId: String
   comment: String
   image: String
@@ -539,6 +543,7 @@ input CommentUpdateArgs {
 input CommentCreateInput {
   username: String
   relatedExperienceId: String
+  relatedMuseumId: String
   relatedArtworkId: String
   comment: String
   image: String

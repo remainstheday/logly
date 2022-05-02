@@ -37,6 +37,24 @@ export const Comment = list({
         afterOperation: async (args) => {},
       },
     }),
+
+    relatedMuseumId: text({
+      ui: {
+        createView: {
+          fieldMode: ({ session, context }) => "hidden",
+        },
+        itemView: {
+          fieldMode: ({ session, context, item }) => "read",
+        },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
+      hooks: {
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
+      },
+    }),
     relatedArtworkId: text({
       ui: {
         createView: {

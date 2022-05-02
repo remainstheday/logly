@@ -8,7 +8,7 @@ export default function PageTitle({ smallText, largeText }) {
         <p className="small-title uppercase text-center">{smallText}</p>
       )}
       {largeText && (
-        <h1 className="page-title text-6xl leading-8 text-center uppercase font-bold">
+        <h1 className="page-title text-6xl">
           <br /> {largeText}
         </h1>
       )}

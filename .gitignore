@@ -42,4 +42,4 @@ yarn-error.log*
 .idea
 backup.sql
 latest.dump
-
+.turbo
