@@ -59,7 +59,7 @@ export default function Home({ content, experiences, comments }) {
               <h3 className="pb-3 section-title">Art Social</h3>
               <hr />
             </div>
-            <CommentCarousel comments={comments} />
+            {comments && <CommentCarousel comments={comments} />}
             <div className="mt-6 px-6 md:px-0">
               <SectionLink href={`/social`} text={"Discover Art Social"} />
             </div>
