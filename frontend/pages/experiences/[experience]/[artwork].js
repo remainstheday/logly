@@ -12,7 +12,6 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
-import ArtworkCarousel from "components/ArtworkCarousel";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
