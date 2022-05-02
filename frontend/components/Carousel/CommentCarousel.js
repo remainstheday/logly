@@ -3,8 +3,9 @@ import Image from "next/image";
 import { truncateComment } from "utils/truncateText";
 
 export default function CommentCarousel({ comments = [] }) {
+  if (comments.length === 0) return <></>;
   const comment = comments.find((comment) => comment.image.length > 0);
-  if (comments.length < 1) return <></>;
+
   return (
     <div className="flex w-full">
       <Image src={comment.image} width="1080" height="720" />
