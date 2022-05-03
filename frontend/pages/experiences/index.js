@@ -1,8 +1,6 @@
-import { useRouter } from "next/router";
 import { GET_ALL_EXPERIENCES } from "lib/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import Tab from "components/Tab";
 import Thumbnail from "components/Thumbnail";
 import BackLink from "components/BackLink";
 import React from "react";
@@ -11,35 +9,7 @@ import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function Experience({ experiences }) {
-  const { query } = useRouter();
-  const isViewAllSelected = !!query.viewAll;
-  const isOngoingSelected = !!query.onGoing;
-  const isClosingSoonSelected = !!query.closingSoon;
-  const isLongTermSelected = !!query.longTerm;
-
   if (!experiences) return <PageLoading />;
-
-  const renderExperiences = (filteredExperience, title) => {
-    return (
-      <>
-        <h3 className="pb-3 mt-6 section-title">{title}</h3>
-        <hr />
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          {filteredExperience.map((experience) => (
-            <div key={experience.id}>
-              <Thumbnail
-                href={`/experiences/${experience.slug}`}
-                title={experience.title}
-                image={experience.poster ? experience.poster.publicUrl : ""}
-                imgWidth={700}
-                imgHeight={512}
-              />
-            </div>
-          ))}
-        </div>
-      </>
-    );
-  };
 
   return (
     <>
@@ -47,47 +17,20 @@ export default function Experience({ experiences }) {
         <Header />
         <BackLink href={"/"} text={"Home"} />
         <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
-        <nav className="mt-6 mb-6">
-          <Tab
-            href="/experiences?viewAll=true"
-            title="View All"
-            isSelected={isViewAllSelected}
-          />
-          <Tab
-            href="/experiences?onGoing=true"
-            title="On Going"
-            isSelected={isOngoingSelected}
-          />
-          <Tab
-            href="/experiences?closingSoon=true"
-            title="Closing Soon"
-            isSelected={isClosingSoonSelected}
-          />
-          <Tab
-            href="/experiences?longTerm=true"
-            title="Long Term"
-            isSelected={isLongTermSelected}
-          />
-        </nav>
-
         <section className="mt-4 mt-10 mx-auto">
-          {(isViewAllSelected || isOngoingSelected) &&
-            renderExperiences(
-              experiences.filter((experience) => experience),
-              "On Going"
-            )}
-
-          {(isViewAllSelected || isClosingSoonSelected) &&
-            renderExperiences(
-              experiences.filter((experience) => experience),
-              "Closing Soon"
-            )}
-
-          {(isViewAllSelected || isLongTermSelected) &&
-            renderExperiences(
-              experiences.filter((experience) => experience),
-              "Long Term"
-            )}
+          <div className="mt-6 grid grid-cols-2 gap-4">
+            {experiences.map((experience) => (
+              <div key={experience.id}>
+                <Thumbnail
+                  href={`/experiences/${experience.slug}`}
+                  title={experience.title}
+                  image={experience.poster ? experience.poster.publicUrl : ""}
+                  imgWidth={700}
+                  imgHeight={512}
+                />
+              </div>
+            ))}
+          </div>
         </section>
       </div>
       <Footer />

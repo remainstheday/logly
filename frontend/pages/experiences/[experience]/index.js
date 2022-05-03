@@ -21,10 +21,7 @@ export default function Experience({ experience, experiences }) {
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="mx-6 mt-4 md:mx-auto">
-          <BackLink
-            href={"/experiences?viewAll=true"}
-            text={"Pick Experience"}
-          />
+          <BackLink href={"/experiences"} text={"Pick Experience"} />
           <h1 className="experience-title">{experience.title}</h1>
           <span className="date-tag">
             {format(new Date(experience.startDate), "MMMM dd, yyyy")}
