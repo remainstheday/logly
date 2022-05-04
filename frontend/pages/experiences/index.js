@@ -17,7 +17,7 @@ export default function Experience({ experiences }) {
         <Header />
         <BackLink href={"/"} text={"Home"} />
         <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
-        <section className="mt-4 mt-10 mx-auto">
+        <section className="mt-4 px-6 mt-10 mx-auto">
           <div className="mt-6 grid grid-cols-2 gap-4">
             {experiences.map((experience) => (
               <div key={experience.id}>

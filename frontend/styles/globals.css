@@ -57,6 +57,23 @@ html {
   color: #000000;
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #F0F0F0;
+  height: 2px;
+  width: 2px;
+  border-radius: 50px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 50px;
+  outline: 1px solid black;
+}
+
 
 .page-title {
   font-family: "Karla", sans-serif;

@@ -7,17 +7,17 @@ import Image from "next/image";
 import client from "lib/apollo-client";
 import { GET_ALL_COMMENTS } from "lib/api";
 import SocialForm from "components/SocialForm";
-import ClientOnly from "utils/ClientOnly";
+import ClientOnly from "components/ClientOnly";
 import { truncateComment } from "utils/truncateText";
 
 export default function Social({ comments }) {
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto mx-2 md:mx-auto">
+      <div className="max-w-4xl px-6 md:px-0 mx-auto md:mx-auto">
         <BackLink href={"/"} text={"Home"} />
         <PageTitle largeText={"ART Social"} />
-        <section className="container mt-20 md:mt-32 mx-auto">
+        <section className="mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />
           <ClientOnly>
@@ -27,7 +27,7 @@ export default function Social({ comments }) {
       </div>
       <section className="mt-20 md:mt-32 ">
         <div className="filter max-w-4xl mx-auto">
-          <h3 className="pb-3 section-title">
+          <h3 className="pb-3 px-6 md:px-0 section-title">
             See what the community has shared
           </h3>
         </div>
@@ -36,7 +36,7 @@ export default function Social({ comments }) {
             {comments.map((post) => (
               <div
                 key={post.id}
-                className="break-inside mb-3 bg-white rounded overflow-hidden shadow-lg"
+                className="break-inside mb-3 bg-white overflow-hidden"
               >
                 {post.image.length > 0 && (
                   <Image src={post.image} width="1080" height="720" />

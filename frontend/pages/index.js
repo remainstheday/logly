@@ -1,4 +1,3 @@
-import ContentSlider from "components/ContentSlider";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import PageTitle from "components/PageTitle";
@@ -12,8 +11,9 @@ import {
 import Image from "next/image";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
-
 import CommentCarousel from "components/Carousel";
+import React from "react";
+import Link from "next/link";
 
 export default function Home({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
@@ -45,13 +45,33 @@ export default function Home({ content, experiences, comments }) {
           <section className="mx-auto px-6 md:px-0 mt-20 md:mt-32">
             <h3 className="pb-3 section-title">Pick an Experience</h3>
             <hr />
-            <div className="w-full mt-4">
-              <ContentSlider items={experiences} contentType="experience" />
-              <SectionLink
-                href={`/experiences?viewAll=true`}
-                text={"See all experiences"}
-              />
+            <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
+              {experiences.map((item, index) => (
+                <div className="snap-center shrink-0 w-full my-3" key={index}>
+                  <div className="shrink-0 flex flex-col">
+                    <Link href={`/experiences/${item.slug}`} passHref>
+                      <a>
+                        <Image
+                          src={
+                            item.poster
+                              ? item.poster.publicUrl
+                              : "/stock-museum-1.jpg"
+                          }
+                          width={1080}
+                          height={720}
+                        />
+                        <strong>{item.title}</strong>
+                      </a>
+                    </Link>
+                  </div>
+                </div>
+              ))}
             </div>
+
+            <SectionLink
+              href={`/experiences?viewAll=true`}
+              text={"See all experiences"}
+            />
           </section>
 
           <section className="mt-20 md:mt-32 mx-auto">

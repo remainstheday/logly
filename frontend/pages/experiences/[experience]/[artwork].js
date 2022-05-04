@@ -15,7 +15,7 @@ import React from "react";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
-import ClientOnly from "utils/ClientOnly";
+import ClientOnly from "components/ClientOnly";
 import SocialForm from "components/SocialForm";
 import CommentCarousel from "components/Carousel";
 
