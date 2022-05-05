@@ -15,17 +15,21 @@ import React from "react";
 import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
-import ClientOnly from "components/ClientOnly";
 import SocialForm from "components/SocialForm";
 import CommentCarousel from "components/Carousel";
+import Section from "components/Section";
 
 export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
+  console.log(experience);
+  const similarArtworks = experience.artworks.filter(
+    (item) => item.slug !== artwork.slug
+  );
   return (
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-        <BackLink href={"/experiences?viewAll=true"} text={"Pick Experience"} />
+        <BackLink href={"/experiences"} text={"Pick Experience"} />
 
         <section className="container mt-20 md:mt-32 mx-auto">
           <div className="section-title my-6 space-y-2">
@@ -51,21 +55,17 @@ export default function Artwork({ artwork, experience, comments }) {
           </div>
         </section>
 
-        <section className="container mt-20 md:mt-32 mx-auto">
-          <h3 className="pb-3 section-title">Overview</h3>
-          <hr />
-          <p className="mt-6">{artwork.description}</p>
-        </section>
-        <section className="container mt-20 md:mt-32 mx-auto">
-          <Link href={`/experiences/`}>
-            <a>
-              <h3 className="pb-3 section-title">Go To Experience</h3>
-            </a>
-          </Link>
+        {artwork.description.length > 0 && (
+          <Section title="Overview">
+            <p className="mt-6">{artwork.description}</p>
+          </Section>
+        )}
+        <Section>
+          <SectionLink href={experience.slug} text={"Go To Experience"} />
           <hr />
           <div className="w-full mt-4">
             <div className="flex flex-wrap">
-              {experience.artworks.map((artwork, index) => (
+              {similarArtworks.map((artwork, index) => (
                 <div className="w-1/2 my-4" key={index}>
                   <Link
                     href={`/experiences/${experience.slug}/${artwork.slug}`}
@@ -90,25 +90,16 @@ export default function Artwork({ artwork, experience, comments }) {
               ))}
             </div>
           </div>
-        </section>
-        <section className="container mt-20 md:mt-32 mx-auto">
-          <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
-          <hr />
-          <ClientOnly>
-            <SocialForm relatedArtworkId={artwork.id} />
-          </ClientOnly>
-        </section>
+        </Section>
+        <Section title="Share Thoughts and Images">
+          <SocialForm relatedArtworkId={artwork.id} />
+        </Section>
 
-        <section className="container mt-20 md:mt-32 mx-auto">
-          <h3 className="pb-3 section-title">
-            See What the Community has Shared
-          </h3>
-          <hr />
-          <br />
+        <Section title="See What the Community has Shared">
           <CommentCarousel comments={comments} />
           <br />
           <SectionLink href={`/social`} text={"Discover Art Social"} />
-        </section>
+        </Section>
       </div>
       <Footer />
     </>

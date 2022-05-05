@@ -14,6 +14,7 @@ import PageLoading from "components/PageLoading";
 import CommentCarousel from "components/Carousel";
 import React from "react";
 import Link from "next/link";
+import Section from "components/Section";
 
 export default function Home({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
@@ -38,13 +39,11 @@ export default function Home({ content, experiences, comments }) {
             />
           </div>
 
-          <section className="px-6 lg:px-0 mx-auto mt-4">
+          <Section>
             <h3>{homepage.description}</h3>
-          </section>
+          </Section>
 
-          <section className="mx-auto px-6 md:px-0 mt-20 md:mt-32">
-            <h3 className="pb-3 section-title">Pick an Experience</h3>
-            <hr />
+          <Section title="Pick an Experience">
             <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
               {experiences.map((item, index) => (
                 <div className="snap-center shrink-0 w-full my-3" key={index}>
@@ -69,20 +68,16 @@ export default function Home({ content, experiences, comments }) {
             </div>
 
             <SectionLink href={`/experiences`} text={"See all experiences"} />
-          </section>
+          </Section>
 
-          <section className="mt-20 md:mt-32 mx-auto">
-            <div className="px-6 md:px-0 mb-6">
-              <h3 className="pb-3 section-title">Art Social</h3>
-              <hr />
-            </div>
+          <Section title="Art Social">
             <div className="px-3 md:px-0">
               {comments && <CommentCarousel comments={comments} />}
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink href={`/social`} text={"Discover Art Social"} />
             </div>
-          </section>
+          </Section>
         </main>
       </div>
       <Footer />
