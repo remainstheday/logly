@@ -19,7 +19,7 @@ export default function Home({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
 
   const homepage = content[0];
-
+  console.log(comments);
   return (
     <>
       <Header />
@@ -38,7 +38,7 @@ export default function Home({ content, experiences, comments }) {
             />
           </div>
 
-          <section className="mx-6 md:mx-auto mt-4">
+          <section className="px-6 lg:px-0 mx-auto mt-4">
             <h3>{homepage.description}</h3>
           </section>
 
@@ -68,10 +68,7 @@ export default function Home({ content, experiences, comments }) {
               ))}
             </div>
 
-            <SectionLink
-              href={`/experiences?viewAll=true`}
-              text={"See all experiences"}
-            />
+            <SectionLink href={`/experiences`} text={"See all experiences"} />
           </section>
 
           <section className="mt-20 md:mt-32 mx-auto">
@@ -79,7 +76,9 @@ export default function Home({ content, experiences, comments }) {
               <h3 className="pb-3 section-title">Art Social</h3>
               <hr />
             </div>
-            {comments && <CommentCarousel comments={comments} />}
+            <div className="px-3 md:px-0">
+              {comments && <CommentCarousel comments={comments} />}
+            </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink href={`/social`} text={"Discover Art Social"} />
             </div>

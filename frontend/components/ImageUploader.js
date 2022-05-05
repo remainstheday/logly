@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import "pintura/pintura.css";
 import { openDefaultEditor } from "pintura";
+import Image from "next/image";
 
 // This function is called when the user taps the edit button, it opens the editor and returns the modified file when done
 const editImage = (image, done) => {
@@ -51,10 +52,12 @@ export default function ImageUploader({ onUpload }) {
 
   const thumbs = uploadedImage.map((file) => (
     <div className="" key={file.name}>
-      <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-        <img
+      <div className="w-full min-h-80 overflow-hidden group-hover:opacity-75">
+        <Image
           src={file.preview}
-          className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+          className="w-full object-center object-cover"
+          width="366"
+          height="241"
         />
       </div>
     </div>
