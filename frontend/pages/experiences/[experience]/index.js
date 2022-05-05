@@ -1,5 +1,4 @@
 import BackLink from "components/BackLink";
-import ContentSlider from "components/ContentSlider";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
