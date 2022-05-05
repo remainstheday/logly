@@ -11,7 +11,7 @@ import {
 import Image from "next/image";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
-import CommentCarousel from "components/Carousel";
+import CommentCard from "components/CommentCard";
 import React from "react";
 import Link from "next/link";
 import Section from "components/Section";
@@ -72,7 +72,7 @@ export default function Home({ content, experiences, comments }) {
 
           <Section title="Art Social">
             <div className="px-3 md:px-0">
-              {comments && <CommentCarousel comments={comments} />}
+              {comments && <CommentCard comments={comments} />}
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink href={`/social`} text={"Discover Art Social"} />

@@ -1,6 +1,7 @@
 import Header from "components/Header";
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
+
 export default function PageLoading() {
   return (
     <>

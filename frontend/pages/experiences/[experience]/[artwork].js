@@ -16,7 +16,7 @@ import SectionLink from "components/SectionLink";
 import client from "lib/apollo-client";
 import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
-import CommentCarousel from "components/Carousel";
+import CommentCard from "components/CommentCard";
 import Section from "components/Section";
 
 export default function Artwork({ artwork, experience, comments }) {
@@ -96,7 +96,7 @@ export default function Artwork({ artwork, experience, comments }) {
         </Section>
 
         <Section title="See What the Community has Shared">
-          <CommentCarousel comments={comments} />
+          <CommentCard comments={comments} />
           <br />
           <SectionLink href={`/social`} text={"Discover Art Social"} />
         </Section>

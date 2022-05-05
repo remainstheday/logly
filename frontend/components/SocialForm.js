@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
 import processImage from "utils/processImageUpload";
 import ImageUploader from "components/ImageUploader";
 import { useMutation } from "@apollo/client";
 import client from "lib/apollo-client";
-
 import { CREATE_COMMENT } from "lib/api";
 
 export default function SocialForm({ relatedArtworkId, relatedExperienceId }) {
