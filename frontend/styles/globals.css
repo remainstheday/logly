@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer utilities {
-  @variants responsive {
     .masonry-3-col {
       column-count: 3;
       column-gap: 1em;
@@ -15,7 +14,6 @@
     .break-inside {
       break-inside: avoid;
     }
-  }
 }
 
 html {

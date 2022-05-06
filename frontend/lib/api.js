@@ -117,30 +117,57 @@ export const GET_ALL_COMMENTS = gql`
   }
 `;
 
-// todo: submit comments from frontend to keystone
 export const CREATE_COMMENT = gql`
   mutation CreateComment(
-    $username: String!
-    $comment: String!
-    $image: String
     $relatedExperienceId: String
     $relatedArtworkId: String
+    $username: String!
+    $comment: String!
+    $image: String!
   ) {
     createComment(
       data: {
-        username: $username
-        comment: $comment
         relatedExperienceId: $relatedExperienceId
         relatedArtworkId: $relatedArtworkId
+        username: $username
+        comment: $comment
         image: $image
       }
     ) {
       id
-      comment
-      image
       username
       relatedExperienceId
       relatedArtworkId
+      comment
+      image
     }
   }
 `;
+
+// todo: submit comments from frontend to keystone
+// export const CREATE_COMMENT = gql`
+//   mutation CreateComment(
+//     $username: String!
+//     $comment: String!
+//     $image: String
+//     $relatedExperienceId: String
+//     $relatedArtworkId: String
+//   ) {
+//     createComment(
+//       data: {
+//         username: $username
+//         comment: $comment
+//         relatedExperienceId: $relatedExperienceId
+//         relatedArtworkId: $relatedArtworkId
+//         image: $image
+//       }
+//     ) {
+//       id
+//       comment
+//       image
+//       username
+//       relatedExperienceId
+//       relatedArtworkId
+//     }
+//   }
+// `;
