@@ -20,7 +20,6 @@ export default function Home({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
 
   const homepage = content[0];
-  console.log(comments);
   return (
     <>
       <Header />

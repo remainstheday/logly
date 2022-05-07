@@ -32,10 +32,11 @@ model Artwork {
 }
 
 model User {
-  id       String @id @default(uuid()) @postgresql.Uuid
-  museumId String @default("")
-  name     String @default("")
-  email    String @unique @default("")
+  id       String  @id @default(uuid()) @postgresql.Uuid
+  museumId String  @default("")
+  isAdmin  Boolean @default(false)
+  name     String  @default("")
+  email    String  @unique @default("")
   password String
 }
 
