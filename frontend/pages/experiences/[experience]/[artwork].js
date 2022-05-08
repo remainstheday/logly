@@ -18,10 +18,11 @@ import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
 import CommentCard from "components/CommentCard";
 import Section from "components/Section";
+import AudioPlayer from "components/AudioPlayer";
 
 export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
-  console.log(artwork);
+
   const similarArtworks = experience.artworks.filter(
     (item) => item.slug !== artwork.slug
   );
@@ -31,7 +32,7 @@ export default function Artwork({ artwork, experience, comments }) {
       <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
         <BackLink href={"/experiences"} text={"Pick Experience"} />
 
-        <section className="container mt-20 md:mt-32 mx-auto">
+        <section className="my-20 md:mt-32 mx-auto">
           <div className="section-title my-6 space-y-2">
             <h1>{artwork.title}</h1>
             <h2>{artwork.artist}</h2>
@@ -42,7 +43,7 @@ export default function Artwork({ artwork, experience, comments }) {
             </h3>
           </div>
 
-          <div className="flex relative my-16">
+          <div className="flex relative my-5">
             <Image
               src={
                 artwork.images
@@ -53,12 +54,11 @@ export default function Artwork({ artwork, experience, comments }) {
               height="720"
             />
           </div>
-          <figure>
-            <audio controls src={artwork.audioFile}>
-              Your browser does not support the
-              <code>audio</code> element.
-            </audio>
-          </figure>
+
+          <AudioPlayer
+            title={"Listen to the story behind the painting by pressing play"}
+            audioFile={artwork.audioFile}
+          />
         </section>
 
         {artwork.description.length > 0 && (
