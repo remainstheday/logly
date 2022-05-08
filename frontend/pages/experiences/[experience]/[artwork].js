@@ -22,7 +22,6 @@ import AudioPlayer from "components/AudioPlayer";
 
 export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
-
   const similarArtworks = experience.artworks.filter(
     (item) => item.slug !== artwork.slug
   );
@@ -55,10 +54,12 @@ export default function Artwork({ artwork, experience, comments }) {
             />
           </div>
 
-          <AudioPlayer
-            title={"Listen to the story behind the painting by pressing play"}
-            audioFile={artwork.audioFile}
-          />
+          {artwork.audioFile.length > 0 && (
+            <AudioPlayer
+              title={"Listen to the story behind the painting by pressing play"}
+              audioFile={artwork.audioFile}
+            />
+          )}
         </section>
 
         {artwork.description.length > 0 && (
