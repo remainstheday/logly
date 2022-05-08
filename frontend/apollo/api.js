@@ -95,6 +95,7 @@ export const GET_ARTWORK_BY_SLUG = gql`
       startDate
       endDate
       description
+      audioFile
       images {
         id
         filename

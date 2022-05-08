@@ -8,12 +8,12 @@ import {
   GET_ALL_EXPERIENCES,
   GET_ARTWORK_BY_SLUG,
   GET_EXPERIENCE_BY_SLUG,
-} from "lib/api";
+} from "apollo/api";
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import SectionLink from "components/SectionLink";
-import client from "lib/apollo-client";
+import client from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
 import CommentCard from "components/CommentCard";
@@ -21,7 +21,7 @@ import Section from "components/Section";
 
 export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
-  console.log(experience);
+  console.log(artwork);
   const similarArtworks = experience.artworks.filter(
     (item) => item.slug !== artwork.slug
   );
@@ -53,6 +53,12 @@ export default function Artwork({ artwork, experience, comments }) {
               height="720"
             />
           </div>
+          <figure>
+            <audio controls src={artwork.audioFile}>
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
+          </figure>
         </section>
 
         {artwork.description.length > 0 && (

@@ -7,9 +7,9 @@ import {
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_STATIC_CONTENTS,
-} from "lib/api";
+} from "apollo/api";
 import Image from "next/image";
-import client from "lib/apollo-client";
+import client from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import CommentCard from "components/CommentCard";
 import React from "react";

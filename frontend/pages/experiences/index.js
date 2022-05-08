@@ -1,11 +1,11 @@
-import { GET_ALL_EXPERIENCES } from "lib/api";
+import { GET_ALL_EXPERIENCES } from "apollo/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Thumbnail from "components/Thumbnail";
 import BackLink from "components/BackLink";
 import React from "react";
 import PageTitle from "components/PageTitle";
-import client from "lib/apollo-client";
+import client from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function Experience({ experiences }) {

@@ -1,9 +1,9 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import { GET_STATIC_CONTENTS } from "lib/api";
+import { GET_STATIC_CONTENTS } from "apollo/api";
 import PageTitle from "components/PageTitle";
-import client from "lib/apollo-client";
+import client from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function About({ content = [] }) {

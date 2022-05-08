@@ -33,7 +33,10 @@ export const Artwork = list({
     }),
     audioFile: text({
       ui: {
-        views: require.resolve("../fields/audiofile/component.tsx"),
+        views: require.resolve("../fields/audiofile/view.tsx"),
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "edit" },
       },
     }),
     images: cloudinaryImage({

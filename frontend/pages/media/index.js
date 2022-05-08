@@ -2,8 +2,8 @@ import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
-import { GET_STATIC_CONTENTS } from "lib/api";
-import client from "lib/apollo-client";
+import { GET_STATIC_CONTENTS } from "apollo/api";
+import client from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function Media({ content = [] }) {

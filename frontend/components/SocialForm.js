@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import processImage from "utils/processImageUpload";
 import ImageUploader from "components/ImageUploader";
 import { useMutation } from "@apollo/client";
-import client from "lib/apollo-client";
-import { CREATE_COMMENT } from "lib/api";
+
+import { CREATE_COMMENT, GET_ALL_COMMENTS } from "apollo/api";
 
 export default function SocialForm({ relatedArtworkId, relatedExperienceId }) {
   const [uploadedImage, setUploadedImage] = useState();
@@ -11,22 +11,22 @@ export default function SocialForm({ relatedArtworkId, relatedExperienceId }) {
   const [commentDescription, updateCommentDescription] = useState("");
   const [createComment, { data, error, loading }] = useMutation(
     CREATE_COMMENT,
-    { client }
+    {
+      variables: {
+        name: commentName,
+        comment: commentDescription,
+        relatedArtworkId: relatedArtworkId ? relatedArtworkId : null,
+        relatedExperienceId: relatedExperienceId ? relatedExperienceId : null,
+      },
+      refetchQueries: [{ query: GET_ALL_COMMENTS }],
+    }
   );
 
   const handleFormSubmit = async () => {
     let cloudinaryImage = null;
     if (uploadedImage) cloudinaryImage = await processImage(uploadedImage);
 
-    await createComment({
-      variables: {
-        name: commentName,
-        comment: commentDescription,
-        relatedArtworkId: relatedArtworkId ? relatedArtworkId : null,
-        relatedExperienceId: relatedExperienceId ? relatedExperienceId : null,
-        image: cloudinaryImage,
-      },
-    });
+    await createComment();
   };
 
   if (loading) return "loading...";

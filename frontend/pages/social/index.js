@@ -4,8 +4,8 @@ import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
 import React from "react";
 import Image from "next/image";
-import client from "lib/apollo-client";
-import { GET_ALL_COMMENTS } from "lib/api";
+import client from "apollo/apollo-client";
+import { GET_ALL_COMMENTS } from "apollo/api";
 import SocialForm from "components/SocialForm";
 import { truncateComment } from "utils/truncateText";
 
