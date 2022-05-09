@@ -13,6 +13,7 @@ const { withAuth } = createAuth({
   listKey: "User",
   identityField: "email",
   secretField: "password",
+  sessionData: "isAdmin museumId",
   initFirstItem: {
     fields: ["name", "email", "password"],
   },

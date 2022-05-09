@@ -2,8 +2,27 @@ import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { cloudinary } from "../cloudinary";
+import {FilterAccess, OperationAccess} from "../Access";
 
 export const StaticContent = list({
+  access: {
+    operation: {
+      query: OperationAccess.anyone,
+      create: OperationAccess.adminOrMuseumCuratorOnly,
+      update: OperationAccess.adminOrMuseumCuratorOnly,
+      delete: OperationAccess.adminOrMuseumCuratorOnly,
+    },
+    filter: {
+      query: FilterAccess.limitMuseumCurator,
+      update: FilterAccess.adminOrMuseumCuratorOnly,
+      delete: FilterAccess.adminOrMuseumCuratorOnly,
+    },
+    // item: {
+    //   create: ItemAccess.adminOrMuseumCuratorOnly,
+    //   update: ItemAccess.adminOrMuseumCuratorOnly,
+    //   delete: ItemAccess.adminOrMuseumCuratorOnly
+    // },
+  },
   ui: {
     hideCreate: true,
     hideDelete: false,

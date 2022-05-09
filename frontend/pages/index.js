@@ -20,7 +20,6 @@ export default function Home({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
 
   const homepage = content[0];
-  console.log(comments);
   return (
     <>
       <Header />
@@ -69,7 +68,7 @@ export default function Home({ content, experiences, comments }) {
 
             <SectionLink href={`/experiences`} text={"See all experiences"} />
           </Section>
-
+          {comments.length > 0 &&
           <Section title="Art Social">
             <div className="px-3 md:px-0">
               {comments && <CommentCard comments={comments} />}
@@ -78,6 +77,7 @@ export default function Home({ content, experiences, comments }) {
               <SectionLink href={`/social`} text={"Discover Art Social"} />
             </div>
           </Section>
+          }
         </main>
       </div>
       <Footer />

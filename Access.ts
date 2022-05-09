@@ -19,7 +19,7 @@ type InputData = {
 export const OperationAccess = {
   adminOnly: ({ session }: { session: Session }) => session?.data.isAdmin,
   adminOrMuseumCuratorOnly: ({ session }: { session: Session }) =>
-    session?.data.isAdmin || session?.data.museumId,
+    session?.data.isAdmin || session?.data.museumId.length > 0,
   anyone: () => true,
 };
 
@@ -33,7 +33,7 @@ export const FilterAccess = {
     return true;
   },
   adminOrMuseumCuratorOnly: ({ session }: { session: Session }) =>
-    session?.data.isAdmin || session?.data.museumId,
+    session?.data.isAdmin || session?.data.museumId.length > 0,
 };
 
 export const ItemAccess = {

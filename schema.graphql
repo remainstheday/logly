@@ -293,6 +293,7 @@ input ExperienceRelateToManyForCreateInput {
 type User {
   id: ID!
   museumId: String
+  isAdmin: Boolean
   name: String
   email: String
   password: PasswordState
@@ -313,19 +314,27 @@ input UserWhereInput {
   NOT: [UserWhereInput!]
   id: IDFilter
   museumId: StringFilter
+  isAdmin: BooleanFilter
   name: StringFilter
   email: StringFilter
+}
+
+input BooleanFilter {
+  equals: Boolean
+  not: BooleanFilter
 }
 
 input UserOrderByInput {
   id: OrderDirection
   museumId: OrderDirection
+  isAdmin: OrderDirection
   name: OrderDirection
   email: OrderDirection
 }
 
 input UserUpdateInput {
   museumId: String
+  isAdmin: Boolean
   name: String
   email: String
   password: String
@@ -338,6 +347,7 @@ input UserUpdateArgs {
 
 input UserCreateInput {
   museumId: String
+  isAdmin: Boolean
   name: String
   email: String
   password: String
