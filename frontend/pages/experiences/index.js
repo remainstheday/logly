@@ -38,7 +38,7 @@ export default function Experience({ experiences }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const { data } = await client.query({
     query: GET_ALL_EXPERIENCES,
   });

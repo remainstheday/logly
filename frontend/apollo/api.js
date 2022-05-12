@@ -118,32 +118,25 @@ export const GET_ALL_COMMENTS = gql`
   }
 `;
 
-export const CREATE_COMMENT = gql`
-  mutation CreateComment(
-    $relatedExperienceId: String
-    $relatedArtworkId: String
-    $username: String!
-    $comment: String!
-    $image: String!
-  ) {
-    createComment(
-      data: {
-        relatedExperienceId: $relatedExperienceId
-        relatedArtworkId: $relatedArtworkId
-        username: $username
-        comment: $comment
-        image: $image
-      }
-    ) {
-      id
-      username
-      relatedExperienceId
-      relatedArtworkId
-      comment
-      image
-    }
+export const CREATE_COMMENT =  gql`mutation CreateComment (
+  $username: String!
+  $comment: String!
+  $image: String!
+) {
+  createComment(data: {
+    username: $username,
+    comment: $comment,
+    image: $image,
   }
-`;
+  ) {
+    id
+    username
+    relatedExperienceId
+    relatedArtworkId
+    comment
+    image
+  }
+}`;
 
 // todo: submit comments from frontend to keystone
 // export const CREATE_COMMENT = gql`

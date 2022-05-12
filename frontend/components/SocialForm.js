@@ -1,38 +1,41 @@
 import React, { useState } from "react";
 import processImage from "utils/processImageUpload";
 import ImageUploader from "components/ImageUploader";
-import { useMutation } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
+import ClientOnly from "components/ClientOnly";
+import { GET_ALL_COMMENTS } from "apollo/api";
 
-import { CREATE_COMMENT, GET_ALL_COMMENTS } from "apollo/api";
-
+const ADD_COMMENT = gql`
+  mutation CreateComment(
+    $username: String!
+    $comment: String!
+    $image: String!
+  ) {
+    createComment(
+      data: { username: $username, comment: $comment, image: $image }
+    ) {
+      id
+      username
+      relatedExperienceId
+      relatedArtworkId
+      comment
+      image
+    }
+  }
+`;
 export default function SocialForm({ relatedArtworkId, relatedExperienceId }) {
   const [uploadedImage, setUploadedImage] = useState();
   const [commentName, updateCommentName] = useState("");
   const [commentDescription, updateCommentDescription] = useState("");
-  const [createComment, { data, error, loading }] = useMutation(
-    CREATE_COMMENT,
-    {
-      variables: {
-        name: commentName,
-        comment: commentDescription,
-        relatedArtworkId: relatedArtworkId ? relatedArtworkId : null,
-        relatedExperienceId: relatedExperienceId ? relatedExperienceId : null,
-      },
-      refetchQueries: [{ query: GET_ALL_COMMENTS }],
-    }
-  );
+  const [addComment] = useMutation(ADD_COMMENT);
 
   const handleFormSubmit = async () => {
     let cloudinaryImage = null;
     if (uploadedImage) cloudinaryImage = await processImage(uploadedImage);
-
-    await createComment();
   };
 
-  if (loading) return "loading...";
-  if (error) return <p>error text :(</p>;
   return (
-    <>
+    <ClientOnly>
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -67,6 +70,20 @@ export default function SocialForm({ relatedArtworkId, relatedExperienceId }) {
           </button>
         </div>
       </form>
-    </>
+
+      <button
+        onClick={() =>
+          addComment({
+            variables: {
+              username: "@remainstheday",
+              comment: "it still works",
+              image: "",
+            },
+          })
+        }
+      >
+        click me
+      </button>
+    </ClientOnly>
   );
 }

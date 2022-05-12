@@ -85,7 +85,7 @@ export default function Home({ content, experiences, comments }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const content = await client.query({
     query: GET_STATIC_CONTENTS,
     variables: { slug: "" },

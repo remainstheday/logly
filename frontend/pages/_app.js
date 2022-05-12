@@ -1,13 +1,12 @@
 import "../styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
-import client from "apollo/apollo-client";
+import { useApollo } from "apollo/apollo-client";
 
-function MyApp({ Component, pageProps }) {
+export default function App({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps.initialApolloState);
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />
     </ApolloProvider>
   );
 }
-
-export default MyApp;

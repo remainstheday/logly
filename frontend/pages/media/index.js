@@ -22,7 +22,7 @@ export default function Media({ content = [] }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const content = await client.query({
     query: GET_STATIC_CONTENTS,
     variables: { slug: "media" },
