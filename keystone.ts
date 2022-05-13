@@ -24,6 +24,11 @@ export default withAuth(
     server: {
       cors: {origin: [`${process.env.FRONTEND_URL}`], credentials: true},
     },
+    experimental: {
+      /** Enables nextjs graphql api route mode */
+      enableNextJsGraphqlApiEndpoint: true,
+      generateNextGraphqlAPI: true,
+    },
     graphql: {
       path: "/api/graphql",
       apolloConfig: {

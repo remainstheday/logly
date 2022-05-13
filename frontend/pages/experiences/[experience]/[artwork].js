@@ -102,11 +102,13 @@ export default function Artwork({ artwork, experience, comments }) {
           <SocialForm relatedArtworkId={artwork.id} />
         </Section>
 
-        <Section title="See What the Community has Shared">
-          <CommentCard comments={comments} />
-          <br />
-          <SectionLink href={`/social`} text={"Discover Art Social"} />
-        </Section>
+        {comments.length > 0 && (
+          <Section title="See What the Community has Shared">
+            <CommentCard comments={comments} />
+            <br />
+            <SectionLink href={`/social`} text={"Discover Art Social"} />
+          </Section>
+        )}
       </div>
       <Footer />
     </>
@@ -172,6 +174,9 @@ export async function getStaticProps({ params }) {
       experience: experience.data.experience,
       comments: comments.data.comments,
     },
-    revalidate: 10,
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 10, // In seconds
   };
 }
