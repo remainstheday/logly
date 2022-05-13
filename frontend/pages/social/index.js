@@ -4,7 +4,7 @@ import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
 import React from "react";
 import Image from "next/image";
-import client from "apollo/apollo-client";
+import { initializeApollo } from "apollo/apollo-client";
 import { GET_ALL_COMMENTS } from "apollo/api";
 import SocialForm from "components/SocialForm";
 import { truncateComment } from "utils/truncateText";
@@ -54,8 +54,10 @@ export default function Social({ comments }) {
   );
 }
 
-export async function getServerSideProps() {
-  const comments = await client.query({
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
   });
 

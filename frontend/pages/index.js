@@ -9,14 +9,14 @@ import {
   GET_STATIC_CONTENTS,
 } from "apollo/api";
 import Image from "next/image";
-import client from "apollo/apollo-client";
+import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import CommentCard from "components/CommentCard";
 import React from "react";
 import Link from "next/link";
 import Section from "components/Section";
 
-export default function Home({ content, experiences, comments }) {
+export default function IndexPage({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
 
   const homepage = content[0];
@@ -68,16 +68,16 @@ export default function Home({ content, experiences, comments }) {
 
             <SectionLink href={`/experiences`} text={"See all experiences"} />
           </Section>
-          {comments.length > 0 &&
-          <Section title="Art Social">
-            <div className="px-3 md:px-0">
-              {comments && <CommentCard comments={comments} />}
-            </div>
-            <div className="mt-6 px-6 md:px-0">
-              <SectionLink href={`/social`} text={"Discover Art Social"} />
-            </div>
-          </Section>
-          }
+          {comments.length > 0 && (
+            <Section title="Art Social">
+              <div className="px-3 md:px-0">
+                {comments && <CommentCard comments={comments} />}
+              </div>
+              <div className="mt-6 px-6 md:px-0">
+                <SectionLink href={`/social`} text={"Discover Art Social"} />
+              </div>
+            </Section>
+          )}
         </main>
       </div>
       <Footer />
@@ -86,26 +86,32 @@ export default function Home({ content, experiences, comments }) {
 }
 
 export async function getStaticProps() {
-  const content = await client.query({
+  const apolloClient = initializeApollo();
+
+  const content = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
     variables: { slug: "" },
   });
-  const experiences = await client.query({
+
+  const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
-  const artworks = await client.query({
-    query: GET_ALL_ARTWORKS,
-  });
-  const comments = await client.query({
+
+  const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
   });
 
-  return {
+  const artworks = await apolloClient.query({
+    query: GET_ALL_ARTWORKS,
+  });
+
+  return addApolloState(apolloClient, {
     props: {
-      experiences: experiences.data.experiences,
-      artworks: artworks.data,
       content: content.data.staticContents,
+      experiences: experiences.data.experiences,
       comments: comments.data.comments,
+      artworks: artworks.data,
     },
-  };
+    revalidate: 1,
+  });
 }

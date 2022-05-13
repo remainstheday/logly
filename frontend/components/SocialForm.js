@@ -3,7 +3,6 @@ import processImage from "utils/processImageUpload";
 import ImageUploader from "components/ImageUploader";
 import { gql, useMutation } from "@apollo/client";
 import ClientOnly from "components/ClientOnly";
-import { GET_ALL_COMMENTS } from "apollo/api";
 
 const ADD_COMMENT = gql`
   mutation CreateComment(

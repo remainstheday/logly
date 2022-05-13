@@ -12,7 +12,7 @@ export const Field = ({
   autoFocus,
 }: FieldProps<typeof controller>) => {
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
-
+  console.log(value);
   const processFileUpload = (file: File) => {
     const url = `https://api.cloudinary.com/v1_1/djfxpvrca/auto/upload`; // TODO: refactor this to use .env
     const xhr = new XMLHttpRequest();
@@ -48,10 +48,10 @@ export const Field = ({
   return (
     <FieldContainer>
       <FieldLabel>{field.label}</FieldLabel>
-      {value.inner.value.length > 0 && (
+      {value.inner.kind === "value" && value.inner.value.length > 0 && (
         <>
           <figure style={{ width: "100%", margin: "1em 0" }}>
-            <audio controls src={value.inner?.value} className="w-full">
+            <audio controls src={value.inner.value} className="w-full">
               Your browser does not support the
               <code>audio</code> element.
             </audio>
