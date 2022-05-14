@@ -1,67 +1,29 @@
 import React, { useState } from "react";
-// import processImage from "utils/processImageUpload";
 import ImageUploader from "components/ImageUploader";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import ClientOnly from "components/ClientOnly";
 import { Formik } from "formik";
+import processCloudinaryImage from "utils/processCloudinaryImage";
+import { ADD_COMMENT } from "apollo/api";
 
-const ADD_COMMENT = gql`
-  mutation CreateComment(
-    $username: String!
-    $comment: String!
-    $image: String!
-    $artworkId: String
-    $experienceId: String
-  ) {
-    createComment(
-      data: {
-        username: $username
-        comment: $comment
-        image: $image
-        artworkId: $artworkId
-        experienceId: $experienceId
-      }
-    ) {
-      id
-      username
-      comment
-      image
-      experienceId
-      artworkId
-    }
-  }
-`;
 export default function SocialForm({ artworkId = "", experienceId = "" }) {
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
 
   const handleFormSubmit = async (username, comment) => {
-    // let image = "";
-    // if (uploadedImage) image = await processImage(uploadedImage);
-    // console.log(image);
-    const url = "https://api.cloudinary.com/v1_1/djfxpvrca/image/upload";
-    const formData = new FormData();
-    formData.append("file", uploadedImage[0]);
-    formData.append("upload_preset", "ekqp8s1g");
-
-    fetch(url, {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => {
-        return response.text();
-      })
-      .then((data) => {
+    await Promise.resolve(processCloudinaryImage(uploadedImage)).then(
+      (cloudinaryImage) => {
         addComment({
           variables: {
             username,
             comment,
-            image: data.secure_url ? data.secure_url : "",
+            image: cloudinaryImage ? cloudinaryImage : "",
             artworkId,
             experienceId,
           },
         });
-      });
+      }
+    );
   };
 
   if (loading) return <p>Loading...</p>;
