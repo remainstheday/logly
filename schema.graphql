@@ -502,9 +502,9 @@ input StaticContentCreateInput {
 type Comment {
   id: ID!
   username: String
-  relatedExperienceId: String
-  relatedMuseumId: String
-  relatedArtworkId: String
+  experienceId: String
+  museumId: String
+  artworkId: String
   comment: String
   image: String
 }
@@ -519,9 +519,9 @@ input CommentWhereInput {
   NOT: [CommentWhereInput!]
   id: IDFilter
   username: StringFilter
-  relatedExperienceId: StringFilter
-  relatedMuseumId: StringFilter
-  relatedArtworkId: StringFilter
+  experienceId: StringFilter
+  museumId: StringFilter
+  artworkId: StringFilter
   comment: StringFilter
   image: StringFilter
 }
@@ -529,18 +529,18 @@ input CommentWhereInput {
 input CommentOrderByInput {
   id: OrderDirection
   username: OrderDirection
-  relatedExperienceId: OrderDirection
-  relatedMuseumId: OrderDirection
-  relatedArtworkId: OrderDirection
+  experienceId: OrderDirection
+  museumId: OrderDirection
+  artworkId: OrderDirection
   comment: OrderDirection
   image: OrderDirection
 }
 
 input CommentUpdateInput {
   username: String
-  relatedExperienceId: String
-  relatedMuseumId: String
-  relatedArtworkId: String
+  experienceId: String
+  museumId: String
+  artworkId: String
   comment: String
   image: String
 }
@@ -552,9 +552,9 @@ input CommentUpdateArgs {
 
 input CommentCreateInput {
   username: String
-  relatedExperienceId: String
-  relatedMuseumId: String
-  relatedArtworkId: String
+  experienceId: String
+  museumId: String
+  artworkId: String
   comment: String
   image: String
 }

@@ -62,11 +62,11 @@ model StaticContent {
 }
 
 model Comment {
-  id                  String @id @default(uuid()) @postgresql.Uuid
-  username            String @default("")
-  relatedExperienceId String @default("")
-  relatedMuseumId     String @default("")
-  relatedArtworkId    String @default("")
-  comment             String @default("")
-  image               String @default("")
+  id           String @id @default(uuid()) @postgresql.Uuid
+  username     String @default("")
+  experienceId String @default("")
+  museumId     String @default("")
+  artworkId    String @default("")
+  comment      String @default("")
+  image        String @default("")
 }

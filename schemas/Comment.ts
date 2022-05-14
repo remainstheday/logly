@@ -5,9 +5,10 @@ export const Comment = list({
   access: {
     item: {
       create: ({ session, context, listKey, operation, inputData }) => true,
-      update: ({ session, context, listKey, operation, inputData, item }) => true,
+      update: ({ session, context, listKey, operation, inputData, item }) =>
+        true,
       delete: ({ session, context, listKey, operation, item }) => true,
-    }
+    },
   },
   fields: {
     username: text({
@@ -27,7 +28,7 @@ export const Comment = list({
         afterOperation: async (args) => {},
       },
     }),
-    relatedExperienceId: text({
+    experienceId: text({
       ui: {
         createView: {
           fieldMode: ({ session, context }) => "hidden",
@@ -45,7 +46,7 @@ export const Comment = list({
       },
     }),
 
-    relatedMuseumId: text({
+    museumId: text({
       ui: {
         createView: {
           fieldMode: ({ session, context }) => "hidden",
@@ -62,7 +63,7 @@ export const Comment = list({
         afterOperation: async (args) => {},
       },
     }),
-    relatedArtworkId: text({
+    artworkId: text({
       ui: {
         createView: {
           fieldMode: ({ session, context }) => "hidden",
