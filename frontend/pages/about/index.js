@@ -5,6 +5,7 @@ import { GET_STATIC_CONTENTS } from "apollo/api";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
+import Image from "next/image";
 
 export default function About({ content = [] }) {
   if (!content) return <PageLoading />;
@@ -15,7 +16,12 @@ export default function About({ content = [] }) {
       <div className="max-w-4xl mx-auto min-h-screen">
         <BackLink href={"/"} text={"Home"} />
         <PageTitle largeText={page.title} />
-        <p className="mt-6">{page.description}</p>
+        <section className="mt-4 px-6 mt-10 mx-auto">
+          {page.poster && (
+            <Image src={page.poster.publicUrl} width="720" height="500" />
+          )}
+          <p className="mt-6">{page.description}</p>
+        </section>
       </div>
       <Footer />
     </>

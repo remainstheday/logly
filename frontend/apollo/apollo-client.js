@@ -17,7 +17,7 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: new HttpLink({
-      uri: process.env.API_URL, // Server URL (must be absolute)
+      uri: "http://localhost:3000/api/graphql", // Server URL (must be absolute)
       credentials: "include", // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache({

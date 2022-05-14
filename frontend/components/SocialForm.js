@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import processImage from "utils/processImageUpload";
+// import processImage from "utils/processImageUpload";
 import ImageUploader from "components/ImageUploader";
 import { gql, useMutation } from "@apollo/client";
 import ClientOnly from "components/ClientOnly";
@@ -36,9 +36,9 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
 
   const handleFormSubmit = async (username, comment) => {
-    let image = "";
-    if (uploadedImage) image = await processImage(uploadedImage);
-    console.log(image);
+    // let image = "";
+    // if (uploadedImage) image = await processImage(uploadedImage);
+    // console.log(image);
     const url = "https://api.cloudinary.com/v1_1/djfxpvrca/image/upload";
     const formData = new FormData();
     formData.append("file", uploadedImage[0]);
@@ -56,7 +56,7 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
           variables: {
             username,
             comment,
-            image: data.url,
+            image: data.secure_url ? data.secure_url : "",
             artworkId,
             experienceId,
           },
@@ -75,10 +75,9 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
         onSubmit={async (values) => {
           await handleFormSubmit(values.username, values.comment);
         }}
-        className="social-form"
       >
         {({ values, handleChange, handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="social-form">
             <input
               required
               name="username"
