@@ -6,12 +6,13 @@ import isEqual from "lodash/isEqual";
 export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
 let apolloClient;
-const httpLink = new HttpLink({
-  uri: "https://staging.logly.world/api/graphql", // Server URL (must be absolute)
-  credentials: "include", // Additional fetch() options like `credentials` or `headers`
-});
 
 function createApolloClient() {
+  const httpLink = new HttpLink({
+    uri: `${process.env.NEXT_PUBLIC_GRAPHQL_URL}`, // Server URL (must be absolute)
+    credentials: "include", // Additional fetch() options like `credentials` or `headers`
+  });
+
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: httpLink,
