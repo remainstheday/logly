@@ -4,8 +4,8 @@ import { truncateComment } from "utils/truncateText";
 
 export default function CommentCard({ comments = [] }) {
   if (comments.length === 0) return <></>;
+  console.log(comments);
   const comment = comments.find((comment) => comment.image.length > 0);
-
   return (
     <div className="flex flex-col md:flex-row w-full">
       <Image src={comment.image} width="1080" height="720" alt="logly social" />

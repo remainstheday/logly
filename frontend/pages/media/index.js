@@ -3,7 +3,7 @@ import Footer from "components/Footer";
 import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
 import { GET_STATIC_CONTENTS } from "apollo/api";
-import client from "apollo/apollo-client";
+import { initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function Media({ content = [] }) {
@@ -23,11 +23,13 @@ export default function Media({ content = [] }) {
 }
 
 export async function getStaticProps() {
-  const content = await client.query({
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
     variables: { slug: "media" },
   });
+
   return {
-    props: { content: content.data.staticContents },
+    props: { content: data.staticContents },
   };
 }

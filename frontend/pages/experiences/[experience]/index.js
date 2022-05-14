@@ -7,7 +7,7 @@ import { GET_ALL_EXPERIENCES, GET_EXPERIENCE_BY_SLUG } from "apollo/api";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import client from "apollo/apollo-client";
+import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
 import Section from "components/Section";
@@ -105,11 +105,12 @@ export default function Experience({ experience, experiences }) {
 }
 
 export async function getStaticPaths() {
-  const experiences = await client.query({
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
   const paths =
-    experiences.data.experiences.map((item) => ({
+    data.experiences.map((item) => ({
       params: { experience: item.slug },
     })) || [];
 
@@ -120,23 +121,20 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const experience = await client.query({
+  const apolloClient = initializeApollo();
+  const experience = await apolloClient.query({
     query: GET_EXPERIENCE_BY_SLUG,
     variables: { slug: `${params.experience}` },
   });
-
-  const experiences = await client.query({
+  const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
 
-  return {
+  return addApolloState(apolloClient, {
     props: {
       experience: experience.data.experience,
       experiences: experiences.data.experiences,
     },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
-  };
+    revalidate: 1,
+  });
 }

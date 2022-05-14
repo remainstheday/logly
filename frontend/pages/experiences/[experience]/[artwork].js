@@ -13,7 +13,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import SectionLink from "components/SectionLink";
-import client from "apollo/apollo-client";
+import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
 import CommentCard from "components/CommentCard";
@@ -116,10 +116,11 @@ export default function Artwork({ artwork, experience, comments }) {
 }
 
 export async function getStaticPaths() {
-  const experiences = await client.query({
+  const apolloClient = initializeApollo();
+  const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
-  const artworks = await client.query({
+  const artworks = await apolloClient.query({
     query: GET_ALL_ARTWORKS,
   });
 
@@ -143,24 +144,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  let artwork = null;
-  let experience = null;
-  let comments = null;
-  try {
-    artwork = await client.query({
-      query: GET_ARTWORK_BY_SLUG,
-      variables: { slug: `${params.artwork}` },
-    });
-    experience = await client.query({
-      query: GET_EXPERIENCE_BY_SLUG,
-      variables: { slug: `${params.experience}` },
-    });
-    comments = await client.query({
-      query: GET_ALL_COMMENTS,
-    });
-  } catch (e) {
-    return e;
-  }
+  const apolloClient = initializeApollo();
+  const artwork = await apolloClient.query({
+    query: GET_ARTWORK_BY_SLUG,
+    variables: { slug: `${params.artwork}` },
+  });
+  const experience = await apolloClient.query({
+    query: GET_EXPERIENCE_BY_SLUG,
+    variables: { slug: `${params.experience}` },
+  });
+  const comments = await apolloClient.query({
+    query: GET_ALL_COMMENTS,
+  });
 
   if (!artwork || !experience) {
     return {
@@ -168,15 +163,12 @@ export async function getStaticProps({ params }) {
     };
   }
 
-  return {
+  return addApolloState(apolloClient, {
     props: {
       artwork: artwork.data.artwork,
       experience: experience.data.experience,
       comments: comments.data.comments,
     },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 10 seconds
-    revalidate: 10, // In seconds
-  };
+    revalidate: 1,
+  });
 }

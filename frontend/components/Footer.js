@@ -52,7 +52,7 @@ export default function Footer() {
             <h3 className="uppercase font-bold">Legal</h3>
           </li>
           <li>
-            <Link href={"/terms-of-use"} passHref>
+            <Link href={"/termsofuse"} passHref>
               <a>Terms of Use</a>
             </Link>
           </li>

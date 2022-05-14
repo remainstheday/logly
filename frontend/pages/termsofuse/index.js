@@ -3,7 +3,7 @@ import Footer from "components/Footer";
 import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
 import { GET_STATIC_CONTENTS } from "apollo/api";
-import client from "apollo/apollo-client";
+import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function Terms({ content = [] }) {
@@ -22,12 +22,15 @@ export default function Terms({ content = [] }) {
   );
 }
 
-export async function getServerSideProps() {
-  const content = await client.query({
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
     variables: { slug: "termsofuse" },
   });
-  return {
-    props: { content: content.data.staticContents },
-  };
+
+  return addApolloState(apolloClient, {
+    props: { content: data.staticContents },
+    revalidate: 1,
+  });
 }

@@ -5,7 +5,7 @@ import Thumbnail from "components/Thumbnail";
 import BackLink from "components/BackLink";
 import React from "react";
 import PageTitle from "components/PageTitle";
-import client from "apollo/apollo-client";
+import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 
 export default function Experience({ experiences }) {
@@ -39,9 +39,12 @@ export default function Experience({ experiences }) {
 }
 
 export async function getStaticProps() {
-  const { data } = await client.query({
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
 
-  return { props: { experiences: data.experiences } };
+  return addApolloState(apolloClient, {
+    props: { experiences: data.experiences },
+  });
 }
