@@ -7,7 +7,7 @@ export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
 let apolloClient;
 const httpLink = new HttpLink({
-  uri: process.env.API_URL, // Server URL (must be absolute)
+  uri: "https://staging.logly.world/api/graphql", // Server URL (must be absolute)
   credentials: "include", // Additional fetch() options like `credentials` or `headers`
 });
 
