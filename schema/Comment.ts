@@ -52,10 +52,10 @@ export const Comment = list({
           fieldMode: ({ session, context }) => "hidden",
         },
         itemView: {
-          fieldMode: ({ session, context, item }) => "read",
+          fieldMode: ({ session, context, item }) => "hidden",
         },
         listView: {
-          fieldMode: ({ session, context }) => "read",
+          fieldMode: ({ session, context }) => "hidden",
         },
       },
       hooks: {

@@ -2,12 +2,12 @@ require("dotenv").config();
 import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
 import { statelessSessions } from "@keystone-6/core/session";
-import { Museum } from "./schemas/Museum";
-import { Artwork } from "./schemas/Artwork";
-import { User } from "./schemas/User";
-import { Experience } from "./schemas/Experience";
-import { StaticContent } from "./schemas/StaticContent";
-import { Comment } from "./schemas/Comment";
+import { Museum } from "./schema/Museum";
+import { Artwork } from "./schema/Artwork";
+import { User } from "./schema/User";
+import { Experience } from "./schema/Experience";
+import { StaticContent } from "./schema/StaticContent";
+import { Comment } from "./schema/Comment";
 
 const { withAuth } = createAuth({
   listKey: "User",
@@ -22,7 +22,7 @@ const { withAuth } = createAuth({
 export default withAuth(
   config({
     server: {
-      cors: {origin: [`${process.env.FRONTEND_URL}`], credentials: true},
+      cors: { origin: [`${process.env.FRONTEND_URL}`], credentials: true },
     },
     experimental: {
       /** Enables nextjs graphql api route mode */
