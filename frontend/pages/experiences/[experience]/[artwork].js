@@ -25,14 +25,18 @@ export default function Artwork({ artwork, experience, comments }) {
   const similarArtworks = experience.artworks.filter(
     (item) => item.slug !== artwork.slug
   );
+  const filteredComments = comments.filter((comment) => comment.image);
+
   return (
     <>
       <Header />
-      <div className="max-w-4xl mx-auto min-h-screen mx-1 md:mx-auto">
-        <BackLink href={"/experiences"} text={"Pick Experience"} />
-
-        <section className="my-20 md:mt-32 mx-auto">
-          <div className="section-title my-6 space-y-2">
+      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+        <section className="px-3 lg:px-0 md:mx-auto">
+          <BackLink
+            href={`/experiences/${experience.slug}`}
+            text={"Back to Experience"}
+          />
+          <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1>{artwork.title}</h1>
             <h2>{artwork.artist}</h2>
             <h3>
@@ -102,11 +106,16 @@ export default function Artwork({ artwork, experience, comments }) {
           <SocialForm relatedArtworkId={artwork.id} />
         </Section>
 
-        {comments.length > 0 && (
+        {filteredComments.length > 0 && (
           <Section title="See What the Community has Shared">
-            <CommentCard comments={comments} />
-            <br />
-            <SectionLink href={`/social`} text={"Discover Art Social"} />
+            <div className="py-6 grid md:grid-cols-2 gap-4">
+              {filteredComments.map((comment) => (
+                <CommentCard key={comment.id} comment={comment} />
+              ))}
+            </div>
+            <div className="mt-6 px-6 md:px-0">
+              <SectionLink href={`/social`} text={"Discover Art Social"} />
+            </div>
           </Section>
         )}
       </div>

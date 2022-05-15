@@ -3,7 +3,11 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
-import { GET_ALL_EXPERIENCES, GET_EXPERIENCE_BY_SLUG } from "apollo/api";
+import {
+  GET_ALL_COMMENTS,
+  GET_ALL_EXPERIENCES,
+  GET_EXPERIENCE_BY_SLUG,
+} from "apollo/api";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
@@ -11,9 +15,11 @@ import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
 import Section from "components/Section";
+import CommentCard from "components/CommentCard";
 
-export default function Experience({ experience, experiences }) {
+export default function Experience({ experience, experiences, comments }) {
   if (!experience || !experiences) return <PageLoading />;
+  const filteredComments = comments.filter((comment) => comment.image);
   const similarExperiences = experiences.filter(
     (similarExperience) => similarExperience.slug !== experience.slug
   );
@@ -21,14 +27,17 @@ export default function Experience({ experience, experiences }) {
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
-        <section className="px-6 lg:px-0 mt-4 md:mx-auto">
+        <section className="px-3 lg:px-0 md:mx-auto">
           <BackLink href={"/experiences"} text={"Pick Experience"} />
-          <h1 className="experience-title">{experience.title}</h1>
-          <span className="date-tag">
-            {format(new Date(experience.startDate), "MMMM dd, yyyy")}
-            {experience.endDate &&
-              ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
-          </span>
+
+          <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
+            <h1 className="experience-title">{experience.title}</h1>
+            <h3>
+              {format(new Date(experience.startDate), "MMMM dd, yyyy")}
+              {experience.endDate &&
+                ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
+            </h3>
+          </div>
 
           <p className="mt-6">{experience.description}</p>
         </section>
@@ -94,10 +103,22 @@ export default function Experience({ experience, experiences }) {
             />
           </Section>
         )}
-
         <Section title="Share Thoughts and Images">
           <SocialForm relatedExperienceId={experience.id} />
         </Section>
+
+        {filteredComments.length > 0 && (
+          <Section title="See What the Community has Shared">
+            <div className="py-6 grid md:grid-cols-2 gap-4">
+              {filteredComments.map((comment) => (
+                <CommentCard key={comment.id} comment={comment} />
+              ))}
+            </div>
+            <div className="mt-6 px-6 md:px-0">
+              <SectionLink href={`/social`} text={"Discover Art Social"} />
+            </div>
+          </Section>
+        )}
       </div>
       <Footer />
     </>
@@ -130,10 +151,15 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_EXPERIENCES,
   });
 
+  const comments = await apolloClient.query({
+    query: GET_ALL_COMMENTS,
+  });
+
   return addApolloState(apolloClient, {
     props: {
       experience: experience.data.experience,
       experiences: experiences.data.experiences,
+      comments: comments.data.comments,
     },
     revalidate: 1,
   });

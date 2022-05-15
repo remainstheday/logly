@@ -21,7 +21,6 @@ export const Field = ({
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4 && xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
-        console.log(response.secure_url);
         if (onChange)
           onChange({
             kind: "create",

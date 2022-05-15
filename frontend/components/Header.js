@@ -16,8 +16,8 @@ export default function Header() {
         />
       </Head>
 
-      <header className="py-4 max-w-4xl mx-auto md:mx-auto">
-        <div className="flex flex-wrap py-2">
+      <header className="pt-4 max-w-4xl mx-auto md:mx-auto">
+        <div className="flex flex-wrap pt-2">
           <div className="w-full">
             <Navigation />
           </div>
