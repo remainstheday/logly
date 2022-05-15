@@ -18,8 +18,9 @@ import Section from "components/Section";
 
 export default function IndexPage({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
-
   const homepage = content[0];
+  const filteredComments = comments.filter((comment) => comment.image);
+
   return (
     <>
       <Header />
@@ -68,10 +69,12 @@ export default function IndexPage({ content, experiences, comments }) {
 
             <SectionLink href={`/experiences`} text={"See all experiences"} />
           </Section>
-          {comments.length > 0 && (
+          {filteredComments.length > 0 && (
             <Section title="Art Social">
-              <div className="px-3 md:px-0">
-                {comments && <CommentCard comments={comments} />}
+              <div className="py-6 grid md:grid-cols-2 gap-4">
+                {filteredComments.map((comment) => (
+                  <CommentCard key={comment.id} comment={comment} />
+                ))}
               </div>
               <div className="mt-6 px-6 md:px-0">
                 <SectionLink href={`/social`} text={"Discover Art Social"} />

@@ -37,8 +37,8 @@ export default function Experience({ experience, experiences }) {
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-4">
-                {experience.artworks.map((artwork, index) => (
-                  <div className="my-4" key={index}>
+                {experience.artworks.map((artwork) => (
+                  <div className="my-4" key={artwork.id}>
                     <Link
                       href={`/experiences/${experience.slug}/${artwork.slug}`}
                       passHref
