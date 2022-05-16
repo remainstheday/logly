@@ -50,6 +50,7 @@ export default function ContentSlider({ items, contentType }) {
               src={item.poster ? item.poster.publicUrl : "/stock-museum-1.jpg"}
               width={1080}
               height={720}
+              alt={item.title}
             />
             <strong>{item.title}</strong>
           </a>

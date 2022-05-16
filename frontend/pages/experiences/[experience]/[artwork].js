@@ -56,6 +56,7 @@ export default function Artwork({ artwork, experience, comments }) {
               }
               width="1080"
               height="720"
+              alt={artwork.title}
             />
           </div>
 
@@ -96,6 +97,7 @@ export default function Artwork({ artwork, experience, comments }) {
                         width="430"
                         height="281"
                         className="w-full px-1"
+                        alt={artwork.title}
                       />
                       <h3 className="font-bold">{artwork.artist}</h3>
                       <h4>{artwork.title}</h4>

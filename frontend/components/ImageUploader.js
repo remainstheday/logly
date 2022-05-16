@@ -58,6 +58,7 @@ export default function ImageUploader({ onUpload }) {
           className="w-full object-center object-cover"
           width="366"
           height="241"
+          alt={file.name}
         />
       </div>
     </div>

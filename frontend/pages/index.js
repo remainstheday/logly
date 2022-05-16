@@ -36,6 +36,7 @@ export default function IndexPage({ content, experiences, comments }) {
               }
               width="1080"
               height="720"
+              alt={homepage.title}
             />
           </div>
 
@@ -58,6 +59,7 @@ export default function IndexPage({ content, experiences, comments }) {
                           }
                           width={1080}
                           height={720}
+                          alt={item.title}
                         />
                         <strong>{item.title}</strong>
                       </a>

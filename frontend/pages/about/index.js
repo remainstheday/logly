@@ -18,7 +18,12 @@ export default function About({ content = [] }) {
         <PageTitle largeText={page.title} />
         <section className="mt-4 px-6 mt-10 mx-auto">
           {page.poster && (
-            <Image src={page.poster.publicUrl} width="720" height="500" />
+            <Image
+              src={page.poster.publicUrl}
+              width="720"
+              height="500"
+              alt={page.title}
+            />
           )}
           <p className="mt-6">{page.description}</p>
         </section>

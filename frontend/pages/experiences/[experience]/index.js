@@ -62,6 +62,7 @@ export default function Experience({ experience, experiences, comments }) {
                           width="436"
                           height="281"
                           className="w-full px-1"
+                          alt={artwork.title}
                         />
                         <h3 className="font-bold">{artwork.artist}</h3>
                         <h4>{artwork.title}</h4>
@@ -89,6 +90,7 @@ export default function Experience({ experience, experiences, comments }) {
                           }
                           width={1080}
                           height={720}
+                          alt={item.title}
                         />
                         <strong>{item.title}</strong>
                       </a>

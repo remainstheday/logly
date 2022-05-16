@@ -38,7 +38,12 @@ export default function Social({ comments }) {
                   className="break-inside mb-3 bg-white overflow-hidden"
                 >
                   {post.image.length > 0 && (
-                    <Image src={post.image} width="1080" height="720" />
+                    <Image
+                      src={post.image}
+                      width="1080"
+                      height="720"
+                      alt={post.title}
+                    />
                   )}
                   <div className="px-3 py-3">
                     <p className="text-gray-700 text-base">
