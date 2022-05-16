@@ -44,33 +44,36 @@ export default function IndexPage({ content, experiences, comments }) {
             <h3>{homepage.description}</h3>
           </Section>
 
-          <Section title="Pick an Experience">
-            <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
-              {experiences.map((item, index) => (
-                <div className="snap-center shrink-0 w-full my-3" key={index}>
-                  <div className="shrink-0 flex flex-col">
-                    <Link href={`/experiences/${item.slug}`} passHref>
-                      <a>
-                        <Image
-                          src={
-                            item.poster
-                              ? item.poster.publicUrl
-                              : "/stock-museum-1.jpg"
-                          }
-                          width={1080}
-                          height={720}
-                          alt={item.title}
-                        />
-                        <strong>{item.title}</strong>
-                      </a>
-                    </Link>
+          {experiences.length > 0 && (
+            <Section title="Pick an Experience">
+              <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
+                {experiences.map((item, index) => (
+                  <div className="snap-center shrink-0 w-full my-3" key={index}>
+                    <div className="shrink-0 flex flex-col">
+                      <Link href={`/experiences/${item.slug}`} passHref>
+                        <a>
+                          <Image
+                            src={
+                              item.poster
+                                ? item.poster.publicUrl
+                                : "/stock-museum-1.jpg"
+                            }
+                            width={1080}
+                            height={720}
+                            alt={item.title}
+                          />
+                          <strong>{item.title}</strong>
+                        </a>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            <SectionLink href={`/experiences`} text={"See all experiences"} />
-          </Section>
+              <SectionLink href={`/experiences`} text={"See all experiences"} />
+            </Section>
+          )}
+
           {filteredComments.length > 0 && (
             <Section title="Art Social">
               <div className="py-6 grid md:grid-cols-2 gap-4">
