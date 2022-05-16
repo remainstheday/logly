@@ -1,6 +1,14 @@
-### ![Logly.world](https://github.com/remainstheday/logly/blob/master/Logo.png?raw=true)
+<p align="center">
+  <a href="https://Logly.world">
+    <img src="https://github.com/remainstheday/logly/blob/master/Logo.png?raw=true" height="128">
+    <h1 align="center">Logly Studio</h1>
+  </a>
+</p>
 
-Logly is a digital space for museums & their communities to connect, share, and create. This project is primarily built on Keystone.js and Next.js with the backend using Postgres + GraphQL.
+
+Logly is a digital space for museums & their communities to connect, share, and create. This project is primarily built on [Keystone 6](https://keystonejs.com/) and [Next.js](https://nextjs.org/) 
+with the backend using [Postgres](https://www.postgresql.org/), [GraphQL](https://graphql.org/), & [Apollo](https://www.apollographql.com/). 
+The hosting environments include [Vercel](https://vercel.com/), [Railway](https://railway.app/), and [Cloudinary](https://cloudinary.com/).
 
 ## Requirements
 This codebase requires the following items before you can run the project locally:
