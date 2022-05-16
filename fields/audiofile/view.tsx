@@ -4,34 +4,28 @@ import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
 import { controller } from "@keystone-6/core/fields/types/text/views";
 import { Fragment } from "react";
 import { Button } from "@keystone-ui/button";
+import processCloudinaryFile from "./processCloudinaryFile";
 
 export const Field = ({
   field,
   value,
   onChange,
-  autoFocus,
 }: FieldProps<typeof controller>) => {
   const hiddenFileInput = React.useRef<HTMLInputElement>(null);
-  console.log(value);
-  const processFileUpload = (file: File) => {
-    const url = `https://api.cloudinary.com/v1_1/djfxpvrca/auto/upload`; // TODO: refactor this to use .env
-    const xhr = new XMLHttpRequest();
-    const fd = new FormData();
-    xhr.open("POST", url, true);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
+
+  const handleFileUpload = async (file: FileList) => {
+    await Promise.resolve(processCloudinaryFile(file[0])).then(
+      (cloudinaryFile) => {
         if (onChange)
           onChange({
             kind: "create",
-            inner: { kind: "value", value: response.secure_url },
+            inner: {
+              kind: "value",
+              value: cloudinaryFile ? cloudinaryFile : "",
+            },
           });
-        return response.secure_url;
       }
-    };
-    fd.append("upload_preset", "ekqp8s1g");
-    fd.append("file", file);
-    xhr.send(fd);
+    );
   };
 
   const handleDeleteFile = () => {
@@ -63,7 +57,9 @@ export const Field = ({
             type="file"
             ref={hiddenFileInput}
             style={{ display: "none" }}
-            onChange={(event) => processFileUpload(event.target.files![0])}
+            onChange={(event) =>
+              handleFileUpload(event.target.files as FileList)
+            }
           />
           <Button
             tone="active"
