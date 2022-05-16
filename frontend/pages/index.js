@@ -26,23 +26,26 @@ export default function IndexPage({ content, experiences, comments }) {
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <main>
-          <PageTitle smallText={"welcome to"} largeText={homepage.title} />
-          <div className="flex relative my-16">
-            <Image
-              src={
-                homepage.poster
-                  ? homepage.poster.publicUrl
-                  : "/stock-museum-1.jpg"
-              }
-              width="1080"
-              height="720"
-              alt={homepage.title}
-            />
-          </div>
+          {homepage.title && (
+            <PageTitle smallText={"welcome to"} largeText={homepage.title} />
+          )}
 
-          <Section>
-            <h3>{homepage.description}</h3>
-          </Section>
+          {homepage.poster && (
+            <div className="flex relative my-16">
+              <Image
+                src={homepage.poster.publicUrl}
+                width="1080"
+                height="720"
+                alt={homepage.title}
+              />
+            </div>
+          )}
+
+          {homepage.description && (
+            <Section>
+              <h3>{homepage.description}</h3>
+            </Section>
+          )}
 
           {experiences.length > 0 && (
             <Section title="Pick an Experience">
