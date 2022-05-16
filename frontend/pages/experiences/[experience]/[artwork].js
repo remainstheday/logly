@@ -25,7 +25,7 @@ export default function Artwork({ artwork, experience, comments }) {
   const similarArtworks = experience.artworks.filter(
     (item) => item.slug !== artwork.slug
   );
-  console.log(experience.slug);
+
   const filteredComments = comments.filter((comment) => comment.image);
 
   return (

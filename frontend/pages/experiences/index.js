@@ -10,7 +10,6 @@ import PageLoading from "components/PageLoading";
 
 export default function Experience({ experiences }) {
   if (!experiences) return <PageLoading />;
-
   return (
     <>
       <div className="max-w-4xl mx-auto min-h-screen">
@@ -46,5 +45,6 @@ export async function getStaticProps() {
 
   return addApolloState(apolloClient, {
     props: { experiences: data.experiences },
+    revalidate: 1,
   });
 }
