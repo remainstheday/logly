@@ -25,6 +25,7 @@ export default function Artwork({ artwork, experience, comments }) {
   const similarArtworks = experience.artworks.filter(
     (item) => item.slug !== artwork.slug
   );
+  console.log(experience.slug);
   const filteredComments = comments.filter((comment) => comment.image);
 
   return (
@@ -72,7 +73,10 @@ export default function Artwork({ artwork, experience, comments }) {
           </Section>
         )}
         <Section>
-          <SectionLink href={experience.slug} text={"Go To Experience"} />
+          <SectionLink
+            href={`/experiences/${experience.slug}`}
+            text={"Go To Experience"}
+          />
           <hr />
           <div className="w-full mt-4">
             <div className="flex flex-wrap">
