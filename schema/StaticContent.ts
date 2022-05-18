@@ -2,26 +2,21 @@ import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { cloudinary } from "../cloudinary";
-import {FilterAccess, OperationAccess} from "../Access";
+import { FilterAccess, OperationAccess } from "../Access";
 
 export const StaticContent = list({
   access: {
     operation: {
       query: OperationAccess.anyone,
-      create: OperationAccess.adminOrMuseumCuratorOnly,
-      update: OperationAccess.adminOrMuseumCuratorOnly,
-      delete: OperationAccess.adminOrMuseumCuratorOnly,
+      create: OperationAccess.adminOrSiteCuratorOnly,
+      update: OperationAccess.adminOrSiteCuratorOnly,
+      delete: OperationAccess.adminOrSiteCuratorOnly,
     },
     filter: {
-      query: FilterAccess.limitMuseumCurator,
-      update: FilterAccess.adminOrMuseumCuratorOnly,
-      delete: FilterAccess.adminOrMuseumCuratorOnly,
+      query: FilterAccess.limitSiteCurator,
+      update: FilterAccess.adminOrSiteCuratorOnly,
+      delete: FilterAccess.adminOrSiteCuratorOnly,
     },
-    // item: {
-    //   create: ItemAccess.adminOrMuseumCuratorOnly,
-    //   update: ItemAccess.adminOrMuseumCuratorOnly,
-    //   delete: ItemAccess.adminOrMuseumCuratorOnly
-    // },
   },
   ui: {
     hideCreate: true,
@@ -33,6 +28,17 @@ export const StaticContent = list({
         itemView: {
           fieldMode: ({ session, context, item }) => "read",
         },
+      },
+    }),
+    siteId: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+      },
+      hooks: {
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
       },
     }),
     title: text({}),

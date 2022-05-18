@@ -1,9 +1,19 @@
 import { list } from "@keystone-6/core";
-import {checkbox, password, text} from "@keystone-6/core/fields";
+import { checkbox, password, text } from "@keystone-6/core/fields";
 
 export const User = list({
   fields: {
-    museumId: text({}),
+    siteId: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+      },
+      hooks: {
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
+      },
+    }),
     isAdmin: checkbox({
       defaultValue: false,
     }),

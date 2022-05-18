@@ -4,7 +4,7 @@ import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
 import { controller } from "@keystone-6/core/fields/types/text/views";
 import { Fragment } from "react";
 import { Button } from "@keystone-ui/button";
-import processCloudinaryFile from "./processCloudinaryFile";
+import { processCloudinaryFile } from "../utils/processCloudinaryFile";
 
 export const Field = ({
   field,

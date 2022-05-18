@@ -11,29 +11,31 @@ generator client {
   output   = "node_modules/.prisma/client"
 }
 
-model Museum {
+model Site {
   id    String @id @default(uuid()) @postgresql.Uuid
   Title String @default("")
   slug  String @default("")
 }
 
 model Artwork {
-  id          String       @id @default(uuid()) @postgresql.Uuid
-  title       String       @default("")
-  artist      String       @default("")
-  slug        String       @unique @default("")
-  startDate   DateTime?
-  endDate     DateTime?
-  status      String?      @default("draft")
-  audioFile   String       @default("")
-  images      Json?
-  description String       @default("")
-  experiences Experience[] @relation("Artwork_experiences")
+  id            String       @id @default(uuid()) @postgresql.Uuid
+  siteId        String       @default("")
+  title         String       @default("")
+  artist        String       @default("")
+  slug          String       @unique @default("")
+  startDate     DateTime?
+  endDate       DateTime?
+  status        String?      @default("draft")
+  audioFile     String       @default("")
+  images        Json?
+  artworkImages String       @default("")
+  description   String       @default("")
+  experiences   Experience[] @relation("Artwork_experiences")
 }
 
 model User {
   id       String  @id @default(uuid()) @postgresql.Uuid
-  museumId String  @default("")
+  siteId   String  @default("")
   isAdmin  Boolean @default(false)
   name     String  @default("")
   email    String  @unique @default("")
@@ -42,6 +44,7 @@ model User {
 
 model Experience {
   id          String    @id @default(uuid()) @postgresql.Uuid
+  siteId      String    @default("")
   title       String    @default("")
   slug        String    @unique @default("")
   poster      Json?
@@ -55,6 +58,7 @@ model Experience {
 model StaticContent {
   id          String @id @default(uuid()) @postgresql.Uuid
   name        String @default("")
+  siteId      String @default("")
   title       String @default("")
   poster      Json?
   slug        String @unique @default("")
@@ -63,10 +67,10 @@ model StaticContent {
 
 model Comment {
   id           String @id @default(uuid()) @postgresql.Uuid
-  username     String @default("")
   experienceId String @default("")
-  museumId     String @default("")
+  siteId       String @default("")
   artworkId    String @default("")
-  comment      String @default("")
+  username     String @default("")
   image        String @default("")
+  comment      String @default("")
 }

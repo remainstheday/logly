@@ -2,42 +2,42 @@ type Session = {
   data: {
     id: string;
     isAdmin: boolean;
-    museumId: string;
+    siteId: string;
   };
 };
 
 type Item = {
   id: string;
-  museumId: string;
+  siteId: string;
 };
 
 type InputData = {
   id: string;
-  museumId: string;
+  siteId: string;
 };
 
 export const OperationAccess = {
   adminOnly: ({ session }: { session: Session }) => session?.data.isAdmin,
-  adminOrMuseumCuratorOnly: ({ session }: { session: Session }) =>
-    session?.data.isAdmin || session?.data.museumId.length > 0,
+  adminOrSiteCuratorOnly: ({ session }: { session: Session }) =>
+    session?.data.isAdmin || session?.data.siteId.length > 0,
   anyone: () => true,
 };
 
 export const FilterAccess = {
-  limitMuseumCurator: ({ session }: { session: Session }) => {
-    if (session?.data.museumId) {
+  limitSiteCurator: ({ session }: { session: Session }) => {
+    if (session?.data.siteId) {
       return {
-        museumId: { equals: session.data.museumId },
+        siteId: { equals: session.data.siteId },
       };
     }
     return true;
   },
-  adminOrMuseumCuratorOnly: ({ session }: { session: Session }) =>
-    session?.data.isAdmin || session?.data.museumId.length > 0,
+  adminOrSiteCuratorOnly: ({ session }: { session: Session }) =>
+    session?.data.isAdmin || session?.data.siteId.length > 0,
 };
 
 export const ItemAccess = {
-  adminOrMuseumCuratorOnly: ({
+  adminOrSiteCuratorOnly: ({
     session,
     inputData,
     item,
@@ -48,14 +48,14 @@ export const ItemAccess = {
   }) => {
     if (session?.data.isAdmin) return true;
 
-    const museumId = session?.data.museumId;
-    if (museumId) {
+    const siteId = session?.data.siteId;
+    if (siteId) {
       if (inputData) {
-        if (inputData.museumId !== museumId) return false;
-        if (item && item.museumId === museumId) return true;
+        if (inputData.siteId !== siteId) return false;
+        if (item && item.siteId === siteId) return true;
         return true;
       } else if (item) {
-        return item.museumId === museumId;
+        return item.siteId === siteId;
       }
     }
     return false;

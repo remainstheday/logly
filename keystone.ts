@@ -2,7 +2,7 @@ require("dotenv").config();
 import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
 import { statelessSessions } from "@keystone-6/core/session";
-import { Museum } from "./schema/Museum";
+import { Site } from "./schema/Site";
 import { Artwork } from "./schema/Artwork";
 import { User } from "./schema/User";
 import { Experience } from "./schema/Experience";
@@ -13,7 +13,7 @@ const { withAuth } = createAuth({
   listKey: "User",
   identityField: "email",
   secretField: "password",
-  sessionData: "isAdmin museumId",
+  sessionData: "isAdmin siteId",
   initFirstItem: {
     fields: ["name", "email", "password"],
   },
@@ -53,7 +53,7 @@ export default withAuth(
       isAccessAllowed: (context) => !!context.session?.data,
     },
     lists: {
-      Museum,
+      Site,
       Artwork,
       User,
       Experience,
@@ -97,7 +97,7 @@ export default withAuth(
           await context.prisma.staticContent.create({
             data: {
               name: "Home",
-              title: "Logly Museum",
+              title: "Logly Studio",
               description: "lorem ipsum",
               slug: "",
             },

@@ -11,52 +11,22 @@ export const Comment = list({
     },
   },
   fields: {
-    username: text({
-      ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "edit",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
-      },
-    }),
     experienceId: text({
       ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "hidden",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
       },
       hooks: {
         beforeOperation: async (args) => {},
         afterOperation: async (args) => {},
       },
     }),
-
-    museumId: text({
+    siteId: text({
       ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "hidden",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "hidden",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "hidden",
-        },
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
       },
       hooks: {
         beforeOperation: async (args) => {},
@@ -65,29 +35,19 @@ export const Comment = list({
     }),
     artworkId: text({
       ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "hidden",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
       },
       hooks: {
         beforeOperation: async (args) => {},
         afterOperation: async (args) => {},
       },
     }),
-    comment: text({
+    username: text({
       ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "edit",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
+        createView: { fieldMode: "edit" },
+        itemView: { fieldMode: "read" },
         listView: {
           fieldMode: ({ session, context }) => "read",
         },
@@ -99,17 +59,23 @@ export const Comment = list({
     }),
     image: text({
       ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "edit",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
+        views: require.resolve("../fields/comment/view.tsx"),
+        createView: { fieldMode: "edit" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
       },
-      label: "Comment Image",
+      label: "Image",
+    }),
+    comment: text({
+      ui: {
+        createView: { fieldMode: "edit" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+      hooks: {
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
+      },
     }),
   },
 });

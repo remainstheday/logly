@@ -8,28 +8,20 @@ import {
 } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { cloudinary } from "../cloudinary";
-// import {FilterAccess, OperationAccess} from "../Access";
 
 export const Artwork = list({
-  // access: {
-  //   operation: {
-  //     query: OperationAccess.anyone,
-  //     create: OperationAccess.adminOrMuseumCuratorOnly,
-  //     update: OperationAccess.adminOrMuseumCuratorOnly,
-  //     delete: OperationAccess.adminOrMuseumCuratorOnly,
-  //   },
-  //   filter: {
-  //     query: FilterAccess.limitMuseumCurator,
-  //     update: FilterAccess.adminOrMuseumCuratorOnly,
-  //     delete: FilterAccess.adminOrMuseumCuratorOnly,
-  //   },
-  //   // item: {
-  //   //   create: ItemAccess.adminOrMuseumCuratorOnly,
-  //   //   update: ItemAccess.adminOrMuseumCuratorOnly,
-  //   //   delete: ItemAccess.adminOrMuseumCuratorOnly
-  //   // },
-  // },
   fields: {
+    siteId: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+      },
+      hooks: {
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
+      },
+    }),
     title: text(),
     artist: text(),
     slug: text({ isIndexed: "unique", isFilterable: true }),
@@ -56,6 +48,14 @@ export const Artwork = list({
     images: cloudinaryImage({
       cloudinary,
       label: "Artwork",
+    }),
+    artworkImages: text({
+      ui: {
+        views: require.resolve("../fields/image-uploader/view.tsx"),
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "edit" },
+      },
     }),
     description: text({
       ui: {
