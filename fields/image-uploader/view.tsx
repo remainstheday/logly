@@ -4,7 +4,6 @@ import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
 import { controller } from "@keystone-6/core/fields/types/text/views";
 import { processCloudinaryFile } from "../utils/processCloudinaryFile";
 import ImageUploader from "./ImageUploader";
-import { Global, css } from "@emotion/react";
 import { injectGlobal } from "@emotion/css";
 
 export const Field = ({
@@ -12,8 +11,6 @@ export const Field = ({
   value,
   onChange,
 }: FieldProps<typeof controller>) => {
-  // const hiddenFileInput = React.useRef<HTMLInputElement>(null);
-
   const handleFileUpload = async (file: FileList) => {
     await Promise.resolve(processCloudinaryFile(file[0])).then(
       (cloudinaryFile) => {
@@ -29,26 +26,9 @@ export const Field = ({
     );
   };
 
-  const handleDeleteFile = () => {
-    if (onChange) {
-      onChange({
-        kind: "update",
-        inner: { kind: "value", value: "" },
-        initial: { kind: "value", value: "" },
-      });
-    }
-  };
-
   return (
     <FieldContainer>
       <FieldLabel>{field.label}</FieldLabel>
-      <Global
-        styles={css`
-          .some-class {
-            color: hotpink !important;
-          }
-        `}
-      />
       <ImageUploader onUpload={(image: FileList) => handleFileUpload(image)} />
     </FieldContainer>
   );

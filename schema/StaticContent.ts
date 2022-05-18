@@ -46,6 +46,14 @@ export const StaticContent = list({
       cloudinary,
       label: "Poster",
     }),
+    staticPageImages: text({
+      ui: {
+        views: require.resolve("../fields/image-uploader/view.tsx"),
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "edit" },
+      },
+    }),
     slug: text({
       label: "URL",
       isIndexed: "unique",

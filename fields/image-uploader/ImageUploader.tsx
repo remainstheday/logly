@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-// import "pintura/pintura.css";
 import { openDefaultEditor } from "../../local_modules/pintura";
 import Image from "next/image";
+import { Global } from "@emotion/react";
+import { Styles } from "./Styles";
+import { Button } from "@keystone-ui/button";
 
 // This function is called when the user taps the edit button, it opens the editor and returns the modified file when done
 const editImage = (image: any, done: Function) => {
@@ -50,8 +52,8 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
     },
   });
 
-  const thumbs = uploadedImage.map((file: any) => (
-    <div className="" key={file.name}>
+  const renderImagesPreview = uploadedImage.map((file: any) => (
+    <div key={file.name}>
       <div className="w-full min-h-80 overflow-hidden group-hover:opacity-75">
         <Image
           src={file.preview}
@@ -61,6 +63,17 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
           alt={file.name}
         />
       </div>
+      <label style={{ cursor: "pointer" }}>
+        <span>Change Image</span>
+        <input {...getInputProps()} className="sr-only" />
+      </label>
+      <Button
+        style={{ marginLeft: "1em" }}
+        tone="negative"
+        onClick={() => setUploadedImage([])}
+      >
+        Remove
+      </Button>
     </div>
   ));
 
@@ -74,11 +87,12 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
 
   return (
     <>
-      {uploadedImage.length > 0 && <div>{thumbs}</div>}
+      <Global styles={Styles} />
+      {uploadedImage.length > 0 && <div>{renderImagesPreview}</div>}
       {uploadedImage.length === 0 && (
         <div {...getRootProps({ className: "dropzone" })}>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-            <div className="space-y-1 text-center">
+            <div className="space-y-1 text-center py-6">
               <svg
                 className="mx-auto h-12 w-12 text-gray-400"
                 stroke="currentColor"
@@ -93,7 +107,7 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
                   strokeLinejoin="round"
                 />
               </svg>
-              <div className="flex text-sm text-gray-600">
+              <div className="text-sm text-gray-600">
                 <label
                   htmlFor="file-upload"
                   className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
@@ -101,7 +115,7 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
                   <span>Upload an image</span>
                   <input {...getInputProps()} className="sr-only" />
                 </label>
-                <p className="pl-1">or drag and drop</p>
+                <p className="mb-1">or drag and drop</p>
               </div>
               <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
             </div>

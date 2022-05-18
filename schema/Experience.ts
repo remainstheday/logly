@@ -32,6 +32,14 @@ export const Experience = list({
       cloudinary,
       label: "Poster",
     }),
+    experienceImages: text({
+      ui: {
+        views: require.resolve("../fields/image-uploader/view.tsx"),
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "edit" },
+      },
+    }),
     startDate: timestamp(),
     endDate: timestamp(),
     status: select({

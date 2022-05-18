@@ -369,6 +369,7 @@ type Experience {
   title: String
   slug: String
   poster: CloudinaryImage_File
+  experienceImages: String
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -395,6 +396,7 @@ input ExperienceWhereInput {
   siteId: StringFilter
   title: StringFilter
   slug: StringFilter
+  experienceImages: StringFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
@@ -413,6 +415,7 @@ input ExperienceOrderByInput {
   siteId: OrderDirection
   title: OrderDirection
   slug: OrderDirection
+  experienceImages: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
   status: OrderDirection
@@ -424,6 +427,7 @@ input ExperienceUpdateInput {
   title: String
   slug: String
   poster: Upload
+  experienceImages: String
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -448,6 +452,7 @@ input ExperienceCreateInput {
   title: String
   slug: String
   poster: Upload
+  experienceImages: String
   startDate: DateTime
   endDate: DateTime
   status: String
@@ -466,6 +471,7 @@ type StaticContent {
   siteId: String
   title: String
   poster: CloudinaryImage_File
+  staticPageImages: String
   slug: String
   description: String
 }
@@ -483,6 +489,7 @@ input StaticContentWhereInput {
   name: StringFilter
   siteId: StringFilter
   title: StringFilter
+  staticPageImages: StringFilter
   slug: StringFilter
   description: StringFilter
 }
@@ -492,6 +499,7 @@ input StaticContentOrderByInput {
   name: OrderDirection
   siteId: OrderDirection
   title: OrderDirection
+  staticPageImages: OrderDirection
   slug: OrderDirection
   description: OrderDirection
 }
@@ -501,6 +509,7 @@ input StaticContentUpdateInput {
   siteId: String
   title: String
   poster: Upload
+  staticPageImages: String
   slug: String
   description: String
 }
@@ -515,6 +524,7 @@ input StaticContentCreateInput {
   siteId: String
   title: String
   poster: Upload
+  staticPageImages: String
   slug: String
   description: String
 }
