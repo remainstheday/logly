@@ -20,17 +20,18 @@ model Site {
 model Artwork {
   id            String       @id @default(uuid()) @postgresql.Uuid
   siteId        String       @default("")
+  status        String?      @default("draft")
+  experiences   Experience[] @relation("Artwork_experiences")
+  urlWithQrCode Json?
   title         String       @default("")
   artist        String       @default("")
   slug          String       @unique @default("")
   startDate     DateTime?
   endDate       DateTime?
-  status        String?      @default("draft")
-  audioFile     String       @default("")
   images        Json?
   artworkImages String       @default("")
+  audioFile     String       @default("")
   description   String       @default("")
-  experiences   Experience[] @relation("Artwork_experiences")
 }
 
 model User {

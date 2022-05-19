@@ -1,6 +1,7 @@
 import { list } from "@keystone-6/core";
 import {
   file,
+  json,
   relationship,
   select,
   text,
@@ -22,11 +23,6 @@ export const Artwork = list({
         afterOperation: async (args) => {},
       },
     }),
-    title: text(),
-    artist: text(),
-    slug: text({ isIndexed: "unique", isFilterable: true }),
-    startDate: timestamp(),
-    endDate: timestamp(),
     status: select({
       options: [
         { label: "Published", value: "published" },
@@ -37,14 +33,20 @@ export const Artwork = list({
         displayMode: "segmented-control",
       },
     }),
-    audioFile: text({
+    experiences: relationship({ ref: "Experience.artworks", many: true }),
+    urlWithQrCode: json({
       ui: {
-        views: require.resolve("../fields/audiofile/view.tsx"),
+        views: require.resolve("../fields/qrcode/view.tsx"),
         createView: { fieldMode: "edit" },
         listView: { fieldMode: "hidden" },
         itemView: { fieldMode: "edit" },
       },
     }),
+    title: text(),
+    artist: text(),
+    slug: text({ isIndexed: "unique", isFilterable: true }),
+    startDate: timestamp(),
+    endDate: timestamp(),
     images: cloudinaryImage({
       cloudinary,
       label: "Artwork",
@@ -57,11 +59,18 @@ export const Artwork = list({
         itemView: { fieldMode: "edit" },
       },
     }),
+    audioFile: text({
+      ui: {
+        views: require.resolve("../fields/audiofile/view.tsx"),
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "edit" },
+      },
+    }),
     description: text({
       ui: {
         displayMode: "textarea",
       },
     }),
-    experiences: relationship({ ref: "Experience.artworks", many: true }),
   },
 });

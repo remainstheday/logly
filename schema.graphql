@@ -94,16 +94,7 @@ input SiteCreateInput {
 type Artwork {
   id: ID!
   siteId: String
-  title: String
-  artist: String
-  slug: String
-  startDate: DateTime
-  endDate: DateTime
   status: String
-  audioFile: String
-  images: CloudinaryImage_File
-  artworkImages: String
-  description: String
   experiences(
     where: ExperienceWhereInput! = {}
     orderBy: [ExperienceOrderByInput!]! = []
@@ -111,6 +102,16 @@ type Artwork {
     skip: Int! = 0
   ): [Experience!]
   experiencesCount(where: ExperienceWhereInput! = {}): Int
+  urlWithQrCode: JSON
+  title: String
+  artist: String
+  slug: String
+  startDate: DateTime
+  endDate: DateTime
+  images: CloudinaryImage_File
+  artworkImages: String
+  audioFile: String
+  description: String
 }
 
 scalar DateTime
@@ -176,27 +177,16 @@ input ArtworkWhereInput {
   NOT: [ArtworkWhereInput!]
   id: IDFilter
   siteId: StringFilter
+  status: StringNullableFilter
+  experiences: ExperienceManyRelationFilter
   title: StringFilter
   artist: StringFilter
   slug: StringFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
-  status: StringNullableFilter
-  audioFile: StringFilter
   artworkImages: StringFilter
+  audioFile: StringFilter
   description: StringFilter
-  experiences: ExperienceManyRelationFilter
-}
-
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeNullableFilter
 }
 
 input StringNullableFilter {
@@ -234,39 +224,46 @@ input ExperienceManyRelationFilter {
   none: ExperienceWhereInput
 }
 
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeNullableFilter
+}
+
 input ArtworkOrderByInput {
   id: OrderDirection
   siteId: OrderDirection
+  status: OrderDirection
   title: OrderDirection
   artist: OrderDirection
   slug: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
-  status: OrderDirection
-  audioFile: OrderDirection
   artworkImages: OrderDirection
+  audioFile: OrderDirection
   description: OrderDirection
 }
 
 input ArtworkUpdateInput {
   siteId: String
+  status: String
+  experiences: ExperienceRelateToManyForUpdateInput
+  urlWithQrCode: JSON
   title: String
   artist: String
   slug: String
   startDate: DateTime
   endDate: DateTime
-  status: String
-  audioFile: String
   images: Upload
   artworkImages: String
+  audioFile: String
   description: String
-  experiences: ExperienceRelateToManyForUpdateInput
 }
-
-"""
-The `Upload` scalar type represents a file upload.
-"""
-scalar Upload
 
 input ExperienceRelateToManyForUpdateInput {
   disconnect: [ExperienceWhereUniqueInput!]
@@ -275,6 +272,11 @@ input ExperienceRelateToManyForUpdateInput {
   connect: [ExperienceWhereUniqueInput!]
 }
 
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
 input ArtworkUpdateArgs {
   where: ArtworkWhereUniqueInput!
   data: ArtworkUpdateInput!
@@ -282,17 +284,18 @@ input ArtworkUpdateArgs {
 
 input ArtworkCreateInput {
   siteId: String
+  status: String
+  experiences: ExperienceRelateToManyForCreateInput
+  urlWithQrCode: JSON
   title: String
   artist: String
   slug: String
   startDate: DateTime
   endDate: DateTime
-  status: String
-  audioFile: String
   images: Upload
   artworkImages: String
+  audioFile: String
   description: String
-  experiences: ExperienceRelateToManyForCreateInput
 }
 
 input ExperienceRelateToManyForCreateInput {
