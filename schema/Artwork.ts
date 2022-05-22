@@ -1,4 +1,4 @@
-import { list } from "@keystone-6/core";
+import { graphql, list } from "@keystone-6/core";
 import {
   file,
   json,
@@ -6,6 +6,7 @@ import {
   select,
   text,
   timestamp,
+  virtual,
 } from "@keystone-6/core/fields";
 import { cloudinaryImage } from "@keystone-6/cloudinary";
 import { cloudinary } from "../cloudinary";

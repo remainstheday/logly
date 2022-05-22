@@ -11,11 +11,12 @@ export const Field = ({
   onChange,
   autoFocus,
 }: FieldProps<typeof controller>) => {
+  const QRCodes = value ? JSON.parse(value) : [];
   const componentRef = React.useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  const QRCodes = JSON.parse(value);
+
   return (
     <FieldContainer ref={componentRef}>
       <FieldLabel>{field.label}</FieldLabel>
