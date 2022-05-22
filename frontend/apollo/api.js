@@ -7,14 +7,10 @@ export const GET_STATIC_CONTENTS = gql`
       slug
       name
       title
-      poster {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
+      staticPageImages
+      description {
+        document
       }
-      description
     }
   }
 `;
@@ -26,13 +22,7 @@ export const GET_ALL_EXPERIENCES = gql`
       title
       slug
       description
-      poster {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
-      }
+      experienceImages
       startDate
       endDate
       status
@@ -46,15 +36,9 @@ export const GET_ALL_ARTWORKS = gql`
       id
       title
       artist
-      slug
+      url
       description
-      images {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
-      }
+      artworkImages
     }
   }
 `;
@@ -70,16 +54,10 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
       relatedArtworks {
         title
         artist
-        slug
+        url
         startDate
         endDate
-        images {
-          id
-          filename
-          mimetype
-          encoding
-          publicUrl
-        }
+        artworkImages
       }
     }
   }
@@ -87,16 +65,16 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
 
 export const GET_ARTWORK_BY_SLUG = gql`
   query Artwork($slug: String) {
-    artwork(where: { slug: $slug }) {
+    artwork(where: { url: $slug }) {
       id
       title
       artist
-      slug
+      url
       startDate
       endDate
       description
       audioFile
-      urlWithQrCode
+      qrCodes
       relatedExperiences {
         id
         title
@@ -104,13 +82,7 @@ export const GET_ARTWORK_BY_SLUG = gql`
         startDate
         endDate
       }
-      images {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
-      }
+      artworkImages
     }
   }
 `;

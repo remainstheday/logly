@@ -25,7 +25,6 @@ model Artwork {
   relatedExperiences Experience[] @relation("Artwork_relatedExperiences")
   startDate          DateTime?
   endDate            DateTime?
-  images             Json?
   artworkImages      String       @default("")
   audioFile          String       @default("")
   description        String       @default("")
@@ -48,7 +47,6 @@ model Experience {
   siteId           String    @default("")
   title            String    @default("")
   slug             String    @unique @default("")
-  poster           Json?
   experienceImages String    @default("")
   startDate        DateTime?
   endDate          DateTime?
@@ -62,10 +60,9 @@ model StaticContent {
   name             String @default("")
   siteId           String @default("")
   title            String @default("")
-  poster           Json?
   staticPageImages String @default("")
   slug             String @unique @default("")
-  description      String @default("")
+  description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
 }
 
 model Comment {

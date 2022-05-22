@@ -28,7 +28,13 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  if (data) return <p>Thank you!</p>;
+  if (data)
+    return (
+      <p className="text-center">
+        Thank you for participating. Your comment has been added to the
+        Community Page!
+      </p>
+    );
 
   return (
     <ClientOnly>

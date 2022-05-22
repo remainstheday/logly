@@ -1,7 +1,6 @@
 import { list } from "@keystone-6/core";
+import { document } from "@keystone-6/fields-document";
 import { text } from "@keystone-6/core/fields";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { cloudinary } from "../cloudinary";
 import { FilterAccess, OperationAccess } from "../Access";
 
 export const StaticContent = list({
@@ -42,10 +41,6 @@ export const StaticContent = list({
       },
     }),
     title: text({}),
-    poster: cloudinaryImage({
-      cloudinary,
-      label: "Poster",
-    }),
     staticPageImages: text({
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),
@@ -70,10 +65,10 @@ export const StaticContent = list({
         },
       },
     }),
-    description: text({
-      ui: {
-        displayMode: "textarea",
-      },
+    description: document({
+      formatting: true,
+      dividers: true,
+      links: true,
     }),
   },
 });

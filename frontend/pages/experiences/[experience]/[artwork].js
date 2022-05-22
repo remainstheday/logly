@@ -40,11 +40,6 @@ export default function Artwork({ artwork, experience, comments }) {
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1>{artwork.title}</h1>
             <h2>{artwork.artist}</h2>
-            <h3>
-              {format(new Date(artwork.startDate), "MMMM dd, yyyy")}
-              {artwork.endDate &&
-                ` - ${format(new Date(artwork.endDate), "MMM dd, yyyy")}`}
-            </h3>
           </div>
 
           <div className="flex relative my-5">

@@ -28,10 +28,6 @@ export const Experience = list({
         match: { regex: new RegExp("^[^\\/\\ ]*$") },
       },
     }),
-    poster: cloudinaryImage({
-      cloudinary,
-      label: "Poster",
-    }),
     experienceImages: text({
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),

@@ -60,10 +60,6 @@ export const Artwork = list({
     }),
     startDate: timestamp(),
     endDate: timestamp(),
-    images: cloudinaryImage({
-      cloudinary,
-      label: "Artwork",
-    }),
     artworkImages: text({
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),

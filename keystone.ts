@@ -98,7 +98,7 @@ export default withAuth(
             data: {
               name: "Home",
               title: "Logly Studio",
-              description: "lorem ipsum",
+              description: "",
               slug: "",
             },
           });
@@ -109,7 +109,7 @@ export default withAuth(
             data: {
               name: "About",
               title: "About",
-              description: "lorem ipsum",
+              description: "",
               slug: "about",
             },
           });
@@ -119,7 +119,7 @@ export default withAuth(
             data: {
               name: "Media",
               title: "Media",
-              description: "lorem ipsum",
+              description: "",
               slug: "media",
             },
           });
@@ -129,7 +129,7 @@ export default withAuth(
             data: {
               name: "Terms of Use",
               title: "Terms of Use",
-              description: "lorem ipsum",
+              description: "",
               slug: "termsofuse",
             },
           });
@@ -140,7 +140,7 @@ export default withAuth(
             data: {
               name: "Privacy Policy",
               title: "Privacy Policy",
-              description: "lorem ipsum",
+              description: "",
               slug: "privacy-policy",
             },
           });

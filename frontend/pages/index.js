@@ -15,6 +15,7 @@ import CommentCard from "components/CommentCard";
 import React from "react";
 import Link from "next/link";
 import Section from "components/Section";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function IndexPage({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
@@ -43,7 +44,7 @@ export default function IndexPage({ content, experiences, comments }) {
 
           {homepage.description && (
             <Section>
-              <h3>{homepage.description}</h3>
+              <DocumentRenderer document={homepage.description.document} />
             </Section>
           )}
 
