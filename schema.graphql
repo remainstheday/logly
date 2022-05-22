@@ -93,25 +93,25 @@ input SiteCreateInput {
 
 type Artwork {
   id: ID!
-  siteId: String
   status: String
-  experiences(
+  title: String
+  artist: String
+  relatedExperiences(
     where: ExperienceWhereInput! = {}
     orderBy: [ExperienceOrderByInput!]! = []
     take: Int
     skip: Int! = 0
   ): [Experience!]
-  experiencesCount(where: ExperienceWhereInput! = {}): Int
-  urlWithQrCode: JSON
-  title: String
-  artist: String
-  slug: String
+  relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
   startDate: DateTime
   endDate: DateTime
   images: CloudinaryImage_File
   artworkImages: String
   audioFile: String
   description: String
+  url: String
+  siteId: String
+  qrCodes: JSON
 }
 
 scalar DateTime
@@ -168,7 +168,7 @@ input CloudinaryImageFormat {
 
 input ArtworkWhereUniqueInput {
   id: ID
-  slug: String
+  url: String
 }
 
 input ArtworkWhereInput {
@@ -176,17 +176,17 @@ input ArtworkWhereInput {
   OR: [ArtworkWhereInput!]
   NOT: [ArtworkWhereInput!]
   id: IDFilter
-  siteId: StringFilter
   status: StringNullableFilter
-  experiences: ExperienceManyRelationFilter
   title: StringFilter
   artist: StringFilter
-  slug: StringFilter
+  relatedExperiences: ExperienceManyRelationFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   artworkImages: StringFilter
   audioFile: StringFilter
   description: StringFilter
+  url: StringFilter
+  siteId: StringFilter
 }
 
 input StringNullableFilter {
@@ -237,32 +237,32 @@ input DateTimeNullableFilter {
 
 input ArtworkOrderByInput {
   id: OrderDirection
-  siteId: OrderDirection
   status: OrderDirection
   title: OrderDirection
   artist: OrderDirection
-  slug: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
   artworkImages: OrderDirection
   audioFile: OrderDirection
   description: OrderDirection
+  url: OrderDirection
+  siteId: OrderDirection
 }
 
 input ArtworkUpdateInput {
-  siteId: String
   status: String
-  experiences: ExperienceRelateToManyForUpdateInput
-  urlWithQrCode: JSON
   title: String
   artist: String
-  slug: String
+  relatedExperiences: ExperienceRelateToManyForUpdateInput
   startDate: DateTime
   endDate: DateTime
   images: Upload
   artworkImages: String
   audioFile: String
   description: String
+  url: String
+  siteId: String
+  qrCodes: JSON
 }
 
 input ExperienceRelateToManyForUpdateInput {
@@ -283,19 +283,19 @@ input ArtworkUpdateArgs {
 }
 
 input ArtworkCreateInput {
-  siteId: String
   status: String
-  experiences: ExperienceRelateToManyForCreateInput
-  urlWithQrCode: JSON
   title: String
   artist: String
-  slug: String
+  relatedExperiences: ExperienceRelateToManyForCreateInput
   startDate: DateTime
   endDate: DateTime
   images: Upload
   artworkImages: String
   audioFile: String
   description: String
+  url: String
+  siteId: String
+  qrCodes: JSON
 }
 
 input ExperienceRelateToManyForCreateInput {
@@ -377,13 +377,13 @@ type Experience {
   endDate: DateTime
   status: String
   description: String
-  artworks(
+  relatedArtworks(
     where: ArtworkWhereInput! = {}
     orderBy: [ArtworkOrderByInput!]! = []
     take: Int
     skip: Int! = 0
   ): [Artwork!]
-  artworksCount(where: ArtworkWhereInput! = {}): Int
+  relatedArtworksCount(where: ArtworkWhereInput! = {}): Int
 }
 
 input ExperienceWhereUniqueInput {
@@ -404,7 +404,7 @@ input ExperienceWhereInput {
   endDate: DateTimeNullableFilter
   status: StringNullableFilter
   description: StringFilter
-  artworks: ArtworkManyRelationFilter
+  relatedArtworks: ArtworkManyRelationFilter
 }
 
 input ArtworkManyRelationFilter {
@@ -435,7 +435,7 @@ input ExperienceUpdateInput {
   endDate: DateTime
   status: String
   description: String
-  artworks: ArtworkRelateToManyForUpdateInput
+  relatedArtworks: ArtworkRelateToManyForUpdateInput
 }
 
 input ArtworkRelateToManyForUpdateInput {
@@ -460,7 +460,7 @@ input ExperienceCreateInput {
   endDate: DateTime
   status: String
   description: String
-  artworks: ArtworkRelateToManyForCreateInput
+  relatedArtworks: ArtworkRelateToManyForCreateInput
 }
 
 input ArtworkRelateToManyForCreateInput {

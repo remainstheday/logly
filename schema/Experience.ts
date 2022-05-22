@@ -57,6 +57,9 @@ export const Experience = list({
         displayMode: "textarea",
       },
     }),
-    artworks: relationship({ ref: "Artwork.experiences", many: true }),
+    relatedArtworks: relationship({
+      ref: "Artwork.relatedExperiences",
+      many: true,
+    }),
   },
 });

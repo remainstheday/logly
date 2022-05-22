@@ -67,7 +67,7 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
       startDate
       endDate
       description
-      artworks {
+      relatedArtworks {
         title
         artist
         slug
@@ -96,6 +96,14 @@ export const GET_ARTWORK_BY_SLUG = gql`
       endDate
       description
       audioFile
+      urlWithQrCode
+      relatedExperiences {
+        id
+        title
+        slug
+        startDate
+        endDate
+      }
       images {
         id
         filename

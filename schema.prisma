@@ -18,20 +18,20 @@ model Site {
 }
 
 model Artwork {
-  id            String       @id @default(uuid()) @postgresql.Uuid
-  siteId        String       @default("")
-  status        String?      @default("draft")
-  experiences   Experience[] @relation("Artwork_experiences")
-  urlWithQrCode Json?
-  title         String       @default("")
-  artist        String       @default("")
-  slug          String       @unique @default("")
-  startDate     DateTime?
-  endDate       DateTime?
-  images        Json?
-  artworkImages String       @default("")
-  audioFile     String       @default("")
-  description   String       @default("")
+  id                 String       @id @default(uuid()) @postgresql.Uuid
+  status             String?      @default("draft")
+  title              String       @default("")
+  artist             String       @default("")
+  relatedExperiences Experience[] @relation("Artwork_relatedExperiences")
+  startDate          DateTime?
+  endDate            DateTime?
+  images             Json?
+  artworkImages      String       @default("")
+  audioFile          String       @default("")
+  description        String       @default("")
+  url                String       @unique @default("")
+  siteId             String       @default("")
+  qrCodes            Json?
 }
 
 model User {
@@ -54,7 +54,7 @@ model Experience {
   endDate          DateTime?
   status           String?   @default("draft")
   description      String    @default("")
-  artworks         Artwork[] @relation("Artwork_experiences")
+  relatedArtworks  Artwork[] @relation("Artwork_relatedExperiences")
 }
 
 model StaticContent {
