@@ -22,8 +22,6 @@ model Artwork {
   status             String?      @default("draft")
   title              String       @default("")
   artist             String       @default("")
-  startDate          DateTime?
-  endDate            DateTime?
   artworkImages      String       @default("")
   audioFile          String       @default("")
   description        Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
@@ -51,8 +49,8 @@ model Experience {
   experienceImages String    @default("")
   description      Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   relatedArtworks  Artwork[] @relation("Artwork_relatedExperiences")
-  siteId           String    @default("")
   url              String    @unique @default("")
+  siteId           String    @default("")
 }
 
 model StaticContent {
@@ -61,7 +59,7 @@ model StaticContent {
   title            String @default("")
   staticPageImages String @default("")
   description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  slug             String @unique @default("")
+  url              String @unique @default("")
   siteId           String @default("")
 }
 

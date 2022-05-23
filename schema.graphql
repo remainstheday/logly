@@ -96,8 +96,6 @@ type Artwork {
   status: String
   title: String
   artist: String
-  startDate: DateTime
-  endDate: DateTime
   artworkImages: String
   audioFile: String
   description: Artwork_description_Document
@@ -112,9 +110,6 @@ type Artwork {
   siteId: String
   qrCodes: JSON
 }
-
-scalar DateTime
-  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
 type Artwork_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
@@ -133,8 +128,6 @@ input ArtworkWhereInput {
   status: StringNullableFilter
   title: StringFilter
   artist: StringFilter
-  startDate: DateTimeNullableFilter
-  endDate: DateTimeNullableFilter
   artworkImages: StringFilter
   audioFile: StringFilter
   relatedExperiences: ExperienceManyRelationFilter
@@ -171,17 +164,6 @@ input NestedStringNullableFilter {
   not: NestedStringNullableFilter
 }
 
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeNullableFilter
-}
-
 input ExperienceManyRelationFilter {
   every: ExperienceWhereInput
   some: ExperienceWhereInput
@@ -193,8 +175,6 @@ input ArtworkOrderByInput {
   status: OrderDirection
   title: OrderDirection
   artist: OrderDirection
-  startDate: OrderDirection
-  endDate: OrderDirection
   artworkImages: OrderDirection
   audioFile: OrderDirection
   url: OrderDirection
@@ -205,8 +185,6 @@ input ArtworkUpdateInput {
   status: String
   title: String
   artist: String
-  startDate: DateTime
-  endDate: DateTime
   artworkImages: String
   audioFile: String
   description: JSON
@@ -232,8 +210,6 @@ input ArtworkCreateInput {
   status: String
   title: String
   artist: String
-  startDate: DateTime
-  endDate: DateTime
   artworkImages: String
   audioFile: String
   description: JSON
@@ -326,9 +302,12 @@ type Experience {
     skip: Int! = 0
   ): [Artwork!]
   relatedArtworksCount(where: ArtworkWhereInput! = {}): Int
-  siteId: String
   url: String
+  siteId: String
 }
+
+scalar DateTime
+  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
 
 type Experience_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
@@ -350,8 +329,19 @@ input ExperienceWhereInput {
   endDate: DateTimeNullableFilter
   experienceImages: StringFilter
   relatedArtworks: ArtworkManyRelationFilter
-  siteId: StringFilter
   url: StringFilter
+  siteId: StringFilter
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeNullableFilter
 }
 
 input ArtworkManyRelationFilter {
@@ -367,8 +357,8 @@ input ExperienceOrderByInput {
   startDate: OrderDirection
   endDate: OrderDirection
   experienceImages: OrderDirection
-  siteId: OrderDirection
   url: OrderDirection
+  siteId: OrderDirection
 }
 
 input ExperienceUpdateInput {
@@ -379,8 +369,8 @@ input ExperienceUpdateInput {
   experienceImages: String
   description: JSON
   relatedArtworks: ArtworkRelateToManyForUpdateInput
-  siteId: String
   url: String
+  siteId: String
 }
 
 input ArtworkRelateToManyForUpdateInput {
@@ -403,8 +393,8 @@ input ExperienceCreateInput {
   experienceImages: String
   description: JSON
   relatedArtworks: ArtworkRelateToManyForCreateInput
-  siteId: String
   url: String
+  siteId: String
 }
 
 input ArtworkRelateToManyForCreateInput {
@@ -418,7 +408,7 @@ type StaticContent {
   title: String
   staticPageImages: String
   description: StaticContent_description_Document
-  slug: String
+  url: String
   siteId: String
 }
 
@@ -428,7 +418,7 @@ type StaticContent_description_Document {
 
 input StaticContentWhereUniqueInput {
   id: ID
-  slug: String
+  url: String
 }
 
 input StaticContentWhereInput {
@@ -439,7 +429,7 @@ input StaticContentWhereInput {
   name: StringFilter
   title: StringFilter
   staticPageImages: StringFilter
-  slug: StringFilter
+  url: StringFilter
   siteId: StringFilter
 }
 
@@ -448,7 +438,7 @@ input StaticContentOrderByInput {
   name: OrderDirection
   title: OrderDirection
   staticPageImages: OrderDirection
-  slug: OrderDirection
+  url: OrderDirection
   siteId: OrderDirection
 }
 
@@ -457,7 +447,7 @@ input StaticContentUpdateInput {
   title: String
   staticPageImages: String
   description: JSON
-  slug: String
+  url: String
   siteId: String
 }
 
@@ -471,7 +461,7 @@ input StaticContentCreateInput {
   title: String
   staticPageImages: String
   description: JSON
-  slug: String
+  url: String
   siteId: String
 }
 

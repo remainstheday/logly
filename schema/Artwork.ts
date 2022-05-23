@@ -1,17 +1,33 @@
 import { list } from "@keystone-6/core";
-import {
-  json,
-  relationship,
-  select,
-  text,
-  timestamp,
-} from "@keystone-6/core/fields";
-import { document } from "@keystone-6/fields-document";
+import { json, relationship, text, timestamp } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
+import { defaults } from "./defaults";
 
 require("dotenv").config();
 
 export const Artwork = list({
+  fields: {
+    status: defaults.status,
+    title: defaults.title,
+    artist: text({ validation: { isRequired: true } }),
+    artworkImages: defaults.images("Artwork Image"),
+    audioFile: defaults.audioFile,
+    description: defaults.document,
+    relatedExperiences: relationship({
+      ref: "Experience.relatedArtworks",
+      many: true,
+    }),
+    url: defaults.url,
+    siteId: defaults.siteId,
+    qrCodes: json({
+      ui: {
+        views: require.resolve("../fields/qrcode/view.tsx"),
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "hidden" },
+      },
+    }),
+  },
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
@@ -38,70 +54,5 @@ export const Artwork = list({
 
       return resolvedData;
     },
-  },
-  fields: {
-    status: select({
-      options: [
-        { label: "Published", value: "published" },
-        { label: "Draft", value: "draft" },
-      ],
-      defaultValue: "draft",
-      ui: {
-        displayMode: "segmented-control",
-      },
-    }),
-    title: text({ validation: { isRequired: true } }),
-    artist: text({ validation: { isRequired: true } }),
-    startDate: timestamp(),
-    endDate: timestamp(),
-    artworkImages: text({
-      label: "Artwork Image",
-      ui: {
-        views: require.resolve("../fields/image-uploader/view.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
-      },
-    }),
-    audioFile: text({
-      ui: {
-        views: require.resolve("../fields/audiofile/view.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
-      },
-    }),
-    description: document({
-      formatting: true,
-      dividers: true,
-      links: true,
-    }),
-    relatedExperiences: relationship({
-      ref: "Experience.relatedArtworks",
-      many: true,
-    }),
-    url: text({
-      isIndexed: "unique",
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
-        listView: { fieldMode: "hidden" },
-      },
-    }),
-    siteId: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
-        listView: { fieldMode: "hidden" },
-      },
-    }),
-    qrCodes: json({
-      ui: {
-        views: require.resolve("../fields/qrcode/view.tsx"),
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "hidden" },
-      },
-    }),
   },
 });

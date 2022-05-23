@@ -43,7 +43,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
-    variables: { slug: "about" },
+    variables: { url: "about" },
   });
   return addApolloState(apolloClient, {
     props: { content: data.staticContents },

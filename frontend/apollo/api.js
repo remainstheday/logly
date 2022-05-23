@@ -1,10 +1,10 @@
 import { gql } from "@apollo/client";
 
 export const GET_STATIC_CONTENTS = gql`
-  query staticContents($slug: String) {
-    staticContents(where: { slug: { equals: $slug } }) {
+  query staticContents($url: String) {
+    staticContents(where: { url: { equals: $url } }) {
       id
-      slug
+      url
       name
       title
       staticPageImages
@@ -62,8 +62,6 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
         title
         artist
         url
-        startDate
-        endDate
         artworkImages
       }
     }
@@ -77,8 +75,6 @@ export const GET_ARTWORK_BY_SLUG = gql`
       title
       artist
       url
-      startDate
-      endDate
       description {
         document
       }

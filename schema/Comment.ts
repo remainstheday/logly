@@ -2,14 +2,6 @@ import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
 
 export const Comment = list({
-  access: {
-    item: {
-      create: ({ session, context, listKey, operation, inputData }) => true,
-      update: ({ session, context, listKey, operation, inputData, item }) =>
-        true,
-      delete: ({ session, context, listKey, operation, item }) => true,
-    },
-  },
   fields: {
     experienceId: text({
       ui: {
@@ -60,7 +52,7 @@ export const Comment = list({
     image: text({
       ui: {
         views: require.resolve("../fields/comment/view.tsx"),
-        createView: { fieldMode: "edit" },
+        createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },
         listView: { fieldMode: "read" },
       },
@@ -77,5 +69,13 @@ export const Comment = list({
         afterOperation: async (args) => {},
       },
     }),
+  },
+  access: {
+    item: {
+      create: ({ session, context, listKey, operation, inputData }) => true,
+      update: ({ session, context, listKey, operation, inputData, item }) =>
+        true,
+      delete: ({ session, context, listKey, operation, item }) => true,
+    },
   },
 });

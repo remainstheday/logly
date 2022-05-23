@@ -32,7 +32,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
-    variables: { slug: "privacy-policy" },
+    variables: { url: "privacy-policy" },
   });
 
   return addApolloState(apolloClient, {
