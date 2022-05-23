@@ -16,6 +16,7 @@ import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
 import Section from "components/Section";
 import CommentCard from "components/CommentCard";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function Experience({ experience, experiences, comments }) {
   if (!experience || !experiences) return <PageLoading />;
@@ -39,24 +40,28 @@ export default function Experience({ experience, experiences, comments }) {
             </h3>
           </div>
 
-          <p className="mt-6">{experience.description}</p>
+          {experience.description && (
+            <Section>
+              <DocumentRenderer document={experience.description.document} />
+            </Section>
+          )}
         </section>
 
-        {experience.artworks.length > 0 && (
+        {experience.relatedArtworks.length > 0 && (
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-4">
-                {experience.artworks.map((artwork, index) => (
+                {experience.relatedArtworks.map((artwork, index) => (
                   <div className="my-4" key={index}>
                     <Link
-                      href={`/experiences/${experience.slug}/${artwork.slug}`}
+                      href={`/experiences/${experience.url}/${artwork.url}`}
                       passHref
                     >
                       <a>
                         <Image
                           src={
-                            artwork.images
-                              ? artwork.images.publicUrl
+                            artwork.artworkImages
+                              ? artwork.artworkImages
                               : "/stock-museum-1.jpg"
                           }
                           width="436"
@@ -80,12 +85,12 @@ export default function Experience({ experience, experiences, comments }) {
               {similarExperiences.map((item, index) => (
                 <div className="snap-center shrink-0 w-full my-3" key={index}>
                   <div className="shrink-0 flex flex-col">
-                    <Link href={`/experiences/${item.slug}`} passHref>
+                    <Link href={`/experiences/${item.url}`} passHref>
                       <a>
                         <Image
                           src={
-                            item.poster
-                              ? item.poster.publicUrl
+                            item.experienceImages
+                              ? item.experienceImages
                               : "/stock-museum-1.jpg"
                           }
                           width={1080}
@@ -134,7 +139,7 @@ export async function getStaticPaths() {
   });
   const paths =
     data.experiences.map((item) => ({
-      params: { experience: item.slug },
+      params: { experience: item.url },
     })) || [];
 
   return {
@@ -145,9 +150,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
+
   const experience = await apolloClient.query({
     query: GET_EXPERIENCE_BY_SLUG,
-    variables: { slug: `${params.experience}` },
+    variables: { url: `${params.experience}` },
   });
   const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,

@@ -1,7 +1,6 @@
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import { format } from "date-fns";
 import {
   GET_ALL_ARTWORKS,
   GET_ALL_COMMENTS,
@@ -19,11 +18,12 @@ import SocialForm from "components/SocialForm";
 import CommentCard from "components/CommentCard";
 import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
-  const similarArtworks = experience.artworks.filter(
-    (item) => item.slug !== artwork.slug
+  const similarArtworks = experience.relatedArtworks.filter(
+    (item) => item.url !== artwork.url
   );
 
   const filteredComments = comments.filter((comment) => comment.image);
@@ -45,8 +45,8 @@ export default function Artwork({ artwork, experience, comments }) {
           <div className="flex relative my-5">
             <Image
               src={
-                artwork.images
-                  ? artwork.images.publicUrl
+                artwork.artworkImages
+                  ? artwork.artworkImages
                   : "/stock-museum-1.jpg"
               }
               width="1080"
@@ -63,9 +63,9 @@ export default function Artwork({ artwork, experience, comments }) {
           )}
         </section>
 
-        {artwork.description.length > 0 && (
-          <Section title="Overview">
-            <p className="mt-6">{artwork.description}</p>
+        {artwork.description && (
+          <Section>
+            <DocumentRenderer document={artwork.description.document} />
           </Section>
         )}
         <Section>
@@ -85,8 +85,8 @@ export default function Artwork({ artwork, experience, comments }) {
                     <a>
                       <Image
                         src={
-                          artwork.images
-                            ? artwork.images.publicUrl
+                          artwork.artworkImages
+                            ? artwork.artworkImages
                             : "/stock-museum-1.jpg"
                         }
                         width="430"
@@ -139,8 +139,8 @@ export async function getStaticPaths() {
       return artworks.data.artworks.map((artwork) => {
         return {
           params: {
-            experience: experience.slug,
-            artwork: `${experience.slug}/${artwork.slug}`,
+            experience: experience.url,
+            artwork: `${experience.url}/${artwork.url}`,
           },
         };
       });
@@ -155,13 +155,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
+  console.log(params);
   const artwork = await apolloClient.query({
     query: GET_ARTWORK_BY_SLUG,
-    variables: { slug: `${params.artwork}` },
+    variables: { url: `${params.artwork}` },
   });
   const experience = await apolloClient.query({
     query: GET_EXPERIENCE_BY_SLUG,
-    variables: { slug: `${params.experience}` },
+    variables: { url: `${params.experience}` },
   });
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,

@@ -6,6 +6,8 @@ import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import Image from "next/image";
+import Section from "components/Section";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function About({ content = [] }) {
   if (!content) return <PageLoading />;
@@ -25,7 +27,11 @@ export default function About({ content = [] }) {
               alt={page.title}
             />
           )}
-          <p className="mt-6">{page.description}</p>
+          {page.description && (
+            <Section>
+              <DocumentRenderer document={page.description.document} />
+            </Section>
+          )}
         </section>
       </div>
       <Footer />

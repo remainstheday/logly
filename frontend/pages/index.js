@@ -21,7 +21,8 @@ export default function IndexPage({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
   const homepage = content[0];
   const filteredComments = comments.filter((comment) => comment.image);
-
+  const renderDescription =
+    homepage.description && homepage.description.document.length > 0;
   return (
     <>
       <Header />
@@ -42,7 +43,7 @@ export default function IndexPage({ content, experiences, comments }) {
             </div>
           )}
 
-          {homepage.description && (
+          {renderDescription && (
             <Section>
               <DocumentRenderer document={homepage.description.document} />
             </Section>
@@ -54,7 +55,7 @@ export default function IndexPage({ content, experiences, comments }) {
                 {experiences.map((item, index) => (
                   <div className="snap-center shrink-0 w-full my-3" key={index}>
                     <div className="shrink-0 flex flex-col">
-                      <Link href={`/experiences/${item.slug}`} passHref>
+                      <Link href={`/experiences/${item.url}`} passHref>
                         <a>
                           <Image
                             src={

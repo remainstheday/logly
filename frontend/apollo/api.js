@@ -20,8 +20,10 @@ export const GET_ALL_EXPERIENCES = gql`
     experiences {
       id
       title
-      slug
-      description
+      url
+      description {
+        document
+      }
       experienceImages
       startDate
       endDate
@@ -37,20 +39,25 @@ export const GET_ALL_ARTWORKS = gql`
       title
       artist
       url
-      description
+      description {
+        document
+      }
       artworkImages
     }
   }
 `;
 
 export const GET_EXPERIENCE_BY_SLUG = gql`
-  query Experience($slug: String) {
-    experience(where: { slug: $slug }) {
+  query Experience($url: String) {
+    experience(where: { url: $url }) {
       title
-      slug
+      url
       startDate
       endDate
-      description
+      description {
+        document
+      }
+      experienceImages
       relatedArtworks {
         title
         artist
@@ -64,21 +71,23 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
 `;
 
 export const GET_ARTWORK_BY_SLUG = gql`
-  query Artwork($slug: String) {
-    artwork(where: { url: $slug }) {
+  query Artwork($url: String) {
+    artwork(where: { url: $url }) {
       id
       title
       artist
       url
       startDate
       endDate
-      description
+      description {
+        document
+      }
       audioFile
       qrCodes
       relatedExperiences {
         id
         title
-        slug
+        url
         startDate
         endDate
       }

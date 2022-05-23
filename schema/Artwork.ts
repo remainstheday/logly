@@ -1,23 +1,21 @@
-import { graphql, list } from "@keystone-6/core";
+import { list } from "@keystone-6/core";
 import {
-  file,
   json,
   relationship,
   select,
   text,
   timestamp,
-  virtual,
 } from "@keystone-6/core/fields";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { cloudinary } from "../cloudinary";
+import { document } from "@keystone-6/fields-document";
+import convertStringToURL from "../utils/convertStringToURL";
 
 require("dotenv").config();
 
 export const Artwork = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { relatedExperiences } = resolvedData;
-
+      const { relatedExperiences, title } = resolvedData;
+      if (title) return { ...resolvedData, url: convertStringToURL(title) };
       if (relatedExperiences && relatedExperiences.connect.length > 0) {
         const experiences = await relatedExperiences.connect.map(
           (experienceId: { id: string }) =>
@@ -54,13 +52,10 @@ export const Artwork = list({
     }),
     title: text({ validation: { isRequired: true } }),
     artist: text({ validation: { isRequired: true } }),
-    relatedExperiences: relationship({
-      ref: "Experience.relatedArtworks",
-      many: true,
-    }),
     startDate: timestamp(),
     endDate: timestamp(),
     artworkImages: text({
+      label: "Artwork Image",
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),
         createView: { fieldMode: "edit" },
@@ -76,10 +71,14 @@ export const Artwork = list({
         itemView: { fieldMode: "edit" },
       },
     }),
-    description: text({
-      ui: {
-        displayMode: "textarea",
-      },
+    description: document({
+      formatting: true,
+      dividers: true,
+      links: true,
+    }),
+    relatedExperiences: relationship({
+      ref: "Experience.relatedArtworks",
+      many: true,
     }),
     url: text({
       isIndexed: "unique",

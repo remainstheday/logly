@@ -1,10 +1,52 @@
 import { list } from "@keystone-6/core";
 import { relationship, select, text, timestamp } from "@keystone-6/core/fields";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { cloudinary } from "../cloudinary";
+import { document } from "@keystone-6/fields-document";
+import convertStringToURL from "../utils/convertStringToURL";
 
 export const Experience = list({
+  hooks: {
+    resolveInput: async ({ resolvedData, item, context }) => {
+      const { title } = resolvedData;
+      if (title) return { ...resolvedData, url: convertStringToURL(title) };
+
+      return resolvedData;
+    },
+  },
   fields: {
+    status: select({
+      options: [
+        { label: "Published", value: "published" },
+        { label: "Draft", value: "draft" },
+      ],
+      defaultValue: "draft",
+      ui: {
+        displayMode: "segmented-control",
+      },
+    }),
+    title: text({
+      label: "Experience Title",
+      validation: { isRequired: true },
+    }),
+    startDate: timestamp(),
+    endDate: timestamp(),
+    experienceImages: text({
+      label: "Experience Image",
+      ui: {
+        views: require.resolve("../fields/image-uploader/view.tsx"),
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "edit" },
+      },
+    }),
+    description: document({
+      formatting: true,
+      dividers: true,
+      links: true,
+    }),
+    relatedArtworks: relationship({
+      ref: "Artwork.relatedExperiences",
+      many: true,
+    }),
     siteId: text({
       ui: {
         createView: { fieldMode: "hidden" },
@@ -16,46 +58,13 @@ export const Experience = list({
         afterOperation: async (args) => {},
       },
     }),
-    title: text({
-      label: "Experience Title",
-    }),
-    slug: text({
-      label: "URL Slug (e.g. /experience-name)",
+    url: text({
       isIndexed: "unique",
-      isFilterable: true,
-      validation: {
-        isRequired: true,
-        match: { regex: new RegExp("^[^\\/\\ ]*$") },
-      },
-    }),
-    experienceImages: text({
       ui: {
-        views: require.resolve("../fields/image-uploader/view.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "read" },
       },
-    }),
-    startDate: timestamp(),
-    endDate: timestamp(),
-    status: select({
-      options: [
-        { label: "Published", value: "published" },
-        { label: "Draft", value: "draft" },
-      ],
-      defaultValue: "draft",
-      ui: {
-        displayMode: "segmented-control",
-      },
-    }),
-    description: text({
-      ui: {
-        displayMode: "textarea",
-      },
-    }),
-    relatedArtworks: relationship({
-      ref: "Artwork.relatedExperiences",
-      many: true,
     }),
   },
 });

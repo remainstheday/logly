@@ -29,25 +29,20 @@ export const StaticContent = list({
         },
       },
     }),
-    siteId: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
-        listView: { fieldMode: "hidden" },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
-      },
-    }),
     title: text({}),
     staticPageImages: text({
+      label: "Page Image",
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),
         createView: { fieldMode: "edit" },
         listView: { fieldMode: "hidden" },
         itemView: { fieldMode: "edit" },
       },
+    }),
+    description: document({
+      formatting: true,
+      dividers: true,
+      links: true,
     }),
     slug: text({
       label: "URL",
@@ -65,10 +60,16 @@ export const StaticContent = list({
         },
       },
     }),
-    description: document({
-      formatting: true,
-      dividers: true,
-      links: true,
+    siteId: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+      },
+      hooks: {
+        beforeOperation: async (args) => {},
+        afterOperation: async (args) => {},
+      },
     }),
   },
 });
