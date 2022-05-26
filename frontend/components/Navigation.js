@@ -47,7 +47,7 @@ export default function Navigation() {
                 </Link>
               </li>
               <li className="py-2 pr-0 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 block ">
-                <Link href={`/social`} passHref>
+                <Link href={`/community`} passHref>
                   <a className="text-right block">Community</a>
                 </Link>
               </li>

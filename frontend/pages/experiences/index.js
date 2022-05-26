@@ -21,7 +21,7 @@ export default function Experience({ experiences }) {
             {experiences.map((experience) => (
               <div key={experience.id}>
                 <Thumbnail
-                  href={`/experiences/${experience.slug}`}
+                  href={`/experiences/${experience.url}`}
                   title={experience.title}
                   image={
                     experience.experienceImages

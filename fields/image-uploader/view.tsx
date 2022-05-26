@@ -5,14 +5,12 @@ import { controller } from "@keystone-6/core/fields/types/text/views";
 import { processCloudinaryFile } from "../utils/processCloudinaryFile";
 import ImageUploader from "./ImageUploader";
 import { injectGlobal } from "@emotion/css";
-import Image from "@keystone-ui/fields";
 
 export const Field = ({
   field,
   value,
   onChange,
 }: FieldProps<typeof controller>) => {
-  console.log(value.initial);
   const handleFileUpload = async (file: FileList) => {
     await Promise.resolve(processCloudinaryFile(file[0])).then(
       (cloudinaryFile) => {
@@ -31,7 +29,7 @@ export const Field = ({
   return (
     <FieldContainer>
       <FieldLabel>{field.label}</FieldLabel>
-      {value.inner && value.inner.value && (
+      {value.inner && value.inner?.value && (
         <img width="300" src={value.inner.value} />
       )}
       {value.inner && value.inner.value.length === 0 && (

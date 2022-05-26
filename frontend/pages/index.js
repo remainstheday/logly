@@ -59,8 +59,8 @@ export default function IndexPage({ content, experiences, comments }) {
                         <a>
                           <Image
                             src={
-                              item.poster
-                                ? item.poster.publicUrl
+                              item.experienceImages
+                                ? item.experienceImages
                                 : "/stock-museum-1.jpg"
                             }
                             width={1080}
