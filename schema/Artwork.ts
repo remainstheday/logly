@@ -1,5 +1,5 @@
 import { list } from "@keystone-6/core";
-import { json, relationship, text, timestamp } from "@keystone-6/core/fields";
+import { json, relationship, text } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
 
