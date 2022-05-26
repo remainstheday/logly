@@ -1,67 +1,58 @@
 import { list } from "@keystone-6/core";
-import {
-  file,
-  relationship,
-  select,
-  text,
-  timestamp,
-} from "@keystone-6/core/fields";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { cloudinary } from "../cloudinary";
+import { json, relationship, text, timestamp } from "@keystone-6/core/fields";
+import convertStringToURL from "../utils/convertStringToURL";
+import { defaults } from "./defaults";
+
+require("dotenv").config();
 
 export const Artwork = list({
   fields: {
-    siteId: text({
+    status: defaults.status,
+    title: defaults.title,
+    artist: text({ validation: { isRequired: true } }),
+    artworkImages: defaults.images("Artwork Image"),
+    audioFile: defaults.audioFile,
+    description: defaults.document,
+    relatedExperiences: relationship({
+      ref: "Experience.relatedArtworks",
+      many: true,
+    }),
+    url: defaults.url,
+    siteId: defaults.siteId,
+    qrCodes: json({
       ui: {
+        views: require.resolve("../fields/qrcode/view.tsx"),
         createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
         listView: { fieldMode: "hidden" },
       },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
-      },
     }),
-    title: text(),
-    artist: text(),
-    slug: text({ isIndexed: "unique", isFilterable: true }),
-    startDate: timestamp(),
-    endDate: timestamp(),
-    status: select({
-      options: [
-        { label: "Published", value: "published" },
-        { label: "Draft", value: "draft" },
-      ],
-      defaultValue: "draft",
-      ui: {
-        displayMode: "segmented-control",
-      },
-    }),
-    audioFile: text({
-      ui: {
-        views: require.resolve("../fields/audiofile/view.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
-      },
-    }),
-    images: cloudinaryImage({
-      cloudinary,
-      label: "Artwork",
-    }),
-    artworkImages: text({
-      ui: {
-        views: require.resolve("../fields/image-uploader/view.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
-      },
-    }),
-    description: text({
-      ui: {
-        displayMode: "textarea",
-      },
-    }),
-    experiences: relationship({ ref: "Experience.artworks", many: true }),
+  },
+  hooks: {
+    resolveInput: async ({ resolvedData, item, context }) => {
+      const { relatedExperiences, title } = resolvedData;
+      if (title) return { ...resolvedData, url: convertStringToURL(title) };
+      if (relatedExperiences && relatedExperiences.connect.length > 0) {
+        const experiences = await relatedExperiences.connect.map(
+          (experienceId: { id: string }) =>
+            context.query.Experience.findOne({
+              where: { id: experienceId.id },
+              query: "id slug",
+            })
+        );
+        return Promise.all(experiences).then((values) => ({
+          ...resolvedData,
+          qrCodes: values.map(
+            (value) => `${process.env.FRONTEND_URL}/experiences/${value.slug}/`
+          ),
+        }));
+      }
+
+      if (relatedExperiences && relatedExperiences.disconnect.length > 0) {
+        // TODO: we should remove QR Codes if the experience is removed @trentonkennedy
+      }
+
+      return resolvedData;
+    },
   },
 });

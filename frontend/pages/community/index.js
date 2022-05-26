@@ -15,7 +15,7 @@ export default function Social({ comments }) {
       <Header />
       <div className="max-w-4xl px-6 md:px-0 mx-auto md:mx-auto">
         <BackLink href={"/"} text={"Home"} />
-        <PageTitle largeText={"ART Social"} />
+        <PageTitle largeText={"Community"} />
         <section className="mt-20 md:mt-32 mx-auto">
           <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
           <hr />

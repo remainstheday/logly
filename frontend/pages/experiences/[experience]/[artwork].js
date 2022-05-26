@@ -1,7 +1,6 @@
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import { format } from "date-fns";
 import {
   GET_ALL_ARTWORKS,
   GET_ALL_COMMENTS,
@@ -19,14 +18,25 @@ import SocialForm from "components/SocialForm";
 import CommentCard from "components/CommentCard";
 import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
-  const similarArtworks = experience.artworks.filter(
-    (item) => item.slug !== artwork.slug
+
+  // don't show the current artwork as recommended artworks
+  const similarArtworks = experience.relatedArtworks.filter(
+    (item) => item.url !== artwork.url
   );
 
+  // only show comments with images in them
   const filteredComments = comments.filter((comment) => comment.image);
+
+  // Hide any content sections that have empty data
+  const hasFilteredComments = filteredComments.length > 0;
+  const hasSimilarArtworks = similarArtworks.length > 0;
+  const hasDescription =
+    artwork.description && artwork.description.document.length > 0;
+  const hasAudioFile = artwork.audioFile && artwork.audioFile.length > 0;
 
   return (
     <>
@@ -40,18 +50,13 @@ export default function Artwork({ artwork, experience, comments }) {
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1>{artwork.title}</h1>
             <h2>{artwork.artist}</h2>
-            <h3>
-              {format(new Date(artwork.startDate), "MMMM dd, yyyy")}
-              {artwork.endDate &&
-                ` - ${format(new Date(artwork.endDate), "MMM dd, yyyy")}`}
-            </h3>
           </div>
 
           <div className="flex relative my-5">
             <Image
               src={
-                artwork.images
-                  ? artwork.images.publicUrl
+                artwork.artworkImages
+                  ? artwork.artworkImages
                   : "/stock-museum-1.jpg"
               }
               width="1080"
@@ -60,7 +65,7 @@ export default function Artwork({ artwork, experience, comments }) {
             />
           </div>
 
-          {artwork.audioFile.length > 0 && (
+          {hasAudioFile && (
             <AudioPlayer
               title={"Listen to the story behind the painting by pressing play"}
               audioFile={artwork.audioFile}
@@ -68,51 +73,54 @@ export default function Artwork({ artwork, experience, comments }) {
           )}
         </section>
 
-        {artwork.description.length > 0 && (
-          <Section title="Overview">
-            <p className="mt-6">{artwork.description}</p>
+        {hasDescription && (
+          <Section>
+            <DocumentRenderer document={artwork.description.document} />
           </Section>
         )}
-        <Section>
-          <SectionLink
-            href={`/experiences/${experience.slug}`}
-            text={"Go To Experience"}
-          />
-          <hr />
-          <div className="w-full mt-4">
-            <div className="flex flex-wrap">
-              {similarArtworks.map((artwork, index) => (
-                <div className="w-1/2 my-4" key={index}>
-                  <Link
-                    href={`/experiences/${experience.slug}/${artwork.slug}`}
-                    passHref
-                  >
-                    <a>
-                      <Image
-                        src={
-                          artwork.images
-                            ? artwork.images.publicUrl
-                            : "/stock-museum-1.jpg"
-                        }
-                        width="430"
-                        height="281"
-                        className="w-full px-1"
-                        alt={artwork.title}
-                      />
-                      <h3 className="font-bold">{artwork.artist}</h3>
-                      <h4>{artwork.title}</h4>
-                    </a>
-                  </Link>
-                </div>
-              ))}
+        {hasSimilarArtworks && (
+          <Section>
+            <SectionLink
+              href={`/experiences/${experience.url}`}
+              text={"Go To Experience"}
+            />
+            <hr />
+            <div className="w-full mt-4">
+              <div className="flex flex-wrap">
+                {similarArtworks.map((artwork, index) => (
+                  <div className="w-1/2 my-4" key={index}>
+                    <Link
+                      href={`/experiences/${experience.url}/${artwork.url}`}
+                      passHref
+                    >
+                      <a>
+                        <Image
+                          src={
+                            artwork.artworkImages
+                              ? artwork.artworkImages
+                              : "/stock-museum-1.jpg"
+                          }
+                          width="430"
+                          height="281"
+                          className="w-full px-1"
+                          alt={artwork.title}
+                        />
+                        <h3 className="font-bold">{artwork.artist}</h3>
+                        <h4>{artwork.title}</h4>
+                      </a>
+                    </Link>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </Section>
+          </Section>
+        )}
+
         <Section title="Share Thoughts and Images">
           <SocialForm relatedArtworkId={artwork.id} />
         </Section>
 
-        {filteredComments.length > 0 && (
+        {hasFilteredComments && (
           <Section title="See What the Community has Shared">
             <div className="py-6 grid md:grid-cols-2 gap-4">
               {filteredComments.map((comment) => (
@@ -144,8 +152,8 @@ export async function getStaticPaths() {
       return artworks.data.artworks.map((artwork) => {
         return {
           params: {
-            experience: experience.slug,
-            artwork: `${experience.slug}/${artwork.slug}`,
+            experience: experience.url,
+            artwork: `${experience.url}/${artwork.url}`,
           },
         };
       });
@@ -160,13 +168,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
+
   const artwork = await apolloClient.query({
     query: GET_ARTWORK_BY_SLUG,
-    variables: { slug: `${params.artwork}` },
+    variables: { url: params.artwork },
   });
   const experience = await apolloClient.query({
     query: GET_EXPERIENCE_BY_SLUG,
-    variables: { slug: `${params.experience}` },
+    variables: { url: params.experience },
   });
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,

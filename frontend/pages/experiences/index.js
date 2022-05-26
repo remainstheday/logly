@@ -23,7 +23,11 @@ export default function Experience({ experiences }) {
                 <Thumbnail
                   href={`/experiences/${experience.slug}`}
                   title={experience.title}
-                  image={experience.poster ? experience.poster.publicUrl : ""}
+                  image={
+                    experience.experienceImages
+                      ? experience.experienceImages
+                      : ""
+                  }
                   imgWidth={700}
                   imgHeight={512}
                 />

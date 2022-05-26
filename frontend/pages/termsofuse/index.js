@@ -5,6 +5,8 @@ import PageTitle from "components/PageTitle";
 import { GET_STATIC_CONTENTS } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
+import Section from "components/Section";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function Terms({ content = [] }) {
   if (!content) return <PageLoading />;
@@ -15,7 +17,11 @@ export default function Terms({ content = [] }) {
       <div className="max-w-4xl mx-auto min-h-screen">
         <BackLink href={"/"} text={"Home"} />
         <PageTitle largeText={page.title} />
-        <p className="mt-6">{page.description}</p>
+        {page.description && (
+          <Section>
+            <DocumentRenderer document={page.description.document} />
+          </Section>
+        )}
       </div>
       <Footer />
     </>
@@ -26,7 +32,7 @@ export async function getStaticProps() {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
-    variables: { slug: "termsofuse" },
+    variables: { url: "termsofuse" },
   });
 
   return addApolloState(apolloClient, {

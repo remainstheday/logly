@@ -93,81 +93,31 @@ input SiteCreateInput {
 
 type Artwork {
   id: ID!
-  siteId: String
+  status: String
   title: String
   artist: String
-  slug: String
-  startDate: DateTime
-  endDate: DateTime
-  status: String
-  audioFile: String
-  images: CloudinaryImage_File
   artworkImages: String
-  description: String
-  experiences(
+  audioFile: String
+  description: Artwork_description_Document
+  relatedExperiences(
     where: ExperienceWhereInput! = {}
     orderBy: [ExperienceOrderByInput!]! = []
     take: Int
     skip: Int! = 0
   ): [Experience!]
-  experiencesCount(where: ExperienceWhereInput! = {}): Int
+  relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
+  url: String
+  siteId: String
+  qrCodes: JSON
 }
 
-scalar DateTime
-  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
-
-type CloudinaryImage_File {
-  id: ID
-  filename: String
-  originalFilename: String
-  mimetype: String
-  encoding: String
-  publicUrl: String
-  publicUrlTransformed(transformation: CloudinaryImageFormat): String
-}
-
-"""
-Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
-All options are strings as they ultimately end up in a URL.
-"""
-input CloudinaryImageFormat {
-  """
-   Rewrites the filename to be this pretty string. Do not include `/` or `.`
-  """
-  prettyName: String
-  width: String
-  height: String
-  crop: String
-  aspect_ratio: String
-  gravity: String
-  zoom: String
-  x: String
-  y: String
-  format: String
-  fetch_format: String
-  quality: String
-  radius: String
-  angle: String
-  effect: String
-  opacity: String
-  border: String
-  background: String
-  overlay: String
-  underlay: String
-  default_image: String
-  delay: String
-  color: String
-  color_space: String
-  dpr: String
-  page: String
-  density: String
-  flags: String
-  transformation: String
+type Artwork_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input ArtworkWhereUniqueInput {
   id: ID
-  slug: String
+  url: String
 }
 
 input ArtworkWhereInput {
@@ -175,28 +125,14 @@ input ArtworkWhereInput {
   OR: [ArtworkWhereInput!]
   NOT: [ArtworkWhereInput!]
   id: IDFilter
-  siteId: StringFilter
+  status: StringNullableFilter
   title: StringFilter
   artist: StringFilter
-  slug: StringFilter
-  startDate: DateTimeNullableFilter
-  endDate: DateTimeNullableFilter
-  status: StringNullableFilter
-  audioFile: StringFilter
   artworkImages: StringFilter
-  description: StringFilter
-  experiences: ExperienceManyRelationFilter
-}
-
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeNullableFilter
+  audioFile: StringFilter
+  relatedExperiences: ExperienceManyRelationFilter
+  url: StringFilter
+  siteId: StringFilter
 }
 
 input StringNullableFilter {
@@ -236,37 +172,27 @@ input ExperienceManyRelationFilter {
 
 input ArtworkOrderByInput {
   id: OrderDirection
-  siteId: OrderDirection
+  status: OrderDirection
   title: OrderDirection
   artist: OrderDirection
-  slug: OrderDirection
-  startDate: OrderDirection
-  endDate: OrderDirection
-  status: OrderDirection
-  audioFile: OrderDirection
   artworkImages: OrderDirection
-  description: OrderDirection
+  audioFile: OrderDirection
+  url: OrderDirection
+  siteId: OrderDirection
 }
 
 input ArtworkUpdateInput {
-  siteId: String
+  status: String
   title: String
   artist: String
-  slug: String
-  startDate: DateTime
-  endDate: DateTime
-  status: String
-  audioFile: String
-  images: Upload
   artworkImages: String
-  description: String
-  experiences: ExperienceRelateToManyForUpdateInput
+  audioFile: String
+  description: JSON
+  relatedExperiences: ExperienceRelateToManyForUpdateInput
+  url: String
+  siteId: String
+  qrCodes: JSON
 }
-
-"""
-The `Upload` scalar type represents a file upload.
-"""
-scalar Upload
 
 input ExperienceRelateToManyForUpdateInput {
   disconnect: [ExperienceWhereUniqueInput!]
@@ -281,18 +207,16 @@ input ArtworkUpdateArgs {
 }
 
 input ArtworkCreateInput {
-  siteId: String
+  status: String
   title: String
   artist: String
-  slug: String
-  startDate: DateTime
-  endDate: DateTime
-  status: String
-  audioFile: String
-  images: Upload
   artworkImages: String
-  description: String
-  experiences: ExperienceRelateToManyForCreateInput
+  audioFile: String
+  description: JSON
+  relatedExperiences: ExperienceRelateToManyForCreateInput
+  url: String
+  siteId: String
+  qrCodes: JSON
 }
 
 input ExperienceRelateToManyForCreateInput {
@@ -365,27 +289,33 @@ input UserCreateInput {
 
 type Experience {
   id: ID!
-  siteId: String
+  status: String
   title: String
-  slug: String
-  poster: CloudinaryImage_File
-  experienceImages: String
   startDate: DateTime
   endDate: DateTime
-  status: String
-  description: String
-  artworks(
+  experienceImages: String
+  description: Experience_description_Document
+  relatedArtworks(
     where: ArtworkWhereInput! = {}
     orderBy: [ArtworkOrderByInput!]! = []
     take: Int
     skip: Int! = 0
   ): [Artwork!]
-  artworksCount(where: ArtworkWhereInput! = {}): Int
+  relatedArtworksCount(where: ArtworkWhereInput! = {}): Int
+  url: String
+  siteId: String
+}
+
+scalar DateTime
+  @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+
+type Experience_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input ExperienceWhereUniqueInput {
   id: ID
-  slug: String
+  url: String
 }
 
 input ExperienceWhereInput {
@@ -393,15 +323,25 @@ input ExperienceWhereInput {
   OR: [ExperienceWhereInput!]
   NOT: [ExperienceWhereInput!]
   id: IDFilter
-  siteId: StringFilter
+  status: StringNullableFilter
   title: StringFilter
-  slug: StringFilter
-  experienceImages: StringFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
-  status: StringNullableFilter
-  description: StringFilter
-  artworks: ArtworkManyRelationFilter
+  experienceImages: StringFilter
+  relatedArtworks: ArtworkManyRelationFilter
+  url: StringFilter
+  siteId: StringFilter
+}
+
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeNullableFilter
 }
 
 input ArtworkManyRelationFilter {
@@ -412,27 +352,25 @@ input ArtworkManyRelationFilter {
 
 input ExperienceOrderByInput {
   id: OrderDirection
-  siteId: OrderDirection
+  status: OrderDirection
   title: OrderDirection
-  slug: OrderDirection
-  experienceImages: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
-  status: OrderDirection
-  description: OrderDirection
+  experienceImages: OrderDirection
+  url: OrderDirection
+  siteId: OrderDirection
 }
 
 input ExperienceUpdateInput {
-  siteId: String
+  status: String
   title: String
-  slug: String
-  poster: Upload
-  experienceImages: String
   startDate: DateTime
   endDate: DateTime
-  status: String
-  description: String
-  artworks: ArtworkRelateToManyForUpdateInput
+  experienceImages: String
+  description: JSON
+  relatedArtworks: ArtworkRelateToManyForUpdateInput
+  url: String
+  siteId: String
 }
 
 input ArtworkRelateToManyForUpdateInput {
@@ -448,16 +386,15 @@ input ExperienceUpdateArgs {
 }
 
 input ExperienceCreateInput {
-  siteId: String
+  status: String
   title: String
-  slug: String
-  poster: Upload
-  experienceImages: String
   startDate: DateTime
   endDate: DateTime
-  status: String
-  description: String
-  artworks: ArtworkRelateToManyForCreateInput
+  experienceImages: String
+  description: JSON
+  relatedArtworks: ArtworkRelateToManyForCreateInput
+  url: String
+  siteId: String
 }
 
 input ArtworkRelateToManyForCreateInput {
@@ -468,17 +405,20 @@ input ArtworkRelateToManyForCreateInput {
 type StaticContent {
   id: ID!
   name: String
-  siteId: String
   title: String
-  poster: CloudinaryImage_File
   staticPageImages: String
-  slug: String
-  description: String
+  description: StaticContent_description_Document
+  url: String
+  siteId: String
+}
+
+type StaticContent_description_Document {
+  document(hydrateRelationships: Boolean! = false): JSON!
 }
 
 input StaticContentWhereUniqueInput {
   id: ID
-  slug: String
+  url: String
 }
 
 input StaticContentWhereInput {
@@ -487,31 +427,28 @@ input StaticContentWhereInput {
   NOT: [StaticContentWhereInput!]
   id: IDFilter
   name: StringFilter
-  siteId: StringFilter
   title: StringFilter
   staticPageImages: StringFilter
-  slug: StringFilter
-  description: StringFilter
+  url: StringFilter
+  siteId: StringFilter
 }
 
 input StaticContentOrderByInput {
   id: OrderDirection
   name: OrderDirection
-  siteId: OrderDirection
   title: OrderDirection
   staticPageImages: OrderDirection
-  slug: OrderDirection
-  description: OrderDirection
+  url: OrderDirection
+  siteId: OrderDirection
 }
 
 input StaticContentUpdateInput {
   name: String
-  siteId: String
   title: String
-  poster: Upload
   staticPageImages: String
-  slug: String
-  description: String
+  description: JSON
+  url: String
+  siteId: String
 }
 
 input StaticContentUpdateArgs {
@@ -521,12 +458,11 @@ input StaticContentUpdateArgs {
 
 input StaticContentCreateInput {
   name: String
-  siteId: String
   title: String
-  poster: Upload
   staticPageImages: String
-  slug: String
-  description: String
+  description: JSON
+  url: String
+  siteId: String
 }
 
 type Comment {

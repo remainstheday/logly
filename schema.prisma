@@ -18,19 +18,17 @@ model Site {
 }
 
 model Artwork {
-  id            String       @id @default(uuid()) @postgresql.Uuid
-  siteId        String       @default("")
-  title         String       @default("")
-  artist        String       @default("")
-  slug          String       @unique @default("")
-  startDate     DateTime?
-  endDate       DateTime?
-  status        String?      @default("draft")
-  audioFile     String       @default("")
-  images        Json?
-  artworkImages String       @default("")
-  description   String       @default("")
-  experiences   Experience[] @relation("Artwork_experiences")
+  id                 String       @id @default(uuid()) @postgresql.Uuid
+  status             String?      @default("draft")
+  title              String       @default("")
+  artist             String       @default("")
+  artworkImages      String       @default("")
+  audioFile          String       @default("")
+  description        Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedExperiences Experience[] @relation("Artwork_relatedExperiences")
+  url                String       @unique @default("")
+  siteId             String       @default("")
+  qrCodes            Json?
 }
 
 model User {
@@ -44,27 +42,25 @@ model User {
 
 model Experience {
   id               String    @id @default(uuid()) @postgresql.Uuid
-  siteId           String    @default("")
+  status           String?   @default("draft")
   title            String    @default("")
-  slug             String    @unique @default("")
-  poster           Json?
-  experienceImages String    @default("")
   startDate        DateTime?
   endDate          DateTime?
-  status           String?   @default("draft")
-  description      String    @default("")
-  artworks         Artwork[] @relation("Artwork_experiences")
+  experienceImages String    @default("")
+  description      Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedArtworks  Artwork[] @relation("Artwork_relatedExperiences")
+  url              String    @unique @default("")
+  siteId           String    @default("")
 }
 
 model StaticContent {
   id               String @id @default(uuid()) @postgresql.Uuid
   name             String @default("")
-  siteId           String @default("")
   title            String @default("")
-  poster           Json?
   staticPageImages String @default("")
-  slug             String @unique @default("")
-  description      String @default("")
+  description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  url              String @unique @default("")
+  siteId           String @default("")
 }
 
 model Comment {

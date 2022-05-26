@@ -1,20 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const GET_STATIC_CONTENTS = gql`
-  query staticContents($slug: String) {
-    staticContents(where: { slug: { equals: $slug } }) {
+  query staticContents($url: String) {
+    staticContents(where: { url: { equals: $url } }) {
       id
-      slug
+      url
       name
       title
-      poster {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
+      staticPageImages
+      description {
+        document
       }
-      description
     }
   }
 `;
@@ -24,15 +20,11 @@ export const GET_ALL_EXPERIENCES = gql`
     experiences {
       id
       title
-      slug
-      description
-      poster {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
+      url
+      description {
+        document
       }
+      experienceImages
       startDate
       endDate
       status
@@ -46,63 +38,56 @@ export const GET_ALL_ARTWORKS = gql`
       id
       title
       artist
-      slug
-      description
-      images {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
+      url
+      description {
+        document
       }
+      artworkImages
     }
   }
 `;
 
 export const GET_EXPERIENCE_BY_SLUG = gql`
-  query Experience($slug: String) {
-    experience(where: { slug: $slug }) {
+  query Experience($url: String) {
+    experience(where: { url: $url }) {
       title
-      slug
+      url
       startDate
       endDate
-      description
-      artworks {
+      description {
+        document
+      }
+      experienceImages
+      relatedArtworks {
         title
         artist
-        slug
-        startDate
-        endDate
-        images {
-          id
-          filename
-          mimetype
-          encoding
-          publicUrl
-        }
+        url
+        artworkImages
       }
     }
   }
 `;
 
 export const GET_ARTWORK_BY_SLUG = gql`
-  query Artwork($slug: String) {
-    artwork(where: { slug: $slug }) {
+  query Artwork($url: String) {
+    artwork(where: { url: $url }) {
       id
       title
       artist
-      slug
-      startDate
-      endDate
-      description
-      audioFile
-      images {
-        id
-        filename
-        mimetype
-        encoding
-        publicUrl
+      url
+      description {
+        document
       }
+      audioFile
+      qrCodes
+      relatedExperiences {
+        id
+        title
+        url
+        startDate
+        endDate
+      }
+      artworkImages
     }
   }
 `;

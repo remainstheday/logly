@@ -1,23 +1,9 @@
 import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
-import { cloudinaryImage } from "@keystone-6/cloudinary";
-import { cloudinary } from "../cloudinary";
 import { FilterAccess, OperationAccess } from "../Access";
+import { defaults } from "./defaults";
 
 export const StaticContent = list({
-  access: {
-    operation: {
-      query: OperationAccess.anyone,
-      create: OperationAccess.adminOrSiteCuratorOnly,
-      update: OperationAccess.adminOrSiteCuratorOnly,
-      delete: OperationAccess.adminOrSiteCuratorOnly,
-    },
-    filter: {
-      query: FilterAccess.limitSiteCurator,
-      update: FilterAccess.adminOrSiteCuratorOnly,
-      delete: FilterAccess.adminOrSiteCuratorOnly,
-    },
-  },
   ui: {
     hideCreate: true,
     hideDelete: false,
@@ -30,50 +16,23 @@ export const StaticContent = list({
         },
       },
     }),
-    siteId: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
-        listView: { fieldMode: "hidden" },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
-      },
-    }),
-    title: text({}),
-    poster: cloudinaryImage({
-      cloudinary,
-      label: "Poster",
-    }),
-    staticPageImages: text({
-      ui: {
-        views: require.resolve("../fields/image-uploader/view.tsx"),
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "edit" },
-      },
-    }),
-    slug: text({
-      label: "URL",
-      isIndexed: "unique",
-      isFilterable: true,
-      ui: {
-        createView: {
-          fieldMode: ({ session, context }) => "hidden",
-        },
-        itemView: {
-          fieldMode: ({ session, context, item }) => "read",
-        },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
-      },
-    }),
-    description: text({
-      ui: {
-        displayMode: "textarea",
-      },
-    }),
+    title: defaults.title,
+    staticPageImages: defaults.images("Page Image"),
+    description: defaults.document,
+    url: defaults.url,
+    siteId: defaults.siteId,
+  },
+  access: {
+    operation: {
+      query: OperationAccess.anyone,
+      create: OperationAccess.adminOrSiteCuratorOnly,
+      update: OperationAccess.adminOrSiteCuratorOnly,
+      delete: OperationAccess.adminOrSiteCuratorOnly,
+    },
+    filter: {
+      query: FilterAccess.limitSiteCurator,
+      update: FilterAccess.adminOrSiteCuratorOnly,
+      delete: FilterAccess.adminOrSiteCuratorOnly,
+    },
   },
 });
