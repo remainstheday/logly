@@ -44,7 +44,7 @@ export default function Artwork({ artwork, experience, comments }) {
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="px-3 lg:px-0 md:mx-auto">
           <BackLink
-            href={`/experiences/${experience.slug}`}
+            href={`/experiences/${experience.url}`}
             text={"Back to Experience"}
           />
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">

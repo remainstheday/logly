@@ -103,7 +103,7 @@ export async function getStaticProps() {
 
   const content = await apolloClient.query({
     query: GET_STATIC_CONTENTS,
-    variables: { slug: "" },
+    variables: { url: "" },
   });
 
   const experiences = await apolloClient.query({

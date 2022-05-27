@@ -22,7 +22,7 @@ export default function Experience({ experience, experiences, comments }) {
   if (!experience || !experiences) return <PageLoading />;
   const filteredComments = comments.filter((comment) => comment.image);
   const similarExperiences = experiences.filter(
-    (similarExperience) => similarExperience.slug !== experience.slug
+    (similarExperience) => similarExperience.url !== experience.url
   );
   return (
     <>
