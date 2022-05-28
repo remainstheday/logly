@@ -65,12 +65,7 @@ export default function Artwork({ artwork, experience, comments }) {
             />
           </div>
 
-          {hasAudioFile && (
-            <AudioPlayer
-              title={"Listen to the story behind the painting by pressing play"}
-              audioFile={artwork.audioFile}
-            />
-          )}
+          {hasAudioFile && <AudioPlayer audioFile={artwork.audioFile} />}
         </section>
 
         {hasDescription && (

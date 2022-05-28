@@ -185,3 +185,7 @@ body {
   text-decoration: underline;
   color: #046bbf;
 }
+
+.formatted-content p {
+  margin-bottom: 16px;
+}
