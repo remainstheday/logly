@@ -26,11 +26,10 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
     );
   };
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   if (data)
     return (
-      <p className="text-center">
+      <p className="mt-6 mb-56">
         Thank you for participating. Your comment has been added to the
         Community Page!
       </p>
@@ -67,10 +66,10 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
               <ImageUploader onUpload={(image) => setUploadedImage(image)} />
               <button
                 type="submit"
-                disabled={!values.username || !values.comment}
+                disabled={!values.username || !values.comment || loading}
                 className="submit-btn w-full disabled:bg-slate-200"
               >
-                Share
+                {loading ? "Loading..." : "Share"}
               </button>
             </div>
           </form>

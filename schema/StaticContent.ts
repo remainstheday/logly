@@ -6,7 +6,7 @@ import { defaults } from "./defaults";
 export const StaticContent = list({
   ui: {
     hideCreate: true,
-    hideDelete: false,
+    hideDelete: true,
   },
   fields: {
     name: text({

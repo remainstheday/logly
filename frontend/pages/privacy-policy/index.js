@@ -7,6 +7,7 @@ import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
+import Image from "next/image";
 
 export default function Privacy({ content = [] }) {
   if (!content) return <PageLoading />;
@@ -17,6 +18,16 @@ export default function Privacy({ content = [] }) {
       <div className="max-w-4xl mx-auto min-h-screen">
         <BackLink href={"/"} text={"Home"} />
         <PageTitle largeText={page.title} />
+        {page.staticPageImages && (
+          <div className="flex relative my-16">
+            <Image
+              src={page.staticPageImages}
+              width="1080"
+              height="720"
+              alt={page.title}
+            />
+          </div>
+        )}
         {page.description && (
           <Section>
             <DocumentRenderer document={page.description.document} />

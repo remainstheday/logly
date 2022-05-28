@@ -32,10 +32,10 @@ export default function IndexPage({ content, experiences, comments }) {
             <PageTitle smallText={"welcome to"} largeText={homepage.title} />
           )}
 
-          {homepage.poster && (
+          {homepage.staticPageImages && (
             <div className="flex relative my-16">
               <Image
-                src={homepage.poster.publicUrl}
+                src={homepage.staticPageImages}
                 width="1080"
                 height="720"
                 alt={homepage.title}

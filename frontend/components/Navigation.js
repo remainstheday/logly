@@ -38,7 +38,7 @@ export default function Navigation() {
             <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
               <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
                 <Link href={`/about`} passHref>
-                  <a className="text-right">Museum Information</a>
+                  <a className="text-right">About</a>
                 </Link>
               </li>
               <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
