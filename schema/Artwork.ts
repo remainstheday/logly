@@ -37,13 +37,13 @@ export const Artwork = list({
           (experienceId: { id: string }) =>
             context.query.Experience.findOne({
               where: { id: experienceId.id },
-              query: "id slug",
+              query: "id url",
             })
         );
         return Promise.all(experiences).then((values) => ({
           ...resolvedData,
           qrCodes: values.map(
-            (value) => `${process.env.FRONTEND_URL}/experiences/${value.slug}/`
+            (value) => `${process.env.FRONTEND_URL}/experiences/${value.url}/`
           ),
         }));
       }

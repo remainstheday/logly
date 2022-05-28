@@ -74,7 +74,7 @@ export default function Artwork({ artwork, experience, comments }) {
         </section>
 
         {hasDescription && (
-          <Section>
+          <Section className="formatted-content">
             <DocumentRenderer document={artwork.description.document} />
           </Section>
         )}

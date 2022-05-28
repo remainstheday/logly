@@ -180,3 +180,8 @@ body {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.formatted-content a {
+  text-decoration: underline;
+  color: #046bbf;
+}
