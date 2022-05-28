@@ -5,6 +5,8 @@ import { controller } from "@keystone-6/core/fields/types/text/views";
 import { processCloudinaryFile } from "../utils/processCloudinaryFile";
 import ImageUploader from "./ImageUploader";
 import { injectGlobal } from "@emotion/css";
+import { Global } from "@emotion/react";
+import { Styles } from "./Styles";
 
 export const Field = ({
   field,
@@ -28,6 +30,7 @@ export const Field = ({
 
   return (
     <FieldContainer>
+      <Global styles={Styles} />
       <FieldLabel>{field.label}</FieldLabel>
       {value.inner && value.inner?.value && (
         <img width="300" src={value.inner.value} />
@@ -3450,5 +3453,5 @@ injectGlobal`
 
   .PinturaDragButton[disabled] {
     filter: var(--filter-disabled)
-  }  
+  }
 `;

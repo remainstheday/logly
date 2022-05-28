@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { openDefaultEditor } from "../../local_modules/pintura";
 import Image from "next/image";
-import { Global } from "@emotion/react";
-import { Styles } from "./Styles";
 import { Button } from "@keystone-ui/button";
 
 // This function is called when the user taps the edit button, it opens the editor and returns the modified file when done
@@ -87,7 +85,6 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
 
   return (
     <>
-      <Global styles={Styles} />
       {uploadedImage.length > 0 && <div>{renderImagesPreview}</div>}
       {uploadedImage.length === 0 && (
         <div {...getRootProps({ className: "dropzone" })}>

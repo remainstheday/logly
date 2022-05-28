@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["pintura", "react-pintura"]);
+const withTM = require("next-transpile-modules")(["pintura"]);
 
 module.exports = withTM({
   reactStrictMode: true,
