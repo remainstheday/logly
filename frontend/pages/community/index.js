@@ -12,6 +12,7 @@ import ImageUploader from "components/ImageUploader";
 import ClientOnly from "components/ClientOnly";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 import { useMutation } from "@apollo/client";
+import { format } from "date-fns";
 
 export default function Community({ comments }) {
   const [filteredComments, updateFilteredComments] = useState(comments);
@@ -27,6 +28,7 @@ export default function Community({ comments }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             artworkId: "",
             experienceId: "",
+            timestamp: Date.now().toString(),
           },
           update: (cache, { data }) => {
             const { comments } = cache.readQuery({
@@ -135,9 +137,19 @@ export default function Community({ comments }) {
                       />
                     )}
                     <div className="px-3 py-3">
-                      <p className="text-gray-700 text-base">
+                      <p className="text-gray-700 text-sm">
                         {truncateComment(post.comment)}
                       </p>
+                      <span>
+                        <i className="text-gray-400 text-xs">
+                          Comment by {post.username} on{" "}
+                          {post.timestamp.length > 0 &&
+                            format(
+                              new Date(Number(post.timestamp)),
+                              "MMM dd, yyyy"
+                            )}
+                        </i>
+                      </span>
                     </div>
                   </div>
                 ))}

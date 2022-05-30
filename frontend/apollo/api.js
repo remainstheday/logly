@@ -114,6 +114,7 @@ export const ADD_COMMENT = gql`
     $image: String!
     $artworkId: String
     $experienceId: String
+    $timestamp: String!
   ) {
     createComment(
       data: {
@@ -122,6 +123,7 @@ export const ADD_COMMENT = gql`
         image: $image
         artworkId: $artworkId
         experienceId: $experienceId
+        timestamp: $timestamp
       }
     ) {
       id

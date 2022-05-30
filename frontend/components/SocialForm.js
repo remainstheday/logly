@@ -20,6 +20,7 @@ export default function SocialForm({ artworkId = "", experienceId = "" }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             artworkId,
             experienceId,
+            timestamp: Date.now(),
           },
         });
       }
