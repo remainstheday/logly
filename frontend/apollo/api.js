@@ -99,6 +99,10 @@ export const GET_ALL_COMMENTS = gql`
       username
       comment
       image
+      timestamp
+      siteId
+      experienceId
+      artworkId
     }
   }
 `;
@@ -126,6 +130,8 @@ export const ADD_COMMENT = gql`
       image
       experienceId
       artworkId
+      timestamp
+      siteId
     }
   }
 `;

@@ -3,37 +3,13 @@ import { text } from "@keystone-6/core/fields";
 
 export const Comment = list({
   fields: {
-    experienceId: text({
+    timestamp: text({
       ui: {
-        createView: { fieldMode: "hidden" },
+        createView: { fieldMode: "edit" },
         itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
-      },
-    }),
-    siteId: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
-        listView: { fieldMode: "hidden" },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
-      },
-    }),
-    artworkId: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
       },
     }),
     username: text({
@@ -43,10 +19,6 @@ export const Comment = list({
         listView: {
           fieldMode: ({ session, context }) => "read",
         },
-      },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
       },
     }),
     image: text({
@@ -59,14 +31,27 @@ export const Comment = list({
       label: "Image",
     }),
     comment: text({
+      ui: {},
+    }),
+    experienceId: text({
       ui: {
-        createView: { fieldMode: "edit" },
+        createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },
         listView: { fieldMode: "read" },
       },
-      hooks: {
-        beforeOperation: async (args) => {},
-        afterOperation: async (args) => {},
+    }),
+    artworkId: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+    }),
+    siteId: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
       },
     }),
   },

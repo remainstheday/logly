@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import ClientOnly from "components/ClientOnly";
 import { Formik } from "formik";
 import processCloudinaryImage from "utils/processCloudinaryImage";
-import { ADD_COMMENT, GET_ALL_COMMENTS } from "apollo/api";
+import { ADD_COMMENT } from "apollo/api";
 
 export default function SocialForm({ artworkId = "", experienceId = "" }) {
   const [uploadedImage, setUploadedImage] = useState();

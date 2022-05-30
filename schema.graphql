@@ -467,12 +467,13 @@ input StaticContentCreateInput {
 
 type Comment {
   id: ID!
-  experienceId: String
-  siteId: String
-  artworkId: String
+  timestamp: String
   username: String
   image: String
   comment: String
+  experienceId: String
+  artworkId: String
+  siteId: String
 }
 
 input CommentWhereUniqueInput {
@@ -484,31 +485,34 @@ input CommentWhereInput {
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
   id: IDFilter
-  experienceId: StringFilter
-  siteId: StringFilter
-  artworkId: StringFilter
+  timestamp: StringFilter
   username: StringFilter
   image: StringFilter
   comment: StringFilter
+  experienceId: StringFilter
+  artworkId: StringFilter
+  siteId: StringFilter
 }
 
 input CommentOrderByInput {
   id: OrderDirection
-  experienceId: OrderDirection
-  siteId: OrderDirection
-  artworkId: OrderDirection
+  timestamp: OrderDirection
   username: OrderDirection
   image: OrderDirection
   comment: OrderDirection
+  experienceId: OrderDirection
+  artworkId: OrderDirection
+  siteId: OrderDirection
 }
 
 input CommentUpdateInput {
-  experienceId: String
-  siteId: String
-  artworkId: String
+  timestamp: String
   username: String
   image: String
   comment: String
+  experienceId: String
+  artworkId: String
+  siteId: String
 }
 
 input CommentUpdateArgs {
@@ -517,12 +521,13 @@ input CommentUpdateArgs {
 }
 
 input CommentCreateInput {
-  experienceId: String
-  siteId: String
-  artworkId: String
+  timestamp: String
   username: String
   image: String
   comment: String
+  experienceId: String
+  artworkId: String
+  siteId: String
 }
 
 """

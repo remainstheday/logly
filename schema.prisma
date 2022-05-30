@@ -65,10 +65,11 @@ model StaticContent {
 
 model Comment {
   id           String @id @default(uuid()) @postgresql.Uuid
-  experienceId String @default("")
-  siteId       String @default("")
-  artworkId    String @default("")
+  timestamp    String @default("")
   username     String @default("")
   image        String @default("")
   comment      String @default("")
+  experienceId String @default("")
+  artworkId    String @default("")
+  siteId       String @default("")
 }
