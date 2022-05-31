@@ -33,14 +33,14 @@ export const Comment = list({
     comment: text({
       ui: {},
     }),
-    experienceId: text({
+    experienceURL: text({
       ui: {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },
         listView: { fieldMode: "read" },
       },
     }),
-    artworkId: text({
+    artworkURL: text({
       ui: {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },

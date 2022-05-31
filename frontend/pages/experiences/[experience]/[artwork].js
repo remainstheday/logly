@@ -19,8 +19,10 @@ import CommentCard from "components/CommentCard";
 import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
+import { useRouter } from "next/router";
 
 export default function Artwork({ artwork, experience, comments }) {
+  const { query } = useRouter();
   if (!artwork || !experience) return <PageLoading />;
 
   // don't show the current artwork as recommended artworks
@@ -111,9 +113,11 @@ export default function Artwork({ artwork, experience, comments }) {
           </Section>
         )}
 
-        <Section title="Share Thoughts and Images">
-          <SocialForm relatedArtworkId={artwork.id} />
-        </Section>
+        {query.social === "true" && (
+          <Section title="Share Thoughts and Images">
+            <SocialForm artworkURL={artwork.url} />
+          </Section>
+        )}
 
         {hasFilteredComments && (
           <Section title="See What the Community has Shared">
@@ -123,7 +127,10 @@ export default function Artwork({ artwork, experience, comments }) {
               ))}
             </div>
             <div className="mt-6 px-6 md:px-0">
-              <SectionLink href={`/social`} text={"Discover Art Social"} />
+              <SectionLink
+                href={`/community`}
+                text={"Discover the Community"}
+              />
             </div>
           </Section>
         )}

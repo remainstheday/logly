@@ -17,8 +17,10 @@ import SocialForm from "components/SocialForm";
 import Section from "components/Section";
 import CommentCard from "components/CommentCard";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
+import { useRouter } from "next/router";
 
 export default function Experience({ experience, experiences, comments }) {
+  const { query } = useRouter();
   if (!experience || !experiences) return <PageLoading />;
   const filteredComments = comments.filter((comment) => comment.image);
   const similarExperiences = experiences.filter(
@@ -110,9 +112,12 @@ export default function Experience({ experience, experiences, comments }) {
             />
           </Section>
         )}
-        <Section title="Share Thoughts and Images">
-          <SocialForm relatedExperienceId={experience.id} />
-        </Section>
+
+        {query.social === "true" && (
+          <Section title="Share Thoughts and Images">
+            <SocialForm experienceURL={experience.url} />
+          </Section>
+        )}
 
         {filteredComments.length > 0 && (
           <Section title="See What the Community has Shared">

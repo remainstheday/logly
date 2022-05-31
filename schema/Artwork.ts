@@ -47,11 +47,6 @@ export const Artwork = list({
           ),
         }));
       }
-
-      if (relatedExperiences && relatedExperiences.disconnect.length > 0) {
-        // TODO: we should remove QR Codes if the experience is removed @trentonkennedy
-      }
-
       return resolvedData;
     },
   },

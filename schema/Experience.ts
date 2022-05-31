@@ -20,9 +20,29 @@ export const Experience = list({
   },
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { title } = resolvedData;
+      const { relatedArtworks, title } = resolvedData;
       if (title) return { ...resolvedData, url: convertStringToURL(title) };
-
+      // if (relatedArtworks && relatedArtworks.connect.length > 0) {
+      //   const artworks = await relatedArtworks.connect.map(
+      //     (experienceId: { id: string }) =>
+      //       context.query.Experience.findOne({
+      //         where: { id: experienceId.id },
+      //         query: "id url",
+      //       })
+      //   );
+      //
+      //   const updatedArtworks = relatedArtworks.map((artwork: any) => ({
+      //     ...artwork,
+      //     qrCodes: [],
+      //   }));
+      //
+      //   return Promise.all(experiences).then((values) => ({
+      //     ...resolvedData,
+      //     qrCodes: values.map(
+      //       (value) => `${process.env.FRONTEND_URL}/experiences/${value.url}/`
+      //     ),
+      //   }));
+      // }
       return resolvedData;
     },
   },

@@ -471,8 +471,8 @@ type Comment {
   username: String
   image: String
   comment: String
-  experienceId: String
-  artworkId: String
+  experienceURL: String
+  artworkURL: String
   siteId: String
 }
 
@@ -489,8 +489,8 @@ input CommentWhereInput {
   username: StringFilter
   image: StringFilter
   comment: StringFilter
-  experienceId: StringFilter
-  artworkId: StringFilter
+  experienceURL: StringFilter
+  artworkURL: StringFilter
   siteId: StringFilter
 }
 
@@ -500,8 +500,8 @@ input CommentOrderByInput {
   username: OrderDirection
   image: OrderDirection
   comment: OrderDirection
-  experienceId: OrderDirection
-  artworkId: OrderDirection
+  experienceURL: OrderDirection
+  artworkURL: OrderDirection
   siteId: OrderDirection
 }
 
@@ -510,8 +510,8 @@ input CommentUpdateInput {
   username: String
   image: String
   comment: String
-  experienceId: String
-  artworkId: String
+  experienceURL: String
+  artworkURL: String
   siteId: String
 }
 
@@ -525,8 +525,8 @@ input CommentCreateInput {
   username: String
   image: String
   comment: String
-  experienceId: String
-  artworkId: String
+  experienceURL: String
+  artworkURL: String
   siteId: String
 }
 

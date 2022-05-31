@@ -101,8 +101,8 @@ export const GET_ALL_COMMENTS = gql`
       image
       timestamp
       siteId
-      experienceId
-      artworkId
+      experienceURL
+      artworkURL
     }
   }
 `;
@@ -112,8 +112,8 @@ export const ADD_COMMENT = gql`
     $username: String!
     $comment: String!
     $image: String!
-    $artworkId: String
-    $experienceId: String
+    $artworkURL: String
+    $experienceURL: String
     $timestamp: String!
   ) {
     createComment(
@@ -121,8 +121,8 @@ export const ADD_COMMENT = gql`
         username: $username
         comment: $comment
         image: $image
-        artworkId: $artworkId
-        experienceId: $experienceId
+        artworkURL: $artworkURL
+        experienceURL: $experienceURL
         timestamp: $timestamp
       }
     ) {
@@ -130,8 +130,8 @@ export const ADD_COMMENT = gql`
       username
       comment
       image
-      experienceId
-      artworkId
+      experienceURL
+      artworkURL
       timestamp
       siteId
     }
