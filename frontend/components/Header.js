@@ -7,6 +7,23 @@ export default function Header() {
       <Head>
         <title>Logly</title>
         <meta name="description" content="Next generation museum tours" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
       </Head>
 
       <header className="pt-4 max-w-4xl mx-auto md:mx-auto">

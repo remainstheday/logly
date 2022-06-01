@@ -7,6 +7,7 @@ import ImageUploader from "./ImageUploader";
 import { injectGlobal } from "@emotion/css";
 import { Global } from "@emotion/react";
 import { Styles } from "./Styles";
+import { Button } from "@keystone-ui/button";
 
 export const Field = ({
   field,
@@ -28,12 +29,31 @@ export const Field = ({
     );
   };
 
+  const handleDeleteFile = () => {
+    if (onChange) {
+      onChange({
+        kind: "update",
+        inner: { kind: "value", value: "" },
+        initial: { kind: "value", value: "" },
+      });
+    }
+  };
+
   return (
     <FieldContainer>
       <Global styles={Styles} />
       <FieldLabel>{field.label}</FieldLabel>
       {value.inner && value.inner?.value && (
-        <img width="300" src={value.inner.value} />
+        <>
+          <img width="300" src={value.inner.value} />
+          <Button
+            style={{ display: "block" }}
+            tone="negative"
+            onClick={handleDeleteFile}
+          >
+            Remove
+          </Button>
+        </>
       )}
       {value.inner && value.inner.value.length === 0 && (
         <ImageUploader
