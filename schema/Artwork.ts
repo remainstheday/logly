@@ -31,21 +31,54 @@ export const Artwork = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
+      const existingQRCodes =
+        item && item.qrCodes && item.qrCodes.length > 0 ? item.qrCodes : [];
       if (title) return { ...resolvedData, url: convertStringToURL(title) };
       if (relatedExperiences && relatedExperiences.connect.length > 0) {
         const experiences = await relatedExperiences.connect.map(
           (experienceId: { id: string }) =>
             context.query.Experience.findOne({
               where: { id: experienceId.id },
-              query: "id url",
+              query: "url",
             })
         );
-        return Promise.all(experiences).then((values) => ({
-          ...resolvedData,
-          qrCodes: values.map(
-            (value) => `${process.env.FRONTEND_URL}/experiences/${value.url}/`
-          ),
-        }));
+
+        return Promise.all(experiences).then((values) => {
+          return {
+            ...resolvedData,
+            qrCodes: [
+              ...existingQRCodes,
+              ...values.map(
+                (value) =>
+                  `${process.env.FRONTEND_URL}/experiences/${value.url}/${
+                    item!.url
+                  }?social=true`
+              ),
+            ],
+          };
+        });
+      }
+
+      if (relatedExperiences && relatedExperiences.disconnect.length > 0) {
+        const experiences = await relatedExperiences.disconnect.map(
+          (experienceId: { id: string }) =>
+            context.query.Experience.findOne({
+              where: { id: experienceId.id },
+              query: "url",
+            })
+        );
+        return Promise.all(experiences).then((values) => {
+          return {
+            ...resolvedData,
+            qrCodes: values
+              .map((experience) =>
+                existingQRCodes.filter(
+                  (qrCode: any) => !qrCode.includes(experience.url)
+                )
+              )
+              .flat(),
+          };
+        });
       }
       return resolvedData;
     },

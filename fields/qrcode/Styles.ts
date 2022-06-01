@@ -9,6 +9,7 @@ export const Styles = css`
 
   .qr-codes-container .qr-codes {
     display: flex;
+    flex-direction: column;
   }
 
   .qr-codes-container .qr-code {
