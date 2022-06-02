@@ -34,8 +34,6 @@ export const Experience = list({
 
         return Promise.all(artworks).then((values) => {
           console.log(values);
-          // - map over all connect artworks
-          // - - for each item create url and update it's qrCode field
 
           relatedArtworks.connect.map((artworkId: { id: string }) => {
             const artworkURL = values.filter(
@@ -58,21 +56,6 @@ export const Experience = list({
           };
         });
       }
-
-      // return Promise.all(experiences).then((values) => {
-      //   return {
-      //     ...resolvedData,
-      //     qrCodes: [
-      //       ...existingQRCodes,
-      //       ...values.map(
-      //           (value) =>
-      //               `${process.env.FRONTEND_URL}/experiences/${value.url}/${
-      //                   item!.url
-      //               }?social=true`
-      //       ),
-      //     ],
-      //   };
-      // });
 
       return resolvedData;
     },

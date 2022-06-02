@@ -80,14 +80,14 @@ export default function IndexPage({ content, experiences, comments }) {
           )}
 
           {filteredComments.length > 0 && (
-            <Section title="Art Social">
+            <Section title="Community">
               <div className="py-6 grid md:grid-cols-2 gap-4">
                 {filteredComments.map((comment) => (
                   <CommentCard key={comment.id} comment={comment} />
                 ))}
               </div>
               <div className="mt-6 px-6 md:px-0">
-                <SectionLink href={`/social`} text={"Discover Art Social"} />
+                <SectionLink href={`/community`} text={"Discover Community"} />
               </div>
             </Section>
           )}

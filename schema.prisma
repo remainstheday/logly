@@ -17,6 +17,19 @@ model Site {
   slug  String @default("")
 }
 
+model Experience {
+  id               String    @id @default(uuid()) @postgresql.Uuid
+  status           String?   @default("draft")
+  title            String    @default("")
+  startDate        DateTime?
+  endDate          DateTime?
+  experienceImages String    @default("")
+  description      Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedArtworks  Artwork[] @relation("Artwork_relatedExperiences")
+  url              String    @unique @default("")
+  siteId           String    @default("")
+}
+
 model Artwork {
   id                 String       @id @default(uuid()) @postgresql.Uuid
   status             String?      @default("draft")
@@ -38,19 +51,6 @@ model User {
   name     String  @default("")
   email    String  @unique @default("")
   password String
-}
-
-model Experience {
-  id               String    @id @default(uuid()) @postgresql.Uuid
-  status           String?   @default("draft")
-  title            String    @default("")
-  startDate        DateTime?
-  endDate          DateTime?
-  experienceImages String    @default("")
-  description      Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedArtworks  Artwork[] @relation("Artwork_relatedExperiences")
-  url              String    @unique @default("")
-  siteId           String    @default("")
 }
 
 model StaticContent {
