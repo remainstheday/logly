@@ -54,9 +54,9 @@ export default withAuth(
     },
     lists: {
       Site,
+      Experience,
       Artwork,
       User,
-      Experience,
       StaticContent,
       Comment,
     },
