@@ -85,7 +85,7 @@ export default function Artwork({ artwork, experience, comments }) {
             <div className="w-full mt-4">
               <div className="flex flex-wrap">
                 {similarArtworks.map((artwork, index) => (
-                  <div className="w-1/2 my-4" key={index}>
+                  <div className="w-1/2 my-4 px-0.5" key={index}>
                     <Link
                       href={`/experiences/${experience.url}/${artwork.url}`}
                       passHref

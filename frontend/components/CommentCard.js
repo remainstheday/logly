@@ -1,9 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import { truncateComment } from "utils/truncateText";
+import { format } from "date-fns";
 
 export default function CommentCard({ comment }) {
   if (!comment) return <></>;
+
   return (
     <div className="flex content-start flex-row h-52">
       {comment.image && (
@@ -22,6 +24,13 @@ export default function CommentCard({ comment }) {
           <p className="text-gray-700 text-base">
             {truncateComment(comment.comment)}
           </p>
+          <span>
+            <i className="text-gray-400 text-xs">
+              Comment by {comment.user} on{" "}
+              {comment.timestamp.length > 0 &&
+                format(new Date(Number(comment.timestamp)), "MMM dd, yyyy")}
+            </i>
+          </span>
         </div>
       </div>
     </div>
