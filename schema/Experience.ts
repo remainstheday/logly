@@ -22,27 +22,58 @@ export const Experience = list({
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtworks, title } = resolvedData;
       if (title) return { ...resolvedData, url: convertStringToURL(title) };
-      // if (relatedArtworks && relatedArtworks.connect.length > 0) {
-      //   const artworks = await relatedArtworks.connect.map(
-      //     (experienceId: { id: string }) =>
-      //       context.query.Experience.findOne({
-      //         where: { id: experienceId.id },
-      //         query: "id url",
-      //       })
-      //   );
-      //
-      //   const updatedArtworks = relatedArtworks.map((artwork: any) => ({
-      //     ...artwork,
-      //     qrCodes: [],
-      //   }));
-      //
-      //   return Promise.all(experiences).then((values) => ({
+      if (relatedArtworks && relatedArtworks.connect.length > 0) {
+        console.log(relatedArtworks);
+        const artworks = await relatedArtworks.connect.map(
+          (artworkId: { id: string }) =>
+            context.query.Artwork.findOne({
+              where: { id: artworkId.id },
+              query: "id url",
+            })
+        );
+
+        return Promise.all(artworks).then((values) => {
+          console.log(values);
+          // - map over all connect artworks
+          // - - for each item create url and update it's qrCode field
+
+          relatedArtworks.connect.map((artworkId: { id: string }) => {
+            const artworkURL = values.filter(
+              (artwork) => artwork.id === artworkId.id
+            );
+            context.query.Artwork.updateOne({
+              where: { id: artworkId.id },
+              data: {
+                qrCodes: [
+                  `${process.env.FRONTEND_URL}/experiences/${item!.url}/${
+                    artworkURL[0].url
+                  }?social=true`,
+                ],
+              },
+            });
+          });
+
+          return {
+            ...resolvedData,
+          };
+        });
+      }
+
+      // return Promise.all(experiences).then((values) => {
+      //   return {
       //     ...resolvedData,
-      //     qrCodes: values.map(
-      //       (value) => `${process.env.FRONTEND_URL}/experiences/${value.url}/`
-      //     ),
-      //   }));
-      // }
+      //     qrCodes: [
+      //       ...existingQRCodes,
+      //       ...values.map(
+      //           (value) =>
+      //               `${process.env.FRONTEND_URL}/experiences/${value.url}/${
+      //                   item!.url
+      //               }?social=true`
+      //       ),
+      //     ],
+      //   };
+      // });
+
       return resolvedData;
     },
   },

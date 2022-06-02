@@ -31,6 +31,7 @@ export const Artwork = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
+      console.log(item);
       const existingQRCodes =
         item && item.qrCodes && item.qrCodes.length > 0 ? item.qrCodes : [];
       if (title) return { ...resolvedData, url: convertStringToURL(title) };
