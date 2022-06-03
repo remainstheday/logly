@@ -16,6 +16,11 @@ export const Artwork = list({
     relatedExperiences: relationship({
       ref: "Experience.relatedArtworks",
       many: true,
+      ui: {
+        createView: { fieldMode: "edit" },
+        listView: { fieldMode: "read" },
+        itemView: { fieldMode: "edit" },
+      },
     }),
     url: defaults.url,
     siteId: defaults.siteId,

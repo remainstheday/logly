@@ -8,6 +8,7 @@ import { User } from "./schema/User";
 import { Experience } from "./schema/Experience";
 import { StaticContent } from "./schema/StaticContent";
 import { Comment } from "./schema/Comment";
+import express from "express";
 
 const { withAuth } = createAuth({
   listKey: "User",
@@ -23,6 +24,17 @@ export default withAuth(
   config({
     server: {
       cors: { origin: [`${process.env.FRONTEND_URL}`], credentials: true },
+      extendExpressApp: (app, createContext) => {
+        app.use(express.json());
+        app.post("/api/newUser", async (req, res) => {
+          const context = await createContext(req, res);
+          const user = await context.query.User.createOne({
+            data: {
+              ...req.body,
+            },
+          });
+        });
+      },
     },
     experimental: {
       /** Enables nextjs graphql api route mode */
