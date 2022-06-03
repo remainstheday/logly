@@ -2,6 +2,13 @@ import { list } from "@keystone-6/core";
 import { checkbox, password, text } from "@keystone-6/core/fields";
 import { defaults } from "./defaults";
 
+type Session = {
+  data: {
+    id: string;
+    isAdmin: boolean;
+  };
+};
+
 export const User = list({
   fields: {
     siteId: defaults.siteId,
@@ -23,8 +30,6 @@ export const User = list({
     }),
   },
   ui: {
-    listView: {
-      initialColumns: ["name"],
-    },
+    isHidden: ({ session }: { session: Session }) => !session?.data.isAdmin,
   },
 });
