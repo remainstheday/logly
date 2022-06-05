@@ -12,9 +12,10 @@ generator client {
 }
 
 model Site {
-  id    String @id @default(uuid()) @postgresql.Uuid
-  Title String @default("")
-  slug  String @default("")
+  id     String @id @default(uuid()) @postgresql.Uuid
+  siteId String @default("")
+  Title  String @default("")
+  slug   String @default("")
 }
 
 model Experience {

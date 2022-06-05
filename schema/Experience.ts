@@ -23,7 +23,6 @@ export const Experience = list({
       const { relatedArtworks, title } = resolvedData;
       if (title) return { ...resolvedData, url: convertStringToURL(title) };
       if (relatedArtworks && relatedArtworks.connect.length > 0) {
-        console.log(relatedArtworks);
         const artworks = await relatedArtworks.connect.map(
           (artworkId: { id: string }) =>
             context.query.Artwork.findOne({
@@ -33,8 +32,6 @@ export const Experience = list({
         );
 
         return Promise.all(artworks).then((values) => {
-          console.log(values);
-
           relatedArtworks.connect.map((artworkId: { id: string }) => {
             const artworkURL = values.filter(
               (artwork) => artwork.id === artworkId.id

@@ -5,7 +5,22 @@ import { defaults } from "./defaults";
 
 require("dotenv").config();
 
+type Session = {
+  data: {
+    id: string;
+    isAdmin: boolean;
+    siteId: string;
+  };
+};
+
 export const Artwork = list({
+  access: {
+    filter: {
+      query: ({ session, context, listKey, operation }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+    },
+  },
   fields: {
     status: defaults.status,
     title: defaults.title,

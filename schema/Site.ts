@@ -8,6 +8,7 @@ export const Site = list({
     isHidden: true,
   },
   fields: {
+    siteId: text({}),
     Title: text({ label: "Name" }),
     slug: text({
       label: "url",

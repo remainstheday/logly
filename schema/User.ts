@@ -30,6 +30,7 @@ export const User = list({
     }),
   },
   ui: {
-    isHidden: ({ session }: { session: Session }) => !session?.data.isAdmin,
+    // isHidden: ({ session }: { session: Session }) => !session?.data.isAdmin,
+    isHidden: false,
   },
 });

@@ -85,6 +85,25 @@ export default withAuth(
       // @ts-ignore
       useMigrations: true,
       async onConnect(context) {
+        await context.db.User.updateOne({
+          where: { email: "trentontri@gmail.com" },
+          data: {
+            siteId: "dallas-museum",
+          },
+        });
+
+        await context.db.User.updateOne({
+          where: { email: "trenkennedy@gmail.com" },
+          data: {
+            siteId: "",
+          },
+        });
+
+        await context.db.Artwork.updateOne({
+          where: { url: "nighthawks" },
+          data: { siteId: "dallas-museum" },
+        });
+
         const homepage = await context.prisma.staticContent.count({
           where: { name: "Home" },
         });
