@@ -12,7 +12,7 @@ export const Experience = list({
     experienceImages: defaults.images("Experience Image"),
     description: defaults.document,
     relatedObject: relationship({
-      ref: "Artwork.relatedExperiences",
+      ref: "Object.relatedExperiences",
       many: true,
     }),
     url: defaults.url,

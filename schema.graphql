@@ -104,13 +104,13 @@ type Experience {
   endDate: DateTime
   experienceImages: String
   description: Experience_description_Document
-  relatedArtworks(
-    where: ArtworkWhereInput! = {}
-    orderBy: [ArtworkOrderByInput!]! = []
+  relatedObject(
+    where: ObjectWhereInput! = {}
+    orderBy: [ObjectOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Artwork!]
-  relatedArtworksCount(where: ArtworkWhereInput! = {}): Int
+  ): [Object!]
+  relatedObjectCount(where: ObjectWhereInput! = {}): Int
   url: String
   siteId: String
 }
@@ -142,7 +142,7 @@ input ExperienceWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   experienceImages: StringFilter
-  relatedArtworks: ArtworkManyRelationFilter
+  relatedObject: ObjectManyRelationFilter
   url: StringFilter
   siteId: StringFilter
 }
@@ -165,10 +165,10 @@ input DateTimeNullableFilter {
   not: DateTimeNullableFilter
 }
 
-input ArtworkManyRelationFilter {
-  every: ArtworkWhereInput
-  some: ArtworkWhereInput
-  none: ArtworkWhereInput
+input ObjectManyRelationFilter {
+  every: ObjectWhereInput
+  some: ObjectWhereInput
+  none: ObjectWhereInput
 }
 
 input ExperienceOrderByInput {
@@ -189,16 +189,16 @@ input ExperienceUpdateInput {
   endDate: DateTime
   experienceImages: String
   description: JSON
-  relatedArtworks: ArtworkRelateToManyForUpdateInput
+  relatedObject: ObjectRelateToManyForUpdateInput
   url: String
   siteId: String
 }
 
-input ArtworkRelateToManyForUpdateInput {
-  disconnect: [ArtworkWhereUniqueInput!]
-  set: [ArtworkWhereUniqueInput!]
-  create: [ArtworkCreateInput!]
-  connect: [ArtworkWhereUniqueInput!]
+input ObjectRelateToManyForUpdateInput {
+  disconnect: [ObjectWhereUniqueInput!]
+  set: [ObjectWhereUniqueInput!]
+  create: [ObjectCreateInput!]
+  connect: [ObjectWhereUniqueInput!]
 }
 
 input ExperienceUpdateArgs {
@@ -213,24 +213,24 @@ input ExperienceCreateInput {
   endDate: DateTime
   experienceImages: String
   description: JSON
-  relatedArtworks: ArtworkRelateToManyForCreateInput
+  relatedObject: ObjectRelateToManyForCreateInput
   url: String
   siteId: String
 }
 
-input ArtworkRelateToManyForCreateInput {
-  create: [ArtworkCreateInput!]
-  connect: [ArtworkWhereUniqueInput!]
+input ObjectRelateToManyForCreateInput {
+  create: [ObjectCreateInput!]
+  connect: [ObjectWhereUniqueInput!]
 }
 
-type Artwork {
+type Object {
   id: ID!
-  status: ArtworkStatusType
+  status: ObjectStatusType
   title: String
   artist: String
   artworkImages: String
   audioFile: String
-  description: Artwork_description_Document
+  description: Object_description_Document
   relatedExperiences(
     where: ExperienceWhereInput! = {}
     orderBy: [ExperienceOrderByInput!]! = []
@@ -243,26 +243,26 @@ type Artwork {
   qrCodes: JSON
 }
 
-enum ArtworkStatusType {
+enum ObjectStatusType {
   published
   draft
 }
 
-type Artwork_description_Document {
+type Object_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
 
-input ArtworkWhereUniqueInput {
+input ObjectWhereUniqueInput {
   id: ID
   url: String
 }
 
-input ArtworkWhereInput {
-  AND: [ArtworkWhereInput!]
-  OR: [ArtworkWhereInput!]
-  NOT: [ArtworkWhereInput!]
+input ObjectWhereInput {
+  AND: [ObjectWhereInput!]
+  OR: [ObjectWhereInput!]
+  NOT: [ObjectWhereInput!]
   id: IDFilter
-  status: ArtworkStatusTypeNullableFilter
+  status: ObjectStatusTypeNullableFilter
   title: StringFilter
   artist: StringFilter
   artworkImages: StringFilter
@@ -272,11 +272,11 @@ input ArtworkWhereInput {
   siteId: StringFilter
 }
 
-input ArtworkStatusTypeNullableFilter {
-  equals: ArtworkStatusType
-  in: [ArtworkStatusType!]
-  notIn: [ArtworkStatusType!]
-  not: ArtworkStatusTypeNullableFilter
+input ObjectStatusTypeNullableFilter {
+  equals: ObjectStatusType
+  in: [ObjectStatusType!]
+  notIn: [ObjectStatusType!]
+  not: ObjectStatusTypeNullableFilter
 }
 
 input ExperienceManyRelationFilter {
@@ -285,7 +285,7 @@ input ExperienceManyRelationFilter {
   none: ExperienceWhereInput
 }
 
-input ArtworkOrderByInput {
+input ObjectOrderByInput {
   id: OrderDirection
   status: OrderDirection
   title: OrderDirection
@@ -296,8 +296,8 @@ input ArtworkOrderByInput {
   siteId: OrderDirection
 }
 
-input ArtworkUpdateInput {
-  status: ArtworkStatusType
+input ObjectUpdateInput {
+  status: ObjectStatusType
   title: String
   artist: String
   artworkImages: String
@@ -316,13 +316,13 @@ input ExperienceRelateToManyForUpdateInput {
   connect: [ExperienceWhereUniqueInput!]
 }
 
-input ArtworkUpdateArgs {
-  where: ArtworkWhereUniqueInput!
-  data: ArtworkUpdateInput!
+input ObjectUpdateArgs {
+  where: ObjectWhereUniqueInput!
+  data: ObjectUpdateInput!
 }
 
-input ArtworkCreateInput {
-  status: ArtworkStatusType
+input ObjectCreateInput {
+  status: ObjectStatusType
   title: String
   artist: String
   artworkImages: String
@@ -554,15 +554,12 @@ type Mutation {
   updateExperiences(data: [ExperienceUpdateArgs!]!): [Experience]
   deleteExperience(where: ExperienceWhereUniqueInput!): Experience
   deleteExperiences(where: [ExperienceWhereUniqueInput!]!): [Experience]
-  createArtwork(data: ArtworkCreateInput!): Artwork
-  createArtworks(data: [ArtworkCreateInput!]!): [Artwork]
-  updateArtwork(
-    where: ArtworkWhereUniqueInput!
-    data: ArtworkUpdateInput!
-  ): Artwork
-  updateArtworks(data: [ArtworkUpdateArgs!]!): [Artwork]
-  deleteArtwork(where: ArtworkWhereUniqueInput!): Artwork
-  deleteArtworks(where: [ArtworkWhereUniqueInput!]!): [Artwork]
+  createObject(data: ObjectCreateInput!): Object
+  createObjects(data: [ObjectCreateInput!]!): [Object]
+  updateObject(where: ObjectWhereUniqueInput!, data: ObjectUpdateInput!): Object
+  updateObjects(data: [ObjectUpdateArgs!]!): [Object]
+  deleteObject(where: ObjectWhereUniqueInput!): Object
+  deleteObjects(where: [ObjectWhereUniqueInput!]!): [Object]
   createUser(data: UserCreateInput!): User
   createUsers(data: [UserCreateInput!]!): [User]
   updateUser(where: UserWhereUniqueInput!, data: UserUpdateInput!): User
@@ -635,14 +632,14 @@ type Query {
   ): [Experience!]
   experience(where: ExperienceWhereUniqueInput!): Experience
   experiencesCount(where: ExperienceWhereInput! = {}): Int
-  artworks(
-    where: ArtworkWhereInput! = {}
-    orderBy: [ArtworkOrderByInput!]! = []
+  objects(
+    where: ObjectWhereInput! = {}
+    orderBy: [ObjectOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [Artwork!]
-  artwork(where: ArtworkWhereUniqueInput!): Artwork
-  artworksCount(where: ArtworkWhereInput! = {}): Int
+  ): [Object!]
+  object(where: ObjectWhereUniqueInput!): Object
+  objectsCount(where: ObjectWhereInput! = {}): Int
   users(
     where: UserWhereInput! = {}
     orderBy: [UserOrderByInput!]! = []

@@ -26,22 +26,22 @@ model Experience {
   endDate          DateTime?
   experienceImages String               @default("")
   description      Json                 @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedArtworks  Artwork[]            @relation("Artwork_relatedExperiences")
+  relatedObject    Object[]             @relation("Experience_relatedObject")
   url              String               @unique @default("")
   siteId           String               @default("")
 }
 
-model Artwork {
-  id                 String            @id @default(uuid()) @postgresql.Uuid
-  status             ArtworkStatusType @default(draft)
-  title              String            @default("")
-  artist             String            @default("")
-  artworkImages      String            @default("")
-  audioFile          String            @default("")
-  description        Json              @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedExperiences Experience[]      @relation("Artwork_relatedExperiences")
-  url                String            @unique @default("")
-  siteId             String            @default("")
+model Object {
+  id                 String           @id @default(uuid()) @postgresql.Uuid
+  status             ObjectStatusType @default(draft)
+  title              String           @default("")
+  artist             String           @default("")
+  artworkImages      String           @default("")
+  audioFile          String           @default("")
+  description        Json             @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedExperiences Experience[]     @relation("Experience_relatedObject")
+  url                String           @unique @default("")
+  siteId             String           @default("")
   qrCodes            Json?
 }
 
@@ -80,7 +80,7 @@ enum ExperienceStatusType {
   draft
 }
 
-enum ArtworkStatusType {
+enum ObjectStatusType {
   published
   draft
 }

@@ -5,7 +5,7 @@ import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
 import { statelessSessions } from "@keystone-6/core/session";
 import { Site } from "./schema/Site";
-import { Object } from "./schema/Artwork";
+import { Object } from "./schema/Object";
 import { User } from "./schema/User";
 import { Experience } from "./schema/Experience";
 import { StaticContent } from "./schema/StaticContent";

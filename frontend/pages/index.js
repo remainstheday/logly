@@ -3,7 +3,7 @@ import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
 import {
-  GET_ALL_ARTWORKS,
+  GET_ALL_OBJECTS,
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_STATIC_CONTENTS,
@@ -115,7 +115,7 @@ export async function getStaticProps() {
   });
 
   const artworks = await apolloClient.query({
-    query: GET_ALL_ARTWORKS,
+    query: GET_ALL_OBJECTS,
   });
 
   return addApolloState(apolloClient, {

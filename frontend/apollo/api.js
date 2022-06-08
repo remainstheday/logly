@@ -32,9 +32,9 @@ export const GET_ALL_EXPERIENCES = gql`
   }
 `;
 
-export const GET_ALL_ARTWORKS = gql`
+export const GET_ALL_OBJECTS = gql`
   {
-    artworks {
+    objects {
       id
       title
       artist
@@ -58,7 +58,7 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
         document
       }
       experienceImages
-      relatedArtworks {
+      relatedObject {
         title
         artist
         url
@@ -68,9 +68,9 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
   }
 `;
 
-export const GET_ARTWORK_BY_SLUG = gql`
-  query Artwork($url: String) {
-    artwork(where: { url: $url }) {
+export const GET_OBJECT_BY_SLUG = gql`
+  query Object($url: String) {
+    object(where: { url: $url }) {
       id
       title
       artist

@@ -5,8 +5,8 @@ import {
   GET_ALL_ARTWORKS,
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
-  GET_ARTWORK_BY_SLUG,
   GET_EXPERIENCE_BY_SLUG,
+  GET_OBJECT_BY_SLUG,
 } from "apollo/api";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,7 +26,7 @@ export default function Artwork({ artwork, experience, comments }) {
   if (!artwork || !experience) return <PageLoading />;
 
   // don't show the current artwork as recommended artworks
-  const similarArtworks = experience.relatedArtworks.filter(
+  const similarArtworks = experience.relatedObjects.filter(
     (item) => item.url !== artwork.url
   );
 
@@ -172,7 +172,7 @@ export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
 
   const artwork = await apolloClient.query({
-    query: GET_ARTWORK_BY_SLUG,
+    query: GET_OBJECT_BY_SLUG,
     variables: { url: params.artwork },
   });
   const experience = await apolloClient.query({
@@ -191,7 +191,7 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      artwork: artwork.data.artwork,
+      artwork: artwork.data.object,
       experience: experience.data.experience,
       comments: comments.data.comments,
     },
