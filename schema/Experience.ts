@@ -11,7 +11,7 @@ export const Experience = list({
     endDate: timestamp(),
     experienceImages: defaults.images("Experience Image"),
     description: defaults.document,
-    relatedArtworks: relationship({
+    relatedObject: relationship({
       ref: "Artwork.relatedExperiences",
       many: true,
     }),

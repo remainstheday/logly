@@ -13,13 +13,14 @@ type Session = {
   };
 };
 
-export const Artwork = list({
+// not that kind of object
+export const Object = list({
   access: {
-    filter: {
-      query: ({ session, context, listKey, operation }) => {
-        return { siteId: { equals: session.data.siteId } };
-      },
-    },
+    // filter: { todo: do we actually need this? can we hide from adminUI?
+    //   query: ({ session, context, listKey, operation }) => {
+    //     return { siteId: { equals: session.data.siteId } };
+    //   },
+    // },
   },
   fields: {
     status: defaults.status,
@@ -29,7 +30,7 @@ export const Artwork = list({
     audioFile: defaults.audioFile,
     description: defaults.document,
     relatedExperiences: relationship({
-      ref: "Experience.relatedArtworks",
+      ref: "Experience.relatedObject",
       many: true,
       ui: {
         createView: { fieldMode: "edit" },
@@ -51,7 +52,6 @@ export const Artwork = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
-      console.log(item);
       const existingQRCodes =
         item && item.qrCodes && item.qrCodes.length > 0 ? item.qrCodes : [];
       if (title) return { ...resolvedData, url: convertStringToURL(title) };

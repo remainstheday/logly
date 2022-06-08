@@ -22,10 +22,14 @@ export const defaults = {
     },
   }),
   status: select({
+    type: "enum",
     options: [
       { label: "Published", value: "published" },
       { label: "Draft", value: "draft" },
     ],
+    validation: {
+      isRequired: true,
+    },
     defaultValue: "draft",
     ui: {
       displayMode: "segmented-control",
@@ -57,14 +61,14 @@ export const defaults = {
     ui: {
       createView: { fieldMode: "hidden" },
       itemView: { fieldMode: "hidden" },
-      listView: { fieldMode: "read" },
+      listView: { fieldMode: "hidden" },
     },
   }),
   siteId: text({
     ui: {
       createView: { fieldMode: "hidden" },
-      itemView: { fieldMode: "read" },
-      listView: { fieldMode: "read" },
+      itemView: { fieldMode: "hidden" },
+      listView: { fieldMode: "hidden" },
     },
     hooks: {
       beforeOperation: async (args) => {},

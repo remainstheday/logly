@@ -19,29 +19,29 @@ model Site {
 }
 
 model Experience {
-  id               String    @id @default(uuid()) @postgresql.Uuid
-  status           String?   @default("draft")
-  title            String    @default("")
+  id               String               @id @default(uuid()) @postgresql.Uuid
+  status           ExperienceStatusType @default(draft)
+  title            String               @default("")
   startDate        DateTime?
   endDate          DateTime?
-  experienceImages String    @default("")
-  description      Json      @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedArtworks  Artwork[] @relation("Artwork_relatedExperiences")
-  url              String    @unique @default("")
-  siteId           String    @default("")
+  experienceImages String               @default("")
+  description      Json                 @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedArtworks  Artwork[]            @relation("Artwork_relatedExperiences")
+  url              String               @unique @default("")
+  siteId           String               @default("")
 }
 
 model Artwork {
-  id                 String       @id @default(uuid()) @postgresql.Uuid
-  status             String?      @default("draft")
-  title              String       @default("")
-  artist             String       @default("")
-  artworkImages      String       @default("")
-  audioFile          String       @default("")
-  description        Json         @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedExperiences Experience[] @relation("Artwork_relatedExperiences")
-  url                String       @unique @default("")
-  siteId             String       @default("")
+  id                 String            @id @default(uuid()) @postgresql.Uuid
+  status             ArtworkStatusType @default(draft)
+  title              String            @default("")
+  artist             String            @default("")
+  artworkImages      String            @default("")
+  audioFile          String            @default("")
+  description        Json              @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedExperiences Experience[]      @relation("Artwork_relatedExperiences")
+  url                String            @unique @default("")
+  siteId             String            @default("")
   qrCodes            Json?
 }
 
@@ -73,4 +73,14 @@ model Comment {
   experienceURL String @default("")
   artworkURL    String @default("")
   siteId        String @default("")
+}
+
+enum ExperienceStatusType {
+  published
+  draft
+}
+
+enum ArtworkStatusType {
+  published
+  draft
 }

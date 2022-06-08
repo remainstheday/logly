@@ -1,9 +1,11 @@
+import convertStringToURL from "./utils/convertStringToURL";
+
 require("dotenv").config();
 import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
 import { statelessSessions } from "@keystone-6/core/session";
 import { Site } from "./schema/Site";
-import { Artwork } from "./schema/Artwork";
+import { Object } from "./schema/Artwork";
 import { User } from "./schema/User";
 import { Experience } from "./schema/Experience";
 import { StaticContent } from "./schema/StaticContent";
@@ -28,11 +30,37 @@ export default withAuth(
         app.use(express.json());
         app.post("/api/newUser", async (req, res) => {
           const context = await createContext(req, res);
-          const user = await context.query.User.createOne({
-            data: {
-              ...req.body,
+          const formattedSiteId = convertStringToURL(req.body.email);
+          const hasSiteId = await context.query.Site.findOne({
+            where: {
+              siteId: formattedSiteId,
             },
           });
+          const hasEmail = await context.query.User.findOne({
+            where: { email: req.body.email },
+          });
+          if (hasSiteId) return "that Site ID already exists";
+          if (hasEmail) return "User already exists with that email";
+
+          // todo:
+          // create new user object from req
+          // test if email already exists
+          // test if site id already exists
+          // convert site ID into a valid url
+          // create a has paid/ not paid flag for user
+          // handle error logging without crashing
+
+          console.log(context);
+          const user = await context.query.User.createOne({
+            data: {
+              siteId: formattedSiteId,
+              name: req.body.name,
+              email: req.body.email,
+              password: req.body.password,
+            },
+          });
+
+          console.log(user);
         });
       },
     },
@@ -67,7 +95,7 @@ export default withAuth(
     lists: {
       Site,
       Experience,
-      Artwork,
+      Object,
       User,
       StaticContent,
       Comment,
@@ -85,24 +113,24 @@ export default withAuth(
       // @ts-ignore
       useMigrations: true,
       async onConnect(context) {
-        await context.db.User.updateOne({
-          where: { email: "trentontri@gmail.com" },
-          data: {
-            siteId: "dallas-museum",
-          },
-        });
-
-        await context.db.User.updateOne({
-          where: { email: "trenkennedy@gmail.com" },
-          data: {
-            siteId: "",
-          },
-        });
-
-        await context.db.Artwork.updateOne({
-          where: { url: "nighthawks" },
-          data: { siteId: "dallas-museum" },
-        });
+        // await context.db.User.updateOne({
+        //   where: { email: "trentontri@gmail.com" },
+        //   data: {
+        //     siteId: "dallas-museum",
+        //   },
+        // });
+        //
+        // await context.db.User.updateOne({
+        //   where: { email: "trenkennedy@gmail.com" },
+        //   data: {
+        //     siteId: "",
+        //   },
+        // });
+        //
+        // await context.db.Artwork.updateOne({
+        //   where: { url: "nighthawks" },
+        //   data: { siteId: "dallas-museum" },
+        // });
 
         const homepage = await context.prisma.staticContent.count({
           where: { name: "Home" },

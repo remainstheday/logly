@@ -98,7 +98,7 @@ input SiteCreateInput {
 
 type Experience {
   id: ID!
-  status: String
+  status: ExperienceStatusType
   title: String
   startDate: DateTime
   endDate: DateTime
@@ -113,6 +113,11 @@ type Experience {
   relatedArtworksCount(where: ArtworkWhereInput! = {}): Int
   url: String
   siteId: String
+}
+
+enum ExperienceStatusType {
+  published
+  draft
 }
 
 scalar DateTime
@@ -132,7 +137,7 @@ input ExperienceWhereInput {
   OR: [ExperienceWhereInput!]
   NOT: [ExperienceWhereInput!]
   id: IDFilter
-  status: StringNullableFilter
+  status: ExperienceStatusTypeNullableFilter
   title: StringFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
@@ -142,33 +147,11 @@ input ExperienceWhereInput {
   siteId: StringFilter
 }
 
-input StringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  mode: QueryMode
-  not: NestedStringNullableFilter
-}
-
-input NestedStringNullableFilter {
-  equals: String
-  in: [String!]
-  notIn: [String!]
-  lt: String
-  lte: String
-  gt: String
-  gte: String
-  contains: String
-  startsWith: String
-  endsWith: String
-  not: NestedStringNullableFilter
+input ExperienceStatusTypeNullableFilter {
+  equals: ExperienceStatusType
+  in: [ExperienceStatusType!]
+  notIn: [ExperienceStatusType!]
+  not: ExperienceStatusTypeNullableFilter
 }
 
 input DateTimeNullableFilter {
@@ -200,7 +183,7 @@ input ExperienceOrderByInput {
 }
 
 input ExperienceUpdateInput {
-  status: String
+  status: ExperienceStatusType
   title: String
   startDate: DateTime
   endDate: DateTime
@@ -224,7 +207,7 @@ input ExperienceUpdateArgs {
 }
 
 input ExperienceCreateInput {
-  status: String
+  status: ExperienceStatusType
   title: String
   startDate: DateTime
   endDate: DateTime
@@ -242,7 +225,7 @@ input ArtworkRelateToManyForCreateInput {
 
 type Artwork {
   id: ID!
-  status: String
+  status: ArtworkStatusType
   title: String
   artist: String
   artworkImages: String
@@ -260,6 +243,11 @@ type Artwork {
   qrCodes: JSON
 }
 
+enum ArtworkStatusType {
+  published
+  draft
+}
+
 type Artwork_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
@@ -274,7 +262,7 @@ input ArtworkWhereInput {
   OR: [ArtworkWhereInput!]
   NOT: [ArtworkWhereInput!]
   id: IDFilter
-  status: StringNullableFilter
+  status: ArtworkStatusTypeNullableFilter
   title: StringFilter
   artist: StringFilter
   artworkImages: StringFilter
@@ -282,6 +270,13 @@ input ArtworkWhereInput {
   relatedExperiences: ExperienceManyRelationFilter
   url: StringFilter
   siteId: StringFilter
+}
+
+input ArtworkStatusTypeNullableFilter {
+  equals: ArtworkStatusType
+  in: [ArtworkStatusType!]
+  notIn: [ArtworkStatusType!]
+  not: ArtworkStatusTypeNullableFilter
 }
 
 input ExperienceManyRelationFilter {
@@ -302,7 +297,7 @@ input ArtworkOrderByInput {
 }
 
 input ArtworkUpdateInput {
-  status: String
+  status: ArtworkStatusType
   title: String
   artist: String
   artworkImages: String
@@ -327,7 +322,7 @@ input ArtworkUpdateArgs {
 }
 
 input ArtworkCreateInput {
-  status: String
+  status: ArtworkStatusType
   title: String
   artist: String
   artworkImages: String
