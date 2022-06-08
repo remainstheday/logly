@@ -11,8 +11,8 @@ export const Experience = list({
     endDate: timestamp(),
     experienceImages: defaults.images("Experience Image"),
     description: defaults.document,
-    relatedObject: relationship({
-      ref: "Object.relatedExperiences",
+    relatedArtifacts: relationship({
+      ref: "Artifact.relatedExperiences",
       many: true,
     }),
     url: defaults.url,
@@ -20,28 +20,28 @@ export const Experience = list({
   },
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { relatedArtworks, title } = resolvedData;
+      const { relatedArtifacts, title } = resolvedData;
       if (title) return { ...resolvedData, url: convertStringToURL(title) };
-      if (relatedArtworks && relatedArtworks.connect.length > 0) {
-        const artworks = await relatedArtworks.connect.map(
-          (artworkId: { id: string }) =>
-            context.query.Artwork.findOne({
-              where: { id: artworkId.id },
+      if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
+        const artifacts = await relatedArtifacts.connect.map(
+          (artifactId: { id: string }) =>
+            context.query.Artifact.findOne({
+              where: { id: artifactId.id },
               query: "id url",
             })
         );
 
-        return Promise.all(artworks).then((values) => {
-          relatedArtworks.connect.map((artworkId: { id: string }) => {
-            const artworkURL = values.filter(
-              (artwork) => artwork.id === artworkId.id
+        return Promise.all(artifacts).then((values) => {
+          relatedArtifacts.connect.map((artifactId: { id: string }) => {
+            const artifactURL = values.filter(
+              (artifact) => artifact.id === artifactId.id
             );
-            context.query.Artwork.updateOne({
-              where: { id: artworkId.id },
+            context.query.Artifact.updateOne({
+              where: { id: artifactId.id },
               data: {
                 qrCodes: [
                   `${process.env.FRONTEND_URL}/experiences/${item!.url}/${
-                    artworkURL[0].url
+                    artifactURL[0].url
                   }?social=true`,
                 ],
               },

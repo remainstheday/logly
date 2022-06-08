@@ -2,11 +2,11 @@ import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import {
-  GET_ALL_ARTWORKS,
+  GET_ALL_ARTIFACTS,
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_EXPERIENCE_BY_SLUG,
-  GET_OBJECT_BY_SLUG,
+  GET_ARTIFACT_BY_SLUG,
 } from "apollo/api";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,13 +21,13 @@ import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
-export default function Artwork({ artwork, experience, comments }) {
+export default function Artifact({ artifact, experience, comments }) {
   const { query } = useRouter();
-  if (!artwork || !experience) return <PageLoading />;
+  if (!artifact || !experience) return <PageLoading />;
 
-  // don't show the current artwork as recommended artworks
-  const similarArtworks = experience.relatedObjects.filter(
-    (item) => item.url !== artwork.url
+  // don't show the current artifact as recommended artifacts
+  const similarArtifacts = experience.relatedArtifacts.filter(
+    (item) => item.url !== artifact.url
   );
 
   // only show comments with images in them
@@ -35,10 +35,10 @@ export default function Artwork({ artwork, experience, comments }) {
 
   // Hide any content sections that have empty data
   const hasFilteredComments = filteredComments.length > 0;
-  const hasSimilarArtworks = similarArtworks.length > 0;
+  const hasSimilarArtifacts = similarArtifacts.length > 0;
   const hasDescription =
-    artwork.description && artwork.description.document.length > 0;
-  const hasAudioFile = artwork.audioFile && artwork.audioFile.length > 0;
+    artifact.description && artifact.description.document.length > 0;
+  const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
 
   return (
     <>
@@ -50,32 +50,32 @@ export default function Artwork({ artwork, experience, comments }) {
             text={"Back to Experience"}
           />
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
-            <h1>{artwork.title}</h1>
-            <h2>{artwork.artist}</h2>
+            <h1>{artifact.title}</h1>
+            <h2>{artifact.artist}</h2>
           </div>
 
           <div className="flex relative my-5">
             <Image
               src={
-                artwork.artworkImages
-                  ? artwork.artworkImages
+                artifact.artifactImages
+                  ? artifact.artifactImages
                   : "/stock-museum-1.jpg"
               }
               width="1080"
               height="720"
-              alt={artwork.title}
+              alt={artifact.title}
             />
           </div>
 
-          {hasAudioFile && <AudioPlayer audioFile={artwork.audioFile} />}
+          {hasAudioFile && <AudioPlayer audioFile={artifact.audioFile} />}
         </section>
 
         {hasDescription && (
           <Section className="formatted-content">
-            <DocumentRenderer document={artwork.description.document} />
+            <DocumentRenderer document={artifact.description.document} />
           </Section>
         )}
-        {hasSimilarArtworks && (
+        {hasSimilarArtifacts && (
           <Section>
             <SectionLink
               href={`/experiences/${experience.url}`}
@@ -84,26 +84,26 @@ export default function Artwork({ artwork, experience, comments }) {
             <hr />
             <div className="w-full mt-4">
               <div className="flex flex-wrap">
-                {similarArtworks.map((artwork, index) => (
+                {similarArtifacts.map((artifact, index) => (
                   <div className="w-1/2 my-4 px-0.5" key={index}>
                     <Link
-                      href={`/experiences/${experience.url}/${artwork.url}`}
+                      href={`/experiences/${experience.url}/${artifact.url}`}
                       passHref
                     >
                       <a>
                         <Image
                           src={
-                            artwork.artworkImages
-                              ? artwork.artworkImages
+                            artifact.artifactImages
+                              ? artifact.artifactImages
                               : "/stock-museum-1.jpg"
                           }
                           width="430"
                           height="281"
                           className="w-full px-1"
-                          alt={artwork.title}
+                          alt={artifact.title}
                         />
-                        <h3 className="font-bold">{artwork.artist}</h3>
-                        <h4>{artwork.title}</h4>
+                        <h3 className="font-bold">{artifact.artist}</h3>
+                        <h4>{artifact.title}</h4>
                       </a>
                     </Link>
                   </div>
@@ -115,7 +115,7 @@ export default function Artwork({ artwork, experience, comments }) {
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm artworkURL={artwork.url} />
+            <SocialForm artifactURL={artifact.url} />
           </Section>
         )}
 
@@ -145,17 +145,17 @@ export async function getStaticPaths() {
   const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
-  const artworks = await apolloClient.query({
-    query: GET_ALL_ARTWORKS,
+  const artifacts = await apolloClient.query({
+    query: GET_ALL_ARTIFACTS,
   });
 
   const paths = experiences.data.experiences
     .map((experience) => {
-      return artworks.data.artworks.map((artwork) => {
+      return artifacts.data.artifacts.map((artifact) => {
         return {
           params: {
             experience: experience.url,
-            artwork: `${experience.url}/${artwork.url}`,
+            artifact: `${experience.url}/${artifact.url}`,
           },
         };
       });
@@ -171,9 +171,9 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
 
-  const artwork = await apolloClient.query({
-    query: GET_OBJECT_BY_SLUG,
-    variables: { url: params.artwork },
+  const artifact = await apolloClient.query({
+    query: GET_ARTIFACT_BY_SLUG,
+    variables: { url: params.artifact },
   });
   const experience = await apolloClient.query({
     query: GET_EXPERIENCE_BY_SLUG,
@@ -183,7 +183,7 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_COMMENTS,
   });
 
-  if (!artwork || !experience) {
+  if (!artifact || !experience) {
     return {
       notFound: true,
     };
@@ -191,7 +191,7 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      artwork: artwork.data.object,
+      artifact: artifact.data.artifact,
       experience: experience.data.experience,
       comments: comments.data.comments,
     },

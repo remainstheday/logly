@@ -32,9 +32,9 @@ export const GET_ALL_EXPERIENCES = gql`
   }
 `;
 
-export const GET_ALL_OBJECTS = gql`
+export const GET_ALL_ARTIFACTS = gql`
   {
-    objects {
+    artifacts {
       id
       title
       artist
@@ -42,7 +42,7 @@ export const GET_ALL_OBJECTS = gql`
       description {
         document
       }
-      artworkImages
+      artifactImages
     }
   }
 `;
@@ -58,19 +58,19 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
         document
       }
       experienceImages
-      relatedObject {
+      relatedArtifacts {
         title
         artist
         url
-        artworkImages
+        artifactImages
       }
     }
   }
 `;
 
-export const GET_OBJECT_BY_SLUG = gql`
+export const GET_ARTIFACT_BY_SLUG = gql`
   query Object($url: String) {
-    object(where: { url: $url }) {
+    artifact(where: { url: $url }) {
       id
       title
       artist
@@ -87,7 +87,7 @@ export const GET_OBJECT_BY_SLUG = gql`
         startDate
         endDate
       }
-      artworkImages
+      artifactImages
     }
   }
 `;
@@ -102,7 +102,7 @@ export const GET_ALL_COMMENTS = gql`
       timestamp
       siteId
       experienceURL
-      artworkURL
+      artifactURL
     }
   }
 `;
@@ -112,7 +112,7 @@ export const ADD_COMMENT = gql`
     $username: String!
     $comment: String!
     $image: String!
-    $artworkURL: String
+    $artifactURL: String
     $experienceURL: String
     $timestamp: String!
   ) {
@@ -121,7 +121,7 @@ export const ADD_COMMENT = gql`
         username: $username
         comment: $comment
         image: $image
-        artworkURL: $artworkURL
+        artifactURL: $artifactURL
         experienceURL: $experienceURL
         timestamp: $timestamp
       }
@@ -131,7 +131,7 @@ export const ADD_COMMENT = gql`
       comment
       image
       experienceURL
-      artworkURL
+      artifactURL
       timestamp
       siteId
     }

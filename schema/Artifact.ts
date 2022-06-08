@@ -14,7 +14,7 @@ type Session = {
 };
 
 // not that kind of object
-export const Object = list({
+export const Artifact = list({
   access: {
     // filter: { todo: do we actually need this? can we hide from adminUI?
     //   query: ({ session, context, listKey, operation }) => {
@@ -26,11 +26,11 @@ export const Object = list({
     status: defaults.status,
     title: defaults.title,
     artist: text({ validation: { isRequired: true } }),
-    artworkImages: defaults.images("Artwork Image"),
+    artifactImages: defaults.images("Artifact Image"),
     audioFile: defaults.audioFile,
     description: defaults.document,
     relatedExperiences: relationship({
-      ref: "Experience.relatedObject",
+      ref: "Experience.relatedArtifacts",
       many: true,
       ui: {
         createView: { fieldMode: "edit" },

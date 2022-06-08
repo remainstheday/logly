@@ -5,7 +5,7 @@ import { config } from "@keystone-6/core";
 import { createAuth } from "@keystone-6/auth";
 import { statelessSessions } from "@keystone-6/core/session";
 import { Site } from "./schema/Site";
-import { Object } from "./schema/Object";
+import { Artifact } from "./schema/Artifact";
 import { User } from "./schema/User";
 import { Experience } from "./schema/Experience";
 import { StaticContent } from "./schema/StaticContent";
@@ -95,7 +95,7 @@ export default withAuth(
     lists: {
       Site,
       Experience,
-      Object,
+      Artifact,
       User,
       StaticContent,
       Comment,

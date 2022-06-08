@@ -40,7 +40,7 @@ export const Comment = list({
         listView: { fieldMode: "read" },
       },
     }),
-    artworkURL: text({
+    artifactURL: text({
       ui: {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },

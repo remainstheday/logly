@@ -6,7 +6,7 @@ import { Formik } from "formik";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 import { ADD_COMMENT } from "apollo/api";
 
-export default function SocialForm({ artworkURL = "", experienceURL = "" }) {
+export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
 
@@ -18,7 +18,7 @@ export default function SocialForm({ artworkURL = "", experienceURL = "" }) {
             username,
             comment,
             image: cloudinaryImage ? cloudinaryImage : "",
-            artworkURL,
+            artifactURL,
             experienceURL,
             timestamp: Date.now(),
           },

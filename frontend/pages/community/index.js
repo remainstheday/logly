@@ -27,7 +27,7 @@ export default function Community({ comments }) {
             username,
             comment,
             image: cloudinaryImage ? cloudinaryImage : "",
-            artworkId: "",
+            artifactId: "",
             experienceId: "",
             timestamp: Date.now().toString(),
           },

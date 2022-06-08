@@ -26,22 +26,22 @@ model Experience {
   endDate          DateTime?
   experienceImages String               @default("")
   description      Json                 @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedObject    Object[]             @relation("Experience_relatedObject")
+  relatedArtifacts Artifact[]           @relation("Artifact_relatedExperiences")
   url              String               @unique @default("")
   siteId           String               @default("")
 }
 
-model Object {
-  id                 String           @id @default(uuid()) @postgresql.Uuid
-  status             ObjectStatusType @default(draft)
-  title              String           @default("")
-  artist             String           @default("")
-  artworkImages      String           @default("")
-  audioFile          String           @default("")
-  description        Json             @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-  relatedExperiences Experience[]     @relation("Experience_relatedObject")
-  url                String           @unique @default("")
-  siteId             String           @default("")
+model Artifact {
+  id                 String             @id @default(uuid()) @postgresql.Uuid
+  status             ArtifactStatusType @default(draft)
+  title              String             @default("")
+  artist             String             @default("")
+  artifactImages     String             @default("")
+  audioFile          String             @default("")
+  description        Json               @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedExperiences Experience[]       @relation("Artifact_relatedExperiences")
+  url                String             @unique @default("")
+  siteId             String             @default("")
   qrCodes            Json?
 }
 
@@ -71,7 +71,7 @@ model Comment {
   image         String @default("")
   comment       String @default("")
   experienceURL String @default("")
-  artworkURL    String @default("")
+  artifactURL   String @default("")
   siteId        String @default("")
 }
 
@@ -80,7 +80,7 @@ enum ExperienceStatusType {
   draft
 }
 
-enum ObjectStatusType {
+enum ArtifactStatusType {
   published
   draft
 }

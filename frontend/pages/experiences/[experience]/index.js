@@ -49,30 +49,30 @@ export default function Experience({ experience, experiences, comments }) {
           )}
         </section>
 
-        {experience.relatedArtworks.length > 0 && (
+        {experience.relatedArtifacts.length > 0 && (
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-4">
-                {experience.relatedArtworks.map((artwork, index) => (
+                {experience.relatedArtifacts.map((artifact, index) => (
                   <div className="my-4" key={index}>
                     <Link
-                      href={`/experiences/${experience.url}/${artwork.url}`}
+                      href={`/experiences/${experience.url}/${artifact.url}`}
                       passHref
                     >
                       <a>
                         <Image
                           src={
-                            artwork.artworkImages
-                              ? artwork.artworkImages
+                            artifact.artifactImages
+                              ? artifact.artifactImages
                               : "/stock-museum-1.jpg"
                           }
                           width="436"
                           height="281"
                           className="w-full px-1"
-                          alt={artwork.title}
+                          alt={artifact.title}
                         />
-                        <h3 className="font-bold">{artwork.artist}</h3>
-                        <h4>{artwork.title}</h4>
+                        <h3 className="font-bold">{artifact.artist}</h3>
+                        <h4>{artifact.title}</h4>
                       </a>
                     </Link>
                   </div>
