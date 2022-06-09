@@ -183,7 +183,11 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_COMMENTS,
   });
 
-  if (!artifact || !experience || artifact.status !== "published") {
+  if (
+    !artifact ||
+    !experience ||
+    artifact.data.artifact.status !== "published"
+  ) {
     return {
       notFound: true,
     };

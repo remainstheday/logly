@@ -3,7 +3,6 @@ import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
 import {
-  GET_ALL_ARTIFACTS,
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_STATIC_CONTENTS,
@@ -114,16 +113,13 @@ export async function getStaticProps() {
     query: GET_ALL_COMMENTS,
   });
 
-  const artifacts = await apolloClient.query({
-    query: GET_ALL_ARTIFACTS,
-  });
-
   return addApolloState(apolloClient, {
     props: {
       content: content.data.staticContents,
-      experiences: experiences.data.experiences,
+      experiences: experiences.data.experiences.filter(
+        (experience) => experience.status === "published"
+      ),
       comments: comments.data.comments,
-      artifacts: artifacts.data,
     },
     revalidate: 1,
   });
