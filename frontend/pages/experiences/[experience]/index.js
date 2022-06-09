@@ -168,7 +168,7 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_COMMENTS,
   });
 
-  if (!experience || experience.status !== "published") {
+  if (!experience || experience.data.experience.status !== "published") {
     return {
       notFound: true,
     };
