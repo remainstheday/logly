@@ -29,7 +29,7 @@ export default function Community({ comments }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             artifactId: "",
             experienceId: "",
-            timestamp: Date.now().toString(),
+            timestamp: new Date(Date.now()),
           },
           update: (cache, { data }) => {
             const { comments } = cache.readQuery({
@@ -144,11 +144,8 @@ export default function Community({ comments }) {
                       <span>
                         <i className="text-gray-400 text-xs">
                           Comment by {post.username} on{" "}
-                          {post.timestamp.length > 0 &&
-                            format(
-                              new Date(Number(post.timestamp)),
-                              "MMM dd, yyyy"
-                            )}
+                          {post.timestamp &&
+                            format(new Date(post.timestamp), "MMM dd, yyyy")}
                         </i>
                       </span>
                     </div>

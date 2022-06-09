@@ -20,15 +20,15 @@ export default function CommentCard({ comment }) {
         </div>
       )}
       <div className="w-1/2">
-        <div className="h-full mx-1 px-2 py-2 overflow-hidden shadow-lg">
+        <div className="relative h-full mx-1 px-2 py-2 overflow-hidden shadow-lg">
           <p className="text-gray-700 text-base">
             {truncateComment(comment.comment)}
           </p>
           <span>
-            <i className="text-gray-400 text-xs">
-              Comment by {comment.user} on{" "}
-              {comment.timestamp.length > 0 &&
-                format(new Date(Number(comment.timestamp)), "MMM dd, yyyy")}
+            <i className="text-gray-400 text-xs absolute bottom-2">
+              Comment by {comment.username} <br /> on{" "}
+              {comment.timestamp &&
+                format(new Date(comment.timestamp), "MMM dd, yyyy")}
             </i>
           </span>
         </div>

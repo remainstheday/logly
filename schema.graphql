@@ -467,7 +467,7 @@ input StaticContentCreateInput {
 
 type Comment {
   id: ID!
-  timestamp: String
+  timestamp: DateTime
   username: String
   image: String
   comment: String
@@ -485,7 +485,7 @@ input CommentWhereInput {
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
   id: IDFilter
-  timestamp: StringFilter
+  timestamp: DateTimeNullableFilter
   username: StringFilter
   image: StringFilter
   comment: StringFilter
@@ -506,7 +506,7 @@ input CommentOrderByInput {
 }
 
 input CommentUpdateInput {
-  timestamp: String
+  timestamp: DateTime
   username: String
   image: String
   comment: String
@@ -521,7 +521,7 @@ input CommentUpdateArgs {
 }
 
 input CommentCreateInput {
-  timestamp: String
+  timestamp: DateTime
   username: String
   image: String
   comment: String

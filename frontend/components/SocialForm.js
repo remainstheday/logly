@@ -5,6 +5,7 @@ import ClientOnly from "components/ClientOnly";
 import { Formik } from "formik";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 import { ADD_COMMENT } from "apollo/api";
+import Link from "next/link";
 
 export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
   const [uploadedImage, setUploadedImage] = useState();
@@ -31,8 +32,11 @@ export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
   if (data)
     return (
       <p className="mt-6 mb-56">
-        Thank you for participating. Your comment has been added to the
-        Community Page!
+        Thank you for participating. Your comment has been added to the{" "}
+        <Link href="/community" passHref>
+          <a className="text-blue-600 visited:text-purple-60">Community Page</a>
+          !
+        </Link>
       </p>
     );
 

@@ -21,21 +21,18 @@ import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
-export default function Artifact({ artifact, experience, comments }) {
+export default function Artifact({
+  artifact,
+  experience,
+  comments,
+  relatedArtifacts,
+}) {
   const { query } = useRouter();
   if (!artifact || !experience) return <PageLoading />;
 
-  // don't show the current artifact as recommended artifacts
-  const similarArtifacts = experience.relatedArtifacts.filter(
-    (item) => item.url !== artifact.url
-  );
-
-  // only show comments with images in them
-  const filteredComments = comments.filter((comment) => comment.image);
-
   // Hide any content sections that have empty data
-  const hasFilteredComments = filteredComments.length > 0;
-  const hasSimilarArtifacts = similarArtifacts.length > 0;
+  const hasFilteredComments = comments.length > 0;
+  const hasSimilarArtifacts = relatedArtifacts.length > 0;
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
@@ -84,7 +81,7 @@ export default function Artifact({ artifact, experience, comments }) {
             <hr />
             <div className="w-full mt-4">
               <div className="flex flex-wrap">
-                {similarArtifacts.map((artifact, index) => (
+                {relatedArtifacts.map((artifact, index) => (
                   <div className="w-1/2 my-4 px-0.5" key={index}>
                     <Link
                       href={`/experiences/${experience.url}/${artifact.url}`}
@@ -199,7 +196,10 @@ export async function getStaticProps({ params }) {
     props: {
       artifact: artifact.data.artifact,
       experience: experience.data.experience,
-      comments: comments.data.comments,
+      comments: comments.data.comments.filter((comment) => comment.image) || [],
+      relatedArtifacts: experience.data.experience.relatedArtifacts.filter(
+        (item) => item.url !== artifact.data.artifact.url
+      ),
     },
     revalidate: 1,
   });

@@ -117,7 +117,7 @@ export const ADD_COMMENT = gql`
     $image: String!
     $artifactURL: String
     $experienceURL: String
-    $timestamp: String!
+    $timestamp: DateTime!
   ) {
     createComment(
       data: {

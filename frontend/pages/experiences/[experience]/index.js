@@ -22,7 +22,7 @@ import { useRouter } from "next/router";
 export default function Experience({ experience, experiences, comments }) {
   const { query } = useRouter();
   if (!experience || !experiences) return <PageLoading />;
-  const filteredComments = comments.filter((comment) => comment.image);
+
   const similarExperiences = experiences.filter(
     (similarExperience) => similarExperience.url !== experience.url
   );
@@ -119,10 +119,10 @@ export default function Experience({ experience, experiences, comments }) {
           </Section>
         )}
 
-        {filteredComments.length > 0 && (
+        {comments.length > 0 && (
           <Section title="See What the Community has Shared">
             <div className="py-6 grid md:grid-cols-2 gap-4">
-              {filteredComments.map((comment) => (
+              {comments.map((comment) => (
                 <CommentCard key={comment.id} comment={comment} />
               ))}
             </div>
@@ -180,7 +180,7 @@ export async function getStaticProps({ params }) {
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
-      comments: comments.data.comments,
+      comments: comments.data.comments.filter((comment) => comment.image),
     },
     revalidate: 1,
   });
