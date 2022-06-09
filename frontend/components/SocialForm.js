@@ -20,7 +20,7 @@ export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             artifactURL,
             experienceURL,
-            timestamp: Date.now(),
+            timestamp: new Date(Date.now()).toString(),
           },
         });
       }
