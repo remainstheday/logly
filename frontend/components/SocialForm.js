@@ -21,7 +21,7 @@ export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             artifactURL,
             experienceURL,
-            timestamp: new Date(Date.now()).toString(),
+            timestamp: new Date(Date.now()),
           },
         });
       }
@@ -35,8 +35,8 @@ export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
         Thank you for participating. Your comment has been added to the{" "}
         <Link href="/community" passHref>
           <a className="text-blue-600 visited:text-purple-60">Community Page</a>
-          !
         </Link>
+        !
       </p>
     );
 

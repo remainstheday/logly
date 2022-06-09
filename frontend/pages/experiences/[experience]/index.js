@@ -127,7 +127,10 @@ export default function Experience({ experience, experiences, comments }) {
               ))}
             </div>
             <div className="mt-6 px-6 md:px-0">
-              <SectionLink href={`/social`} text={"Discover Art Social"} />
+              <SectionLink
+                href={`/community`}
+                text={"Discover the Community"}
+              />
             </div>
           </Section>
         )}
@@ -180,7 +183,11 @@ export async function getStaticProps({ params }) {
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
-      comments: comments.data.comments.filter((comment) => comment.image),
+      comments: comments.data.comments.filter(
+        (comment) =>
+          comment.image &&
+          comment.experienceURL === experience.data.experience.url
+      ),
     },
     revalidate: 1,
   });

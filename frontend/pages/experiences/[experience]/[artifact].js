@@ -30,9 +30,15 @@ export default function Artifact({
   const { query } = useRouter();
   if (!artifact || !experience) return <PageLoading />;
 
-  // Hide any content sections that have empty data
-  const hasFilteredComments = comments.length > 0;
-  const hasSimilarArtifacts = relatedArtifacts.length > 0;
+  const similarArtifacts = relatedArtifacts.filter(
+    (item) => item.url !== artifact.url
+  );
+
+  const filteredComments = comments.filter(
+    (comment) => comment.image && comment.artifactURL === artifact.url
+  );
+
+  // const hasSimilarArtifacts = relatedArtifacts.length > 0;
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
@@ -72,7 +78,7 @@ export default function Artifact({
             <DocumentRenderer document={artifact.description.document} />
           </Section>
         )}
-        {hasSimilarArtifacts && (
+        {similarArtifacts.length > 0 && (
           <Section>
             <SectionLink
               href={`/experiences/${experience.url}`}
@@ -81,7 +87,7 @@ export default function Artifact({
             <hr />
             <div className="w-full mt-4">
               <div className="flex flex-wrap">
-                {relatedArtifacts.map((artifact, index) => (
+                {similarArtifacts.map((artifact, index) => (
                   <div className="w-1/2 my-4 px-0.5" key={index}>
                     <Link
                       href={`/experiences/${experience.url}/${artifact.url}`}
@@ -116,7 +122,7 @@ export default function Artifact({
           </Section>
         )}
 
-        {hasFilteredComments && (
+        {filteredComments.length > 0 && (
           <Section title="See What the Community has Shared">
             <div className="py-6 grid md:grid-cols-2 gap-4">
               {filteredComments.map((comment) => (
@@ -196,10 +202,8 @@ export async function getStaticProps({ params }) {
     props: {
       artifact: artifact.data.artifact,
       experience: experience.data.experience,
-      comments: comments.data.comments.filter((comment) => comment.image) || [],
-      relatedArtifacts: experience.data.experience.relatedArtifacts.filter(
-        (item) => item.url !== artifact.data.artifact.url
-      ),
+      comments: comments.data.comments,
+      relatedArtifacts: experience.data.experience.relatedArtifacts,
     },
     revalidate: 1,
   });

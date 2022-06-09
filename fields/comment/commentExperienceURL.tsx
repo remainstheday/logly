@@ -10,16 +10,13 @@ export const Field = ({
 }: FieldProps<typeof controller>) => {
   console.log(value);
   return (
-    <FieldContainer>
-      <FieldLabel>{field.label}</FieldLabel>
-      {value.inner.kind === "value" && value.inner.value.length === 0 && (
-        <p>comment does not contain an image.</p>
-      )}
+    <>
       {value.inner.kind === "value" && value.inner.value.length > 0 && (
-        <>
-          <img width="690" src={value.inner.value} alt="comment image" />
-        </>
+        <FieldContainer>
+          <FieldLabel>{field.label}</FieldLabel>
+          <p>{value.inner.value}</p>
+        </FieldContainer>
       )}
-    </FieldContainer>
+    </>
   );
 };

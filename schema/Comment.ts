@@ -31,7 +31,11 @@ export const Comment = list({
       label: "Image",
     }),
     comment: text({
-      ui: {},
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
     }),
     experienceURL: text({
       ui: {
