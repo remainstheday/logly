@@ -39,6 +39,7 @@ export const GET_ALL_ARTIFACTS = gql`
       title
       artist
       url
+      status
       description {
         document
       }
@@ -54,6 +55,7 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
       url
       startDate
       endDate
+      status
       description {
         document
       }
@@ -75,6 +77,7 @@ export const GET_ARTIFACT_BY_SLUG = gql`
       title
       artist
       url
+      status
       description {
         document
       }

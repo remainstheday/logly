@@ -168,10 +168,18 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_COMMENTS,
   });
 
+  if (!experience || experience.status !== "published") {
+    return {
+      notFound: true,
+    };
+  }
+
   return addApolloState(apolloClient, {
     props: {
       experience: experience.data.experience,
-      experiences: experiences.data.experiences,
+      experiences: experiences.data.experiences.filter(
+        (experience) => experience.status === "published"
+      ),
       comments: comments.data.comments,
     },
     revalidate: 1,
