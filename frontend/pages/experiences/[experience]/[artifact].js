@@ -186,7 +186,9 @@ export async function getStaticProps({ params }) {
   if (
     !artifact ||
     !experience ||
-    artifact.data.artifact.status !== "published"
+    (artifact.data &&
+      artifact.data.artifact &&
+      artifact.data.artifact.status !== "published")
   ) {
     return {
       notFound: true,
