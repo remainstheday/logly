@@ -16,11 +16,45 @@ type Session = {
 // not that kind of object
 export const Artifact = list({
   access: {
-    // filter: { todo: do we actually need this? can we hide from adminUI?
-    //   query: ({ session, context, listKey, operation }) => {
-    //     return { siteId: { equals: session.data.siteId } };
-    //   },
-    // },
+    operation: {
+      query: () => true,
+      create: ({ session, context, operation }) =>
+        !!session?.data.isAdmin || !!session?.data.siteId,
+      update: ({ session, context }) =>
+        !!session?.data.isAdmin || !!session?.data.siteId,
+      delete: ({ session }) =>
+        !!session?.data.isAdmin || !!session?.data.siteId,
+    },
+    item: {
+      create: ({}) => true,
+      update: ({ session, context, inputData, item }) => {
+        if (session?.data.isAdmin) return true;
+        if (session.data.siteId && session.data.siteId === item.siteId)
+          return true;
+
+        if (
+          session.data.siteId &&
+          session.data.siteId &&
+          inputData &&
+          inputData.siteId &&
+          inputData.siteId !== session.data.siteId
+        )
+          return false;
+
+        return false;
+      },
+    },
+    filter: {
+      query: ({ session }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+      update: ({ session }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+      delete: ({ session }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+    },
   },
   fields: {
     status: defaults.status,
@@ -52,10 +86,9 @@ export const Artifact = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
-      // @ts-ignore
       const existingQRCodes =
         item && item.qrCodes && item.qrCodes.length > 0 ? item.qrCodes : [];
-      if (title) return { ...resolvedData, url: convertStringToURL(title) };
+
       if (relatedExperiences && relatedExperiences.connect.length > 0) {
         const experiences = await relatedExperiences.connect.map(
           (experienceId: { id: string }) =>
@@ -65,7 +98,8 @@ export const Artifact = list({
             })
         );
 
-        return Promise.all(experiences).then((values) => {
+        // todo: this should probably `updateOne({})` with artworks
+        Promise.all(experiences).then((values) => {
           return {
             ...resolvedData,
             qrCodes: [
@@ -89,9 +123,11 @@ export const Artifact = list({
               query: "url",
             })
         );
-        return Promise.all(experiences).then((values) => {
+        Promise.all(experiences).then((values) => {
           return {
             ...resolvedData,
+            siteId: context.session.data.siteId,
+            url: convertStringToURL(title),
             qrCodes: values
               .map((experience) =>
                 existingQRCodes.filter(
@@ -102,7 +138,11 @@ export const Artifact = list({
           };
         });
       }
-      return resolvedData;
+      return {
+        ...resolvedData,
+        siteId: context.session.data.siteId,
+        url: convertStringToURL(title),
+      };
     },
   },
 });

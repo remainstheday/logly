@@ -51,7 +51,6 @@ export const Experience = list({
       create: ({}) => true,
       update: ({ session, context, inputData, item }) => {
         if (session?.data.isAdmin) return true;
-
         if (session.data.siteId && session.data.siteId === item.siteId)
           return true;
 
@@ -67,39 +66,17 @@ export const Experience = list({
         return false;
       },
     },
-    // item: {
-    //   create: ({ session, context, listKey, operation, inputData }) => true,
-    //   update: ({ session, context, listKey, operation, inputData, item }) => {
-    //     if (session?.data.isAdmin) return true;
-    //
-    //     // is a museum curator
-    //     const siteId = session?.data.siteId;
-    //     if (siteId) {
-    //       // for create or update
-    //       if (inputData) {
-    //         // confirm data doesn't use wrong museum
-    //         if (inputData.siteId !== siteId) {
-    //           return false;
-    //         }
-    //
-    //         // existing items must match
-    //         if (item && item.siteId === siteId) {
-    //           return true;
-    //         }
-    //
-    //         // allow create
-    //         return true;
-    //       }
-    //       // for delete
-    //       else if (item) {
-    //         // museum must match
-    //         return item.siteId === siteId;
-    //       }
-    //     }
-    //     return false;
-    //   },
-    //   delete: ({ session, context, listKey, operation, item }) => true,
-    // },
+    filter: {
+      query: ({ session }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+      update: ({ session }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+      delete: ({ session }) => {
+        return { siteId: { equals: session.data.siteId } };
+      },
+    },
   },
   fields: {
     status: defaults.status,
@@ -116,23 +93,6 @@ export const Experience = list({
     siteId: defaults.siteId,
   },
   hooks: {
-    afterOperation: async ({
-      listKey,
-      operation,
-      inputData,
-      item,
-      resolvedData,
-      context,
-    }) => {
-      // todo: this doesn't have permissions to update data after it's created
-      // todo: move this logic into a resolveInput method and return siteId as apart of the response
-      // context.db.Experience.updateOne({
-      //   where: { id: item?.id },
-      //   data: {
-      //     siteId: context.session.siteId,
-      //   },
-      // });
-    },
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtifacts, title } = resolvedData;
 
