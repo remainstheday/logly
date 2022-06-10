@@ -67,12 +67,8 @@ export const defaults = {
   siteId: text({
     ui: {
       createView: { fieldMode: "hidden" },
-      itemView: { fieldMode: "hidden" },
-      listView: { fieldMode: "hidden" },
-    },
-    hooks: {
-      beforeOperation: async (args) => {},
-      afterOperation: async (args) => {},
+      itemView: { fieldMode: "read" },
+      listView: { fieldMode: "read" },
     },
   }),
 };

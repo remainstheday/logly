@@ -30,17 +30,16 @@ export default withAuth(
         app.use(express.json());
         app.post("/api/newUser", async (req, res) => {
           const context = await createContext(req, res);
-          const formattedSiteId = convertStringToURL(req.body.email);
-          const hasSiteId = await context.query.Site.findOne({
-            where: {
-              siteId: formattedSiteId,
-            },
-          });
-          const hasEmail = await context.query.User.findOne({
-            where: { email: req.body.email },
-          });
-          if (hasSiteId) return "that Site ID already exists";
-          if (hasEmail) return "User already exists with that email";
+          // const hasSiteId = await context.query.Site.findOne({
+          //   where: {
+          //     siteId: convertStringToURL(req.body.siteId),
+          //   },
+          // });
+          // const hasEmail = await context.query.User.findOne({
+          //   where: { email: req.body.email },
+          // });
+          // if (hasSiteId) return "that Site ID already exists";
+          // if (hasEmail) return "User already exists with that email";
 
           // todo:
           // create new user object from req
@@ -53,7 +52,7 @@ export default withAuth(
           console.log(context);
           const user = await context.query.User.createOne({
             data: {
-              siteId: formattedSiteId,
+              siteId: convertStringToURL(req.body.siteId),
               name: req.body.name,
               email: req.body.email,
               password: req.body.password,
@@ -113,25 +112,6 @@ export default withAuth(
       // @ts-ignore
       useMigrations: true,
       async onConnect(context) {
-        // await context.db.User.updateOne({
-        //   where: { email: "trentontri@gmail.com" },
-        //   data: {
-        //     siteId: "dallas-museum",
-        //   },
-        // });
-        //
-        // await context.db.User.updateOne({
-        //   where: { email: "trenkennedy@gmail.com" },
-        //   data: {
-        //     siteId: "",
-        //   },
-        // });
-        //
-        // await context.db.Artwork.updateOne({
-        //   where: { url: "nighthawks" },
-        //   data: { siteId: "dallas-museum" },
-        // });
-
         const homepage = await context.prisma.staticContent.count({
           where: { name: "Home" },
         });
