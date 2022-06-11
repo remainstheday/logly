@@ -92,6 +92,12 @@ export const Experience = list({
     url: defaults.url,
     siteId: defaults.siteId,
   },
+  ui: {
+    listView: {
+      // These are the default columns that will be displayed in the list view
+      initialColumns: ["title", "status", "startDate", "endDate"],
+    },
+  },
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtifacts, title } = resolvedData;

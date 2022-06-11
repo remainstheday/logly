@@ -56,6 +56,12 @@ export const Artifact = list({
       },
     },
   },
+  ui: {
+    listView: {
+      // These are the default columns that will be displayed in the list view
+      initialColumns: ["title", "status", "relatedExperiences"],
+    },
+  },
   fields: {
     status: defaults.status,
     title: defaults.title,
