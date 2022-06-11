@@ -43,7 +43,7 @@ export default function IndexPage({ content, experiences, comments }) {
           )}
 
           {renderDescription && (
-            <Section>
+            <Section className="wysiwyg-editor">
               <DocumentRenderer document={homepage.description.document} />
             </Section>
           )}

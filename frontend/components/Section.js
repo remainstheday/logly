@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Section({ title, className, children }) {
+export default function Section({ title, className = "", children }) {
   return (
     <section className={`px-6 lg:px-0 my-10 md:mx-auto ${className}`}>
       {title && (

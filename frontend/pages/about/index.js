@@ -30,7 +30,7 @@ export default function About({ content = [] }) {
             </div>
           )}
           {page.description && (
-            <Section>
+            <Section className="wysiwyg-editor">
               <DocumentRenderer document={page.description.document} />
             </Section>
           )}

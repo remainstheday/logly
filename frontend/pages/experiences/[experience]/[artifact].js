@@ -74,7 +74,7 @@ export default function Artifact({
         </section>
 
         {hasDescription && (
-          <Section className="formatted-content">
+          <Section className="formatted-content wysiwyg-editor">
             <DocumentRenderer document={artifact.description.document} />
           </Section>
         )}
