@@ -68,13 +68,24 @@ export const Experience = list({
     },
     filter: {
       query: ({ session }) => {
-        return { siteId: { equals: session.data.siteId } };
+        if (session?.data.siteId) {
+          return {
+            siteId: {
+              equals: session.data.siteId,
+            },
+          };
+        }
+        return true;
       },
       update: ({ session }) => {
-        return { siteId: { equals: session.data.siteId } };
+        return session?.data.siteId
+          ? { siteId: { equals: session.data.siteId } }
+          : { isAdmin: { equals: true } };
       },
       delete: ({ session }) => {
-        return { siteId: { equals: session.data.siteId } };
+        return session?.data.siteId
+          ? { siteId: { equals: session.data.siteId } }
+          : { isAdmin: { equals: true } };
       },
     },
   },
