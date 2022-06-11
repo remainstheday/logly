@@ -68,7 +68,7 @@ export const Experience = list({
     },
     filter: {
       query: ({ session }) => {
-        if (session?.data.siteId) {
+        if (session && session?.data.siteId) {
           return {
             siteId: {
               equals: session.data.siteId,
