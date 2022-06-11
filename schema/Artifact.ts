@@ -46,13 +46,24 @@ export const Artifact = list({
     },
     filter: {
       query: ({ session }) => {
-        return { siteId: { equals: session.data.siteId } };
+        if (session && session?.data.siteId) {
+          return {
+            siteId: {
+              equals: session.data.siteId,
+            },
+          };
+        }
+        return true;
       },
       update: ({ session }) => {
-        return { siteId: { equals: session.data.siteId } };
+        return session?.data.siteId
+          ? { siteId: { equals: session.data.siteId } }
+          : { isAdmin: { equals: true } };
       },
       delete: ({ session }) => {
-        return { siteId: { equals: session.data.siteId } };
+        return session?.data.siteId
+          ? { siteId: { equals: session.data.siteId } }
+          : { isAdmin: { equals: true } };
       },
     },
   },
@@ -146,8 +157,8 @@ export const Artifact = list({
       }
       return {
         ...resolvedData,
-        siteId: context.session.data.siteId,
-        url: convertStringToURL(title),
+        url: resolvedData.title ? convertStringToURL(title) : undefined,
+        siteId: resolvedData.siteId ? undefined : context.session.data.siteId,
       };
     },
   },

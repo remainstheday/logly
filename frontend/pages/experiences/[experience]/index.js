@@ -26,6 +26,7 @@ export default function Experience({ experience, experiences, comments }) {
   const similarExperiences = experiences.filter(
     (similarExperience) => similarExperience.url !== experience.url
   );
+
   return (
     <>
       <Header />

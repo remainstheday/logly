@@ -67,16 +67,16 @@ export const Experience = list({
       },
     },
     filter: {
-      // query: ({ session }) => {
-      //   if (session && session?.data.siteId) {
-      //     return {
-      //       siteId: {
-      //         equals: session.data.siteId,
-      //       },
-      //     };
-      //   }
-      //   return true;
-      // },
+      query: ({ session }) => {
+        if (session && session?.data.siteId) {
+          return {
+            siteId: {
+              equals: session.data.siteId,
+            },
+          };
+        }
+        return true;
+      },
       update: ({ session }) => {
         return session?.data.siteId
           ? { siteId: { equals: session.data.siteId } }
@@ -112,7 +112,6 @@ export const Experience = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtifacts, title } = resolvedData;
-
       if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
         const artifacts = await relatedArtifacts.connect.map(
           (artifactId: { id: string }) =>
@@ -143,8 +142,8 @@ export const Experience = list({
 
       return {
         ...resolvedData,
-        url: convertStringToURL(title),
-        siteId: context.session.data.siteId,
+        url: resolvedData.title ? convertStringToURL(title) : undefined,
+        siteId: resolvedData.siteId ? undefined : context.session.data.siteId,
       };
     },
   },
