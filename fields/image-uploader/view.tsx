@@ -45,13 +45,18 @@ export const Field = ({
       <FieldLabel>{field.label}</FieldLabel>
       {value.inner && value.inner?.value && (
         <>
-          <img width="300" src={value.inner.value} />
+          <img
+            className="w-full object-center object-cover"
+            width="366"
+            height="241"
+            src={value.inner.value}
+          />
           <Button
             style={{ display: "block" }}
             tone="negative"
             onClick={handleDeleteFile}
           >
-            Remove
+            Delete Image
           </Button>
         </>
       )}

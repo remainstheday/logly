@@ -50,30 +50,34 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
     },
   });
 
-  const renderImagesPreview = uploadedImage.map((file: any) => (
-    <div key={file.name}>
-      <div className="w-full min-h-80 overflow-hidden group-hover:opacity-75">
-        <Image
-          src={file.preview}
-          className="w-full object-center object-cover"
-          width="366"
-          height="241"
-          alt={file.name}
-        />
+  const renderImagesPreview = () =>
+    uploadedImage.map((file: any) => (
+      <div key={file.name}>
+        <div className="w-full min-h-80 overflow-hidden group-hover:opacity-75">
+          <Image
+            src={file.preview}
+            className="w-full object-center object-cover"
+            width="366"
+            height="241"
+            alt={file.name}
+          />
+        </div>
+        <label
+          htmlFor="file-upload"
+          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+        >
+          <span>Change Image</span>
+          <input {...getInputProps()} className="sr-only" />
+        </label>
+        <Button
+          style={{ marginLeft: "1em" }}
+          tone="negative"
+          onClick={() => setUploadedImage([])}
+        >
+          Delete Image
+        </Button>
       </div>
-      <label style={{ cursor: "pointer" }}>
-        <span>Change Image</span>
-        <input {...getInputProps()} className="sr-only" />
-      </label>
-      <Button
-        style={{ marginLeft: "1em" }}
-        tone="negative"
-        onClick={() => setUploadedImage([])}
-      >
-        Remove
-      </Button>
-    </div>
-  ));
+    ));
 
   useEffect(
     () => () => {
@@ -85,7 +89,7 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
 
   return (
     <>
-      {uploadedImage.length > 0 && <div>{renderImagesPreview}</div>}
+      {/*{uploadedImage.length > 0 && <div>{renderImagesPreview()}</div>}*/}
       {uploadedImage.length === 0 && (
         <div {...getRootProps({ className: "dropzone" })}>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
