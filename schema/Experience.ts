@@ -67,16 +67,16 @@ export const Experience = list({
       },
     },
     filter: {
-      query: ({ session }) => {
-        if (session && session?.data.siteId) {
-          return {
-            siteId: {
-              equals: session.data.siteId,
-            },
-          };
-        }
-        return true;
-      },
+      // query: ({ session }) => {
+      //   if (session && session?.data.siteId) {
+      //     return {
+      //       siteId: {
+      //         equals: session.data.siteId,
+      //       },
+      //     };
+      //   }
+      //   return true;
+      // },
       update: ({ session }) => {
         return session?.data.siteId
           ? { siteId: { equals: session.data.siteId } }
