@@ -46,6 +46,7 @@ export const Artifact = list({
     },
     filter: {
       query: ({ session }) => {
+        if (session && session.data.isAdmin) return true;
         if (session && session?.data.siteId) {
           return {
             siteId: {
@@ -56,11 +57,13 @@ export const Artifact = list({
         return true;
       },
       update: ({ session }) => {
+        if (session && session.data.isAdmin) return true;
         return session?.data.siteId
           ? { siteId: { equals: session.data.siteId } }
           : { isAdmin: { equals: true } };
       },
       delete: ({ session }) => {
+        if (session && session.data.isAdmin) return true;
         return session?.data.siteId
           ? { siteId: { equals: session.data.siteId } }
           : { isAdmin: { equals: true } };
