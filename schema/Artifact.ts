@@ -2,7 +2,7 @@ import { list } from "@keystone-6/core";
 import { json, relationship, text } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
-import { OperationAccess } from "schema/permissions";
+import { ItemAccess, OperationAccess } from "./access";
 
 require("dotenv").config();
 
@@ -20,13 +20,11 @@ export const Artifact = list({
     operation: {
       query: OperationAccess.anyone,
       create: OperationAccess.adminOrSiteCuratorOnly,
-      update: ({ session }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
-      delete: ({ session }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
+      update: OperationAccess.adminOrSiteCuratorOnly,
+      delete: OperationAccess.adminOrSiteCuratorOnly,
     },
     item: {
-      create: ({}) => true,
+      create: ItemAccess.adminOrSiteCuratorOnly,
       update: ({ session, context, inputData, item }) => {
         if (session?.data.isAdmin) return true;
         if (session.data.siteId && session.data.siteId === item.siteId)
