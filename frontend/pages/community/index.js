@@ -13,8 +13,10 @@ import ClientOnly from "components/ClientOnly";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
+import { useRouter } from "next/router";
 
 export default function Community({ comments }) {
+  const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
@@ -60,7 +62,7 @@ export default function Community({ comments }) {
           <section className="mt-20 md:mt-32 mx-auto">
             <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
             <hr />
-            {!data && !error && (
+            {query.social === "true" && !data && !error && (
               <ClientOnly>
                 <Formik
                   initialValues={{ username: "", comment: "" }}

@@ -2,6 +2,7 @@ import { list } from "@keystone-6/core";
 import { json, relationship, text } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
+import { OperationAccess } from "schema/permissions";
 
 require("dotenv").config();
 
@@ -17,10 +18,9 @@ type Session = {
 export const Artifact = list({
   access: {
     operation: {
-      query: () => true,
-      create: ({ session, context, operation }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
-      update: ({ session, context }) =>
+      query: OperationAccess.anyone,
+      create: OperationAccess.adminOrSiteCuratorOnly,
+      update: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
       delete: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,

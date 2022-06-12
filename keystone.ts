@@ -22,6 +22,13 @@ const { withAuth } = createAuth({
   },
 });
 
+// todo:
+// create new user object from req
+// test if email already exists
+// test if site id already exists
+// convert site ID into a valid url
+// create a has paid/ not paid flag for user
+// handle error logging without crashing
 export default withAuth(
   config({
     server: {
@@ -30,36 +37,38 @@ export default withAuth(
         app.use(express.json());
         app.post("/api/newUser", async (req, res) => {
           const context = await createContext(req, res);
-          // const hasSiteId = await context.query.Site.findOne({
-          //   where: {
-          //     siteId: convertStringToURL(req.body.siteId),
-          //   },
-          // });
-          // const hasEmail = await context.query.User.findOne({
-          //   where: { email: req.body.email },
-          // });
-          // if (hasSiteId) return "that Site ID already exists";
-          // if (hasEmail) return "User already exists with that email";
+          const newUser = {
+            siteId: convertStringToURL(req.body.siteId),
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+          };
+          if (
+            req.body.siteId &&
+            (await context.query.Site.findOne({
+              where: { siteId: convertStringToURL(req.body.siteId) },
+            }))
+          ) {
+            return "that Site ID already exists";
+          }
+          if (
+            req.body.email &&
+            (await context.query.User.findOne({
+              where: { email: req.body.email },
+            }))
+          ) {
+            return "email is already taken";
+          }
+          if (req.body.password && req.body.password.length < 7) {
+            return "password must be more than 7 characters";
+          }
 
-          // todo:
-          // create new user object from req
-          // test if email already exists
-          // test if site id already exists
-          // convert site ID into a valid url
-          // create a has paid/ not paid flag for user
-          // handle error logging without crashing
-
-          console.log(context);
-          const user = await context.query.User.createOne({
-            data: {
-              siteId: convertStringToURL(req.body.siteId),
-              name: req.body.name,
-              email: req.body.email,
-              password: req.body.password,
-            },
+          await context.query.Site.createOne({
+            data: { siteId: newUser.siteId },
           });
-
-          console.log(user);
+          await context.query.User.createOne({
+            data: newUser,
+          });
         });
       },
     },
