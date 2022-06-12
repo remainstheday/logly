@@ -15,6 +15,7 @@ type Session = {
 };
 
 // not that kind of object
+// @ts-ignore
 export const Artifact = list({
   access: {
     operation: {
@@ -24,15 +25,15 @@ export const Artifact = list({
       delete: OperationAccess.adminOrSiteCuratorOnly,
     },
     item: {
-      create: ItemAccess.adminOrSiteCuratorOnly,
-      update: ({ session, context, inputData, item }) => {
+      create: ({}) => true,
+      update: ({ session, item, inputData }) => {
         if (session?.data.isAdmin) return true;
-        if (session.data.siteId && session.data.siteId === item.siteId)
+        if (session?.data.siteId && session?.data.siteId === item?.siteId)
           return true;
 
         if (
-          session.data.siteId &&
-          session.data.siteId &&
+          session?.data.siteId &&
+          session?.data.siteId &&
           inputData &&
           inputData.siteId &&
           inputData.siteId !== session.data.siteId
@@ -40,6 +41,13 @@ export const Artifact = list({
           return false;
 
         return false;
+      },
+
+      delete: ({ session, context, listKey, operation, item }) => {
+        if (session?.data.isAdmin) return true;
+        return !!(
+          session?.data.siteId && session?.data.siteId === item?.siteId
+        );
       },
     },
     filter: {

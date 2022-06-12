@@ -42,29 +42,29 @@ export const FilterAccess = {
   adminOrSiteCuratorOnly: ({ session }: { session: Session }) =>
     session?.data.isAdmin || session?.data.siteId.length > 0,
 };
-
 export const ItemAccess = {
   adminOrSiteCuratorOnly: ({
     session,
     inputData,
     item,
   }: {
-    session: Session;
-    inputData: InputData;
-    item: Item;
+    session?: Session;
+    inputData?: InputData;
+    item?: Item;
   }) => {
     if (session?.data.isAdmin) return true;
+    if (session?.data.siteId && session?.data.siteId === item?.siteId)
+      return true;
 
-    const siteId = session?.data.siteId;
-    if (siteId) {
-      if (inputData) {
-        if (inputData.siteId !== siteId) return false;
-        if (item && item.siteId === siteId) return true;
-        return true;
-      } else if (item) {
-        return item.siteId === siteId;
-      }
-    }
+    if (
+      session?.data.siteId &&
+      session?.data.siteId &&
+      inputData &&
+      inputData.siteId &&
+      inputData.siteId !== session.data.siteId
+    )
+      return false;
+
     return false;
   },
 };
