@@ -4,12 +4,14 @@
 type Site {
   id: ID!
   siteId: String
-  Title: String
-  slug: String
+  title: String
+  url: String
 }
 
 input SiteWhereUniqueInput {
   id: ID
+  siteId: String
+  url: String
 }
 
 input SiteWhereInput {
@@ -18,8 +20,8 @@ input SiteWhereInput {
   NOT: [SiteWhereInput!]
   id: IDFilter
   siteId: StringFilter
-  Title: StringFilter
-  slug: StringFilter
+  title: StringFilter
+  url: StringFilter
 }
 
 input IDFilter {
@@ -70,8 +72,8 @@ input NestedStringFilter {
 input SiteOrderByInput {
   id: OrderDirection
   siteId: OrderDirection
-  Title: OrderDirection
-  slug: OrderDirection
+  title: OrderDirection
+  url: OrderDirection
 }
 
 enum OrderDirection {
@@ -81,8 +83,8 @@ enum OrderDirection {
 
 input SiteUpdateInput {
   siteId: String
-  Title: String
-  slug: String
+  title: String
+  url: String
 }
 
 input SiteUpdateArgs {
@@ -92,8 +94,8 @@ input SiteUpdateArgs {
 
 input SiteCreateInput {
   siteId: String
-  Title: String
-  slug: String
+  title: String
+  url: String
 }
 
 type Experience {
@@ -130,6 +132,7 @@ type Experience_description_Document {
 input ExperienceWhereUniqueInput {
   id: ID
   url: String
+  siteId: String
 }
 
 input ExperienceWhereInput {
@@ -255,6 +258,7 @@ type Artifact_description_Document {
 input ArtifactWhereUniqueInput {
   id: ID
   url: String
+  siteId: String
 }
 
 input ArtifactWhereInput {
@@ -354,6 +358,7 @@ type PasswordState {
 
 input UserWhereUniqueInput {
   id: ID
+  siteId: String
   email: String
 }
 
@@ -419,6 +424,7 @@ type StaticContent_description_Document {
 input StaticContentWhereUniqueInput {
   id: ID
   url: String
+  siteId: String
 }
 
 input StaticContentWhereInput {

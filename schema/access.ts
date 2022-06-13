@@ -28,6 +28,7 @@ export const OperationAccess = {
   adminOrSiteCuratorOnly: ({ session }: { session: Session }) =>
     !!session?.data.isAdmin || !!session?.data.siteId,
   anyone: () => true,
+  nobody: () => false,
 };
 
 export const FilterAccess = {

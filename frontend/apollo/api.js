@@ -1,5 +1,25 @@
 import { gql } from "@apollo/client";
 
+export const GET_ALL_SITES = gql`
+  {
+    sites {
+      siteId
+      title
+      url
+    }
+  }
+`;
+
+export const GET_SITE_BY_URL = gql`
+  query Site($url: String) {
+    site(where: { url: $url }) {
+      siteId
+      title
+      url
+    }
+  }
+`;
+
 export const GET_STATIC_CONTENTS = gql`
   query staticContents($url: String) {
     staticContents(where: { url: { equals: $url } }) {
@@ -71,7 +91,7 @@ export const GET_EXPERIENCE_BY_SLUG = gql`
 `;
 
 export const GET_ARTIFACT_BY_SLUG = gql`
-  query Object($url: String) {
+  query Artifact($url: String) {
     artifact(where: { url: $url }) {
       id
       title

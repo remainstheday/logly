@@ -1,17 +1,15 @@
 import { list } from "@keystone-6/core";
 import { text } from "@keystone-6/core/fields";
 import { defaults } from "./defaults";
+import { OperationAccess } from "./access";
 
 export const StaticContent = list({
   access: {
     operation: {
-      query: () => true,
-      create: ({ session, context, operation }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
-      update: ({ session, context }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
-      delete: ({ session }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
+      query: OperationAccess.anyone,
+      create: OperationAccess.anyone,
+      update: OperationAccess.adminOrSiteCuratorOnly,
+      delete: OperationAccess.adminOrSiteCuratorOnly,
     },
     item: {
       create: ({}) => true,

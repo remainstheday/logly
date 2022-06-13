@@ -59,10 +59,11 @@ export default function Community({ comments }) {
         <div className="max-w-4xl px-6 md:px-0 mx-auto md:mx-auto">
           <BackLink href={"/"} text={"Home"} />
           <PageTitle largeText={"Community"} />
-          <section className="mt-20 md:mt-32 mx-auto">
-            <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
-            <hr />
-            {query.social === "true" && !data && !error && (
+          {query.social === "true" && !data && !error && (
+            <section className="mt-20 md:mt-32 mx-auto">
+              <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
+              <hr />
+
               <ClientOnly>
                 <Formik
                   initialValues={{ username: "", comment: "" }}
@@ -107,15 +108,16 @@ export default function Community({ comments }) {
                   )}
                 </Formik>
               </ClientOnly>
-            )}
-            {data && (
-              <p className="mt-6 mb-56">
-                Thank you for participating. Your comment has been added to the
-                Community Page!
-              </p>
-            )}
-            {error && <p className="mt-6 mb-56">Error: {error.message}</p>}
-          </section>
+
+              {data && (
+                <p className="mt-6 mb-56">
+                  Thank you for participating. Your comment has been added to
+                  the Community Page!
+                </p>
+              )}
+              {error && <p className="mt-6 mb-56">Error: {error.message}</p>}
+            </section>
+          )}
         </div>
         {filteredComments.length > 0 && (
           <section className="mt-20 md:mt-32 ">

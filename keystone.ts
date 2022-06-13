@@ -32,43 +32,70 @@ const { withAuth } = createAuth({
 export default withAuth(
   config({
     server: {
-      cors: { origin: [`${process.env.FRONTEND_URL}`], credentials: true },
+      cors: {
+        origin: [`${process.env.FRONTEND_URL}`, `${process.env.WEBSITE_URL}`],
+        credentials: true,
+      },
       extendExpressApp: (app, createContext) => {
         app.use(express.json());
         app.post("/api/newUser", async (req, res) => {
           const context = await createContext(req, res);
+          const existingSite = await context.query.Site.findOne({
+            where: {
+              siteId: `${convertStringToURL(req.body.siteId)}`,
+            },
+          });
+
+          const existingUser = await context.query.User.findOne({
+            where: { email: `${req.body.email}` },
+          });
+
+          if (existingSite) {
+            console.log("An organization with that name already exists.");
+            return "An organization with that name already exists.";
+          }
+          if (existingUser) {
+            console.log("A user with that email already exists.");
+            return "A user with that email already exists.";
+          }
+          if (req.body.password && req.body.password.length < 7)
+            return "password must be more than 7 characters";
+
           const newUser = {
-            siteId: convertStringToURL(req.body.siteId),
+            siteId: `${convertStringToURL(req.body.siteId)}`,
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
           };
-          if (
-            req.body.siteId &&
-            (await context.query.Site.findOne({
-              where: { siteId: convertStringToURL(req.body.siteId) },
-            }))
-          ) {
-            return "that Site ID already exists";
-          }
-          if (
-            req.body.email &&
-            (await context.query.User.findOne({
-              where: { email: req.body.email },
-            }))
-          ) {
-            return "email is already taken";
-          }
-          if (req.body.password && req.body.password.length < 7) {
-            return "password must be more than 7 characters";
-          }
+
+          const newSite = {
+            siteId: `${convertStringToURL(req.body.siteId)}`,
+            title: req.body.siteId,
+            url: convertStringToURL(req.body.siteId),
+          };
 
           await context.query.Site.createOne({
-            data: { siteId: newUser.siteId },
+            data: newSite,
           });
           await context.query.User.createOne({
             data: newUser,
           });
+          await context.query.StaticContent.createOne({
+            data: {
+              name: "Home",
+              title: "Logly Studio",
+              url: "",
+              siteId: newSite.siteId,
+            },
+          });
+          // await context.query.StaticContent.createOne({
+          //   data: {
+          //     name: "About",
+          //     title: "About",
+          //     url: "about",
+          //     siteId: newSite.siteId,
+          //   },
+          // });
         });
       },
     },
@@ -118,77 +145,7 @@ export default withAuth(
       provider: process.env.DATABASE_PROVIDER,
       url: process.env.DATABASE_URL!,
       idField: { kind: "uuid" },
-      // @ts-ignore
       useMigrations: true,
-      async onConnect(context) {
-        const homepage = await context.prisma.staticContent.count({
-          where: { name: "Home" },
-        });
-
-        const about = await context.prisma.staticContent.count({
-          where: { name: "About" },
-        });
-
-        const media = await context.prisma.staticContent.count({
-          where: { name: "Media" },
-        });
-
-        const terms = await context.prisma.staticContent.count({
-          where: { name: "Terms of Use" },
-        });
-
-        const privacy = await context.prisma.staticContent.count({
-          where: { name: "Privacy Policy" },
-        });
-
-        if (homepage === 0) {
-          await context.prisma.staticContent.create({
-            data: {
-              name: "Home",
-              title: "Logly Studio",
-              url: "",
-            },
-          });
-        }
-
-        if (about === 0) {
-          await context.prisma.staticContent.create({
-            data: {
-              name: "About",
-              title: "About",
-              url: "about",
-            },
-          });
-        }
-        if (media === 0) {
-          await context.prisma.staticContent.create({
-            data: {
-              name: "Media",
-              title: "Media",
-              url: "media",
-            },
-          });
-        }
-        if (terms === 0) {
-          await context.prisma.staticContent.create({
-            data: {
-              name: "Terms of Use",
-              title: "Terms of Use",
-              url: "termsofuse",
-            },
-          });
-        }
-
-        if (privacy === 0) {
-          await context.prisma.staticContent.create({
-            data: {
-              name: "Privacy Policy",
-              title: "Privacy Policy",
-              url: "privacy-policy",
-            },
-          });
-        }
-      },
     },
   })
 );

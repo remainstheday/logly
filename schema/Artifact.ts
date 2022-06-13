@@ -14,8 +14,6 @@ type Session = {
   };
 };
 
-// not that kind of object
-// @ts-ignore
 export const Artifact = list({
   access: {
     operation: {
