@@ -44,7 +44,7 @@ export default function Experience({ experience, experiences, comments }) {
           </div>
 
           {experience.description && (
-            <Section className="wysiwyg-editor">
+            <Section className="wysiwyg-editor prose">
               <DocumentRenderer document={experience.description.document} />
             </Section>
           )}
