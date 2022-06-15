@@ -47,7 +47,6 @@ export async function getStaticProps() {
     query: GET_ALL_EXPERIENCES,
   });
 
-  console.log(data);
   return addApolloState(apolloClient, {
     props: {
       experiences: data.experiences.filter(

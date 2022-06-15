@@ -32,12 +32,9 @@ export default function IndexPage({ sites }) {
 
 export async function getStaticProps() {
   const apolloClient = initializeApollo();
-
   const sites = await apolloClient.query({
     query: GET_ALL_SITES,
   });
-
-  console.log(sites);
 
   return addApolloState(apolloClient, {
     props: {

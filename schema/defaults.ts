@@ -67,7 +67,7 @@ export const defaults = {
   siteId: text({
     isIndexed: "unique",
     ui: {
-      createView: { fieldMode: "hidden" },
+      createView: { fieldMode: "edit" },
       itemView: { fieldMode: "read" },
       listView: { fieldMode: "read" },
     },

@@ -9,6 +9,10 @@ type Session = {
   };
 };
 
+// todo: create a new boolean hasPaid
+// todo: add hasPaid to session
+// todo: create custom fields in stripe for username, museumId, password, email
+// todo: listen to stripe API for hasPaid
 export const User = list({
   fields: {
     siteId: defaults.siteId,

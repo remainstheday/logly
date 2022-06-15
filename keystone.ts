@@ -38,28 +38,35 @@ export default withAuth(
       },
       extendExpressApp: (app, createContext) => {
         app.use(express.json());
-        app.post("/api/newUser", async (req, res) => {
+        app.post("/api/newUser", async (req, res, next) => {
           const context = await createContext(req, res);
-          const existingSite = await context.query.Site.findOne({
+
+          const existingId = await context.query.Site.findOne({
             where: {
               siteId: `${convertStringToURL(req.body.siteId)}`,
             },
           });
-
-          const existingUser = await context.query.User.findOne({
+          const existingEmail = await context.query.User.findOne({
             where: { email: `${req.body.email}` },
           });
 
-          if (existingSite) {
+          if (existingId === null) {
             console.log("An organization with that name already exists.");
-            return "An organization with that name already exists.";
+
+            return res.status(400).json({
+              message: "An organization with that name already exists.",
+            });
           }
-          if (existingUser) {
+          if (existingEmail === null) {
             console.log("A user with that email already exists.");
-            return "A user with that email already exists.";
+
+            return res.status(400).json({
+              message: "A user with that email already exists.",
+            });
           }
-          if (req.body.password && req.body.password.length < 7)
-            return "password must be more than 7 characters";
+          if (req.body.password && req.body.password.length < 7) {
+            throw new Error("password must be more than 7 characters");
+          }
 
           const newUser = {
             siteId: `${convertStringToURL(req.body.siteId)}`,
@@ -73,29 +80,29 @@ export default withAuth(
             title: req.body.siteId,
             url: convertStringToURL(req.body.siteId),
           };
-
-          await context.query.Site.createOne({
-            data: newSite,
-          });
-          await context.query.User.createOne({
-            data: newUser,
-          });
-          await context.query.StaticContent.createOne({
-            data: {
-              name: "Home",
-              title: "Logly Studio",
-              url: "",
-              siteId: newSite.siteId,
-            },
-          });
-          // await context.query.StaticContent.createOne({
-          //   data: {
-          //     name: "About",
-          //     title: "About",
-          //     url: "about",
-          //     siteId: newSite.siteId,
-          //   },
-          // });
+          try {
+            await context.query.Site.createOne({
+              data: newSite,
+            });
+            await context.query.User.createOne({
+              data: newUser,
+            });
+            await context.query.StaticContent.createOne({
+              data: {
+                name: "Home",
+                title: "Logly Studio",
+                url: "",
+                siteId: newSite.siteId,
+              },
+            });
+            return res.json({
+              message: "successful",
+            });
+          } catch (e) {
+            return res.status(400).json({
+              message: "Issue registering a new account",
+            });
+          }
         });
       },
     },
