@@ -1,16 +1,9 @@
 import Footer from "components/Footer";
 import Header from "components/Header";
-import PageTitle from "components/PageTitle";
-import SectionLink from "components/SectionLink";
 import { GET_ALL_SITES } from "apollo/api";
-import Image from "next/image";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
-import CommentCard from "components/CommentCard";
 import React from "react";
-import Link from "next/link";
-import Section from "components/Section";
-import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function IndexPage({ sites }) {
   if (!sites) return <PageLoading />;
