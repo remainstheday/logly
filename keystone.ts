@@ -8,7 +8,7 @@ import { Site } from "./schema/Site";
 import { Artifact } from "./schema/Artifact";
 import { User } from "./schema/User";
 import { Experience } from "./schema/Experience";
-import { StaticContent } from "./schema/StaticContent";
+import { SiteContent } from "./schema/SiteContent";
 import { Comment } from "./schema/Comment";
 import express from "express";
 
@@ -87,7 +87,7 @@ export default withAuth(
             await context.query.User.createOne({
               data: newUser,
             });
-            await context.query.StaticContent.createOne({
+            await context.query.SiteContent.createOne({
               data: {
                 name: "Home",
                 title: "Logly Studio",
@@ -139,7 +139,7 @@ export default withAuth(
       Experience,
       Artifact,
       User,
-      StaticContent,
+      SiteContent,
       Comment,
     },
     session: statelessSessions({
@@ -153,6 +153,43 @@ export default withAuth(
       url: process.env.DATABASE_URL!,
       idField: { kind: "uuid" },
       useMigrations: true,
+      async onConnect(context) {
+        const defaultSite = await context.prisma.site.count({
+          where: { siteId: "logly-studio" },
+        });
+        const defaultUser = await context.prisma.user.count({
+          where: { email: "trentontri@gmail.com" },
+        });
+        if (defaultSite === 0) {
+          await context.query.Site.createOne({
+            data: {
+              siteId: "logly-studio",
+              title: "Logly Studio",
+              url: "logly-studio",
+            },
+          });
+          await context.query.SiteContent.createOne({
+            data: {
+              name: "Home",
+              title: "Logly Studio",
+              url: "logly-studio",
+              siteId: "logly-studio",
+            },
+          });
+        }
+
+        if (defaultUser === 0) {
+          await context.query.User.createOne({
+            data: {
+              siteId: "logly-studio",
+              isAdmin: true,
+              password: `${process.env.ADMIN_PASSWORD}`,
+              name: "Trenton",
+              email: "trentontri@gmail.com",
+            },
+          });
+        }
+      },
     },
   })
 );

@@ -20,9 +20,9 @@ export const GET_SITE_BY_URL = gql`
   }
 `;
 
-export const GET_STATIC_CONTENTS = gql`
-  query staticContents($url: String) {
-    staticContents(where: { url: { equals: $url } }) {
+export const GET_SITE_CONTENT = gql`
+  query SiteContent($siteId: String) {
+    siteContent(where: { siteId: $siteId }) {
       id
       url
       name
@@ -35,12 +35,13 @@ export const GET_STATIC_CONTENTS = gql`
   }
 `;
 
-export const GET_ALL_EXPERIENCES = gql`
-  {
-    experiences {
+export const GET_EXPERIENCES_BY_SITE_ID = gql`
+  query Experiences($siteId: String) {
+    experiences(where: { siteId: { equals: $siteId } }) {
       id
       title
       url
+      siteId
       description {
         document
       }

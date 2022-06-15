@@ -2,13 +2,6 @@ import { list } from "@keystone-6/core";
 import { checkbox, password, text } from "@keystone-6/core/fields";
 import { defaults } from "./defaults";
 
-type Session = {
-  data: {
-    id: string;
-    isAdmin: boolean;
-  };
-};
-
 // todo: create a new boolean hasPaid
 // todo: add hasPaid to session
 // todo: create custom fields in stripe for username, museumId, password, email

@@ -5,7 +5,10 @@ import SectionLink from "components/SectionLink";
 import {
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
-  GET_STATIC_CONTENTS,
+  GET_ALL_SITES,
+  GET_EXPERIENCES_BY_SITE_ID,
+  GET_EXPERIENCES_BY_SITEID,
+  GET_SITE_CONTENT,
 } from "apollo/api";
 import Image from "next/image";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
@@ -18,33 +21,32 @@ import { DocumentRenderer } from "@keystone-6/document-renderer";
 
 export default function IndexPage({ content, experiences, comments }) {
   if (!content || !experiences) return <PageLoading />;
-  const homepage = content[0];
-  const filteredComments = comments.filter((comment) => comment.image);
-  const renderDescription =
-    homepage.description && homepage.description.document.length > 0;
+  // const filteredComments = comments.filter((comment) => comment.image);
+  // const renderDescription =
+  //   homepage.description && homepage.description.document.length > 0;
   return (
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <main>
-          {homepage.title && (
-            <PageTitle smallText={"welcome to"} largeText={homepage.title} />
+          {content.title && (
+            <PageTitle smallText={"welcome to"} largeText={content.title} />
           )}
 
-          {homepage.staticPageImages && (
+          {content.staticPageImages && (
             <div className="flex relative my-16">
               <Image
-                src={homepage.staticPageImages}
+                src={content.staticPageImages}
                 width="1080"
                 height="720"
-                alt={homepage.title}
+                alt={content.title}
               />
             </div>
           )}
 
-          {renderDescription && (
+          {content.description && (
             <Section className="wysiwyg-editor">
-              <DocumentRenderer document={homepage.description.document} />
+              <DocumentRenderer document={content.description.document} />
             </Section>
           )}
 
@@ -78,18 +80,18 @@ export default function IndexPage({ content, experiences, comments }) {
             </Section>
           )}
 
-          {filteredComments.length > 0 && (
-            <Section title="Community">
-              <div className="py-6 grid md:grid-cols-2 gap-4">
-                {filteredComments.map((comment) => (
-                  <CommentCard key={comment.id} comment={comment} />
-                ))}
-              </div>
-              <div className="mt-6 px-6 md:px-0">
-                <SectionLink href={`/community`} text={"Discover Community"} />
-              </div>
-            </Section>
-          )}
+          {/*{filteredComments.length > 0 && (*/}
+          {/*  <Section title="Community">*/}
+          {/*    <div className="py-6 grid md:grid-cols-2 gap-4">*/}
+          {/*      {filteredComments.map((comment) => (*/}
+          {/*        <CommentCard key={comment.id} comment={comment} />*/}
+          {/*      ))}*/}
+          {/*    </div>*/}
+          {/*    <div className="mt-6 px-6 md:px-0">*/}
+          {/*      <SectionLink href={`/community`} text={"Discover Community"} />*/}
+          {/*    </div>*/}
+          {/*  </Section>*/}
+          {/*)}*/}
         </main>
       </div>
       <Footer />
@@ -97,16 +99,33 @@ export default function IndexPage({ content, experiences, comments }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
+    query: GET_ALL_SITES,
+  });
+  const paths =
+    data.sites.map((item) => ({
+      params: { site: item.url },
+    })) || [];
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
 
   const content = await apolloClient.query({
-    query: GET_STATIC_CONTENTS,
-    variables: { url: "" },
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
   });
 
   const experiences = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
+    query: GET_EXPERIENCES_BY_SITE_ID,
+    variables: { siteId: params.site },
   });
 
   const comments = await apolloClient.query({
@@ -115,9 +134,11 @@ export async function getStaticProps() {
 
   return addApolloState(apolloClient, {
     props: {
-      content: content.data.staticContents,
+      content: content.data.siteContent,
       experiences: experiences.data.experiences.filter(
-        (experience) => experience.status === "published"
+        (experience) =>
+          experience.status === "published" &&
+          experience.experienceImages.length > 0
       ),
       comments: comments.data.comments,
     },

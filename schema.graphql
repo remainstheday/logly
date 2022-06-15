@@ -407,30 +407,30 @@ input UserCreateInput {
   password: String
 }
 
-type StaticContent {
+type SiteContent {
   id: ID!
   name: String
   title: String
   staticPageImages: String
-  description: StaticContent_description_Document
+  description: SiteContent_description_Document
   url: String
   siteId: String
 }
 
-type StaticContent_description_Document {
+type SiteContent_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
 
-input StaticContentWhereUniqueInput {
+input SiteContentWhereUniqueInput {
   id: ID
   url: String
   siteId: String
 }
 
-input StaticContentWhereInput {
-  AND: [StaticContentWhereInput!]
-  OR: [StaticContentWhereInput!]
-  NOT: [StaticContentWhereInput!]
+input SiteContentWhereInput {
+  AND: [SiteContentWhereInput!]
+  OR: [SiteContentWhereInput!]
+  NOT: [SiteContentWhereInput!]
   id: IDFilter
   name: StringFilter
   title: StringFilter
@@ -439,7 +439,7 @@ input StaticContentWhereInput {
   siteId: StringFilter
 }
 
-input StaticContentOrderByInput {
+input SiteContentOrderByInput {
   id: OrderDirection
   name: OrderDirection
   title: OrderDirection
@@ -448,7 +448,7 @@ input StaticContentOrderByInput {
   siteId: OrderDirection
 }
 
-input StaticContentUpdateInput {
+input SiteContentUpdateInput {
   name: String
   title: String
   staticPageImages: String
@@ -457,12 +457,12 @@ input StaticContentUpdateInput {
   siteId: String
 }
 
-input StaticContentUpdateArgs {
-  where: StaticContentWhereUniqueInput!
-  data: StaticContentUpdateInput!
+input SiteContentUpdateArgs {
+  where: SiteContentWhereUniqueInput!
+  data: SiteContentUpdateInput!
 }
 
-input StaticContentCreateInput {
+input SiteContentCreateInput {
   name: String
   title: String
   staticPageImages: String
@@ -575,17 +575,15 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
-  createStaticContent(data: StaticContentCreateInput!): StaticContent
-  createStaticContents(data: [StaticContentCreateInput!]!): [StaticContent]
-  updateStaticContent(
-    where: StaticContentWhereUniqueInput!
-    data: StaticContentUpdateInput!
-  ): StaticContent
-  updateStaticContents(data: [StaticContentUpdateArgs!]!): [StaticContent]
-  deleteStaticContent(where: StaticContentWhereUniqueInput!): StaticContent
-  deleteStaticContents(
-    where: [StaticContentWhereUniqueInput!]!
-  ): [StaticContent]
+  createSiteContent(data: SiteContentCreateInput!): SiteContent
+  createSiteContents(data: [SiteContentCreateInput!]!): [SiteContent]
+  updateSiteContent(
+    where: SiteContentWhereUniqueInput!
+    data: SiteContentUpdateInput!
+  ): SiteContent
+  updateSiteContents(data: [SiteContentUpdateArgs!]!): [SiteContent]
+  deleteSiteContent(where: SiteContentWhereUniqueInput!): SiteContent
+  deleteSiteContents(where: [SiteContentWhereUniqueInput!]!): [SiteContent]
   createComment(data: CommentCreateInput!): Comment
   createComments(data: [CommentCreateInput!]!): [Comment]
   updateComment(
@@ -657,14 +655,14 @@ type Query {
   ): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
-  staticContents(
-    where: StaticContentWhereInput! = {}
-    orderBy: [StaticContentOrderByInput!]! = []
+  siteContents(
+    where: SiteContentWhereInput! = {}
+    orderBy: [SiteContentOrderByInput!]! = []
     take: Int
     skip: Int! = 0
-  ): [StaticContent!]
-  staticContent(where: StaticContentWhereUniqueInput!): StaticContent
-  staticContentsCount(where: StaticContentWhereInput! = {}): Int
+  ): [SiteContent!]
+  siteContent(where: SiteContentWhereUniqueInput!): SiteContent
+  siteContentsCount(where: SiteContentWhereInput! = {}): Int
   comments(
     where: CommentWhereInput! = {}
     orderBy: [CommentOrderByInput!]! = []

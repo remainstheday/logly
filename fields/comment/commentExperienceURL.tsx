@@ -8,7 +8,6 @@ export const Field = ({
   value,
   onChange,
 }: FieldProps<typeof controller>) => {
-  console.log(value);
   return (
     <>
       {value.inner.kind === "value" && value.inner.value.length > 0 && (

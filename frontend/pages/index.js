@@ -14,7 +14,9 @@ export default function IndexPage({ sites }) {
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <main>
           {sites.map((site) => (
-            <h1 key={site.siteId}>{site.title}</h1>
+            <a href={`/${site.url}`} key={site.siteId}>
+              {site.title}
+            </a>
           ))}
         </main>
       </div>

@@ -54,7 +54,7 @@ model User {
   password String
 }
 
-model StaticContent {
+model SiteContent {
   id               String @id @default(uuid()) @postgresql.Uuid
   name             String @default("")
   title            String @default("")

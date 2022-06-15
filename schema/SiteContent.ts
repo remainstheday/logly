@@ -3,7 +3,7 @@ import { text } from "@keystone-6/core/fields";
 import { defaults } from "./defaults";
 import { OperationAccess } from "./access";
 
-export const StaticContent = list({
+export const SiteContent = list({
   access: {
     operation: {
       query: OperationAccess.anyone,
