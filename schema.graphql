@@ -10,7 +10,6 @@ type Site {
 
 input SiteWhereUniqueInput {
   id: ID
-  siteId: String
   url: String
 }
 
@@ -132,7 +131,6 @@ type Experience_description_Document {
 input ExperienceWhereUniqueInput {
   id: ID
   url: String
-  siteId: String
 }
 
 input ExperienceWhereInput {
@@ -258,7 +256,6 @@ type Artifact_description_Document {
 input ArtifactWhereUniqueInput {
   id: ID
   url: String
-  siteId: String
 }
 
 input ArtifactWhereInput {
@@ -358,7 +355,6 @@ type PasswordState {
 
 input UserWhereUniqueInput {
   id: ID
-  siteId: String
   email: String
 }
 
@@ -424,7 +420,6 @@ type SiteContent_description_Document {
 input SiteContentWhereUniqueInput {
   id: ID
   url: String
-  siteId: String
 }
 
 input SiteContentWhereInput {

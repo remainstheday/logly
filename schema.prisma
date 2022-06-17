@@ -13,7 +13,7 @@ generator client {
 
 model Site {
   id     String @id @default(uuid()) @postgresql.Uuid
-  siteId String @unique @default("")
+  siteId String @default("")
   title  String @default("")
   url    String @unique @default("")
 }
@@ -28,7 +28,7 @@ model Experience {
   description      Json                 @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   relatedArtifacts Artifact[]           @relation("Artifact_relatedExperiences")
   url              String               @unique @default("")
-  siteId           String               @unique @default("")
+  siteId           String               @default("")
 }
 
 model Artifact {
@@ -41,13 +41,13 @@ model Artifact {
   description        Json               @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   relatedExperiences Experience[]       @relation("Artifact_relatedExperiences")
   url                String             @unique @default("")
-  siteId             String             @unique @default("")
+  siteId             String             @default("")
   qrCodes            Json?
 }
 
 model User {
   id       String  @id @default(uuid()) @postgresql.Uuid
-  siteId   String  @unique @default("")
+  siteId   String  @default("")
   isAdmin  Boolean @default(false)
   name     String  @default("")
   email    String  @unique @default("")
@@ -61,7 +61,7 @@ model SiteContent {
   staticPageImages String @default("")
   description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   url              String @unique @default("")
-  siteId           String @unique @default("")
+  siteId           String @default("")
 }
 
 model Comment {
