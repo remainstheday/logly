@@ -3,39 +3,6 @@ import { relationship, text, timestamp } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
 
-// const ItemAccess = {
-//   // logly internal manage any data, logly customers manage their own data only
-//   adminOrMuseumCuratorOnly: ({ session, inputData, item }: { session: Session, inputData: InputData, item: Item }) => { // fix the TypeScript defs if wrong
-//     if (session?.data.isAdmin) return true;
-//
-//     // is a museum curator
-//     const museumId = session?.data.museumId;
-//     if (museumId) {
-//       // for create or update
-//       if (inputData) {
-//         // confirm data doesn't use wrong museum
-//         if (inputData.museumId !== museumId) {
-//           return false;
-//         }
-//
-//         // existing items must match
-//         if (item && item.museumId === museumId) {
-//           return true;
-//         }
-//
-//         // allow create
-//         return true;
-//       }
-//       // for delete
-//       else if (item) {
-//         // museum must match
-//         return (item.museumId === museumId);
-//       }
-//     }
-//
-//     return false;
-//   }
-// }
 export const Experience = list({
   access: {
     operation: {
@@ -115,6 +82,14 @@ export const Experience = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtifacts, title } = resolvedData;
+      // these should return undefined if the data already exists so we don't mutate them
+      const siteId = resolvedData.siteId
+        ? undefined
+        : context.session.data.siteId;
+      const url = resolvedData.title
+        ? `/${siteId}/${convertStringToURL(title)}`
+        : undefined;
+
       if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
         const artifacts = await relatedArtifacts.connect.map(
           (artifactId: { id: string }) =>
@@ -145,8 +120,8 @@ export const Experience = list({
 
       return {
         ...resolvedData,
-        url: resolvedData.title ? convertStringToURL(title) : undefined,
-        siteId: resolvedData.siteId ? undefined : context.session.data.siteId,
+        url,
+        siteId,
       };
     },
   },

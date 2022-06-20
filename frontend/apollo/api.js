@@ -21,12 +21,13 @@ export const GET_SITE_BY_URL = gql`
 `;
 
 export const GET_SITE_CONTENT = gql`
-  query SiteContent($siteId: String) {
-    siteContent(where: { siteId: $siteId }) {
+  query SiteContent($url: String) {
+    siteContent(where: { url: $url }) {
       id
       url
       name
       title
+      siteId
       staticPageImages
       description {
         document
@@ -38,6 +39,24 @@ export const GET_SITE_CONTENT = gql`
 export const GET_EXPERIENCES_BY_SITE_ID = gql`
   query Experiences($siteId: String) {
     experiences(where: { siteId: { equals: $siteId } }) {
+      id
+      title
+      url
+      siteId
+      description {
+        document
+      }
+      experienceImages
+      startDate
+      endDate
+      status
+    }
+  }
+`;
+
+export const GET_ALL_EXPERIENCES = gql`
+  query Experiences {
+    experiences {
       id
       title
       url
@@ -117,8 +136,8 @@ export const GET_ARTIFACT_BY_SLUG = gql`
 `;
 
 export const GET_ALL_COMMENTS = gql`
-  {
-    comments {
+  query Comments($siteId: String) {
+    comments(where: { siteId: { equals: $siteId } }) {
       id
       username
       comment

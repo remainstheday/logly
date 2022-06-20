@@ -1,8 +1,32 @@
-import { select, text } from "@keystone-6/core/fields";
+import {
+  json,
+  relationship,
+  select,
+  text,
+  timestamp,
+} from "@keystone-6/core/fields";
 import { document } from "@keystone-6/fields-document";
 
 export const defaults = {
+  artist: text({ validation: { isRequired: true } }),
   title: text({ label: "Page Title", validation: { isRequired: true } }),
+  qrCodes: json({
+    ui: {
+      views: require.resolve("../fields/qrcode/view.tsx"),
+      createView: { fieldMode: "hidden" },
+      itemView: { fieldMode: "read" },
+      listView: { fieldMode: "hidden" },
+    },
+  }),
+  relatedExperiences: relationship({
+    ref: "Experience.relatedArtifacts",
+    many: true,
+    ui: {
+      createView: { fieldMode: "edit" },
+      listView: { fieldMode: "read" },
+      itemView: { fieldMode: "edit" },
+    },
+  }),
   images: (label = "Image Uploads") =>
     text({
       label,
@@ -71,4 +95,54 @@ export const defaults = {
       listView: { fieldMode: "read" },
     },
   }),
+  comment: {
+    timestamp: timestamp({
+      ui: {
+        createView: { fieldMode: "edit" },
+        itemView: { fieldMode: "read" },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
+    }),
+    username: text({
+      ui: {
+        createView: { fieldMode: "edit" },
+        itemView: { fieldMode: "read" },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
+    }),
+    image: text({
+      ui: {
+        views: require.resolve("../fields/comment/view.tsx"),
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+      label: "Image",
+    }),
+    comment: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+    }),
+    experienceURL: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+    }),
+    artifactURL: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+    }),
+  },
 };

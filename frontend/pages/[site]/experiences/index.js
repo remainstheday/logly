@@ -1,4 +1,4 @@
-import { GET_ALL_EXPERIENCES } from "apollo/api";
+import { GET_ALL_SITES, GET_EXPERIENCES_BY_SITE_ID } from "apollo/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Thumbnail from "components/Thumbnail";
@@ -7,8 +7,11 @@ import React from "react";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
+import { useRouter } from "next/router";
 
 export default function Experience({ experiences }) {
+  const { query } = useRouter();
+  console.log(query);
   if (!experiences) return <PageLoading />;
   return (
     <>
@@ -21,7 +24,7 @@ export default function Experience({ experiences }) {
             {experiences.map((experience) => (
               <div key={experience.id}>
                 <Thumbnail
-                  href={`/experiences/${experience.url}`}
+                  href={`/${query.site}/experiences/${experience.url}`}
                   title={experience.title}
                   image={
                     experience.experienceImages
@@ -41,15 +44,32 @@ export default function Experience({ experiences }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
+    query: GET_ALL_SITES,
+  });
+  const paths =
+    data.sites.map((item) => ({
+      params: { site: item.url },
+    })) || [];
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const apolloClient = initializeApollo();
+  const experiences = await apolloClient.query({
+    query: GET_EXPERIENCES_BY_SITE_ID,
+    variables: { siteId: params.site },
   });
 
   return addApolloState(apolloClient, {
     props: {
-      experiences: data.experiences.filter(
+      experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
     },

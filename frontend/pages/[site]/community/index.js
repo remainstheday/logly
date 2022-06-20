@@ -36,6 +36,7 @@ export default function Community({ comments }) {
           update: (cache, { data }) => {
             const { comments } = cache.readQuery({
               query: GET_ALL_COMMENTS,
+              variables: { siteId: query.site },
             });
 
             cache.writeQuery({
@@ -166,11 +167,14 @@ export default function Community({ comments }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticPaths() {}
+
+export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
 
   const { data } = await apolloClient.query({
     query: GET_ALL_COMMENTS,
+    variables: { siteId: params.site },
   });
 
   return addApolloState(apolloClient, {

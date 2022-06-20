@@ -6,15 +6,19 @@ import { ItemAccess, OperationAccess } from "./access";
 
 require("dotenv").config();
 
-type Session = {
-  data: {
-    id: string;
-    isAdmin: boolean;
-    siteId: string;
-  };
-};
-
 export const Artifact = list({
+  fields: {
+    status: defaults.status,
+    title: defaults.title,
+    artist: defaults.artist,
+    artifactImages: defaults.images("Artifact Image"),
+    audioFile: defaults.audioFile,
+    description: defaults.document,
+    relatedExperiences: defaults.relatedExperiences,
+    url: defaults.url,
+    siteId: defaults.siteId,
+    qrCodes: defaults.qrCodes,
+  },
   access: {
     operation: {
       query: OperationAccess.anyone,
@@ -41,7 +45,7 @@ export const Artifact = list({
         return false;
       },
 
-      delete: ({ session, context, listKey, operation, item }) => {
+      delete: ({ session, item }) => {
         if (session?.data.isAdmin) return true;
         return !!(
           session?.data.siteId && session?.data.siteId === item?.siteId
@@ -80,36 +84,16 @@ export const Artifact = list({
       initialColumns: ["title", "status", "relatedExperiences"],
     },
   },
-  fields: {
-    status: defaults.status,
-    title: defaults.title,
-    artist: text({ validation: { isRequired: true } }),
-    artifactImages: defaults.images("Artifact Image"),
-    audioFile: defaults.audioFile,
-    description: defaults.document,
-    relatedExperiences: relationship({
-      ref: "Experience.relatedArtifacts",
-      many: true,
-      ui: {
-        createView: { fieldMode: "edit" },
-        listView: { fieldMode: "read" },
-        itemView: { fieldMode: "edit" },
-      },
-    }),
-    url: defaults.url,
-    siteId: defaults.siteId,
-    qrCodes: json({
-      ui: {
-        views: require.resolve("../fields/qrcode/view.tsx"),
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "hidden" },
-      },
-    }),
-  },
+
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
+      const siteId = resolvedData.siteId
+        ? undefined
+        : context.session.data.siteId;
+      const url = resolvedData.title
+        ? `/${siteId}/${convertStringToURL(title)}`
+        : undefined;
       const existingQRCodes =
         item && item.qrCodes && item.qrCodes.length > 0 ? item.qrCodes : [];
 
@@ -164,8 +148,8 @@ export const Artifact = list({
       }
       return {
         ...resolvedData,
-        url: resolvedData.title ? convertStringToURL(title) : undefined,
-        siteId: resolvedData.siteId ? undefined : context.session.data.siteId,
+        url,
+        siteId,
       };
     },
   },

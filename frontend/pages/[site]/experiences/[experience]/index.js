@@ -6,7 +6,9 @@ import { format } from "date-fns";
 import {
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
+  GET_ALL_SITES,
   GET_EXPERIENCE_BY_SLUG,
+  GET_EXPERIENCES_BY_SITE_ID,
 } from "apollo/api";
 import Link from "next/link";
 import React from "react";
@@ -143,13 +145,25 @@ export default function Experience({ experience, experiences, comments }) {
 
 export async function getStaticPaths() {
   const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query({
+  const sites = await apolloClient.query({
+    query: GET_ALL_SITES,
+  });
+  const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
-  const paths =
-    data.experiences.map((item) => ({
-      params: { experience: item.url },
-    })) || [];
+
+  const paths = sites.data.sites
+    .map((site) => {
+      return experiences.data.experiences.map((experience) => {
+        return {
+          params: {
+            site: site.url,
+            experience: `${site.url}/${experience.url}`,
+          },
+        };
+      });
+    })
+    .flat();
 
   return {
     paths,
@@ -159,17 +173,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
-
   const experience = await apolloClient.query({
     query: GET_EXPERIENCE_BY_SLUG,
-    variables: { url: `${params.experience}` },
+    variables: { url: `${params.site}/${params.experience}` },
   });
   const experiences = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
+    query: GET_EXPERIENCES_BY_SITE_ID,
+    variables: { siteId: params.site },
   });
-
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
+    variables: { siteId: params.site },
   });
 
   if (!experience || experience.data.experience.status !== "published") {

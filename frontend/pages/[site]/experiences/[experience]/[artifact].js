@@ -4,9 +4,9 @@ import Header from "components/Header";
 import {
   GET_ALL_ARTIFACTS,
   GET_ALL_COMMENTS,
-  GET_ALL_EXPERIENCES,
   GET_EXPERIENCE_BY_SLUG,
   GET_ARTIFACT_BY_SLUG,
+  GET_EXPERIENCES_BY_SITE_ID,
 } from "apollo/api";
 import Link from "next/link";
 import Image from "next/image";
@@ -38,7 +38,6 @@ export default function Artifact({
     (comment) => comment.image && comment.artifactURL === artifact.url
   );
 
-  // const hasSimilarArtifacts = relatedArtifacts.length > 0;
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
@@ -146,7 +145,10 @@ export default function Artifact({
 export async function getStaticPaths() {
   const apolloClient = initializeApollo();
   const experiences = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
+    query: GET_EXPERIENCES_BY_SITE_ID,
+    variables: {
+      siteId: "",
+    },
   });
   const artifacts = await apolloClient.query({
     query: GET_ALL_ARTIFACTS,

@@ -1,70 +1,22 @@
 import { list } from "@keystone-6/core";
-import { text, timestamp } from "@keystone-6/core/fields";
+import { defaults } from "./defaults";
 
 export const Comment = list({
   fields: {
-    timestamp: timestamp({
-      ui: {
-        createView: { fieldMode: "edit" },
-        itemView: { fieldMode: "read" },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
-      },
-    }),
-    username: text({
-      ui: {
-        createView: { fieldMode: "edit" },
-        itemView: { fieldMode: "read" },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
-      },
-    }),
-    image: text({
-      ui: {
-        views: require.resolve("../fields/comment/view.tsx"),
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-      label: "Image",
-    }),
-    comment: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    experienceURL: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    artifactURL: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    siteId: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "hidden" },
-        listView: { fieldMode: "hidden" },
-      },
-    }),
+    timestamp: defaults.comment.timestamp,
+    username: defaults.comment.username,
+    image: defaults.comment.image,
+    comment: defaults.comment.comment,
+    experienceURL: defaults.comment.experienceURL,
+    artifactURL: defaults.comment.artifactURL,
+    siteId: defaults.siteId,
   },
   access: {
     item: {
-      create: ({ session, context, listKey, operation, inputData }) => true,
-      update: ({ session, context, listKey, operation, inputData, item }) =>
-        true,
-      delete: ({ session, context, listKey, operation, item }) => true,
+      create: () => false,
+      update: () => false,
+      delete: ({ session, context, item }) =>
+        !!session?.data.isAdmin || !!session?.data.siteId,
     },
   },
 });
