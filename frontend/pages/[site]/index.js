@@ -131,9 +131,7 @@ export async function getStaticProps({ params }) {
 
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,
-    variables: {
-      url: params.site,
-    },
+    variables: { siteId: params.site },
   });
 
   const comments = await apolloClient.query({
@@ -143,7 +141,7 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      content: content.data.siteContent,
+      content: content.data.siteContents.find((item) => item.name === "Home"),
       experiences: experiences.data.experiences.filter(
         (experience) =>
           experience.status === "published" &&

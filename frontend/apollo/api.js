@@ -21,8 +21,8 @@ export const GET_SITE_BY_URL = gql`
 `;
 
 export const GET_SITE_CONTENT = gql`
-  query SiteContent($url: String) {
-    siteContent(where: { url: $url }) {
+  query SiteContents($siteId: String) {
+    siteContents(where: { siteId: { equals: $siteId } }) {
       id
       url
       name

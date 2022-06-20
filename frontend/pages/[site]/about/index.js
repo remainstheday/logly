@@ -1,7 +1,7 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import { GET_STATIC_CONTENTS } from "apollo/api";
+import { GET_ALL_SITES, GET_SITE_CONTENT } from "apollo/api";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
@@ -9,29 +9,29 @@ import Image from "next/image";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 
-export default function About({ content = [] }) {
+export default function About({ content }) {
   if (!content) return <PageLoading />;
-  const page = content[0];
+
   return (
     <>
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen">
         <BackLink href={"/"} text={"Home"} />
-        <PageTitle largeText={page.title} />
+        <PageTitle largeText={content.title} />
         <section className="mt-4 px-6 mt-10 mx-auto">
-          {page.staticPageImages && (
+          {content.staticPageImages && (
             <div className="flex relative my-16">
               <Image
-                src={page.staticPageImages}
+                src={content.staticPageImages}
                 width="1080"
                 height="720"
-                alt={page.title}
+                alt={content.title}
               />
             </div>
           )}
-          {page.description && (
+          {content.description && (
             <Section className="wysiwyg-editor">
-              <DocumentRenderer document={page.description.document} />
+              <DocumentRenderer document={content.description.document} />
             </Section>
           )}
         </section>
@@ -41,15 +41,34 @@ export default function About({ content = [] }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getStaticPaths() {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({
-    query: GET_STATIC_CONTENTS,
-    // variables: { url: "about" },
-    variables: { url: "" },
+    query: GET_ALL_SITES,
+  });
+
+  const paths =
+    data.sites.map((item) => ({
+      params: { site: `${item.url}` },
+    })) || [];
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  console.log(params);
+  const apolloClient = initializeApollo();
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
   });
   return addApolloState(apolloClient, {
-    props: { content: data.staticContents },
+    props: {
+      content: content.data.siteContents.find((item) => item.url === "about"),
+    },
     revalidate: 1,
   });
 }

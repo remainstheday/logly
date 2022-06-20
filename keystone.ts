@@ -172,7 +172,15 @@ export default withAuth(
             data: {
               name: "Home",
               title: "Logly Studio",
-              url: "logly-studio",
+              url: "",
+              siteId: "logly-studio",
+            },
+          });
+          await context.query.SiteContent.createOne({
+            data: {
+              name: "About",
+              title: "About Logly Studio",
+              url: "about",
               siteId: "logly-studio",
             },
           });
