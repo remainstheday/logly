@@ -55,10 +55,7 @@ export default function IndexPage({ content, experiences, comments }) {
                 {experiences.map((item, index) => (
                   <div className="snap-center shrink-0 w-full my-3" key={index}>
                     <div className="shrink-0 flex flex-col">
-                      <Link
-                        href={`/${query.site}/experiences/${item.url}`}
-                        passHref
-                      >
+                      <Link href={`${item.url}`} passHref>
                         <a>
                           <Image
                             src={

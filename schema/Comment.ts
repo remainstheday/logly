@@ -13,7 +13,7 @@ export const Comment = list({
   },
   access: {
     item: {
-      create: () => false,
+      create: () => true,
       update: () => false,
       delete: ({ session, context, item }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,

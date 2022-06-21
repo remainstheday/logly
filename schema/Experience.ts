@@ -87,7 +87,7 @@ export const Experience = list({
         ? undefined
         : context.session.data.siteId;
       const url = resolvedData.title
-        ? `/${siteId}/${convertStringToURL(title)}`
+        ? `/${siteId}/experiences/${convertStringToURL(title)}`
         : undefined;
 
       if (relatedArtifacts && relatedArtifacts.connect.length > 0) {

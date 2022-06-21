@@ -43,6 +43,12 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
       title
       url
       siteId
+      relatedArtifacts {
+        url
+        artifactImages
+        title
+        artist
+      }
       description {
         document
       }
@@ -68,6 +74,23 @@ export const GET_ALL_EXPERIENCES = gql`
       startDate
       endDate
       status
+    }
+  }
+`;
+
+export const GET_ARTIFACTS_BY_SITE_ID = gql`
+  query Experiences($siteId: String) {
+    artifacts(where: { siteId: { equals: $siteId } }) {
+      id
+      title
+      artist
+      url
+      status
+      siteId
+      description {
+        document
+      }
+      artifactImages
     }
   }
 `;
@@ -158,6 +181,7 @@ export const ADD_COMMENT = gql`
     $artifactURL: String
     $experienceURL: String
     $timestamp: DateTime!
+    $siteId: String!
   ) {
     createComment(
       data: {
@@ -167,6 +191,7 @@ export const ADD_COMMENT = gql`
         artifactURL: $artifactURL
         experienceURL: $experienceURL
         timestamp: $timestamp
+        siteId: $siteId
       }
     ) {
       id

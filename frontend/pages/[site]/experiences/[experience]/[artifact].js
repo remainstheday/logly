@@ -4,8 +4,9 @@ import Header from "components/Header";
 import {
   GET_ALL_ARTIFACTS,
   GET_ALL_COMMENTS,
-  GET_EXPERIENCE_BY_SLUG,
-  GET_ARTIFACT_BY_SLUG,
+  GET_ALL_SITES,
+  GET_ALL_EXPERIENCES,
+  GET_ARTIFACTS_BY_SITE_ID,
   GET_EXPERIENCES_BY_SITE_ID,
 } from "apollo/api";
 import Link from "next/link";
@@ -47,10 +48,7 @@ export default function Artifact({
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="px-3 lg:px-0 md:mx-auto">
-          <BackLink
-            href={`/experiences/${experience.url}`}
-            text={"Back to Experience"}
-          />
+          <BackLink href={`${experience.url}`} text={"Back to Experience"} />
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1>{artifact.title}</h1>
             <h2>{artifact.artist}</h2>
@@ -79,19 +77,13 @@ export default function Artifact({
         )}
         {similarArtifacts.length > 0 && (
           <Section>
-            <SectionLink
-              href={`/experiences/${experience.url}`}
-              text={"Go To Experience"}
-            />
+            <SectionLink href={`${experience.url}`} text={"Go To Experience"} />
             <hr />
             <div className="w-full mt-4">
               <div className="flex flex-wrap">
                 {similarArtifacts.map((artifact, index) => (
                   <div className="w-1/2 my-4 px-0.5" key={index}>
-                    <Link
-                      href={`/experiences/${experience.url}/${artifact.url}`}
-                      passHref
-                    >
+                    <Link href={`${experience.url}/${artifact.url}`} passHref>
                       <a>
                         <Image
                           src={
@@ -117,7 +109,7 @@ export default function Artifact({
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm artifactURL={artifact.url} />
+            <SocialForm artifactURL={artifact.url} siteId={query.site} />
           </Section>
         )}
 
@@ -130,7 +122,7 @@ export default function Artifact({
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink
-                href={`/community`}
+                href={`${query.site}/community`}
                 text={"Discover the Community"}
               />
             </div>
@@ -144,27 +136,30 @@ export default function Artifact({
 
 export async function getStaticPaths() {
   const apolloClient = initializeApollo();
+  const sites = await apolloClient.query({
+    query: GET_ALL_SITES,
+  });
   const experiences = await apolloClient.query({
-    query: GET_EXPERIENCES_BY_SITE_ID,
-    variables: {
-      siteId: "",
-    },
+    query: GET_ALL_EXPERIENCES,
   });
   const artifacts = await apolloClient.query({
     query: GET_ALL_ARTIFACTS,
   });
 
-  const paths = experiences.data.experiences
-    .map((experience) => {
-      return artifacts.data.artifacts.map((artifact) => {
-        return {
-          params: {
-            experience: experience.url,
-            artifact: `${experience.url}/${artifact.url}`,
-          },
-        };
-      });
-    })
+  const paths = sites.data.sites
+    .map((site) =>
+      experiences.data.experiences
+        .map((experience) =>
+          artifacts.data.artifacts.map((artifact) => ({
+            params: {
+              site: site.url,
+              experience: experience.url,
+              artifact: `${experience.url}/${artifact.url}`,
+            },
+          }))
+        )
+        .flat()
+    )
     .flat();
 
   return {
@@ -175,26 +170,28 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
-
-  const artifact = await apolloClient.query({
-    query: GET_ARTIFACT_BY_SLUG,
-    variables: { url: params.artifact },
+  const artifacts = await apolloClient.query({
+    query: GET_ARTIFACTS_BY_SITE_ID,
+    variables: { siteId: params.site },
   });
-  const experience = await apolloClient.query({
-    query: GET_EXPERIENCE_BY_SLUG,
-    variables: { url: params.experience },
+  const experiences = await apolloClient.query({
+    query: GET_EXPERIENCES_BY_SITE_ID,
+    variables: { siteId: params.site },
   });
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
+    variables: { siteId: params.site },
   });
 
-  if (
-    !artifact ||
-    !experience ||
-    (artifact.data &&
-      artifact.data.artifact &&
-      artifact.data.artifact.status !== "published")
-  ) {
+  const experience = experiences.data.experiences.filter(
+    (experience) =>
+      experience.url === `/${params.site}/experiences/${params.experience}`
+  )[0];
+  const artifact = artifacts.data.artifacts.filter(
+    (item) => item.url === params.artifact
+  )[0];
+
+  if (!artifact || !experience || artifact.status !== "published") {
     return {
       notFound: true,
     };
@@ -202,10 +199,10 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      artifact: artifact.data.artifact,
-      experience: experience.data.experience,
+      artifact,
+      experience,
       comments: comments.data.comments,
-      relatedArtifacts: experience.data.experience.relatedArtifacts,
+      relatedArtifacts: experience.relatedArtifacts,
     },
     revalidate: 1,
   });

@@ -7,11 +7,8 @@ import React from "react";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
-import { useRouter } from "next/router";
 
 export default function Experience({ experiences }) {
-  const { query } = useRouter();
-  console.log(query);
   if (!experiences) return <PageLoading />;
   return (
     <>
@@ -24,7 +21,7 @@ export default function Experience({ experiences }) {
             {experiences.map((experience) => (
               <div key={experience.id}>
                 <Thumbnail
-                  href={`/${query.site}/experiences/${experience.url}`}
+                  href={experience.url}
                   title={experience.title}
                   image={
                     experience.experienceImages
@@ -46,11 +43,11 @@ export default function Experience({ experiences }) {
 
 export async function getStaticPaths() {
   const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query({
+  const sites = await apolloClient.query({
     query: GET_ALL_SITES,
   });
   const paths =
-    data.sites.map((item) => ({
+    sites.data.sites.map((item) => ({
       params: { site: item.url },
     })) || [];
 

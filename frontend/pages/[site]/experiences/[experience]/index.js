@@ -7,7 +7,6 @@ import {
   GET_ALL_COMMENTS,
   GET_ALL_EXPERIENCES,
   GET_ALL_SITES,
-  GET_EXPERIENCE_BY_SLUG,
   GET_EXPERIENCES_BY_SITE_ID,
 } from "apollo/api";
 import Link from "next/link";
@@ -24,7 +23,6 @@ import { useRouter } from "next/router";
 export default function Experience({ experience, experiences, comments }) {
   const { query } = useRouter();
   if (!experience || !experiences) return <PageLoading />;
-
   const similarExperiences = experiences.filter(
     (similarExperience) => similarExperience.url !== experience.url
   );
@@ -34,7 +32,10 @@ export default function Experience({ experience, experiences, comments }) {
       <Header />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="px-3 lg:px-0 md:mx-auto">
-          <BackLink href={"/experiences"} text={"Pick Experience"} />
+          <BackLink
+            href={`${query.site}/experiences`}
+            text={"Pick Experience"}
+          />
 
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1 className="experience-title">{experience.title}</h1>
@@ -52,16 +53,13 @@ export default function Experience({ experience, experiences, comments }) {
           )}
         </section>
 
-        {experience.relatedArtifacts.length > 0 && (
+        {experience.relatedArtifacts && experience.relatedArtifacts.length > 0 && (
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-4">
                 {experience.relatedArtifacts.map((artifact, index) => (
                   <div className="my-4" key={index}>
-                    <Link
-                      href={`/experiences/${experience.url}/${artifact.url}`}
-                      passHref
-                    >
+                    <Link href={`${experience.url}/${artifact.url}`} passHref>
                       <a>
                         <Image
                           src={
@@ -90,7 +88,7 @@ export default function Experience({ experience, experiences, comments }) {
               {similarExperiences.map((item, index) => (
                 <div className="snap-center shrink-0 w-full my-3" key={index}>
                   <div className="shrink-0 flex flex-col">
-                    <Link href={`/experiences/${item.url}`} passHref>
+                    <Link href={`${item.url}`} passHref>
                       <a>
                         <Image
                           src={
@@ -118,7 +116,7 @@ export default function Experience({ experience, experiences, comments }) {
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm experienceURL={experience.url} />
+            <SocialForm experienceURL={experience.url} siteId={query.site} />
           </Section>
         )}
 
@@ -131,7 +129,7 @@ export default function Experience({ experience, experiences, comments }) {
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink
-                href={`/community`}
+                href={`${query.site}/community`}
                 text={"Discover the Community"}
               />
             </div>
@@ -158,7 +156,7 @@ export async function getStaticPaths() {
         return {
           params: {
             site: site.url,
-            experience: `${site.url}/${experience.url}`,
+            experience: experience.url,
           },
         };
       });
@@ -173,20 +171,23 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
-  const experience = await apolloClient.query({
-    query: GET_EXPERIENCE_BY_SLUG,
-    variables: { url: `${params.site}/${params.experience}` },
-  });
+
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
+
+  const experience = experiences.data.experiences.filter(
+    (experience) =>
+      experience.url === `/${params.site}/experiences/${params.experience}`
+  )[0];
+
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
 
-  if (!experience || experience.data.experience.status !== "published") {
+  if (!experience || experience.status !== "published") {
     return {
       notFound: true,
     };
@@ -194,14 +195,13 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      experience: experience.data.experience,
+      experience,
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
+
       comments: comments.data.comments.filter(
-        (comment) =>
-          comment.image &&
-          comment.experienceURL === experience.data.experience.url
+        (comment) => comment.image && comment.experienceURL === experience.url
       ),
     },
     revalidate: 1,

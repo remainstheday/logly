@@ -7,7 +7,11 @@ import processCloudinaryImage from "utils/processCloudinaryImage";
 import { ADD_COMMENT } from "apollo/api";
 import Link from "next/link";
 
-export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
+export default function SocialForm({
+  artifactURL = "",
+  experienceURL = "",
+  siteId = "",
+}) {
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
 
@@ -33,7 +37,7 @@ export default function SocialForm({ artifactURL = "", experienceURL = "" }) {
     return (
       <p className="mt-6 mb-56">
         Thank you for participating. Your comment has been added to the{" "}
-        <Link href="/[site]/community" passHref>
+        <Link href={`${siteId}/community`} passHref>
           <a className="text-blue-600 visited:text-purple-60">Community Page</a>
         </Link>
         !

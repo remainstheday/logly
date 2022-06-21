@@ -84,8 +84,8 @@ export const defaults = {
     isIndexed: "unique",
     ui: {
       createView: { fieldMode: "hidden" },
-      itemView: { fieldMode: "hidden" },
-      listView: { fieldMode: "hidden" },
+      itemView: { fieldMode: "read" },
+      listView: { fieldMode: "read" },
     },
   }),
   siteId: text({
@@ -98,7 +98,7 @@ export const defaults = {
   comment: {
     timestamp: timestamp({
       ui: {
-        createView: { fieldMode: "edit" },
+        createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },
         listView: {
           fieldMode: ({ session, context }) => "read",

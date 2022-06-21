@@ -44,7 +44,7 @@ export default function ContentSlider({ items, contentType }) {
   const experiencesContent = () =>
     items.map((item, index) => (
       <div key={index} ref={refs[index]} className="w-full flex-shrink-0">
-        <Link href={`/experiences/${item.url}`} passHref>
+        <Link href={`${item.url}`} passHref>
           <a>
             <Image
               src={item.poster ? item.poster.publicUrl : "/stock-museum-1.jpg"}

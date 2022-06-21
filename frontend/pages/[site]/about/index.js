@@ -59,7 +59,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log(params);
   const apolloClient = initializeApollo();
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,

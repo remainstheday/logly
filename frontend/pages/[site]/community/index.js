@@ -5,7 +5,7 @@ import Footer from "components/Footer";
 import React, { useState } from "react";
 import Image from "next/image";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import { ADD_COMMENT, GET_ALL_COMMENTS } from "apollo/api";
+import { ADD_COMMENT, GET_ALL_COMMENTS, GET_ALL_SITES } from "apollo/api";
 import { truncateComment } from "utils/truncateText";
 import { Formik } from "formik";
 import ImageUploader from "components/ImageUploader";
@@ -15,7 +15,7 @@ import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 
-export default function Community({ comments }) {
+export default function Community({ comments = [] }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
@@ -32,6 +32,7 @@ export default function Community({ comments }) {
             artifactId: "",
             experienceId: "",
             timestamp: new Date(Date.now()),
+            siteId: query.site,
           },
           update: (cache, { data }) => {
             const { comments } = cache.readQuery({
@@ -167,18 +168,36 @@ export default function Community({ comments }) {
   );
 }
 
-export async function getStaticPaths() {}
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({
+    query: GET_ALL_SITES,
+  });
+
+  const paths =
+    data.sites.map((item) => ({
+      params: { site: item.url },
+    })) || [];
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
-
-  const { data } = await apolloClient.query({
+  const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
 
   return addApolloState(apolloClient, {
-    props: { comments: data.comments },
+    props: {
+      comments: comments.data.comments.filter(
+        (item) => item.siteId === params.site
+      ),
+    },
     revalidate: 1,
   });
 }
