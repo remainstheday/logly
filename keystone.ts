@@ -29,6 +29,7 @@ const { withAuth } = createAuth({
 // convert site ID into a valid url
 // create a has paid/ not paid flag for user
 // handle error logging without crashing
+// todo: {"message":"Issue registering a new account: Prisma error: Unique constraint failed on the fields: (`url`)"}
 export default withAuth(
   config({
     server: {
@@ -40,24 +41,23 @@ export default withAuth(
         app.use(express.json());
         app.post("/api/newUser", async (req, res, next) => {
           const context = await createContext(req, res);
-
-          const existingId = await context.query.Site.findOne({
+          const existingId = await context.prisma.site.findMany({
             where: {
-              siteId: `${convertStringToURL(req.body.siteId)}`,
+              siteId: { equals: `${convertStringToURL(req.body.siteId)}` },
             },
           });
-          const existingEmail = await context.query.User.findOne({
+          const existingEmail = await context.prisma.user.findUnique({
             where: { email: `${req.body.email}` },
           });
 
-          if (existingId === null) {
+          if (existingId.length > 0) {
             console.log("An organization with that name already exists.");
 
             return res.status(400).json({
               message: "An organization with that name already exists.",
             });
           }
-          if (existingEmail === null) {
+          if (existingEmail !== null) {
             console.log("A user with that email already exists.");
 
             return res.status(400).json({
@@ -73,6 +73,7 @@ export default withAuth(
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
+            isAdmin: false,
           };
 
           const newSite = {
@@ -91,7 +92,7 @@ export default withAuth(
               data: {
                 name: "Home",
                 title: "Logly Studio",
-                url: "",
+                url: newSite.url,
                 siteId: newSite.siteId,
               },
             });
@@ -100,7 +101,7 @@ export default withAuth(
             });
           } catch (e) {
             return res.status(400).json({
-              message: "Issue registering a new account",
+              message: `Issue registering a new account: ${e}`,
             });
           }
         });
@@ -155,7 +156,7 @@ export default withAuth(
       useMigrations: true,
       async onConnect(context) {
         const defaultSite = await context.prisma.site.count({
-          where: { siteId: "logly-studio" },
+          where: { siteId: { equals: "logly-studio" } },
         });
         const defaultUser = await context.prisma.user.count({
           where: { email: "trentontri@gmail.com" },

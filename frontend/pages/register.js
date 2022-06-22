@@ -20,11 +20,8 @@ const registrationSchema = Yup.object().shape({
 export default function Register() {
   const [mobileMenu, updateMobileMenu] = useState(false);
   const [error, setError] = useState();
-  const [paymentIntent, setPaymentIntent] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
 
   const postFormData = async (values) => {
-    setUserEmail(values.email);
     await fetch("http://localhost:3000/api/newUser", {
       method: "POST",
       headers: {
@@ -33,9 +30,17 @@ export default function Register() {
       body: JSON.stringify(values),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
+      .then((data) => setError(data.message))
+      .then(async () => {
+        await fetch("/api/checkout_sessions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      })
+      .then((response) => response.json())
+      .then((data) => setError(data.message));
   };
 
   useEffect(() => {
@@ -138,7 +143,7 @@ export default function Register() {
           <Formik
             initialValues={{
               siteId: "",
-              username: "",
+              name: "",
               email: "",
               password: "",
             }}
@@ -155,7 +160,6 @@ export default function Register() {
               handleBlur,
               handleSubmit,
               isSubmitting,
-              /* and other goodies */
             }) => (
               <form
                 onSubmit={handleSubmit}
@@ -165,19 +169,19 @@ export default function Register() {
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold"
-                    htmlFor="username"
+                    htmlFor="name"
                   >
                     Full Name
                   </label>
                   <input
                     type="text"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                    name="username"
+                    name="name"
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.username}
+                    value={values.name}
                   />
-                  {errors.username && touched.username && errors.username}
+                  {errors.name && touched.name && errors.name}
                 </div>
                 <div className="mb-4">
                   <label
@@ -235,68 +239,13 @@ export default function Register() {
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   disabled={isSubmitting}
                 >
-                  Create Account
+                  Continue to Payment
                 </button>
 
                 {error && <p className="text-red">{error}</p>}
               </form>
             )}
           </Formik>
-          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h3 className="text-center">Payment Form</h3>
-            <form action={`/api/checkout_sessions`} method="POST">
-              <section>
-                <button type="submit" role="link">
-                  Checkout
-                </button>
-              </section>
-              <style jsx>
-                {`
-                  section {
-                    background: #ffffff;
-                    display: flex;
-                    flex-direction: column;
-                    width: 400px;
-                    height: 112px;
-                    border-radius: 6px;
-                    justify-content: space-between;
-                  }
-                  button {
-                    height: 36px;
-                    background: #556cd6;
-                    border-radius: 4px;
-                    color: white;
-                    border: 0;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-                  }
-                  button:hover {
-                    opacity: 0.8;
-                  }
-                `}
-              </style>
-            </form>
-            {/*{paymentIntent && paymentIntent.client_secret ? (*/}
-            {/*  <Elements*/}
-            {/*    stripe={getStripe()}*/}
-            {/*    options={{*/}
-            {/*      appearance: {*/}
-            {/*        variables: {*/}
-            {/*          colorIcon: "#6772e5",*/}
-            {/*          fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",*/}
-            {/*        },*/}
-            {/*      },*/}
-            {/*      clientSecret: paymentIntent.client_secret,*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    <ElementsForm paymentIntent={paymentIntent} />*/}
-            {/*  </Elements>*/}
-            {/*) : (*/}
-            {/*  <p>Loading...</p>*/}
-            {/*)}*/}
-          </div>
 
           <p className="text-center text-gray-500 text-xs">
             &copy;2020 Logly Corp. All rights reserved.
