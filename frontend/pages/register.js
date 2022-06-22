@@ -5,18 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { fetchPostJSON } from "utils/api-helpers";
-import * as config from "../config";
-import ElementsForm from "../components/ElementsForm";
 
-let stripePromise;
-const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-  }
-  return stripePromise;
-};
+const stripePromise = loadStripe(
+  `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
+);
 const registrationSchema = Yup.object().shape({
   siteId: Yup.string()
     .min(3, "too short!")
@@ -29,8 +21,10 @@ export default function Register() {
   const [mobileMenu, updateMobileMenu] = useState(false);
   const [error, setError] = useState();
   const [paymentIntent, setPaymentIntent] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
 
   const postFormData = async (values) => {
+    setUserEmail(values.email);
     await fetch("http://localhost:3000/api/newUser", {
       method: "POST",
       headers: {
@@ -45,12 +39,18 @@ export default function Register() {
   };
 
   useEffect(() => {
-    fetchPostJSON("/api/payment_intents", {
-      amount: Math.round(config.MAX_AMOUNT / config.AMOUNT_STEP),
-    }).then((data) => {
-      setPaymentIntent(data);
-    });
-  }, [setPaymentIntent]);
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      console.log("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      console.log(
+        "Order canceled -- continue to shop around and checkout when you’re ready."
+      );
+    }
+  }, []);
 
   return (
     <div>
@@ -244,24 +244,58 @@ export default function Register() {
           </Formik>
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <h3 className="text-center">Payment Form</h3>
-            {paymentIntent && paymentIntent.client_secret ? (
-              <Elements
-                stripe={getStripe()}
-                options={{
-                  appearance: {
-                    variables: {
-                      colorIcon: "#6772e5",
-                      fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",
-                    },
-                  },
-                  clientSecret: paymentIntent.client_secret,
-                }}
-              >
-                <ElementsForm paymentIntent={paymentIntent} />
-              </Elements>
-            ) : (
-              <p>Loading...</p>
-            )}
+            <form action={`/api/checkout_sessions`} method="POST">
+              <section>
+                <button type="submit" role="link">
+                  Checkout
+                </button>
+              </section>
+              <style jsx>
+                {`
+                  section {
+                    background: #ffffff;
+                    display: flex;
+                    flex-direction: column;
+                    width: 400px;
+                    height: 112px;
+                    border-radius: 6px;
+                    justify-content: space-between;
+                  }
+                  button {
+                    height: 36px;
+                    background: #556cd6;
+                    border-radius: 4px;
+                    color: white;
+                    border: 0;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                  }
+                  button:hover {
+                    opacity: 0.8;
+                  }
+                `}
+              </style>
+            </form>
+            {/*{paymentIntent && paymentIntent.client_secret ? (*/}
+            {/*  <Elements*/}
+            {/*    stripe={getStripe()}*/}
+            {/*    options={{*/}
+            {/*      appearance: {*/}
+            {/*        variables: {*/}
+            {/*          colorIcon: "#6772e5",*/}
+            {/*          fontFamily: "Roboto, Open Sans, Segoe UI, sans-serif",*/}
+            {/*        },*/}
+            {/*      },*/}
+            {/*      clientSecret: paymentIntent.client_secret,*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <ElementsForm paymentIntent={paymentIntent} />*/}
+            {/*  </Elements>*/}
+            {/*) : (*/}
+            {/*  <p>Loading...</p>*/}
+            {/*)}*/}
           </div>
 
           <p className="text-center text-gray-500 text-xs">
