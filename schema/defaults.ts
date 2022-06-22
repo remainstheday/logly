@@ -90,9 +90,18 @@ export const defaults = {
   }),
   siteId: text({
     ui: {
-      createView: { fieldMode: "hidden" },
-      itemView: { fieldMode: "read" },
-      listView: { fieldMode: "read" },
+      createView: {
+        fieldMode: ({ session, context }) =>
+          session.data.isAdmin ? "edit" : "hidden",
+      },
+      itemView: {
+        fieldMode: ({ session, context, item }) =>
+          session.data.isAdmin ? "edit" : "hidden",
+      },
+      listView: {
+        fieldMode: ({ session, context }) =>
+          session.data.isAdmin ? "read" : "hidden",
+      },
     },
   }),
   comment: {

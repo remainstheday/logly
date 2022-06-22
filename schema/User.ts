@@ -11,6 +11,20 @@ export const User = list({
     siteId: defaults.siteId,
     isAdmin: checkbox({
       defaultValue: false,
+      ui: {
+        createView: {
+          fieldMode: ({ session, context }) =>
+            session.data.isAdmin ? "edit" : "hidden",
+        },
+        itemView: {
+          fieldMode: ({ session, context, item }) =>
+            session.data.isAdmin ? "edit" : "hidden",
+        },
+        listView: {
+          fieldMode: ({ session, context }) =>
+            session.data.isAdmin ? "read" : "hidden",
+        },
+      },
     }),
     name: text({ validation: { isRequired: true } }),
     email: text({
