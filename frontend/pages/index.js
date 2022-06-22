@@ -99,7 +99,7 @@ export default function IndexPage({ sites }) {
           <p>
             Logly is{" "}
             <strong>
-              more than a digital guide. It's an interactive experience.
+              more than a digital guide. Its an interactive experience.
             </strong>{" "}
             Your Visitors can become active participants.
           </p>
