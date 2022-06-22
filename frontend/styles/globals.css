@@ -36,6 +36,19 @@ html {
   color: #fff;
 }
 
+.get-started-btn {
+  background: blue;
+  margin: 1em auto;
+  display: block;
+  color: #fff;
+  border-radius: 3px;
+  text-align: center;
+  padding: 3px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 200px;
+}
+
 .social-form .submit-btn {
   background: #EB4C27;
 }

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 
-export default function Footer() {
+export default function Footer({ className }) {
   return (
-    <footer className="w-full px-3 py-10 mt-20 bg-zinc-900 text-white">
+    <footer
+      className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white ${className}`}
+    >
       <div className="flex justify-between max-w-4xl mx-auto">
         <ul>
           <li>

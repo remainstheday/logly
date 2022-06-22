@@ -1,41 +1,36 @@
 import Footer from "components/Footer";
-import { GET_ALL_SITES } from "apollo/api";
-import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import PageLoading from "components/PageLoading";
 import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function IndexPage({ sites }) {
+export default function IndexPage() {
   const [mobileMenu, updateMobileMenu] = useState(false);
-  if (!sites) return <PageLoading />;
 
   return (
     <>
-      <>
-        <Head>
-          <title>Logly</title>
-          <meta name="description" content="Next generation museum tours" />
-          <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-          />
-        </Head>
-
+      <Head>
+        <title>Logly</title>
+        <meta name="description" content="Next generation museum tours" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+      </Head>
+      <div>
         <header className="pt-4 max-w-4xl mx-auto md:mx-auto">
           <div className="flex flex-wrap pt-2">
             <div className="w-full">
@@ -91,65 +86,57 @@ export default function IndexPage({ sites }) {
             </div>
           </div>
         </header>
-      </>
-      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
-        <main>
-          <h1>Logly is a tool for self representation.</h1>
-          <Link href="/register">Get Started</Link>
-          <p>
-            Logly is{" "}
-            <strong>
-              more than a digital guide. Its an interactive experience.
-            </strong>{" "}
-            Your Visitors can become active participants.
-          </p>
-          <p>
-            Who are your visitors? What inspires them? On Logly they can share
-            their stories with you.
-          </p>
 
-          <section>
-            <h2>What your visitors see</h2>
-            <div className="inline-screenshots"></div>
-          </section>
-          <section>
-            <h2>What you see</h2>
-            <div className="inline-screenshots"></div>
-          </section>
+        <div className="max-w-4xl mt-24 mx-auto md:mx-auto">
+          <main>
+            <h1 className="text-5xl text-center">
+              Logly is a tool for self representation.
+            </h1>
+            <Link href="/register" passHref>
+              <a className="get-started-btn">Get Started</a>
+            </Link>
+            <p>
+              Logly is{" "}
+              <strong>
+                more than a digital guide. Its an interactive experience.
+              </strong>{" "}
+              Your Visitors can become active participants.
+            </p>
+            <p>
+              Who are your visitors? What inspires them? On Logly they can share
+              their stories with you.
+            </p>
 
-          <section>
-            <h2>Pricing</h2>
-            <div className="pricing">
-              <h3>Logly Premium</h3>
-              <ul>
-                <li>-Unlimited guides</li>
-              </ul>
-            </div>
-          </section>
+            {/*<section>*/}
+            {/*  <h2>What your visitors see</h2>*/}
+            {/*  <div className="inline-screenshots"></div>*/}
+            {/*</section>*/}
 
-          <section>
-            <h3>FAQ</h3>
-            <ul>
-              <li>What is Logly?</li>
-            </ul>
-          </section>
-        </main>
+            {/*<section>*/}
+            {/*  <h2>What you see</h2>*/}
+            {/*  <div className="inline-screenshots"></div>*/}
+            {/*</section>*/}
+
+            {/*<section>*/}
+            {/*  <h2>Pricing</h2>*/}
+            {/*  <div className="pricing">*/}
+            {/*    <h3>Logly Premium</h3>*/}
+            {/*    <ul>*/}
+            {/*      <li>-Unlimited guides</li>*/}
+            {/*    </ul>*/}
+            {/*  </div>*/}
+            {/*</section>*/}
+
+            {/*<section>*/}
+            {/*  <h3>FAQ</h3>*/}
+            {/*  <ul>*/}
+            {/*    <li>What is Logly?</li>*/}
+            {/*  </ul>*/}
+            {/*</section>*/}
+          </main>
+        </div>
+        <Footer className="absolute bottom-0" />
       </div>
-      <Footer />
     </>
   );
-}
-
-export async function getStaticProps() {
-  const apolloClient = initializeApollo();
-  const sites = await apolloClient.query({
-    query: GET_ALL_SITES,
-  });
-
-  return addApolloState(apolloClient, {
-    props: {
-      sites: sites.data.sites,
-    },
-    revalidate: 1,
-  });
 }
