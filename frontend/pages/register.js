@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { fetchPostJSON } from "utils/api-helpers";
 
 const stripePromise = loadStripe(
   `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
@@ -32,9 +33,8 @@ export default function Register() {
     })
       .then((response) => response.json())
       .then((data) => setError(data.message))
-      .then(() => {
-        console.log(stripeRef.current);
-        stripeRef.current.form.getDOMNode().dispatchEvent(new Event("submit"));
+      .then(async () => {
+        stripeRef.current.click();
       });
   };
 
@@ -241,39 +241,14 @@ export default function Register() {
               </form>
             )}
           </Formik>
-          <form ref={stripeRef} action="/api/checkout_sessions" method="POST">
-            <section>
-              <button type="submit" role="link">
-                Checkout
-              </button>
-            </section>
-            <style jsx>
-              {`
-                section {
-                  background: #ffffff;
-                  display: flex;
-                  flex-direction: column;
-                  width: 400px;
-                  height: 112px;
-                  border-radius: 6px;
-                  justify-content: space-between;
-                }
-                button {
-                  height: 36px;
-                  background: #556cd6;
-                  border-radius: 4px;
-                  color: white;
-                  border: 0;
-                  font-weight: 600;
-                  cursor: pointer;
-                  transition: all 0.2s ease;
-                  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-                }
-                button:hover {
-                  opacity: 0.8;
-                }
-              `}
-            </style>
+          <form
+            style={{ display: "none" }}
+            action="/api/checkout_sessions"
+            method="POST"
+          >
+            <button ref={stripeRef} type="submit" role="link">
+              Checkout
+            </button>
           </form>
 
           <p className="text-center text-gray-500 text-xs">
