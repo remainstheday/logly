@@ -3,7 +3,7 @@ import Head from "next/head";
 import * as Yup from "yup";
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
 const stripePromise = loadStripe(
@@ -18,6 +18,7 @@ const registrationSchema = Yup.object().shape({
   password: Yup.string().min(8, "too short").required("required"),
 });
 export default function Register() {
+  const stripeRef = useRef();
   const [mobileMenu, updateMobileMenu] = useState(false);
   const [error, setError] = useState();
 
@@ -31,16 +32,10 @@ export default function Register() {
     })
       .then((response) => response.json())
       .then((data) => setError(data.message))
-      .then(async () => {
-        await fetch("/api/checkout_sessions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-      })
-      .then((response) => response.json())
-      .then((data) => setError(data.message));
+      .then(() => {
+        console.log(stripeRef.current);
+        stripeRef.current.form.getDOMNode().dispatchEvent(new Event("submit"));
+      });
   };
 
   useEffect(() => {
@@ -246,6 +241,40 @@ export default function Register() {
               </form>
             )}
           </Formik>
+          <form ref={stripeRef} action="/api/checkout_sessions" method="POST">
+            <section>
+              <button type="submit" role="link">
+                Checkout
+              </button>
+            </section>
+            <style jsx>
+              {`
+                section {
+                  background: #ffffff;
+                  display: flex;
+                  flex-direction: column;
+                  width: 400px;
+                  height: 112px;
+                  border-radius: 6px;
+                  justify-content: space-between;
+                }
+                button {
+                  height: 36px;
+                  background: #556cd6;
+                  border-radius: 4px;
+                  color: white;
+                  border: 0;
+                  font-weight: 600;
+                  cursor: pointer;
+                  transition: all 0.2s ease;
+                  box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                }
+                button:hover {
+                  opacity: 0.8;
+                }
+              `}
+            </style>
+          </form>
 
           <p className="text-center text-gray-500 text-xs">
             &copy;2020 Logly Corp. All rights reserved.
