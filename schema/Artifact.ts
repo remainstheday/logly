@@ -94,34 +94,47 @@ export const Artifact = list({
       const url = resolvedData.title
         ? `${convertStringToURL(title)}`
         : undefined;
-      const existingQRCodes =
-        item && item.qrCodes && item!.qrCodes!.length > 0 ? item.qrCodes : [];
 
-      if (relatedExperiences && relatedExperiences.connect.length > 0) {
-        const experiences = await relatedExperiences.connect.map(
-          (experienceId: { id: string }) =>
-            context.query.Experience.findOne({
-              where: { id: experienceId.id },
-              query: "url",
-            })
-        );
+      const qrCodes =
+        item && item.qrCodes && item!.qrCodes!.length > 0
+          ? [...item.qrCodes]
+          : [];
 
-        // todo: this should probably `updateOne({})` with artworks
-        Promise.all(experiences).then((values) => {
-          return {
-            ...resolvedData,
-            qrCodes: [
-              ...existingQRCodes,
-              ...values.map(
-                (value) =>
-                  `${process.env.FRONTEND_URL}/experiences/${value.url}/${
-                    item!.url
-                  }?social=true`
-              ),
-            ],
-          };
-        });
-      }
+      // [
+      //    ...item.qrCodes,
+      //    ...relatedExperiences.map(
+      //      (experience: any) =>
+      //        `${process.env.FRONTEND_URL}${experience.url}/${
+      //          item!.url
+      //        }?social=true`
+      //    ),
+      //  ];
+
+      // if (relatedExperiences && relatedExperiences.connect.length > 0) {
+      //   const experiences = await relatedExperiences.connect.map(
+      //     (experienceId: { id: string }) =>
+      //       context.query.Experience.findOne({
+      //         where: { id: experienceId.id },
+      //         query: "url",
+      //       })
+      //   );
+      //
+      //   // todo: this should probably `updateOne({})` with artworks
+      //   Promise.all(experiences).then((values) => {
+      //     return {
+      //       ...resolvedData,
+      //       qrCodes: [
+      //         ...existingQRCodes,
+      //         ...values.map(
+      //           (value) =>
+      //             `${process.env.FRONTEND_URL}/experiences/${value.url}/${
+      //               item!.url
+      //             }?social=true`
+      //         ),
+      //       ],
+      //     };
+      //   });
+      // }
 
       // if (relatedExperiences && relatedExperiences.disconnect.length > 0) {
       //   const experiences = await relatedExperiences.disconnect.map(

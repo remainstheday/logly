@@ -11,6 +11,7 @@ export const defaults = {
   artist: text({ validation: { isRequired: true } }),
   title: text({ label: "Page Title", validation: { isRequired: true } }),
   qrCodes: json({
+    defaultValue: [],
     ui: {
       views: require.resolve("../fields/qrcode/view.tsx"),
       createView: { fieldMode: "hidden" },

@@ -29,7 +29,7 @@ model Experience {
   relatedArtifacts Artifact[]           @relation("Artifact_relatedExperiences")
   url              String               @unique @default("")
   siteId           String               @default("")
-  qrCodes          Json?
+  qrCodes          Json?                @default("[]")
 }
 
 model Artifact {
@@ -43,7 +43,7 @@ model Artifact {
   relatedExperiences Experience[]       @relation("Artifact_relatedExperiences")
   url                String             @unique @default("")
   siteId             String             @default("")
-  qrCodes            Json?
+  qrCodes            Json?              @default("[]")
 }
 
 model User {

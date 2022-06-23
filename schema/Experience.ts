@@ -84,14 +84,52 @@ export const Experience = list({
   hooks: {
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtifacts, title } = resolvedData;
+
       // these should return undefined if the data already exists so we don't mutate them
       const siteId = resolvedData.siteId
         ? undefined
         : context.session.data.siteId;
       const url = resolvedData.title
         ? `/${siteId}/experiences/${convertStringToURL(title)}`
-        : undefined;
-      const qrCodes = [`${process.env.FRONTEND_URL}/${url}`];
+        : item!.url;
+      const qrCodes = [`${process.env.FRONTEND_URL}${url}`];
+
+      if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
+        relatedArtifacts.connect.map(
+          async (relatedArtifact: { id: string }) => {
+            const artifact = await context.prisma.artifact.findUnique({
+              where: { id: relatedArtifact.id },
+            });
+            await context.query.Artifact.updateOne({
+              where: { id: relatedArtifact.id },
+              data: {
+                qrCodes: [`${process.env.FRONTEND_URL}${url}/${artifact.url}`],
+              },
+            });
+          }
+        );
+
+        // const artifacts = await relatedArtifacts.connect.map(
+        //   (artifact: { id: string }) =>
+        //     context.query.Artifact.findOne({
+        //       where: { id: artifact.id },
+        //     })
+        // );
+        // Promise.all(artifacts).then((values) => {
+        //   return {
+        //     ...resolvedData,
+        //     qrCodes: [
+        //       ...existingQRCodes,
+        //       ...values.map(
+        //         (value) =>
+        //           `${process.env.FRONTEND_URL}/experiences/${value.url}/${
+        //             item!.url
+        //           }?social=true`
+        //       ),
+        //     ],
+        //   };
+        // });
+      }
 
       return {
         ...resolvedData,
