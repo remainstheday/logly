@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           },
         ],
         mode: "subscription",
-        success_url: `${req.headers.origin}/`,
+        success_url: `${process.env.NEXT_PUBLIC_API_URL}`,
         cancel_url: `${req.headers.origin}/`,
         automatic_tax: { enabled: false },
       });

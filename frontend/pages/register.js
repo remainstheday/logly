@@ -20,20 +20,33 @@ const registrationSchema = Yup.object().shape({
 export default function Register() {
   const stripeRef = useRef();
   const [mobileMenu, updateMobileMenu] = useState(false);
-  const [error, setError] = useState();
+  const [errors, setErrors] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   const postFormData = async (values) => {
+    setErrors(undefined);
+    setLoading(true);
     await fetch("http://localhost:3000/api/newUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({ ...values, url: `/${values.url}` }),
     })
       .then((response) => response.json())
-      .then((data) => setError(data.message))
-      .then(async () => {
-        stripeRef.current.click();
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        return data;
+      })
+      .then(async (data) => {
+        setLoading(false);
+        setErrors(undefined);
+        if (data.success) stripeRef.current.click();
+      })
+      .catch((error) => {
+        setErrors(error.message);
       });
   };
 
@@ -146,15 +159,7 @@ export default function Register() {
               postFormData(values);
             }}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-            }) => (
+            {({ values, handleChange, handleSubmit, isSubmitting }) => (
               <form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -171,11 +176,12 @@ export default function Register() {
                     type="text"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      setErrors(null);
+                      handleChange(e);
+                    }}
                     value={values.name}
                   />
-                  {errors.name && touched.name && errors.name}
                 </div>
                 <div className="mb-4">
                   <label
@@ -188,11 +194,12 @@ export default function Register() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     name="email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      setErrors(null);
+                      handleChange(e);
+                    }}
                     value={values.email}
                   />
-                  {errors.email && touched.email && errors.email}
                 </div>
                 <div className="mb-4">
                   <label
@@ -205,11 +212,12 @@ export default function Register() {
                     type="text"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="siteId"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      setErrors(null);
+                      handleChange(e);
+                    }}
                     value={values.siteId}
                   />
-                  {errors.siteId && touched.siteId && errors.siteId}
                 </div>
                 <div className="mb-4">
                   <label
@@ -222,21 +230,22 @@ export default function Register() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="password"
                     name="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    onChange={(e) => {
+                      setErrors(null);
+                      handleChange(e);
+                    }}
                     value={values.password}
                   />
                 </div>
-                {errors.password && touched.password && errors.password}
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || errors}
                 >
                   Continue to Payment
                 </button>
 
-                {error && <p className="text-red">{error}</p>}
+                {errors && <p className="text-red-600">{errors}</p>}
               </form>
             )}
           </Formik>

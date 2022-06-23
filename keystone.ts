@@ -54,14 +54,14 @@ export default withAuth(
             console.log("An organization with that name already exists.");
 
             return res.status(400).json({
-              message: "An organization with that name already exists.",
+              error: "An organization with that name already exists.",
             });
           }
           if (existingEmail !== null) {
             console.log("A user with that email already exists.");
 
             return res.status(400).json({
-              message: "A user with that email already exists.",
+              error: "A user with that email already exists.",
             });
           }
           if (req.body.password && req.body.password.length < 7) {
@@ -97,11 +97,11 @@ export default withAuth(
               },
             });
             return res.json({
-              message: "successful",
+              success: true,
             });
           } catch (e) {
             return res.status(400).json({
-              message: `Issue registering a new account: ${e}`,
+              error: `Issue registering a new account: ${e}`,
             });
           }
         });
