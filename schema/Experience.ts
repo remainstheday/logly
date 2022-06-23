@@ -4,6 +4,21 @@ import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
 
 export const Experience = list({
+  fields: {
+    status: defaults.status,
+    title: defaults.title,
+    startDate: timestamp(),
+    endDate: timestamp(),
+    experienceImages: defaults.images("Experience Image"),
+    description: defaults.document,
+    relatedArtifacts: relationship({
+      ref: "Artifact.relatedExperiences",
+      many: true,
+    }),
+    url: defaults.url,
+    siteId: defaults.siteId,
+    qrCodes: defaults.qrCodes,
+  },
   access: {
     operation: {
       query: () => true,
@@ -59,20 +74,7 @@ export const Experience = list({
       },
     },
   },
-  fields: {
-    status: defaults.status,
-    title: defaults.title,
-    startDate: timestamp(),
-    endDate: timestamp(),
-    experienceImages: defaults.images("Experience Image"),
-    description: defaults.document,
-    relatedArtifacts: relationship({
-      ref: "Artifact.relatedExperiences",
-      many: true,
-    }),
-    url: defaults.url,
-    siteId: defaults.siteId,
-  },
+
   ui: {
     listView: {
       // These are the default columns that will be displayed in the list view
@@ -89,37 +91,11 @@ export const Experience = list({
       const url = resolvedData.title
         ? `/${siteId}/experiences/${convertStringToURL(title)}`
         : undefined;
-
-      if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
-        const artifacts = await relatedArtifacts.connect.map(
-          (artifactId: { id: string }) =>
-            context.query.Artifact.findOne({
-              where: { id: artifactId.id },
-              query: "id url",
-            })
-        );
-
-        Promise.all(artifacts).then((values) => {
-          relatedArtifacts.connect.map((artifactId: { id: string }) => {
-            const artifactURL = values.filter(
-              (artifact) => artifact.id === artifactId.id
-            );
-            context.query.Artifact.updateOne({
-              where: { id: artifactId.id },
-              data: {
-                qrCodes: [
-                  `${process.env.FRONTEND_URL}/experiences/${item!.url}/${
-                    artifactURL[0].url
-                  }?social=true`,
-                ],
-              },
-            });
-          });
-        });
-      }
+      const qrCodes = [`${process.env.FRONTEND_URL}/${url}`];
 
       return {
         ...resolvedData,
+        qrCodes,
         url,
         siteId,
       };
