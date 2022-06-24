@@ -97,7 +97,11 @@ export const Experience = list({
         { experienceId, url: `${process.env.FRONTEND_URL}${url}` },
       ];
 
-      if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
+      if (
+        relatedArtifacts &&
+        relatedArtifacts.connect &&
+        relatedArtifacts.connect.length > 0
+      ) {
         // if you add a related artifact from the experience page we create a corresponding qrCode
         relatedArtifacts.connect.map(
           async (relatedArtifact: { id: string }) => {
@@ -120,7 +124,11 @@ export const Experience = list({
           }
         );
       }
-      if (relatedArtifacts && relatedArtifacts.disconnect.length > 0) {
+      if (
+        relatedArtifacts &&
+        relatedArtifacts.disconnect &&
+        relatedArtifacts.disconnect.length > 0
+      ) {
         // if you remove a related artifact from the experience page we delete the corresponding qrCode
         relatedArtifacts.disconnect.map(
           async (relatedArtifact: { id: string }) => {
