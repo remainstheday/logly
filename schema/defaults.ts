@@ -84,9 +84,18 @@ export const defaults = {
   url: text({
     isIndexed: "unique",
     ui: {
-      createView: { fieldMode: "hidden" },
-      itemView: { fieldMode: "read" },
-      listView: { fieldMode: "read" },
+      createView: {
+        fieldMode: ({ session, context }) =>
+          session.data.isAdmin ? "edit" : "hidden",
+      },
+      itemView: {
+        fieldMode: ({ session, context, item }) =>
+          session.data.isAdmin ? "edit" : "hidden",
+      },
+      listView: {
+        fieldMode: ({ session, context }) =>
+          session.data.isAdmin ? "read" : "hidden",
+      },
     },
   }),
   siteId: text({
