@@ -40,12 +40,23 @@ export const Field = ({
           )}
           {QRCodes &&
             QRCodes.length > 0 &&
-            QRCodes.map((url: string) => (
-              <div className="qr-code" key={url}>
-                <QRCode key={url} size={80} value={url} renderAs="svg" />
-                <a href={url}>{url}</a>
-              </div>
-            ))}
+            QRCodes.map(
+              (qrcode: {
+                url: string;
+                experienceId: string;
+                artifactId: string;
+              }) => (
+                <div className="qr-code" key={qrcode.url}>
+                  <QRCode
+                    key={qrcode.url}
+                    size={80}
+                    value={qrcode.url}
+                    renderAs="svg"
+                  />
+                  <a href={qrcode.url}>{qrcode.url}</a>
+                </div>
+              )
+            )}
         </div>
       </div>
 
@@ -54,12 +65,23 @@ export const Field = ({
         <div className="qr-codes">
           {QRCodes &&
             QRCodes.length > 0 &&
-            QRCodes.map((url: string) => (
-              <div className="qr-code" key={url}>
-                <a href={url}>{url}</a>
-                <QRCode key={url} size={200} value={url} renderAs="svg" />
-              </div>
-            ))}
+            QRCodes.map(
+              (qrcode: {
+                url: string;
+                experienceId: string;
+                artifactId: string;
+              }) => (
+                <div className="qr-code" key={qrcode.url}>
+                  <a href={qrcode.url}>{qrcode.url}</a>
+                  <QRCode
+                    key={qrcode.url}
+                    size={200}
+                    value={qrcode.url}
+                    renderAs="svg"
+                  />
+                </div>
+              )
+            )}
         </div>
       </div>
     </FieldContainer>

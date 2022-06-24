@@ -92,7 +92,10 @@ export const Experience = list({
       const url = resolvedData.title
         ? `/${siteId}/experiences/${convertStringToURL(title)}`
         : item!.url;
-      const qrCodes = [`${process.env.FRONTEND_URL}${url}`];
+      const experienceId = item ? item.id : resolvedData.id;
+      const qrCodes = [
+        { experienceId, url: `${process.env.FRONTEND_URL}${url}` },
+      ];
 
       if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
         relatedArtifacts.connect.map(
@@ -103,32 +106,18 @@ export const Experience = list({
             await context.query.Artifact.updateOne({
               where: { id: relatedArtifact.id },
               data: {
-                qrCodes: [`${process.env.FRONTEND_URL}${url}/${artifact.url}`],
+                qrCodes: [
+                  ...artifact.qrCodes,
+                  {
+                    experienceId,
+                    artifactId: relatedArtifact.id,
+                    url: `${process.env.FRONTEND_URL}${url}/${artifact.url}`,
+                  },
+                ],
               },
             });
           }
         );
-
-        // const artifacts = await relatedArtifacts.connect.map(
-        //   (artifact: { id: string }) =>
-        //     context.query.Artifact.findOne({
-        //       where: { id: artifact.id },
-        //     })
-        // );
-        // Promise.all(artifacts).then((values) => {
-        //   return {
-        //     ...resolvedData,
-        //     qrCodes: [
-        //       ...existingQRCodes,
-        //       ...values.map(
-        //         (value) =>
-        //           `${process.env.FRONTEND_URL}/experiences/${value.url}/${
-        //             item!.url
-        //           }?social=true`
-        //       ),
-        //     ],
-        //   };
-        // });
       }
 
       return {
