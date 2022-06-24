@@ -119,6 +119,30 @@ export const Experience = list({
           }
         );
       }
+      if (relatedArtifacts && relatedArtifacts.disconnect.length > 0) {
+        relatedArtifacts.disconnect.map(
+          async (relatedArtifact: { id: string }) => {
+            const artifact = await context.prisma.artifact.findUnique({
+              where: { id: relatedArtifact.id },
+            });
+            await context.query.Artifact.updateOne({
+              where: { id: relatedArtifact.id },
+              data: {
+                qrCodes: artifact.qrCodes.filter(
+                  (qrcode: {
+                    experienceId: string;
+                    artifactId: string;
+                    url: string;
+                  }) =>
+                    item
+                      ? qrcode.experienceId !== item.id
+                      : qrcode.experienceId !== resolvedData.id
+                ),
+              },
+            });
+          }
+        );
+      }
 
       return {
         ...resolvedData,
