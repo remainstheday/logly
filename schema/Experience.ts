@@ -98,6 +98,7 @@ export const Experience = list({
       ];
 
       if (relatedArtifacts && relatedArtifacts.connect.length > 0) {
+        // if you add a related artifact from the experience page we create a corresponding qrCode
         relatedArtifacts.connect.map(
           async (relatedArtifact: { id: string }) => {
             const artifact = await context.prisma.artifact.findUnique({
@@ -120,6 +121,7 @@ export const Experience = list({
         );
       }
       if (relatedArtifacts && relatedArtifacts.disconnect.length > 0) {
+        // if you remove a related artifact from the experience page we delete the corresponding qrCode
         relatedArtifacts.disconnect.map(
           async (relatedArtifact: { id: string }) => {
             const artifact = await context.prisma.artifact.findUnique({

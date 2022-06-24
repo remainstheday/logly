@@ -91,16 +91,52 @@ export const Artifact = list({
       const siteId = resolvedData.siteId
         ? undefined
         : context.session.data.siteId;
+      const artifactId = item ? item.id : resolvedData.id;
       const url = resolvedData.title
         ? `${convertStringToURL(title)}`
         : undefined;
 
-      if (relatedExperiences && relatedExperiences.disconnect.length > 0) {
-        // todo: remove qr code by experienceId from list
-        relatedExperiences.disconnect.map(
+      if (relatedExperiences && relatedExperiences.connect.length > 0) {
+        relatedExperiences.connect.map(
           async (relatedExperience: { id: string }) => {
             const experience = await context.prisma.experience.findUnique({
               where: { id: relatedExperience.id },
+            });
+
+            await context.query.Artifact.updateOne({
+              where: { id: artifactId },
+              data: {
+                qrCodes: [
+                  // @ts-ignore
+                  ...item!.qrCodes,
+                  {
+                    experienceId: relatedExperience.id,
+                    artifactId,
+                    url: `${process.env.FRONTEND_URL}${experience.url}/${
+                      item!.url
+                    }`,
+                  },
+                ],
+              },
+            });
+          }
+        );
+      }
+
+      if (relatedExperiences && relatedExperiences.disconnect.length > 0) {
+        relatedExperiences.disconnect.map(
+          async (relatedExperience: { id: string }) => {
+            return await context.query.Artifact.updateOne({
+              where: { id: artifactId },
+              data: {
+                qrCodes: item!.qrCodes.filter(
+                  (qrcode: {
+                    experienceId: string;
+                    artifactId: string;
+                    url: string;
+                  }) => qrcode.experienceId !== relatedExperience.id
+                ),
+              },
             });
           }
         );
