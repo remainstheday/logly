@@ -86,35 +86,52 @@ export const Artifact = list({
   },
 
   hooks: {
-    afterOperation: async ({
-      listKey,
-      operation,
-      inputData,
-      originalItem,
-      item,
-      resolvedData,
-      context,
-    }) => {
-      // console.log(item);
-      console.log(item);
-      // if (item && resolvedData && resolvedData.relatedExperiences) {
-      //   resolvedData.relatedExperiences.connect.map(
-      //     async (relatedExperience: { id: string }) => {
-      //       return await context.query.Artifact.updateOne({
-      //         where: { id: `${item.id}` },
-      //         data: {
-      //           qrCodes: item.qrCodes.filter(
-      //             (qrcode: {
-      //               experienceId: string;
-      //               artifactId: string;
-      //               url: string;
-      //             }) => qrcode.experienceId !== relatedExperience.id
-      //           ),
-      //         },
-      //       });
-      //     }
-      //   );
-      // }
+    afterOperation: async ({ item, resolvedData, context }) => {
+      if (item && resolvedData && resolvedData.relatedExperiences) {
+        const artifact = await context.prisma.artifact.findUnique({
+          where: { id: item.id },
+        });
+        if (artifact && resolvedData.relatedExperiences.connect) {
+          resolvedData.relatedExperiences.connect.map(
+            async (relatedExperience: { id: string }) => {
+              const experience = await context.prisma.experience.findUnique({
+                where: { id: relatedExperience.id },
+              });
+              return await context.query.Artifact.updateOne({
+                where: { id: `${item.id}` },
+                data: {
+                  qrCodes: [
+                    ...artifact.qrCodes,
+                    {
+                      experienceId: relatedExperience.id,
+                      artifactId: artifact.id,
+                      url: `${process.env.FRONTEND_URL}${experience.url}/${artifact.url}`,
+                    },
+                  ],
+                },
+              });
+            }
+          );
+        }
+        if (artifact && resolvedData.relatedExperiences.disconnect) {
+          resolvedData.relatedExperiences.disconnect.map(
+            async (relatedExperience: { id: string }) => {
+              return await context.query.Artifact.updateOne({
+                where: { id: `${item.id}` },
+                data: {
+                  qrCodes: artifact.qrCodes.filter(
+                    (qrcode: {
+                      experienceId: string;
+                      artifactId: string;
+                      url: string;
+                    }) => qrcode.experienceId !== relatedExperience.id
+                  ),
+                },
+              });
+            }
+          );
+        }
+      }
     },
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedExperiences, title } = resolvedData;
@@ -125,63 +142,7 @@ export const Artifact = list({
       const url = resolvedData.title
         ? `${convertStringToURL(title)}`
         : undefined;
-      // const artifact = await context.prisma.artifact.findUnique({
-      //   where: { id: item ? item!.id : resolvedData.id },
-      // });
-      const artifact = { qrCodes: [] };
 
-      // if (
-      //   relatedExperiences &&
-      //   relatedExperiences.connect &&
-      //   relatedExperiences.connect.length > 0
-      // ) {
-      //   relatedExperiences.connect.map(
-      //     async (relatedExperience: { id: string }) => {
-      //       const experience = await context.prisma.experience.findUnique({
-      //         where: { id: relatedExperience.id },
-      //       });
-      //
-      //       await context.query.Artifact.updateOne({
-      //         where: { id: artifactId },
-      //         data: {
-      //           qrCodes: [
-      //             ...artifact.qrCodes,
-      //             {
-      //               experienceId: relatedExperience.id,
-      //               artifactId,
-      //               url: `${process.env.FRONTEND_URL}${experience.url}/${
-      //                 item!.url
-      //               }`,
-      //             },
-      //           ],
-      //         },
-      //       });
-      //     }
-      //   );
-      // }
-      //
-      // if (
-      //   relatedExperiences &&
-      //   relatedExperiences.disconnect &&
-      //   relatedExperiences.disconnect.length > 0
-      // ) {
-      //   relatedExperiences.disconnect.map(
-      //     async (relatedExperience: { id: string }) => {
-      //       return await context.query.Artifact.updateOne({
-      //         where: { id: artifactId },
-      //         data: {
-      //           qrCodes: artifact.qrCodes.filter(
-      //             (qrcode: {
-      //               experienceId: string;
-      //               artifactId: string;
-      //               url: string;
-      //             }) => qrcode.experienceId !== relatedExperience.id
-      //           ),
-      //         },
-      //       });
-      //     }
-      //   );
-      // }
       return {
         ...resolvedData,
         url,
