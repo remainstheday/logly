@@ -85,12 +85,11 @@ export const defaults = {
     isIndexed: "unique",
     ui: {
       createView: {
-        fieldMode: ({ session, context }) =>
-          session.data.isAdmin ? "edit" : "hidden",
+        fieldMode: ({ session, context }) => "hidden",
       },
       itemView: {
         fieldMode: ({ session, context, item }) =>
-          session.data.isAdmin ? "edit" : "hidden",
+          session.data.isAdmin ? "read" : "hidden",
       },
       listView: {
         fieldMode: ({ session, context }) =>
@@ -101,12 +100,11 @@ export const defaults = {
   siteId: text({
     ui: {
       createView: {
-        fieldMode: ({ session, context }) =>
-          session.data.isAdmin ? "edit" : "hidden",
+        fieldMode: ({ session, context }) => "hidden",
       },
       itemView: {
         fieldMode: ({ session, context, item }) =>
-          session.data.isAdmin ? "edit" : "hidden",
+          session.data.isAdmin ? "read" : "hidden",
       },
       listView: {
         fieldMode: ({ session, context }) =>
