@@ -82,6 +82,57 @@ export const Experience = list({
     },
   },
   hooks: {
+    afterOperation: async ({ item, resolvedData, context }) => {
+      if (item && resolvedData && resolvedData.relatedArtifacts) {
+        const experience = await context.prisma.experience.findUnique({
+          where: { id: item.id },
+        });
+        if (experience && resolvedData.relatedArtifacts.connect) {
+          resolvedData.relatedArtifacts.connect.map(
+            async (relatedArtifact: { id: string }) => {
+              const artifact = await context.prisma.artifact.findUnique({
+                where: { id: relatedArtifact.id },
+              });
+
+              return await context.query.Artifact.updateOne({
+                where: { id: `${artifact.id}` },
+                data: {
+                  qrCodes: [
+                    ...artifact.qrCodes,
+                    {
+                      experienceId: experience.id,
+                      artifactId: artifact.id,
+                      url: `${process.env.FRONTEND_URL}${experience.url}/${artifact.url}`,
+                    },
+                  ],
+                },
+              });
+            }
+          );
+        }
+        if (experience && resolvedData.relatedArtifacts.disconnect) {
+          resolvedData.relatedArtifacts.disconnect.map(
+            async (relatedArtifact: { id: string }) => {
+              const artifact = await context.prisma.artifact.findUnique({
+                where: { id: relatedArtifact.id },
+              });
+              return await context.query.Artifact.updateOne({
+                where: { id: `${artifact.id}` },
+                data: {
+                  qrCodes: artifact.qrCodes.filter(
+                    (qrcode: {
+                      experienceId: string;
+                      artifactId: string;
+                      url: string;
+                    }) => qrcode.experienceId !== item.id
+                  ),
+                },
+              });
+            }
+          );
+        }
+      }
+    },
     resolveInput: async ({ resolvedData, item, context }) => {
       const { relatedArtifacts, title } = resolvedData;
 
@@ -96,63 +147,6 @@ export const Experience = list({
       const qrCodes = [
         { experienceId, url: `${process.env.FRONTEND_URL}${url}` },
       ];
-
-      if (
-        relatedArtifacts &&
-        relatedArtifacts.connect &&
-        relatedArtifacts.connect.length > 0
-      ) {
-        // if you add a related artifact from the experience page we create a corresponding qrCode
-        relatedArtifacts.connect.map(
-          async (relatedArtifact: { id: string }) => {
-            const artifact = await context.prisma.artifact.findUnique({
-              where: { id: relatedArtifact.id },
-            });
-            await context.query.Artifact.updateOne({
-              where: { id: relatedArtifact.id },
-              data: {
-                qrCodes: [
-                  ...artifact.qrCodes,
-                  {
-                    experienceId,
-                    artifactId: relatedArtifact.id,
-                    url: `${process.env.FRONTEND_URL}${url}/${artifact.url}`,
-                  },
-                ],
-              },
-            });
-          }
-        );
-      }
-      if (
-        relatedArtifacts &&
-        relatedArtifacts.disconnect &&
-        relatedArtifacts.disconnect.length > 0
-      ) {
-        // if you remove a related artifact from the experience page we delete the corresponding qrCode
-        relatedArtifacts.disconnect.map(
-          async (relatedArtifact: { id: string }) => {
-            const artifact = await context.prisma.artifact.findUnique({
-              where: { id: relatedArtifact.id },
-            });
-            await context.query.Artifact.updateOne({
-              where: { id: relatedArtifact.id },
-              data: {
-                qrCodes: artifact.qrCodes.filter(
-                  (qrcode: {
-                    experienceId: string;
-                    artifactId: string;
-                    url: string;
-                  }) =>
-                    item
-                      ? qrcode.experienceId !== item.id
-                      : qrcode.experienceId !== resolvedData.id
-                ),
-              },
-            });
-          }
-        );
-      }
 
       return {
         ...resolvedData,
