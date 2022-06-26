@@ -2,14 +2,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Navigation() {
+export default function Navigation({ siteId }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
   return (
     <>
       <nav className="relative flex items-center justify-between py-3 w-full rounded">
         <div className="w-full relative mx-auto flex flex-wrap items-center justify-end text-right">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <Link href={`/`} passHref>
+            <Link href={`/${siteId}`} passHref>
               <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
                 <Image
                   src="/Logo.png"
@@ -37,17 +37,17 @@ export default function Navigation() {
           >
             <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
               <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
-                <Link href={`/about`} passHref>
+                <Link href={`/${siteId}/about`} passHref>
                   <a className="text-right">About</a>
                 </Link>
               </li>
               <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
-                <Link href={`/experiences`} passHref>
+                <Link href={`/${siteId}/experiences`} passHref>
                   <a>Experiences</a>
                 </Link>
               </li>
               <li className="py-2 pr-0 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 block ">
-                <Link href={`/community`} passHref>
+                <Link href={`/${siteId}/community`} passHref>
                   <a className="text-right block">Community</a>
                 </Link>
               </li>

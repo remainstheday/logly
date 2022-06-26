@@ -56,7 +56,7 @@ export default function Community({ comments = [] }) {
 
   return (
     <>
-      <Header />
+      <Header siteId={query.site} />
       <div className="min-h-screen">
         <div className="max-w-4xl px-6 md:px-0 mx-auto md:mx-auto">
           <BackLink href={"/"} text={"Home"} />

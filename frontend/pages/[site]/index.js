@@ -25,7 +25,7 @@ export default function IndexPage({ content, experiences, comments }) {
 
   return (
     <>
-      <Header />
+      <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <main>
           {content.title && (
@@ -90,7 +90,10 @@ export default function IndexPage({ content, experiences, comments }) {
                 ))}
               </div>
               <div className="mt-6 px-6 md:px-0">
-                <SectionLink href={`/community`} text={"Discover Community"} />
+                <SectionLink
+                  href={`/${query.site}/community`}
+                  text={"Discover Community"}
+                />
               </div>
             </Section>
           )}

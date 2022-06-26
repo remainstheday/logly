@@ -7,14 +7,16 @@ import React from "react";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
+import { useRouter } from "next/router";
 
 export default function Experience({ experiences }) {
+  const { query } = useRouter();
   if (!experiences) return <PageLoading />;
   return (
     <>
       <div className="max-w-4xl mx-auto min-h-screen">
-        <Header />
-        <BackLink href={"/"} text={"Home"} />
+        <Header siteId={query.site} />
+        <BackLink href={`/${query.site}`} text={"Home"} />
         <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
         <section className="mt-4 px-6 mt-10 mx-auto">
           <div className="mt-6 grid grid-cols-2 gap-4">
@@ -26,7 +28,7 @@ export default function Experience({ experiences }) {
                   image={
                     experience.experienceImages
                       ? experience.experienceImages
-                      : ""
+                      : "/stock-museum-1.jpg"
                   }
                   imgWidth={700}
                   imgHeight={512}

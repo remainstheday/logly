@@ -29,11 +29,11 @@ export default function Experience({ experience, experiences, comments }) {
 
   return (
     <>
-      <Header />
+      <Header siteId={query.siteId} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="px-3 lg:px-0 md:mx-auto">
           <BackLink
-            href={`${query.site}/experiences`}
+            href={`/${query.site}/experiences`}
             text={"Pick Experience"}
           />
 
@@ -108,7 +108,7 @@ export default function Experience({ experience, experiences, comments }) {
               ))}
             </div>
             <SectionLink
-              href={`/experiences?viewAll=true`}
+              href={`/${query.site}/experiences?viewAll=true`}
               text={"See all experiences"}
             />
           </Section>

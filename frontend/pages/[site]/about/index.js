@@ -8,13 +8,15 @@ import PageLoading from "components/PageLoading";
 import Image from "next/image";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
+import { useRouter } from "next/router";
 
 export default function About({ content }) {
+  const { query } = useRouter();
   if (!content) return <PageLoading />;
 
   return (
     <>
-      <Header />
+      <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen">
         <BackLink href={"/"} text={"Home"} />
         <PageTitle largeText={content.title} />

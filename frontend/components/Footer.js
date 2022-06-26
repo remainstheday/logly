@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 
-export default function Footer({ className }) {
+export default function Footer({ siteId, className }) {
   return (
     <footer
       className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white ${className}`}

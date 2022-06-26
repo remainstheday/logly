@@ -45,7 +45,7 @@ export default function Artifact({
 
   return (
     <>
-      <Header />
+      <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="px-3 lg:px-0 md:mx-auto">
           <BackLink href={`${experience.url}`} text={"Back to Experience"} />
@@ -122,7 +122,7 @@ export default function Artifact({
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink
-                href={`${query.site}/community`}
+                href={`/${query.site}/community`}
                 text={"Discover the Community"}
               />
             </div>
