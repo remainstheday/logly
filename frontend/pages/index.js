@@ -87,7 +87,7 @@ export default function IndexPage() {
           </div>
         </header>
 
-        <div className="max-w-4xl mt-24 mx-auto md:mx-auto">
+        <div className="mt-24 mx-auto md:mx-auto">
           <main>
             <h1 className="text-5xl text-center">
               Logly is a tool for self representation.
@@ -107,15 +107,84 @@ export default function IndexPage() {
               their stories with you.
             </p>
 
-            {/*<section>*/}
-            {/*  <h2>What your visitors see</h2>*/}
-            {/*  <div className="inline-screenshots"></div>*/}
-            {/*</section>*/}
+            <section className="mt-40 mx-auto max-w-4xl">
+              <h2 className="text-3xl text-center">
+                👇 What your visitors see 👇
+              </h2>
+              <div className="flex flex-inline place-content-between mt-10 mx-auto inline-screenshots">
+                <div className="w-60 screenshot-container">
+                  <Image
+                    src="/images/mobile-screenshot-homepage.png"
+                    width="227"
+                    height="342"
+                  />
+                  <p>A digital tool with your branding</p>
+                </div>
+                <div className="w-60 screenshot-container">
+                  <Image
+                    src="/images/mobile-screenshot-homepage.png"
+                    width="227"
+                    height="342"
+                  />
+                  <p>Tour guides with interpretative materials</p>
+                </div>
+                <div className="w-60 screenshot-container">
+                  <Image
+                    src="/images/mobile-screenshot-homepage.png"
+                    width="227"
+                    height="342"
+                  />
+                  <p>A space to share their thoughts + connect with others</p>
+                </div>
+              </div>
+            </section>
 
-            {/*<section>*/}
-            {/*  <h2>What you see</h2>*/}
-            {/*  <div className="inline-screenshots"></div>*/}
-            {/*</section>*/}
+            <section className="mt-40 mx-auto max-w-4xl">
+              <h2 className="text-3xl text-center">👇 What you see 👇</h2>
+              <div className="flex flex-inline items-center split-container">
+                <Image
+                  src="/images/desktop-screenshot-admin-experiences.png"
+                  width="480"
+                  height="460"
+                />
+                <div>
+                  <h3 className="text-2xl font-bold">Create Guides</h3>
+                  <p>
+                    Build Educational and engaging experiences for your
+                    community
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-inline items-center split-container">
+                <div>
+                  <h3 className="text-2xl font-bold">
+                    Upload Interpretive Materials
+                  </h3>
+                  <p>
+                    You can upload text, audio, and images to your experiences
+                  </p>
+                </div>
+                <Image
+                  src="/images/desktop-screenshot-admin-experiences.png"
+                  width="480"
+                  height="460"
+                />
+              </div>
+
+              <div className="flex flex-inline items-center split-container">
+                <Image
+                  src="/images/desktop-screenshot-admin-experiences.png"
+                  width="480"
+                  height="460"
+                />
+                <div>
+                  <h3 className="text-2xl font-bold">
+                    Manage and Share Comments
+                  </h3>
+                  <p>See what your community thinks and decide what to share</p>
+                </div>
+              </div>
+            </section>
 
             {/*<section>*/}
             {/*  <h2>Pricing</h2>*/}
@@ -135,7 +204,7 @@ export default function IndexPage() {
             {/*</section>*/}
           </main>
         </div>
-        <Footer className="absolute bottom-0" />
+        <Footer />
       </div>
     </>
   );
