@@ -92,7 +92,7 @@ export default withAuth(
               data: {
                 name: "About",
                 title: "About Logly Studio",
-                url: `${newSite.url}/about`,
+                url: `about`,
                 siteId: "logly-studio",
               },
             });
