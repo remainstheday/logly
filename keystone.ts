@@ -169,6 +169,7 @@ export default withAuth(
         const defaultUser = await context.prisma.user.count({
           where: { email: "trentontri@gmail.com" },
         });
+
         if (defaultSite === 0) {
           await context.query.Site.createOne({
             data: {
