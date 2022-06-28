@@ -181,7 +181,7 @@ export default withAuth(
             data: {
               name: "Home",
               title: "Logly Studio",
-              url: "",
+              url: "/logly-studio",
               siteId: "logly-studio",
             },
           });
