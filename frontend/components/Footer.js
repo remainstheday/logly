@@ -26,6 +26,7 @@ export default function Footer({ siteId, className }) {
               <a>Terms of Use</a>
             </Link>
           </li>
+
           <li>
             <Link href={"/privacy-policy"} passHref>
               <a>Privacy Policy</a>
