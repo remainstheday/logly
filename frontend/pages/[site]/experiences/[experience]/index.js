@@ -29,7 +29,7 @@ export default function Experience({ experience, experiences, comments }) {
 
   return (
     <>
-      <Header siteId={query.siteId} />
+      <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <section className="px-3 lg:px-0 md:mx-auto">
           <BackLink
