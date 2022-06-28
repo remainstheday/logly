@@ -249,9 +249,7 @@ export default function IndexPage() {
             {/*</section>*/}
           </main>
         </div>
-        <footer
-          className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white ${className}`}
-        >
+        <footer className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white`}>
           <div className="flex justify-between max-w-4xl mx-auto">
             <ul>
               <li>
