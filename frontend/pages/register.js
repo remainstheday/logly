@@ -30,6 +30,7 @@ export default function Register() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
       },
       body: JSON.stringify({ ...values, url: `/${values.url}` }),
     })
