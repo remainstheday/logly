@@ -4,15 +4,12 @@ import * as Yup from "yup";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(
-  `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`
-);
 const registrationSchema = Yup.object().shape({
   siteId: Yup.string()
     .min(3, "too short!")
     .max(50, "too long!")
+    .lowercase("must be lowercase")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string().min(8, "too short").required("required"),
@@ -30,7 +27,6 @@ export default function Register() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}`,
       },
       body: JSON.stringify({ ...values, url: `/${values.url}` }),
     })

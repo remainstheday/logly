@@ -47,7 +47,7 @@ export default withAuth(
             },
           });
           const existingEmail = await context.prisma.user.findUnique({
-            where: { email: `${req.body.email}` },
+            where: { email: `${req.body.email}`.toLowerCase() },
           });
 
           if (existingId.length > 0) {
@@ -71,7 +71,7 @@ export default withAuth(
           const newUser = {
             siteId: `${convertStringToURL(req.body.siteId)}`,
             name: req.body.name,
-            email: req.body.email,
+            email: `${req.body.email}`.toLowerCase(),
             password: req.body.password,
             isAdmin: false,
           };
