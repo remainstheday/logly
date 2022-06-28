@@ -42,11 +42,6 @@ export default function Footer({ siteId, className }) {
               <a>About Logly</a>
             </Link>
           </li>
-          <li>
-            <Link href={"/media"} passHref>
-              <a>Media</a>
-            </Link>
-          </li>
         </ul>
 
         <ul>
