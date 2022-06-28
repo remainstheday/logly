@@ -26,7 +26,7 @@ export default function Register() {
   const postFormData = async (values) => {
     setErrors(undefined);
     setLoading(true);
-    await fetch(`${process.env.FRONTEND_URL}/api/newUser`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
