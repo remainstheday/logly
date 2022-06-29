@@ -36,50 +36,17 @@ export default function Media() {
             <div className="w-full">
               <nav className="relative flex items-center justify-between py-3 w-full rounded">
                 <div className="w-full relative mx-auto flex flex-wrap items-center justify-end text-right">
-                  <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+                  <div className="w-full relative flex justify-start">
                     <Link href={`/`} passHref>
-                      <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
+                      <a>
                         <Image
-                          src="/Logo.png"
-                          className="w-1/3"
+                          src="/logly-logo.png"
                           alt="logly-logo"
-                          width="50"
+                          width="125"
                           height="50"
                         />
                       </a>
                     </Link>
-                    <button
-                      className="cursor-pointer text-xl mr-6 leading-none py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
-                      type="button"
-                      onClick={() => updateMobileMenu(!mobileMenu)}
-                    >
-                      <span className="block relative w-8 h-0.5 rounded-sm bg-black"></span>
-                      <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
-                      <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
-                    </button>
-                  </div>
-                  <div
-                    className={`${
-                      mobileMenu ? "visible" : "invisible"
-                    } flex pr-6 bg-white absolute pt-6 w-1/2 sm:w-1/3 h-screen right-0 top-12 z-10 lg:visible lg:static lg:pt-0 lg:w-auto lg:h-auto lg:pr-0 lg:flex-grow`}
-                  >
-                    <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
-                      <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
-                        <Link href={`/contact`} passHref>
-                          <a className="text-right">Contact</a>
-                        </Link>
-                      </li>
-                      {/*<li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">*/}
-                      {/*  <Link href={`/register`} passHref>*/}
-                      {/*    <a>Signup/Login</a>*/}
-                      {/*  </Link>*/}
-                      {/*</li>*/}
-                      {/*<li className="py-2 pr-0 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 block ">*/}
-                      {/*  <Link href={`/pricing`} passHref>*/}
-                      {/*    <a className="text-right block">Pricing</a>*/}
-                      {/*  </Link>*/}
-                      {/*</li>*/}
-                    </ul>
                   </div>
                 </div>
               </nav>
@@ -87,10 +54,19 @@ export default function Media() {
           </div>
         </header>
 
-        <div className="mt-24 mx-auto md:mx-auto ">
-          <h2>Media</h2>
+        <div className="mt-24 mx-auto md:mx-auto w-8/12 mx-auto">
+          <h1 className="text-5xl text-center mb-10">Media</h1>
+          <p>
+            <strong>February 15, 2022: </strong>
+            <Link href="https://medium.com/@louisapotthast/digital-futures-x-museums-how-does-digital-technology-impact-the-way-we-engage-with-art-2e4f33975b4d">
+              <a className="text-sky-500">
+                Digital Futures x Museums: How does digital technology impact
+                the way we engage with art?
+              </a>
+            </Link>
+          </p>
         </div>
-        <footer className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white`}>
+        <footer className="w-full fixed bottom-0 px-3 py-10 mt-20 bg-zinc-900 text-white">
           <div className="flex justify-between max-w-4xl mx-auto">
             <ul>
               <li>
@@ -138,11 +114,7 @@ export default function Media() {
               <li>
                 <h3 className="uppercase font-bold">Legal</h3>
               </li>
-              <li>
-                <Link href={"/termsofuse"} passHref>
-                  <a>Terms of Use</a>
-                </Link>
-              </li>
+
               <li>
                 <Link href={"/privacy-policy"} passHref>
                   <a>Privacy Policy</a>

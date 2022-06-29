@@ -87,10 +87,16 @@ export default function About() {
           </div>
         </header>
 
-        <div className="mt-24 mx-auto md:mx-auto ">
-          <h2>About Logly</h2>
+        <div className="mt-24 mx-auto md:mx-auto w-8/12 mx-auto">
+          <h1 className="text-5xl text-center mb-10">About</h1>
+          <p>
+            Logly is an educational tool and digital conversation space for
+            cultural institutions of all sizes. Our mission is to enhance
+            visitor interaction and help museums build communities by providing
+            accessible digital technologies.
+          </p>
         </div>
-        <footer className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white`}>
+        <footer className="w-full fixed bottom-0 px-3 py-10 mt-20 bg-zinc-900 text-white">
           <div className="flex justify-between max-w-4xl mx-auto">
             <ul>
               <li>
@@ -138,11 +144,7 @@ export default function About() {
               <li>
                 <h3 className="uppercase font-bold">Legal</h3>
               </li>
-              <li>
-                <Link href={"/termsofuse"} passHref>
-                  <a>Terms of Use</a>
-                </Link>
-              </li>
+
               <li>
                 <Link href={"/privacy-policy"} passHref>
                   <a>Privacy Policy</a>

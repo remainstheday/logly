@@ -92,8 +92,8 @@ export default withAuth(
               data: {
                 name: "About",
                 title: "About Logly Studio",
-                url: `about`,
-                siteId: "logly-studio",
+                url: `${newSite.url}/about`,
+                siteId: newSite.siteId,
               },
             });
             await context.query.SiteContent.createOne({

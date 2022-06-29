@@ -59,7 +59,7 @@ export default function Community({ comments = [] }) {
       <Header siteId={query.site} />
       <div className="min-h-screen">
         <div className="max-w-4xl px-6 md:px-0 mx-auto md:mx-auto">
-          <BackLink href={"/"} text={"Home"} />
+          <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle largeText={"Community"} />
           {query.social === "true" && !data && !error && (
             <section className="mt-20 md:mt-32 mx-auto">
