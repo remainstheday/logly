@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 
 export default function PrivacyPolicy() {
-  const [mobileMenu, updateMobileMenu] = useState(false);
-
   return (
     <>
       <Head>

@@ -66,7 +66,7 @@ export async function getStaticProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-  console.log(content.siteContents);
+
   return addApolloState(apolloClient, {
     props: {
       content: content.data.siteContents.find(

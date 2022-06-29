@@ -91,7 +91,7 @@ export default withAuth(
             await context.query.SiteContent.createOne({
               data: {
                 name: "About",
-                title: "About Logly Studio",
+                title: `About ${newSite.title}`,
                 url: `${newSite.url}/about`,
                 siteId: newSite.siteId,
               },
@@ -99,7 +99,7 @@ export default withAuth(
             await context.query.SiteContent.createOne({
               data: {
                 name: "Home",
-                title: "Logly Studio",
+                title: newSite.title,
                 url: newSite.url,
                 siteId: newSite.siteId,
               },
@@ -190,7 +190,7 @@ export default withAuth(
             data: {
               name: "About",
               title: "About Logly Studio",
-              url: "about",
+              url: "logly-studio/about",
               siteId: "logly-studio",
             },
           });
