@@ -78,6 +78,7 @@ export default function IndexPage() {
                 visitors? What inspires them? On Logly they can share their
                 stories with you.
               </p>
+              <strong>sign up for logly news + updates.</strong>
 
               <div className="mt-12">
                 {/* eslint-disable-next-line @next/next/no-sync-scripts */}
@@ -128,6 +129,7 @@ export default function IndexPage() {
                     </div>
                   </div>
                 </form>
+                <i>We respect your privacy. Unsubscribe at any time.</i>
               </div>
             </div>
           </main>
