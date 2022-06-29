@@ -68,14 +68,16 @@ export default function PrivacyPolicy() {
               This policy is effective as of 29 June 2022 and was last updated
               on 29 June 2022.{" "}
             </p>
-            <h3>Information We Collect</h3>
+            <br />
+            <h3 className="text-4xl">Information We Collect</h3>
             <p>
               Information we collect includes both information you knowingly and
               actively provide us when using or participating in any of our
               services and promotions, and any information automatically sent by
               your devices in the course of accessing our products and services.{" "}
             </p>
-            <h4>Log Data</h4>
+            <br />
+            <h4 className="text-2xl">Log Data</h4>
             <p>
               When you visit our website, our servers may automatically log the
               standard data provided by your web browser. It may include your
@@ -90,7 +92,8 @@ export default function PrivacyPolicy() {
               identifying by itself, it may be possible to combine it with other
               data to personally identify individual persons.{" "}
             </p>
-            <h4>Personal Information</h4>
+            <br />
+            <h4 className="text-2xl">Personal Information</h4>
             <p>
               We may ask for personal information which may include one or more
               of the following:{" "}
@@ -98,14 +101,18 @@ export default function PrivacyPolicy() {
             <ul>
               <li>Email</li>
             </ul>
-            <h4>Legitimate Reasons for Processing Your Personal Information</h4>
+            <br />
+            <h4 className="text-2xl">
+              Legitimate Reasons for Processing Your Personal Information
+            </h4>
             <p>
               We only collect and use your personal information when we have a
               legitimate reason for doing so. In which instance, we only collect
               personal information that is reasonably necessary to provide our
               services to you.{" "}
             </p>
-            <h4>Collection and Use of Information</h4>
+            <br />
+            <h4 className="text-2xl">Collection and Use of Information</h4>
             <p>
               We may collect personal information from you when you do any of
               the following on our website:{" "}
@@ -128,7 +135,8 @@ export default function PrivacyPolicy() {
               you with general information or research data we receive from
               other trusted sources.{" "}
             </p>
-            <h4>Security of Your Personal Information</h4>
+            <br />
+            <h4 className="text-2xl">Security of Your Personal Information</h4>
             <p>
               When we collect and process personal information, and while we
               retain this information, we will protect it within commercially
@@ -147,7 +155,10 @@ export default function PrivacyPolicy() {
               security strength, ensuring the security of your own information
               within the bounds of our services.{" "}
             </p>
-            <h4>How Long We Keep Your Personal Information</h4>
+            <br />
+            <h4 className="text-2xl">
+              How Long We Keep Your Personal Information
+            </h4>
             <p>
               We keep your personal information only for as long as we need to.
               This time period may depend on what we are using your information
@@ -161,13 +172,17 @@ export default function PrivacyPolicy() {
               or for archiving purposes in the public interest, scientific, or
               historical research purposes or statistical purposes.{" "}
             </p>
-            <h3>Childrens Privacy</h3>
+            <br />
+            <h3 className="text-4xl">Childrens Privacy</h3>
             <p>
               We do not aim any of our products or services directly at children
               under the age of 13, and we do not knowingly collect personal
               information about children under 13.{" "}
             </p>
-            <h3>Disclosure of Personal Information to Third Parties</h3>
+            <br />
+            <h3 className="text-4xl">
+              Disclosure of Personal Information to Third Parties
+            </h3>
             <p>We may disclose personal information to: </p>
             <ul>
               <li>a parent, subsidiary, or affiliate of our company</li>
@@ -195,7 +210,10 @@ export default function PrivacyPolicy() {
                 marketing to you third parties to collect and process data
               </li>
             </ul>
-            <h3>International Transfers of Personal Information</h3>
+            <br />
+            <h3 className="text-4xl">
+              International Transfers of Personal Information
+            </h3>
             <p>
               The personal information we collect is stored and/or processed
               where we or our partners, affiliates, and third-party providers
@@ -208,7 +226,9 @@ export default function PrivacyPolicy() {
               applicable law; and (ii) we will protect the transferred personal
               information in accordance with this privacy policy.{" "}
             </p>
-            <h3>Your Rights and Controlling Your Personal Information</h3>
+            <h3 className="text-4xl">
+              Your Rights and Controlling Your Personal Information
+            </h3>
             <p>
               You always retain the right to withhold personal information from
               us, with the understanding that your experience of our website may
@@ -251,14 +271,16 @@ export default function PrivacyPolicy() {
               the right to contact a regulatory body or data protection
               authority in relation to your complaint.{" "}
             </p>
-            <h3>Limits of Our Policy</h3>
+            <br />
+            <h3 className="text-4xl">Limits of Our Policy</h3>
             <p>
               Our website may link to external sites that are not operated by
               us. Please be aware that we have no control over the content and
               policies of those sites, and cannot accept responsibility or
               liability for their respective privacy practices.{" "}
             </p>
-            <h3>Changes to This Policy</h3>
+            <br />
+            <h3 className="text-4xl">Changes to This Policy</h3>
             <p>
               At our discretion, we may change our privacy policy to reflect
               updates to our business processes, current acceptable practices,
@@ -271,7 +293,8 @@ export default function PrivacyPolicy() {
               opportunity to opt in to or opt out of, as applicable, any new
               uses of your personal information.{" "}
             </p>
-            <h3>Contact Us</h3>
+            <br />
+            <h3 className="text-4xl">Contact Us</h3>
             <p>
               For any questions or concerns regarding your privacy, you may
               contact us using the following details:{" "}
