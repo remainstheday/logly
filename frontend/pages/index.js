@@ -39,15 +39,6 @@ export default function IndexPage() {
                   <div className="w-full relative flex justify-start">
                     <Link href={`/`} passHref>
                       <a>
-                        <div className="mt-1 float-left">
-                          <Image
-                            src="/Logo.png"
-                            className="pt-6"
-                            alt="logly-logo"
-                            width="40"
-                            height="40"
-                          />
-                        </div>
                         <Image
                           src="/logly-logo.png"
                           alt="logly-logo"
