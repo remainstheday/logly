@@ -78,9 +78,14 @@ export default function IndexPage() {
                 visitors? What inspires them? On Logly they can share their
                 stories with you.
               </p>
-              <strong>sign up for logly news + updates.</strong>
 
               <div className="mt-12">
+                <strong className="block text-center">
+                  sign up for logly news + updates.
+                </strong>
+                <i className="block text-center">
+                  We respect your privacy. Unsubscribe at any time.
+                </i>
                 {/* eslint-disable-next-line @next/next/no-sync-scripts */}
                 <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
                 <form
@@ -129,7 +134,6 @@ export default function IndexPage() {
                     </div>
                   </div>
                 </form>
-                <i>We respect your privacy. Unsubscribe at any time.</i>
               </div>
             </div>
           </main>
