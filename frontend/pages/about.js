@@ -3,6 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
+import Section from "components/Section";
 
 export default function About() {
   return (
@@ -52,14 +53,16 @@ export default function About() {
           </div>
         </header>
 
-        <div className="mt-24 mx-auto md:mx-auto w-8/12 mx-auto">
-          <h1 className="text-5xl text-center mb-10">About</h1>
-          <p>
-            Logly is an educational tool and digital conversation space for
-            cultural institutions of all sizes. Our mission is to enhance
-            visitor interaction and help museums build communities by providing
-            accessible digital technologies.
-          </p>
+        <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+          <Section>
+            <h1 className="text-5xl text-center mb-10">About</h1>
+            <p>
+              Logly is an educational tool and digital conversation space for
+              cultural institutions of all sizes. Our mission is to enhance
+              visitor interaction and help museums build communities by
+              providing accessible digital technologies.
+            </p>
+          </Section>
         </div>
         <footer className="w-full fixed bottom-0 px-3 py-10 mt-20 bg-zinc-900 text-white">
           <div className="flex justify-between max-w-4xl mx-auto">

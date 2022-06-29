@@ -239,7 +239,7 @@ export default function Register() {
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   disabled={isSubmitting || errors}
                 >
-                  Continue to Payment
+                  {loading ? "Loading..." : "Continue to Payment"}
                 </button>
 
                 {errors && <p className="text-red-600">{errors}</p>}
