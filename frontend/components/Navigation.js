@@ -2,6 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function Navigation({ siteId }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
   return (
@@ -12,6 +16,7 @@ export default function Navigation({ siteId }) {
             <Link href={`/${siteId}`} passHref>
               <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
                 <Image
+                  loader={customLoader}
                   src="/Logo.png"
                   className="w-1/3"
                   alt="logly-logo"

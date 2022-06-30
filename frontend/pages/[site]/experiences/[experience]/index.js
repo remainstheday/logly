@@ -20,6 +20,10 @@ import CommentCard from "components/CommentCard";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function Experience({ experience, experiences, comments }) {
   const { query } = useRouter();
   if (!experience || !experiences) return <PageLoading />;
@@ -62,6 +66,7 @@ export default function Experience({ experience, experiences, comments }) {
                     <Link href={`${experience.url}/${artifact.url}`} passHref>
                       <a>
                         <Image
+                          loader={customLoader}
                           src={
                             artifact.artifactImages
                               ? artifact.artifactImages
@@ -91,6 +96,7 @@ export default function Experience({ experience, experiences, comments }) {
                     <Link href={`${item.url}`} passHref>
                       <a>
                         <Image
+                          loader={customLoader}
                           src={
                             item.experienceImages
                               ? item.experienceImages
@@ -136,7 +142,7 @@ export default function Experience({ experience, experiences, comments }) {
           </Section>
         )}
       </div>
-      <Footer />
+      <Footer siteId={query.site} />
     </>
   );
 }

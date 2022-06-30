@@ -18,6 +18,10 @@ import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function IndexPage({ content, experiences, comments }) {
   const { query } = useRouter();
   if (!content || !experiences || !comments) return <PageLoading />;
@@ -35,6 +39,7 @@ export default function IndexPage({ content, experiences, comments }) {
           {content.staticPageImages && (
             <div className="flex relative my-16">
               <Image
+                loader={customLoader}
                 src={content.staticPageImages}
                 width="1080"
                 height="720"
@@ -58,6 +63,7 @@ export default function IndexPage({ content, experiences, comments }) {
                       <Link href={`${item.url}`} passHref>
                         <a>
                           <Image
+                            loader={customLoader}
                             src={
                               item.experienceImages
                                 ? item.experienceImages
@@ -99,7 +105,7 @@ export default function IndexPage({ content, experiences, comments }) {
           )}
         </main>
       </div>
-      <Footer />
+      <Footer siteId={query.site} />
     </>
   );
 }

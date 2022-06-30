@@ -38,7 +38,7 @@ export default function Experience({ experiences }) {
           </div>
         </section>
       </div>
-      <Footer />
+      <Footer siteId={query.site} />
     </>
   );
 }

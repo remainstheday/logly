@@ -15,6 +15,10 @@ import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function Community({ comments = [] }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
@@ -137,6 +141,7 @@ export default function Community({ comments = [] }) {
                   >
                     {post.image.length > 0 && (
                       <Image
+                        loader={customLoader}
                         src={post.image}
                         width="1080"
                         height="720"
@@ -163,7 +168,7 @@ export default function Community({ comments = [] }) {
           </section>
         )}
       </div>
-      <Footer />
+      <Footer siteId={query.site} />
     </>
   );
 }

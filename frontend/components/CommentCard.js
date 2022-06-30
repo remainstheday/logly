@@ -3,6 +3,10 @@ import Image from "next/image";
 import { truncateComment } from "utils/truncateText";
 import { format } from "date-fns";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function CommentCard({ comment }) {
   if (!comment) return <></>;
 
@@ -11,6 +15,7 @@ export default function CommentCard({ comment }) {
       {comment.image && (
         <div className="w-1/2 overflow-hidden">
           <Image
+            loader={customLoader}
             className="object-cover"
             src={comment.image}
             width="290"

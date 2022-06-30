@@ -22,6 +22,10 @@ import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function Artifact({
   artifact,
   experience,
@@ -56,6 +60,7 @@ export default function Artifact({
 
           <div className="flex relative my-5">
             <Image
+              loader={customLoader}
               src={
                 artifact.artifactImages
                   ? artifact.artifactImages
@@ -86,6 +91,7 @@ export default function Artifact({
                     <Link href={`${experience.url}/${artifact.url}`} passHref>
                       <a>
                         <Image
+                          loader={customLoader}
                           src={
                             artifact.artifactImages
                               ? artifact.artifactImages
@@ -129,7 +135,7 @@ export default function Artifact({
           </Section>
         )}
       </div>
-      <Footer />
+      <Footer siteId={query.site} />
     </>
   );
 }

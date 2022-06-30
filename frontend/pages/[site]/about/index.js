@@ -10,6 +10,10 @@ import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function About({ content }) {
   const { query } = useRouter();
   if (!content) return <PageLoading />;
@@ -24,6 +28,7 @@ export default function About({ content }) {
           {content.staticPageImages && (
             <div className="flex relative my-16">
               <Image
+                loader={customLoader}
                 src={content.staticPageImages}
                 width="1080"
                 height="720"
@@ -38,7 +43,7 @@ export default function About({ content }) {
           )}
         </section>
       </div>
-      <Footer />
+      <Footer siteId={query.site} />
     </>
   );
 }

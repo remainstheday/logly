@@ -11,7 +11,7 @@ export default function Footer({ siteId, className }) {
             <h3 className="uppercase font-bold">About</h3>
           </li>
           <li>
-            <Link href={`${siteId}/about`} passHref>
+            <Link href={`/${siteId}/about`} passHref>
               <a>About Logly</a>
             </Link>
           </li>
