@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 import Section from "components/Section";
+import Script from "next/script";
 
 export default function IndexPage() {
   return (
@@ -79,8 +80,21 @@ export default function IndexPage() {
                 sign up for logly news + updates.
               </strong>
 
-              {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-              <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+              <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
+              ></Script>
+
+              <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'UA-212210451-1');
+                `}
+              </Script>
+
+              <Script src="https://f.convertkit.com/ckjs/ck.5.js"></Script>
               <form
                 action="https://app.convertkit.com/forms/3337562/subscriptions"
                 className="seva-form formkit-form "
