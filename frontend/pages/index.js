@@ -6,6 +6,10 @@ import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 import Section from "components/Section";
 import Script from "next/script";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function IndexPage() {
   return (
     <>
@@ -40,6 +44,7 @@ export default function IndexPage() {
                     <Link href={`/`} passHref>
                       <a>
                         <Image
+                          loader={customLoader}
                           src="/logly-logo.png"
                           alt="logly-logo"
                           width="125"

@@ -5,6 +5,10 @@ import Image from "next/image";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 import Section from "components/Section";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 export default function About() {
   return (
     <>
@@ -39,6 +43,7 @@ export default function About() {
                     <Link href={`/`} passHref>
                       <a>
                         <Image
+                          loader={customLoader}
                           src="/logly-logo.png"
                           alt="logly-logo"
                           width="125"

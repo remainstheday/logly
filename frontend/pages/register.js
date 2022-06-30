@@ -5,6 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 
+const customLoader = ({ src }) => {
+  return src;
+};
+
 const registrationSchema = Yup.object().shape({
   siteId: Yup.string()
     .min(3, "too short!")
@@ -93,6 +97,7 @@ export default function Register() {
                   <Link href={`/`} passHref>
                     <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
                       <Image
+                        loader={customLoader}
                         src="/Logo.png"
                         className="w-1/3"
                         alt="logly-logo"
