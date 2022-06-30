@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1LDJxbDgalg6aJT3fPy1EW2n",
+            price: `${process.env.STRIPE_PAYMENT_ID}`,
             quantity: 1,
           },
         ],
