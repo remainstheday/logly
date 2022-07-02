@@ -25,6 +25,7 @@ const customLoader = ({ src }) => {
 export default function IndexPage({ content, experiences, comments }) {
   const { query } = useRouter();
   if (!content || !experiences || !comments) return <PageLoading />;
+  console.log(experiences);
   const filteredComments = comments.filter((comment) => comment.image);
 
   return (
@@ -135,6 +136,7 @@ export async function getStaticProps({ params }) {
     variables: { siteId: params.site },
   });
 
+  console.log(experiences.data.experiences);
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
@@ -149,9 +151,7 @@ export async function getStaticProps({ params }) {
     props: {
       content: content.data.siteContents.find((item) => item.name === "Home"),
       experiences: experiences.data.experiences.filter(
-        (experience) =>
-          experience.status === "published" &&
-          experience.experienceImages.length > 0
+        (experience) => experience.status === "published"
       ),
       comments: comments.data.comments,
     },
