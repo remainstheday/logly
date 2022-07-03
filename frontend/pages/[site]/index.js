@@ -25,7 +25,6 @@ const customLoader = ({ src }) => {
 export default function IndexPage({ content, experiences, comments }) {
   const { query } = useRouter();
   if (!content || !experiences || !comments) return <PageLoading />;
-  console.log(experiences);
   const filteredComments = comments.filter((comment) => comment.image);
 
   return (

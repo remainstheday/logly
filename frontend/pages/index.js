@@ -152,6 +152,38 @@ export default function IndexPage() {
               </i>
             </div>
           </Section>
+          <section className="flex flex-row screenshots">
+            <div className="screenshot-container">
+              <Image
+                loader={customLoader}
+                src="/logly-logo.png"
+                alt="logly-logo"
+                width="125"
+                height="50"
+              />
+              <h3>A digital tool with your branding.</h3>
+            </div>
+            <div className="screenshot-container">
+              <Image
+                loader={customLoader}
+                src="/logly-logo.png"
+                alt="logly-logo"
+                width="125"
+                height="50"
+              />
+              <p> Tour guides with interpretive materials.</p>
+            </div>
+            <div className="screenshot-container">
+              <Image
+                loader={customLoader}
+                src="/logly-logo.png"
+                alt="logly-logo"
+                width="125"
+                height="50"
+              />
+              <p>A space to share their thoughts + connect with others.</p>
+            </div>
+          </section>
         </div>
         <footer className="w-full md:fixed bottom-0 px-3 py-10 mt-20 bg-zinc-900 text-white">
           <div className="flex justify-between max-w-4xl mx-auto">
