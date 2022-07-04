@@ -189,6 +189,49 @@ export default function IndexPage() {
               </div>
             </div>
           </section>
+          <section className="mt-24">
+            <h2 className="text-3xl text-center font-bold uppercase">
+              What you see
+            </h2>
+            <div className="flex flex-row justify-between screenshots">
+              <div className="screenshot-container">
+                <Image
+                  loader={customLoader}
+                  src="/mobile-logly-homepage.png"
+                  alt="logly-logo"
+                  width="765"
+                  height="1200"
+                />
+                <h3>
+                  Easily upload text, photos, and audio. Captions and alt text
+                  for your digital guides. No technical skills needed.
+                </h3>
+              </div>
+              <div className="screenshot-container">
+                <Image
+                  loader={customLoader}
+                  src="/mobile-logly-homepage.png"
+                  alt="logly-logo"
+                  width="765"
+                  height="1200"
+                />
+                <p>
+                  Share the guides with your visitors instantly and create
+                  engaging experiences.
+                </p>
+              </div>
+              <div className="screenshot-container">
+                <p>A space to share their thoughts + connect with others.</p>
+                <Image
+                  loader={customLoader}
+                  src="/mobile-logly-homepage.png"
+                  alt="logly-logo"
+                  width="765"
+                  height="1200"
+                />
+              </div>
+            </div>
+          </section>
         </div>
         <footer className="w-full px-3 py-10 mt-20 bg-zinc-900 text-white">
           <div className="flex justify-between max-w-4xl mx-auto">
