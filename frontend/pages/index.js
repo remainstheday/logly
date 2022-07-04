@@ -58,27 +58,36 @@ export default function IndexPage() {
             </div>
           </div>
         </header>
-        <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+        <div className="max-w-4xl mx-auto min-h-screen sm:mx-auto">
           <Section>
-            <h1 className="text-3xl md:text-5xl md:text-center mb-10">
+            <h1 className="text-3xl uppercase font-bold md:text-5xl md:text-center mb-10">
               Logly is a community, a classroom, and an archive.
             </h1>
-            <p>
-              Our platform enables cultural institutions to{" "}
-              <strong>
-                {" "}
-                easily build digital guides and instantly create immersive
-                experiences for guests.
-              </strong>
-            </p>
-            <br />
-            <p>
-              By providing an <strong>interactive space</strong>, visitors can
-              share their thoughts with others — and{" "}
-              <strong>
-                cultural institutions can learn from their audience.{" "}
-              </strong>
-            </p>
+            <div className="flex flex-col sm:flex-row justify-between">
+              <p className="sm:w-3/4">
+                Our platform enables cultural institutions to{" "}
+                <strong>
+                  {" "}
+                  easily build digital guides and instantly create immersive
+                  experiences for guests.
+                </strong>
+                <br />
+                <br />
+                By providing an <strong>interactive space</strong>, visitors can
+                share their thoughts with others — and{" "}
+                <strong>
+                  cultural institutions can learn from their audience.{" "}
+                </strong>
+              </p>
+
+              <Image
+                loader={customLoader}
+                src="/homepage-illustration-1.png"
+                alt="logly-illustration"
+                width="250"
+                height="175"
+              />
+            </div>
 
             <div className="mt-12">
               <strong className="block text-center">
@@ -156,79 +165,45 @@ export default function IndexPage() {
             <h2 className="text-3xl text-center font-bold uppercase">
               What your visitors see
             </h2>
-            <div className="flex flex-row justify-between screenshots">
-              <div className="screenshot-container">
-                <Image
-                  loader={customLoader}
-                  src="/mobile-logly-homepage.png"
-                  alt="logly-logo"
-                  width="765"
-                  height="1200"
-                />
-                <h3>A digital tool with your branding.</h3>
+            <div className="flex flex-col sm:flex-row justify-between">
+              <div className="w-full mt-12 sm:w-1/3">
+                <div className="block text-center">
+                  <Image
+                    loader={customLoader}
+                    src="/mobile-logly-homepage.png"
+                    alt="logly-logo"
+                    width="175"
+                    height="355"
+                    className="mx-auto block text-center"
+                  />
+                  <h3>A digital tool with your branding.</h3>
+                </div>
               </div>
-              <div className="screenshot-container">
-                <Image
-                  loader={customLoader}
-                  src="/mobile-logly-homepage.png"
-                  alt="logly-logo"
-                  width="765"
-                  height="1200"
-                />
-                <p> Tour guides with interpretive materials.</p>
+              <div className="mt-12 sm:w-1/3">
+                <div className="block text-center">
+                  <Image
+                    loader={customLoader}
+                    src="/mobile-logly-experiences.png"
+                    alt="logly-logo"
+                    width="175"
+                    height="355"
+                  />
+                  <h3>Tour guides with interpretive materials.</h3>
+                </div>
               </div>
-              <div className="screenshot-container">
-                <Image
-                  loader={customLoader}
-                  src="/mobile-logly-homepage.png"
-                  alt="logly-logo"
-                  width="765"
-                  height="1200"
-                />
-                <p>A space to share their thoughts + connect with others.</p>
-              </div>
-            </div>
-          </section>
-          <section className="mt-24">
-            <h2 className="text-3xl text-center font-bold uppercase">
-              What you see
-            </h2>
-            <div className="flex flex-row justify-between screenshots">
-              <div className="screenshot-container">
-                <Image
-                  loader={customLoader}
-                  src="/mobile-logly-homepage.png"
-                  alt="logly-logo"
-                  width="765"
-                  height="1200"
-                />
-                <h3>
-                  Easily upload text, photos, and audio. Captions and alt text
-                  for your digital guides. No technical skills needed.
-                </h3>
-              </div>
-              <div className="screenshot-container">
-                <Image
-                  loader={customLoader}
-                  src="/mobile-logly-homepage.png"
-                  alt="logly-logo"
-                  width="765"
-                  height="1200"
-                />
-                <p>
-                  Share the guides with your visitors instantly and create
-                  engaging experiences.
-                </p>
-              </div>
-              <div className="screenshot-container">
-                <p>A space to share their thoughts + connect with others.</p>
-                <Image
-                  loader={customLoader}
-                  src="/mobile-logly-homepage.png"
-                  alt="logly-logo"
-                  width="765"
-                  height="1200"
-                />
+              <div className="mt-12 sm:w-1/3">
+                <div className="block text-center">
+                  <Image
+                    loader={customLoader}
+                    src="/mobile-logly-community.png"
+                    alt="logly-logo"
+                    width="175"
+                    height="355"
+                  />
+                  <h3>
+                    A space to share their thoughts + connect with others.
+                  </h3>
+                </div>
               </div>
             </div>
           </section>
