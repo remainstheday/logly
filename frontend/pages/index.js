@@ -42,7 +42,7 @@ export default function IndexPage() {
             <div className="w-full">
               <nav className="relative flex items-center justify-between py-3 w-full rounded">
                 <div className="w-full relative mx-auto flex flex-wrap items-center justify-end text-right">
-                  <div className="w-full relative flex justify-start">
+                  <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                     <Link href={`/`} passHref>
                       <a>
                         <Image
@@ -89,14 +89,13 @@ export default function IndexPage() {
         </header>
         <div className="max-w-4xl mx-auto min-h-screen sm:mx-auto">
           <Section>
-            <h1 className="text-3xl uppercase font-bold md:text-5xl md:text-center mb-10">
+            <h1 className="text-3xl uppercase font-bold md:text-5xl text-center mb-10">
               Logly is a community, a classroom, and an archive.
             </h1>
             <div className="flex flex-col sm:flex-row justify-between">
               <p className="sm:w-3/4">
                 Our platform enables cultural institutions to{" "}
                 <strong>
-                  {" "}
                   easily build digital guides and instantly create immersive
                   experiences for guests.
                 </strong>
@@ -105,17 +104,18 @@ export default function IndexPage() {
                 By providing an <strong>interactive space</strong>, visitors can
                 share their thoughts with others — and{" "}
                 <strong>
-                  cultural institutions can learn from their audience.{" "}
+                  cultural institutions can learn from their audience.
                 </strong>
               </p>
-
-              <Image
-                loader={customLoader}
-                src="/homepage-illustration-1.png"
-                alt="logly-illustration"
-                width="250"
-                height="175"
-              />
+              <div className="block text-right hidden sm:block">
+                <Image
+                  loader={customLoader}
+                  src="/homepage-illustration-1.png"
+                  alt="logly-illustration"
+                  width="250"
+                  height="175"
+                />
+              </div>
             </div>
             <Link href="/register" passHref>
               <a
