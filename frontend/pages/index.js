@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +11,8 @@ const customLoader = ({ src }) => {
 };
 
 export default function IndexPage() {
+  const [mobileMenu, updateMobileMenu] = useState(false);
+
   return (
     <>
       <Head>
@@ -52,6 +54,33 @@ export default function IndexPage() {
                         />
                       </a>
                     </Link>
+                    <button
+                      className="cursor-pointer text-xl mr-6 leading-none py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+                      type="button"
+                      onClick={() => updateMobileMenu(!mobileMenu)}
+                    >
+                      <span className="block relative w-8 h-0.5 rounded-sm bg-black"></span>
+                      <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
+                      <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
+                    </button>
+                    <div
+                      className={`${
+                        mobileMenu ? "visible" : "invisible"
+                      } flex pr-6 bg-white absolute pt-6 w-1/2 sm:w-1/3 h-screen right-0 top-12 z-10 lg:visible lg:static lg:pt-0 lg:w-auto lg:h-auto lg:pr-0 lg:flex-grow`}
+                    >
+                      <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
+                        <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
+                          <Link href="/about" passHref>
+                            <a className="text-right">Contact</a>
+                          </Link>
+                        </li>
+                        <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
+                          <Link href="/register" passHref>
+                            <a>Login/Sign up</a>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </nav>
@@ -144,14 +173,14 @@ export default function IndexPage() {
                     <button
                       data-element="submit"
                       style={{ backgroundColor: "#002FA7" }}
-                      className="formkit-submit formkit-submit ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                      className="formkit-submit formkit-submit ml-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                       <div className="formkit-spinner">
                         <div></div>
                         <div></div>
                         <div></div>
                       </div>
-                      <span className="">Subscribe</span>
+                      <span>Subscribe</span>
                     </button>
                   </div>
                 </div>
@@ -206,6 +235,14 @@ export default function IndexPage() {
                 </div>
               </div>
             </div>
+            <Link href="/register" passHref>
+              <a
+                style={{ backgroundColor: "#002FA7" }}
+                className="mx-auto w-1/4 mt-12 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Get Started
+              </a>
+            </Link>
           </section>
 
           <section className="mt-48 px-3">
@@ -302,6 +339,57 @@ export default function IndexPage() {
                     />
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-48 px-3">
+            <h2 className="text-3xl text-center font-bold uppercase">
+              Pricing
+            </h2>
+            <div className="flex flex-col sm:flex-row justify-between">
+              <div className="w-full sm:w-80 mt-20">
+                <h3 className="font-bold text-2xl text-center">
+                  Logly Premium
+                </h3>
+                <ul className="text-center mt-2 space-y-2">
+                  <li>~ Unlimited guides ~</li>
+                  <li>~ Image & audio uploads ~ </li>
+                  <li>~ QR Codes ~</li>
+                  <li>~ Community comments ~</li>
+                </ul>
+                <h3 className="font-bold text-1xl text-center mt-8">
+                  $80/month
+                </h3>
+                <Link href="/register">
+                  <a
+                    style={{ backgroundColor: "#002FA7" }}
+                    className="mx-auto w-2/5 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Get Started
+                  </a>
+                </Link>
+              </div>
+
+              <div className="w-full sm:w-80 mt-20">
+                <h3 className="font-bold text-2xl text-center">Custom</h3>
+                <i className="mt-4 text-center  block">
+                  Our custom plan includes all the features in premium, plus
+                  consulting services
+                </i>
+                <ul className="text-center mt-4 space-y-2">
+                  <li>~ creating interpretive materials ~</li>
+                  <li>~ custom editing ~</li>
+                </ul>
+                <br />
+                <Link href="/about">
+                  <a
+                    style={{ backgroundColor: "#002FA7" }}
+                    className="mx-auto mt-4 w-2/5 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Get In Touch
+                  </a>
+                </Link>
               </div>
             </div>
           </section>
