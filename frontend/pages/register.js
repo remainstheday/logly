@@ -147,7 +147,7 @@ export default function Register() {
       <main className="max-w-lg mt-20 mx-auto min-h-screen md:mx-auto">
         <div>
           <h1 className="text-4xl mb-5 font-bold text-center">
-            Welcome to Logly
+            Sign up for Logly
           </h1>
           <Formik
             initialValues={{
@@ -166,7 +166,6 @@ export default function Register() {
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
               >
-                <h3 className="text-center">New Account</h3>
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold"

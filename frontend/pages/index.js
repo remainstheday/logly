@@ -117,78 +117,14 @@ export default function IndexPage() {
                 height="175"
               />
             </div>
-
-            <div className="mt-12">
-              <strong className="block text-center">
-                sign up for logly news + updates.
-              </strong>
-
-              <Script
-                async
-                src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
-              ></Script>
-
-              <Script id="google-analytics" strategy="afterInteractive">
-                {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'UA-212210451-1');
-                `}
-              </Script>
-
-              <Script src="https://f.convertkit.com/ckjs/ck.5.js"></Script>
-              <form
-                action="https://app.convertkit.com/forms/3337562/subscriptions"
-                className="seva-form formkit-form "
-                method="post"
-                data-sv-form="3337562"
-                data-uid="32f877138b"
-                data-format="inline"
-                data-version="5"
-                data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Thank you for subscribing!","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"hide","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
-                min-width="400 500 600 700 800"
+            <Link href="/register" passHref>
+              <a
+                style={{ backgroundColor: "#002FA7" }}
+                className="mx-auto w-1/4 mt-12 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                <div data-style="clean">
-                  <ul
-                    className="formkit-alert formkit-alert-error"
-                    data-element="errors"
-                    data-group="alert"
-                  ></ul>
-                  <div
-                    data-element="fields"
-                    data-stacked="false"
-                    className="seva-fields formkit-fields flex flex-inline justify-center mt-5"
-                  >
-                    <div className="formkit-field w-1/2">
-                      <input
-                        className="formkit-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        name="email_address"
-                        aria-label="Email Address"
-                        placeholder="Email Address"
-                        required=""
-                        type="email"
-                      />
-                    </div>
-                    <button
-                      data-element="submit"
-                      style={{ backgroundColor: "#002FA7" }}
-                      className="formkit-submit formkit-submit ml-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                    >
-                      <div className="formkit-spinner">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                      </div>
-                      <span>Subscribe</span>
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <i className="block text-center">
-                We respect your privacy. Unsubscribe at any time.
-              </i>
-            </div>
+                Get Started
+              </a>
+            </Link>
           </Section>
           <section className="mt-24 px-3">
             <h2 className="text-3xl text-center font-bold uppercase">
@@ -245,13 +181,13 @@ export default function IndexPage() {
             </Link>
           </section>
 
-          <section className="mt-48 px-3">
+          <section className="mt-24 px-3">
             <h2 className="text-3xl text-center font-bold uppercase">
               What you see
             </h2>
             <div>
-              <div className="flex flex-col sm:flex-row mt-20">
-                <div className="sm:w-1/2">
+              <div className="flex flex-col sm:flex-row mt-12">
+                <div className="block text-center sm:w-1/2">
                   <Image
                     loader={customLoader}
                     src="/homepage-desktop-admin-3.png"
@@ -282,7 +218,7 @@ export default function IndexPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
-                <div className="sm:w-1/2 order-2">
+                <div className="sm:w-1/2 order-2 sm:order-1">
                   <h3 className="font-bold text-center sm:text-left text-2xl">
                     A Publishing Tool
                   </h3>
@@ -300,7 +236,7 @@ export default function IndexPage() {
                     />
                   </div>
                 </div>
-                <div className="sm:w-1/2 order-1">
+                <div className="block text-center sm:w-1/2 order-1">
                   <Image
                     loader={customLoader}
                     src="/homepage-desktop-admin-1.png"
@@ -312,7 +248,7 @@ export default function IndexPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
-                <div className="sm:w-1/2">
+                <div className="block text-center sm:w-1/2">
                   <Image
                     loader={customLoader}
                     src="/homepage-desktop-admin-2.png"
@@ -343,12 +279,12 @@ export default function IndexPage() {
             </div>
           </section>
 
-          <section className="mt-48 px-3">
+          <section className="mt-24 px-3">
             <h2 className="text-3xl text-center font-bold uppercase">
               Pricing
             </h2>
             <div className="flex flex-col sm:flex-row justify-between">
-              <div className="w-full sm:w-80 mt-20">
+              <div className="w-full sm:w-80 mt-12">
                 <h3 className="font-bold text-2xl text-center">
                   Logly Premium
                 </h3>
@@ -371,7 +307,7 @@ export default function IndexPage() {
                 </Link>
               </div>
 
-              <div className="w-full sm:w-80 mt-20">
+              <div className="w-full sm:w-80 mt-12">
                 <h3 className="font-bold text-2xl text-center">Custom</h3>
                 <i className="mt-4 text-center  block">
                   Our custom plan includes all the features in premium, plus
@@ -393,6 +329,77 @@ export default function IndexPage() {
               </div>
             </div>
           </section>
+          <div className="mt-24">
+            <strong className="block text-center">
+              sign up for logly news + updates.
+            </strong>
+
+            <Script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
+            ></Script>
+
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'UA-212210451-1');
+                `}
+            </Script>
+
+            <Script src="https://f.convertkit.com/ckjs/ck.5.js"></Script>
+            <form
+              action="https://app.convertkit.com/forms/3337562/subscriptions"
+              className="seva-form formkit-form "
+              method="post"
+              data-sv-form="3337562"
+              data-uid="32f877138b"
+              data-format="inline"
+              data-version="5"
+              data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Thank you for subscribing!","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://convertkit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"hide","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
+              min-width="400 500 600 700 800"
+            >
+              <div data-style="clean">
+                <ul
+                  className="formkit-alert formkit-alert-error"
+                  data-element="errors"
+                  data-group="alert"
+                ></ul>
+                <div
+                  data-element="fields"
+                  data-stacked="false"
+                  className="seva-fields formkit-fields flex flex-inline justify-center mt-5"
+                >
+                  <div className="formkit-field w-1/2">
+                    <input
+                      className="formkit-input shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="email_address"
+                      aria-label="Email Address"
+                      placeholder="Email Address"
+                      required=""
+                      type="email"
+                    />
+                  </div>
+                  <button
+                    data-element="submit"
+                    style={{ backgroundColor: "#002FA7" }}
+                    className="formkit-submit formkit-submit ml-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    <div className="formkit-spinner">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                    <span>Subscribe</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            <i className="block text-center">
+              We respect your privacy. Unsubscribe at any time.
+            </i>
+          </div>
         </div>
         <footer className="w-full px-3 py-10 mt-20 bg-zinc-900 text-white">
           <div className="flex justify-between max-w-4xl mx-auto">
