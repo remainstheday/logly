@@ -16,6 +16,10 @@ const registrationSchema = Yup.object().shape({
     .lowercase("must be lowercase")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
+  emailConfirmation: Yup.string().oneOf(
+    [Yup.ref("email"), null],
+    "emails must match"
+  ),
   password: Yup.string().min(8, "too short").required("required"),
 });
 export default function Register() {
@@ -154,6 +158,7 @@ export default function Register() {
               siteId: "",
               name: "",
               email: "",
+              emailConfirmation: "",
               password: "",
             }}
             validationSchema={registrationSchema}
@@ -200,6 +205,24 @@ export default function Register() {
                       handleChange(e);
                     }}
                     value={values.email}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-1"
+                    htmlFor="email"
+                  >
+                    Confirm Email
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    type="email"
+                    name="emailConfirmation"
+                    value={values.emailConfirmation}
+                    onChange={(e) => {
+                      setErrors(null);
+                      handleChange(e);
+                    }}
                   />
                 </div>
                 <div className="mb-4">
