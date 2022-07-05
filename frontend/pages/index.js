@@ -161,7 +161,7 @@ export default function IndexPage() {
               </i>
             </div>
           </Section>
-          <section className="mt-24">
+          <section className="mt-24 px-3">
             <h2 className="text-3xl text-center font-bold uppercase">
               What your visitors see
             </h2>
@@ -203,6 +203,104 @@ export default function IndexPage() {
                   <h3>
                     A space to share their thoughts + connect with others.
                   </h3>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-48 px-3">
+            <h2 className="text-3xl text-center font-bold uppercase">
+              What you see
+            </h2>
+            <div>
+              <div className="flex flex-col sm:flex-row mt-20">
+                <div className="sm:w-1/2">
+                  <Image
+                    loader={customLoader}
+                    src="/homepage-desktop-admin-3.png"
+                    alt="logly admin interface"
+                    width="425"
+                    height="250"
+                  />
+                </div>
+
+                <div className="sm:w-1/2">
+                  <h3 className="font-bold text-center sm:text-left text-2xl">
+                    A Digital Guide Builder
+                  </h3>
+                  <p>
+                    With Logly you can easily upload rich text, images, & audio
+                    clips for your digital guides — no programming needed!
+                  </p>
+                  <div className="block text-right hidden sm:block">
+                    <Image
+                      loader={customLoader}
+                      src="/homepage-illustration-2.png"
+                      alt="logly-logo"
+                      width="250"
+                      height="200"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
+                <div className="sm:w-1/2 order-2">
+                  <h3 className="font-bold text-center sm:text-left text-2xl">
+                    A Publishing Tool
+                  </h3>
+                  <p>
+                    Share the guides with your visitors instantly and create
+                    engaging experiences
+                  </p>
+                  <div className="block text-left hidden sm:block">
+                    <Image
+                      loader={customLoader}
+                      src="/homepage-illustration-3.png"
+                      alt="logly-logo"
+                      width="200"
+                      height="250"
+                    />
+                  </div>
+                </div>
+                <div className="sm:w-1/2 order-1">
+                  <Image
+                    loader={customLoader}
+                    src="/homepage-desktop-admin-1.png"
+                    alt="logly-logo"
+                    width="425"
+                    height="250"
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
+                <div className="sm:w-1/2">
+                  <Image
+                    loader={customLoader}
+                    src="/homepage-desktop-admin-2.png"
+                    alt="logly-logo"
+                    width="425"
+                    height="250"
+                  />
+                </div>
+                <div className="sm:w-1/2">
+                  <h3 className="font-bold text-2xl text-center sm:text-left">
+                    A Content Management System
+                  </h3>
+                  <p>
+                    See what your community thinks and decide what you want to
+                    share + archive
+                  </p>
+                  <div className="block text-right hidden sm:block">
+                    <Image
+                      loader={customLoader}
+                      src="/homepage-illustration-4.png"
+                      alt="logly-logo"
+                      width="250"
+                      height="250"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
