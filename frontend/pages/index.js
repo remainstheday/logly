@@ -37,10 +37,10 @@ export default function IndexPage() {
             <div className="block text-right hidden sm:block">
               <Image
                 loader={customLoader}
-                src="/homepage-illustration-1.png"
+                src="/illu_5.png"
                 alt="logly-illustration"
                 width="250"
-                height="175"
+                height="250"
               />
             </div>
           </div>
@@ -133,10 +133,10 @@ export default function IndexPage() {
                 <div className="block text-right hidden sm:block">
                   <Image
                     loader={customLoader}
-                    src="/homepage-illustration-2.png"
-                    alt="logly-logo"
+                    src="/illu_1.png"
+                    alt="logly illustration 1"
                     width="250"
-                    height="200"
+                    height="250"
                   />
                 </div>
               </div>
@@ -154,9 +154,9 @@ export default function IndexPage() {
                 <div className="block text-left hidden sm:block">
                   <Image
                     loader={customLoader}
-                    src="/homepage-illustration-3.png"
-                    alt="logly-logo"
-                    width="200"
+                    src="/illu_2.png"
+                    alt="logly illustration 2"
+                    width="250"
                     height="250"
                   />
                 </div>
@@ -193,8 +193,8 @@ export default function IndexPage() {
                 <div className="block text-right hidden sm:block">
                   <Image
                     loader={customLoader}
-                    src="/homepage-illustration-4.png"
-                    alt="logly-logo"
+                    src="/illu_3.png"
+                    alt="logly illustration 3"
                     width="250"
                     height="250"
                   />
