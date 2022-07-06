@@ -1,15 +1,9 @@
 import { Formik } from "formik";
-import Head from "next/head";
 import * as Yup from "yup";
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import PublicHeader from "components/PublicHeader";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 const registrationSchema = Yup.object().shape({
   siteId: Yup.string()
@@ -26,7 +20,6 @@ const registrationSchema = Yup.object().shape({
 });
 export default function Register() {
   const stripeRef = useRef();
-  const [mobileMenu, updateMobileMenu] = useState(false);
   const [errors, setErrors] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
