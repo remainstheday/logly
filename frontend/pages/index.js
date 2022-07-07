@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import Script from "next/script";

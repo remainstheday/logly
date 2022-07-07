@@ -135,7 +135,6 @@ export async function getStaticProps({ params }) {
     variables: { siteId: params.site },
   });
 
-  console.log(experiences.data.experiences);
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
