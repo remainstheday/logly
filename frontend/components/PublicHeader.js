@@ -67,8 +67,18 @@ export default function PublicHeader() {
                 >
                   <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
-                      <Link href="/about" passHref>
+                      <Link href="/contact" passHref>
                         <a className="text-right">Contact</a>
+                      </Link>
+                    </li>
+                    <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
+                      <Link href="/faq" passHref>
+                        <a className="text-right">FAQ</a>
+                      </Link>
+                    </li>
+                    <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
+                      <Link href="/pricing" passHref>
+                        <a className="text-right">Pricing</a>
                       </Link>
                     </li>
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">

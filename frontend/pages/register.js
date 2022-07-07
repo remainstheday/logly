@@ -188,6 +188,15 @@ export default function Register() {
                 >
                   {loading ? "Loading..." : "Continue to Payment"}
                 </button>
+                <span className="float-right mt-2">
+                  Already have an account?{" "}
+                  <a
+                    href="https://admin.logly.world"
+                    className="text-blue-500 font-bold"
+                  >
+                    Login
+                  </a>
+                </span>
 
                 {errors && <p className="text-red-600">{errors}</p>}
               </form>

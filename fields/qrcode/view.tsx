@@ -7,6 +7,15 @@ import { useReactToPrint } from "react-to-print";
 import { Styles } from "./Styles";
 import { Global } from "@emotion/react";
 import { Button } from "@keystone-ui/button";
+const saveSvgAsPng = require("save-svg-as-png");
+// import saveSvgAsPng from "save-svg-as-png";
+const imageOptions = {
+  scale: 5,
+  encoderOptions: 1,
+  backgroundColor: "white",
+  width: 50,
+  height: 50,
+};
 
 export const Field = ({
   field,
@@ -20,6 +29,14 @@ export const Field = ({
     content: () => componentRef.current,
   });
 
+  const handleClick = (elementId: string) => {
+    saveSvgAsPng.saveSvgAsPng(
+      document.getElementById(elementId),
+      "qrcodes.png",
+      imageOptions
+    );
+  };
+
   return (
     <FieldContainer>
       <Global styles={Styles} />
@@ -28,15 +45,15 @@ export const Field = ({
         <Button tone="active" onClick={() => window.location.reload()}>
           Generate
         </Button>
-        {QRCodes.length > 0 && (
-          <Button
-            tone="active"
-            style={{ marginLeft: 25 }}
-            onClick={handlePrint}
-          >
-            Download
-          </Button>
-        )}
+        {/*{QRCodes.length > 0 && (*/}
+        {/*  <Button*/}
+        {/*    tone="active"*/}
+        {/*    style={{ marginLeft: 25 }}*/}
+        {/*    onClick={handleClick}*/}
+        {/*  >*/}
+        {/*    Download*/}
+        {/*  </Button>*/}
+        {/*)}*/}
 
         <div className="qr-codes">
           {QRCodes.length <= 0 && <i>QR Codes require related experiences.</i>}
@@ -50,12 +67,20 @@ export const Field = ({
               }) => (
                 <div className="qr-code" key={qrcode.url}>
                   <QRCode
+                    id={qrcode.url}
                     key={qrcode.url}
                     size={80}
                     value={qrcode.url}
                     renderAs="svg"
                   />
                   <a href={qrcode.url}>{qrcode.url}</a>
+                  <Button
+                    tone="active"
+                    style={{ marginLeft: 25 }}
+                    onClick={() => handleClick(qrcode.url)}
+                  >
+                    Download
+                  </Button>
                 </div>
               )
             )}
