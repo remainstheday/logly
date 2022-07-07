@@ -8,7 +8,7 @@ import { Styles } from "./Styles";
 import { Global } from "@emotion/react";
 import { Button } from "@keystone-ui/button";
 const saveSvgAsPng = require("save-svg-as-png");
-// import saveSvgAsPng from "save-svg-as-png";
+
 const imageOptions = {
   scale: 5,
   encoderOptions: 1,
@@ -45,15 +45,6 @@ export const Field = ({
         <Button tone="active" onClick={() => window.location.reload()}>
           Generate
         </Button>
-        {/*{QRCodes.length > 0 && (*/}
-        {/*  <Button*/}
-        {/*    tone="active"*/}
-        {/*    style={{ marginLeft: 25 }}*/}
-        {/*    onClick={handleClick}*/}
-        {/*  >*/}
-        {/*    Download*/}
-        {/*  </Button>*/}
-        {/*)}*/}
 
         <div className="qr-codes">
           {QRCodes.length <= 0 && <i>QR Codes require related experiences.</i>}
