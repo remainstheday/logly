@@ -5,6 +5,7 @@ import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import Script from "next/script";
+import { ArrowForwardOutline } from "react-ionicons";
 
 const customLoader = ({ src }) => {
   return src;
@@ -20,7 +21,7 @@ export default function IndexPage() {
             Logly is a community, a classroom, and an archive.
           </h1>
           <div className="flex flex-col sm:flex-row justify-between">
-            <p className="sm:w-3/4">
+            <p className="sm:w-3/4 text-lg">
               Our platform enables cultural institutions to{" "}
               <strong>
                 easily build digital guides and instantly create immersive
@@ -33,7 +34,21 @@ export default function IndexPage() {
               <strong>
                 cultural institutions can learn from their audience.
               </strong>
+              <Link href="/register" passHref>
+                <a
+                  style={{ backgroundColor: "#002FA7" }}
+                  className="w-40 md:w-1/4 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Get Started
+                  <ArrowForwardOutline
+                    style={{ verticalAlign: "middle", color: "#fff" }}
+                    height="1.5em"
+                    width="1.5em"
+                  />
+                </a>
+              </Link>
             </p>
+
             <div className="block text-right hidden sm:block">
               <Image
                 loader={customLoader}
@@ -44,14 +59,6 @@ export default function IndexPage() {
               />
             </div>
           </div>
-          <Link href="/register" passHref>
-            <a
-              style={{ backgroundColor: "#002FA7" }}
-              className="mx-auto w-1/4 mt-12 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Get Started
-            </a>
-          </Link>
         </Section>
         <section className="mt-24 px-3">
           <h2 className="text-3xl text-center font-bold uppercase">
