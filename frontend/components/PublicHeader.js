@@ -32,21 +32,20 @@ export default function PublicHeader() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
-        ></Script>
+      </Head>
+      <Script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
+      ></Script>
 
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
                   gtag('config', 'UA-212210451-1');
                 `}
-        </Script>
-      </Head>
-
+      </Script>
       <header className="pt-4 max-w-4xl mx-auto md:mx-auto">
         <div className="flex flex-wrap pt-2">
           <div className="w-full">
