@@ -49,13 +49,13 @@ export default function IndexPage() {
               </Link>
             </p>
 
-            <div className="block text-right hidden sm:block">
+            <div className="block -mt-12 text-right hidden sm:block">
               <Image
                 loader={customLoader}
                 src="/illu_5.png"
                 alt="logly-illustration"
-                width="300"
-                height="300"
+                width="350"
+                height="350"
               />
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function IndexPage() {
           <Link href="/register" passHref>
             <a
               style={{ backgroundColor: "#002FA7" }}
-              className="mx-auto w-1/4 mt-12 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-44 mx-auto mt-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Get Started
             </a>
@@ -142,8 +142,8 @@ export default function IndexPage() {
                     loader={customLoader}
                     src="/illu_1.png"
                     alt="logly illustration 1"
-                    width="250"
-                    height="250"
+                    width="350"
+                    height="350"
                   />
                 </div>
               </div>
@@ -163,8 +163,8 @@ export default function IndexPage() {
                     loader={customLoader}
                     src="/illu_2.png"
                     alt="logly illustration 2"
-                    width="250"
-                    height="250"
+                    width="350"
+                    height="350"
                   />
                 </div>
               </div>
@@ -202,8 +202,8 @@ export default function IndexPage() {
                     loader={customLoader}
                     src="/illu_3.png"
                     alt="logly illustration 3"
-                    width="250"
-                    height="250"
+                    width="350"
+                    height="350"
                   />
                 </div>
               </div>
