@@ -82,7 +82,7 @@ export default function Register() {
               password: "",
             }}
             validationSchema={registrationSchema}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values) => {
               postFormData(values);
             }}
           >

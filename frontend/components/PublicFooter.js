@@ -68,6 +68,11 @@ export default function PublicFooter() {
                 <a>Privacy Policy</a>
               </Link>
             </li>
+            <li>
+              <Link href={"/terms-of-use"} passHref>
+                <a>Terms of Use</a>
+              </Link>
+            </li>
           </ul>
         </div>
       </footer>

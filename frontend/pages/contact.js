@@ -8,7 +8,6 @@ export default function Contact() {
   return (
     <>
       <PublicHeader />
-
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <h1 className="text-5xl text-center mb-10">Contact</h1>
