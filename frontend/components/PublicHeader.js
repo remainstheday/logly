@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
+import Script from "next/script";
 
 const customLoader = ({ src }) => {
   return src;
@@ -31,6 +32,19 @@ export default function PublicHeader() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
+        ></Script>
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'UA-212210451-1');
+                `}
+        </Script>
       </Head>
 
       <header className="pt-4 max-w-4xl mx-auto md:mx-auto">

@@ -10,14 +10,15 @@ export default function PrivacyPolicy() {
 
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
-          <h1 className="text-5xl text-center mb-10">Terms of Use</h1>
+          <h1 className="text-5xl text-center mb-10">Terms of Service</h1>
+          <h3 className="text-2xl bold mt-6 mb-2">1. Terms of Use</h3>
           <p>
-            Terms of Use These Terms of Use constitute a legally binding
-            agreement made between you, whether personally or on behalf of an
-            entity (“you”) and Logly, LLC (“Company“, “we”, “us”, or “our”),
-            concerning your access to and use of the https://logly.world website
-            as well as any other media form, media channel, mobile website or
-            mobile application related, linked, or otherwise connected thereto
+            These Terms of Use constitute a legally binding agreement made
+            between you, whether personally or on behalf of an entity (“you”)
+            and Logly, LLC (“Company“, “we”, “us”, or “our”), concerning your
+            access to and use of the https://logly.world website as well as any
+            other media form, media channel, mobile website or mobile
+            application related, linked, or otherwise connected thereto
             (collectively, the “Site”). We are registered in Illinois, United
             States and have our registered office at 2627 W Walton St #3,
             Chicago, IL 60622, USA, Chicago, IL 60622. You agree that by
@@ -54,7 +55,6 @@ export default function PrivacyPolicy() {
             the age of 18 are not permitted to use or register for the Site.
           </p>
           <h3 className="text-2xl bold mt-6 mb-2">
-            {" "}
             2. INTELLECTUAL PROPERTY RIGHTS
           </h3>
           <p>

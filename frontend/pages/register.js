@@ -76,7 +76,8 @@ export default function Register() {
             Already have an account?{" "}
             <a
               href="https://admin.logly.world"
-              className="text-blue-500 font-bold"
+              className="underline font-bold"
+              style={{ color: "#002FA7" }}
             >
               Login
             </a>
@@ -195,18 +196,23 @@ export default function Register() {
                     {" "}
                     I agree to Logly’s{" "}
                     <Link href="/terms-of-use" passHref>
-                      <a className="text-blue-500 underline">Terms</a>
+                      <a style={{ color: "#002FA7" }} className="underline">
+                        Terms
+                      </a>
                     </Link>{" "}
                     and{" "}
                     <Link href="/privacy-policy" passHref>
-                      <a className="text-blue-500 underline">Privacy Policy</a>
+                      <a style={{ color: "#002FA7" }} className="underline">
+                        Privacy Policy
+                      </a>
                     </Link>
                     .
                   </label>
                 </div>
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  style={{ backgroundColor: "#002FA7" }}
+                  className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   disabled={isSubmitting}
                 >
                   {loading ? "Loading..." : "Continue to Payment"}
@@ -220,7 +226,13 @@ export default function Register() {
             action="/api/checkout_sessions"
             method="POST"
           >
-            <button ref={stripeRef} type="submit" role="link">
+            <button
+              style={{ backgroundColor: "#002FA7" }}
+              className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              ref={stripeRef}
+              type="submit"
+              role="link"
+            >
               Checkout
             </button>
           </form>

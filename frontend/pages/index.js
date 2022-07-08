@@ -37,7 +37,7 @@ export default function IndexPage() {
               <Link href="/register" passHref>
                 <a
                   style={{ backgroundColor: "#002FA7" }}
-                  className="w-40 md:w-1/4 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="w-44 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
                   Get Started
                   <ArrowForwardOutline
@@ -54,8 +54,8 @@ export default function IndexPage() {
                 loader={customLoader}
                 src="/illu_5.png"
                 alt="logly-illustration"
-                width="250"
-                height="250"
+                width="300"
+                height="300"
               />
             </div>
           </div>
@@ -213,22 +213,8 @@ export default function IndexPage() {
 
         <div className="mt-24">
           <strong className="block text-center">
-            sign up for logly news + updates.
+            Sign up for Logly News and Updates
           </strong>
-
-          <Script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
-          ></Script>
-
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'UA-212210451-1');
-                `}
-          </Script>
 
           <Script src="https://f.convertkit.com/ckjs/ck.5.js"></Script>
           <form
