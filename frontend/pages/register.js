@@ -16,15 +16,18 @@ const registrationSchema = Yup.object().shape({
     [Yup.ref("email"), null],
     "emails must match"
   ),
-  password: Yup.string().min(8, "too short").required("required"),
+  password: Yup.string()
+    .min(8, "Passwords must be at least 8 characters")
+    .required("password is required"),
+  terms: Yup.boolean().required("required"),
 });
 export default function Register() {
   const stripeRef = useRef();
-  const [errors, setErrors] = useState(undefined);
+  const [userErrors, setUserErrors] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
   const postFormData = async (values) => {
-    setErrors(undefined);
+    setUserErrors(undefined);
     setLoading(true);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newUser`, {
       method: "POST",
@@ -42,11 +45,11 @@ export default function Register() {
       })
       .then(async (data) => {
         setLoading(false);
-        setErrors(undefined);
+        setUserErrors(undefined);
         if (data.success) stripeRef.current.click();
       })
       .catch((error) => {
-        setErrors(error.message);
+        setUserErrors(error.message);
       });
   };
 
@@ -69,9 +72,7 @@ export default function Register() {
       <PublicHeader />
       <main className="max-w-lg mt-20 mx-auto min-h-screen md:mx-auto">
         <div>
-          <h1 className="text-4xl mb-5 font-bold text-center">
-            Sign up for Logly
-          </h1>
+          <h1 className="text-5xl text-center mb-10">Sign up for Logly</h1>
           <span className="text-center block mt-2">
             Already have an account?{" "}
             <a
@@ -89,13 +90,21 @@ export default function Register() {
               email: "",
               emailConfirmation: "",
               password: "",
+              terms: false,
             }}
             validationSchema={registrationSchema}
             onSubmit={(values) => {
               postFormData(values);
             }}
           >
-            {({ values, handleChange, handleSubmit, isSubmitting }) => (
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleSubmit,
+              isSubmitting,
+            }) => (
               <form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -112,11 +121,14 @@ export default function Register() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="name"
                     onChange={(e) => {
-                      setErrors(null);
+                      setUserErrors(null);
                       handleChange(e);
                     }}
                     value={values.name}
                   />
+                  {errors.name && touched.name ? (
+                    <p className="text-red-600">{errors.name}</p>
+                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -130,11 +142,14 @@ export default function Register() {
                     type="email"
                     name="email"
                     onChange={(e) => {
-                      setErrors(null);
+                      setUserErrors(null);
                       handleChange(e);
                     }}
                     value={values.email}
                   />
+                  {errors.email && touched.email ? (
+                    <p className="text-red-600">{errors.email}</p>
+                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -149,10 +164,13 @@ export default function Register() {
                     name="emailConfirmation"
                     value={values.emailConfirmation}
                     onChange={(e) => {
-                      setErrors(null);
+                      setUserErrors(null);
                       handleChange(e);
                     }}
                   />
+                  {errors.confirmEmail && touched.confirmEmail ? (
+                    <p className="text-red-600">{errors.confirmEmail}</p>
+                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -166,11 +184,14 @@ export default function Register() {
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="siteId"
                     onChange={(e) => {
-                      setErrors(null);
+                      setUserErrors(null);
                       handleChange(e);
                     }}
                     value={values.siteId}
                   />
+                  {errors.siteId && touched.siteId ? (
+                    <p className="text-red-600">{errors.siteId}</p>
+                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -184,30 +205,37 @@ export default function Register() {
                     type="password"
                     name="password"
                     onChange={(e) => {
-                      setErrors(null);
+                      setUserErrors(null);
                       handleChange(e);
                     }}
                     value={values.password}
                   />
-                </div>
-                <div className="my-4">
-                  <input type="checkbox" name="terms-conditions" />
-                  <label htmlFor="terms-conditions">
-                    {" "}
-                    I agree to Logly’s{" "}
-                    <Link href="/terms-of-use" passHref>
-                      <a style={{ color: "#002FA7" }} className="underline">
-                        Terms
-                      </a>
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="/privacy-policy" passHref>
-                      <a style={{ color: "#002FA7" }} className="underline">
-                        Privacy Policy
-                      </a>
-                    </Link>
-                    .
-                  </label>
+                  {errors.password && touched.password ? (
+                    <p className="text-red-600">{errors.password}</p>
+                  ) : null}
+                  <div className="my-4">
+                    <input
+                      type="checkbox"
+                      name="terms-conditions"
+                      value={values.terms}
+                    />
+                    <label htmlFor="terms-conditions">
+                      {" "}
+                      I agree to Logly’s{" "}
+                      <Link href="/terms-of-use" passHref>
+                        <a style={{ color: "#002FA7" }} className="underline">
+                          Terms
+                        </a>
+                      </Link>{" "}
+                      and{" "}
+                      <Link href="/privacy-policy" passHref>
+                        <a style={{ color: "#002FA7" }} className="underline">
+                          Privacy Policy
+                        </a>
+                      </Link>
+                      .
+                    </label>
+                  </div>
                 </div>
                 <button
                   type="submit"
@@ -217,7 +245,7 @@ export default function Register() {
                 >
                   {loading ? "Loading..." : "Continue to Payment"}
                 </button>
-                {errors && <p className="text-red-600">{errors}</p>}
+                {userErrors && <p className="text-red-600">{userErrors}</p>}
               </form>
             )}
           </Formik>
