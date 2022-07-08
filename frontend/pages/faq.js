@@ -62,10 +62,10 @@ export default function Faq() {
             7. How much does Logly cost?
           </h3>
           <p>
-            Logly is available at a monthly fee of $99 a month. As our product
-            evolves with the help of our partner institutions, new features, and
-            pricing tiers will be available to support institutions of all
-            sizes.
+            Logly is available at a monthly fee of $99 per month or $990 per
+            year if users select to pay annually. As our product evolves with
+            the help of partner institutions, new features, and pricing tiers
+            will be available to support institutions of all sizes.
           </p>
         </Section>
       </div>
