@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import PublicHeader from "components/PublicHeader";
 import { LogoInstagram, LogoLinkedin } from "react-ionicons";
+import PublicFooter from "components/PublicFooter";
 
 const registrationSchema = Yup.object().shape({
   siteId: Yup.string()
@@ -67,12 +68,20 @@ export default function Register() {
   return (
     <>
       <PublicHeader />
-
       <main className="max-w-lg mt-20 mx-auto min-h-screen md:mx-auto">
         <div>
           <h1 className="text-4xl mb-5 font-bold text-center">
             Sign up for Logly
           </h1>
+          <span className="text-center block mt-2">
+            Already have an account?{" "}
+            <a
+              href="https://admin.logly.world"
+              className="text-blue-500 font-bold"
+            >
+              Login
+            </a>
+          </span>
           <Formik
             initialValues={{
               siteId: "",
@@ -181,23 +190,28 @@ export default function Register() {
                     value={values.password}
                   />
                 </div>
+                <div className="my-4">
+                  <input type="checkbox" name="terms-conditions" />
+                  <label htmlFor="terms-conditions">
+                    {" "}
+                    I agree to Logly’s{" "}
+                    <Link href="/terms-of-use" passHref>
+                      <a className="text-blue-500 underline">Terms</a>
+                    </Link>{" "}
+                    and{" "}
+                    <Link href="/privacy-policy" passHref>
+                      <a className="text-blue-500 underline">Privacy Policy</a>
+                    </Link>
+                    .
+                  </label>
+                </div>
                 <button
                   type="submit"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  disabled={isSubmitting || errors}
+                  disabled={isSubmitting}
                 >
                   {loading ? "Loading..." : "Continue to Payment"}
                 </button>
-                <span className="float-right mt-2">
-                  Already have an account?{" "}
-                  <a
-                    href="https://admin.logly.world"
-                    className="text-blue-500 font-bold"
-                  >
-                    Login
-                  </a>
-                </span>
-
                 {errors && <p className="text-red-600">{errors}</p>}
               </form>
             )}
@@ -213,66 +227,11 @@ export default function Register() {
           </form>
 
           <p className="text-center text-gray-500 text-xs">
-            &copy;2020 Logly Corp. All rights reserved.
+            ©2022 Logly, LLC. All rights reserved.
           </p>
         </div>
       </main>
-      <footer className="w-full px-3 py-10 mt-20 bg-zinc-900 text-white">
-        <div className="flex justify-between max-w-4xl mx-auto">
-          <ul>
-            <li>
-              <h3 className="uppercase font-bold">Social</h3>
-            </li>
-
-            <li>
-              <div className="flex">
-                <LogoInstagram
-                  className="mr-4"
-                  color={"#fff"}
-                  onClick={() =>
-                    window.open("https://www.instagram.com/_logly", "_blank")
-                  }
-                />
-                <LogoLinkedin
-                  color={"#fff"}
-                  onClick={() =>
-                    window.open(
-                      "https://www.linkedin.com/company/logly-world/",
-                      "_blank"
-                    )
-                  }
-                />
-              </div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <h3 className="uppercase font-bold">About</h3>
-            </li>
-            <li>
-              <Link href={"/about"} passHref>
-                <a>About Logly</a>
-              </Link>
-            </li>
-            <li>
-              <Link href={"/media"} passHref>
-                <a>Media</a>
-              </Link>
-            </li>
-          </ul>
-
-          <ul>
-            <li>
-              <h3 className="uppercase font-bold">Legal</h3>
-            </li>
-            <li>
-              <Link href={"/privacy-policy"} passHref>
-                <a>Privacy Policy</a>
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </footer>
+      <PublicFooter />
     </>
   );
 }

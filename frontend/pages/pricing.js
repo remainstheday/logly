@@ -19,13 +19,18 @@ export default function Pricing() {
                   Logly Premium
                 </h3>
                 <ul className="text-center mt-2 space-y-2">
-                  <li>~ Unlimited guides ~</li>
-                  <li>~ Image & audio uploads ~ </li>
-                  <li>~ QR Codes ~</li>
-                  <li>~ Community comments ~</li>
+                  <li>Mobile Optimized Digital Guides</li>
+                  <li>Audio Tours</li>
+                  <li>QR Code Generator</li>
+                  <li>Unlimited Bandwidth</li>
+                  <li>Photo and Audio Storage</li>
+                  <li>Community Management</li>
+                  <li>Password Protection</li>
+                  <li>Basic Website Metrics</li>
+                  <li>Priority Customer Support</li>
                 </ul>
                 <h3 className="font-bold text-1xl text-center mt-8">
-                  $80/month
+                  $99/month (or save with annual billing)
                 </h3>
                 <Link href="/register">
                   <a
@@ -40,13 +45,12 @@ export default function Pricing() {
               <div className="w-full sm:w-80 mt-12">
                 <h3 className="font-bold text-2xl text-center">Custom</h3>
                 <i className="mt-4 text-center  block">
-                  Our custom plan includes all the features in premium, plus
-                  consulting services
+                  Looking for something different? Logly is a team of skilled
+                  tech practitioners and experienced museum professionals. Let
+                  us assist you in implementing Logly in your space or
+                  developing a custom solution for your organization’s needs.
+                  Reach out and let us help you realize your vision.
                 </i>
-                <ul className="text-center mt-4 space-y-2">
-                  <li>~ creating interpretive materials ~</li>
-                  <li>~ custom editing ~</li>
-                </ul>
                 <br />
                 <Link href="/about">
                   <a
