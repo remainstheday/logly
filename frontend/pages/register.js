@@ -26,7 +26,7 @@ export default function Register() {
   const [userErrors, setUserErrors] = useState(undefined);
   const [loading, setLoading] = useState(false);
 
-  const postFormData = async (values) => {
+  const postFormData = async (values, setSubmitting) => {
     setUserErrors(undefined);
     setLoading(true);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newUser`, {
@@ -46,9 +46,12 @@ export default function Register() {
       .then(async (data) => {
         setLoading(false);
         setUserErrors(undefined);
+        setSubmitting(false);
         if (data.success) stripeRef.current.click();
       })
       .catch((error) => {
+        setLoading(false);
+        setSubmitting(false);
         setUserErrors(error.message);
       });
   };
@@ -93,8 +96,8 @@ export default function Register() {
               terms: false,
             }}
             validationSchema={registrationSchema}
-            onSubmit={(values) => {
-              postFormData(values);
+            onSubmit={(values, { setSubmitting }) => {
+              postFormData(values, setSubmitting);
             }}
           >
             {({
