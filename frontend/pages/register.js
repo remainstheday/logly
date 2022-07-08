@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import PublicHeader from "components/PublicHeader";
-import { LogoInstagram, LogoLinkedin } from "react-ionicons";
 import PublicFooter from "components/PublicFooter";
 
 const registrationSchema = Yup.object().shape({
