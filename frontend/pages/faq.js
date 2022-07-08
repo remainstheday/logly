@@ -14,10 +14,10 @@ export default function Faq() {
           <p>
             Logly offers a low barrier of entry for users of a skill-levels to
             create interactive digital guides and audio tours. It can be used by
-            institutions of all sizes and is cost-effective and easy to use
-            solution. Logly also provides museums and cultural institutions with
-            a sophisticated research tool that enables museums to collect and
-            manage of user-generated content.
+            institutions of all sizes, is cost-effective, and easy to use. Logly
+            also provides museums and cultural institutions with a sophisticated
+            research tool that enables collection and management of
+            user-generated content.
           </p>
           <h3 className="text-lg mt-12 font-bold">
             2. How easy is Logly to use?
