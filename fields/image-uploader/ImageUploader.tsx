@@ -57,8 +57,8 @@ export default function ImageUploader({ onUpload }: { onUpload: any }) {
           <Image
             src={file.preview}
             className="w-full object-center object-cover"
-            width="366"
-            height="241"
+            width="540"
+            height="360"
             alt={file.name}
           />
         </div>
