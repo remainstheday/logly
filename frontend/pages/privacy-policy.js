@@ -7,7 +7,6 @@ export default function PrivacyPolicy() {
   return (
     <>
       <PublicHeader />
-
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <h1 className="text-5xl text-center mb-10">Privacy Policy</h1>

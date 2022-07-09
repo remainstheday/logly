@@ -16,6 +16,7 @@ import Link from "next/link";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
+import Banner from "components/Banner";
 
 export default function IndexPage({ content, experiences, comments }) {
   const { query } = useRouter();
@@ -31,9 +32,7 @@ export default function IndexPage({ content, experiences, comments }) {
             <PageTitle smallText={"welcome to"} largeText={content.title} />
           )}
           {content.staticPageImages && (
-            <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
-              <img src={content.staticPageImages} alt={content.title} />
-            </div>
+            <Banner image={content.staticPageImages} title={content.title} />
           )}
           {content.description && (
             <div className="my-8 wysiwyg-editor">

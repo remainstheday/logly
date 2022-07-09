@@ -57,7 +57,6 @@ export default function Community({ comments = [] }) {
   return (
     <>
       <Header siteId={query.site} />
-
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -161,7 +160,6 @@ export default function Community({ comments = [] }) {
           </div>
         </section>
       )}
-
       <Footer siteId={query.site} />
     </>
   );
