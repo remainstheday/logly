@@ -9,6 +9,7 @@ import Image from "next/image";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
+import React from "react";
 
 const customLoader = ({ src }) => {
   return src;
@@ -22,26 +23,28 @@ export default function About({ content }) {
     <>
       <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen">
-        <BackLink href={"/"} text={"Home"} />
-        <PageTitle largeText={content.title} />
-        <section className="mt-4 px-6 mt-10 mx-auto">
-          {content.staticPageImages && (
-            <div className="flex relative my-16">
-              <Image
-                loader={customLoader}
-                src={content.staticPageImages}
-                width="1080"
-                height="720"
-                alt={content.title}
-              />
-            </div>
-          )}
-          {content.description && (
-            <Section className="wysiwyg-editor">
-              <DocumentRenderer document={content.description.document} />
-            </Section>
-          )}
-        </section>
+        <Section>
+          <BackLink href={`/${query.site}`} text={"Home"} />
+          <PageTitle largeText={content.title} />
+          <div className="mt-6">
+            {content.staticPageImages && (
+              <div className="flex relative my-16">
+                <Image
+                  loader={customLoader}
+                  src={content.staticPageImages}
+                  width="1080"
+                  height="720"
+                  alt={content.title}
+                />
+              </div>
+            )}
+            {content.description && (
+              <div className="wysiwyg-editor">
+                <DocumentRenderer document={content.description.document} />
+              </div>
+            )}
+          </div>
+        </Section>
       </div>
       <Footer siteId={query.site} />
     </>

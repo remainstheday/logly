@@ -31,11 +31,10 @@ export default function IndexPage({ content, experiences, comments }) {
     <>
       <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
-        <main>
+        <Section>
           {content.title && (
             <PageTitle smallText={"welcome to"} largeText={content.title} />
           )}
-
           {content.staticPageImages && (
             <div className="flex relative my-16">
               <Image
@@ -47,63 +46,61 @@ export default function IndexPage({ content, experiences, comments }) {
               />
             </div>
           )}
-
           {content.description && (
-            <Section className="wysiwyg-editor">
+            <div className="wysiwyg-editor">
               <DocumentRenderer document={content.description.document} />
-            </Section>
+            </div>
           )}
+        </Section>
 
-          {experiences.length > 0 && (
-            <Section title="Pick an Experience">
-              <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
-                {experiences.map((item, index) => (
-                  <div className="snap-center shrink-0 w-full my-3" key={index}>
-                    <div className="shrink-0 flex flex-col">
-                      <Link href={`${item.url}`} passHref>
-                        <a>
-                          <Image
-                            loader={customLoader}
-                            src={
-                              item.experienceImages
-                                ? item.experienceImages
-                                : "/stock-museum-1.jpg"
-                            }
-                            width={1080}
-                            height={720}
-                            alt={item.title}
-                          />
-                          <strong>{item.title}</strong>
-                        </a>
-                      </Link>
-                    </div>
+        {experiences.length > 0 && (
+          <Section title="Pick an Experience">
+            <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
+              {experiences.map((item, index) => (
+                <div className="snap-center shrink-0 w-full my-3" key={index}>
+                  <div className="shrink-0 flex flex-col">
+                    <Link href={`${item.url}`} passHref>
+                      <a>
+                        <Image
+                          loader={customLoader}
+                          src={
+                            item.experienceImages
+                              ? item.experienceImages
+                              : "/stock-museum-1.jpg"
+                          }
+                          width={1080}
+                          height={720}
+                          alt={item.title}
+                        />
+                        <strong>{item.title}</strong>
+                      </a>
+                    </Link>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
+            <SectionLink
+              href={`/${query.site}/experiences`}
+              text={"See all experiences"}
+            />
+          </Section>
+        )}
 
+        {filteredComments.length > 0 && (
+          <Section title="Community">
+            <div className="py-6 grid md:grid-cols-2 gap-4">
+              {filteredComments.map((comment) => (
+                <CommentCard key={comment.id} comment={comment} />
+              ))}
+            </div>
+            <div className="mt-6 px-6 md:px-0">
               <SectionLink
-                href={`/${query.site}/experiences`}
-                text={"See all experiences"}
+                href={`/${query.site}/community`}
+                text={"Discover Community"}
               />
-            </Section>
-          )}
-
-          {filteredComments.length > 0 && (
-            <Section title="Community">
-              <div className="py-6 grid md:grid-cols-2 gap-4">
-                {filteredComments.map((comment) => (
-                  <CommentCard key={comment.id} comment={comment} />
-                ))}
-              </div>
-              <div className="mt-6 px-6 md:px-0">
-                <SectionLink
-                  href={`/${query.site}/community`}
-                  text={"Discover Community"}
-                />
-              </div>
-            </Section>
-          )}
-        </main>
+            </div>
+          </Section>
+        )}
       </div>
       <Footer siteId={query.site} />
     </>

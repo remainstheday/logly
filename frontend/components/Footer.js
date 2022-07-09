@@ -3,36 +3,18 @@ import Link from "next/link";
 export default function Footer({ siteId, className }) {
   return (
     <footer
-      className={`w-full px-3 py-10 mt-20 bg-zinc-900 text-white ${className}`}
+      className={`w-full px-3 py-6 mt-20 bg-zinc-900 text-white ${className}`}
     >
       <div className="flex justify-between max-w-4xl mx-auto">
-        <ul>
-          <li>
-            <h3 className="uppercase font-bold">About</h3>
-          </li>
-          <li>
-            <Link href={`/${siteId}/about`} passHref>
-              <a>About Logly</a>
-            </Link>
-          </li>
-        </ul>
-
-        <ul>
-          <li>
-            <h3 className="uppercase font-bold">Legal</h3>
-          </li>
-          <li>
-            <Link href={"/termsofuse"} passHref>
-              <a>Terms of Use</a>
-            </Link>
-          </li>
-
-          <li>
-            <Link href={"/privacy-policy"} passHref>
-              <a>Privacy Policy</a>
-            </Link>
-          </li>
-        </ul>
+        <Link href={`/${siteId}/about`} passHref>
+          <a>About</a>
+        </Link>
+        <Link href={"/terms-of-use"} passHref>
+          <a>Terms of Use</a>
+        </Link>
+        <Link href={"/privacy-policy"} passHref>
+          <a>Privacy Policy</a>
+        </Link>
       </div>
     </footer>
   );

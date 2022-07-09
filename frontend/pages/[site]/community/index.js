@@ -14,6 +14,7 @@ import processCloudinaryImage from "utils/processCloudinaryImage";
 import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
+import Section from "components/Section";
 
 const customLoader = ({ src }) => {
   return src;
@@ -61,12 +62,13 @@ export default function Community({ comments = [] }) {
   return (
     <>
       <Header siteId={query.site} />
-      <div className="min-h-screen">
-        <div className="max-w-4xl px-6 md:px-0 mx-auto md:mx-auto">
+
+      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+        <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle largeText={"Community"} />
           {query.social === "true" && !data && !error && (
-            <section className="mt-20 md:mt-32 mx-auto">
+            <div className="mt-6">
               <h3 className="pb-3 section-title">Share Thoughts and Images</h3>
               <hr />
 
@@ -122,52 +124,53 @@ export default function Community({ comments = [] }) {
                 </p>
               )}
               {error && <p className="mt-6 mb-56">Error: {error.message}</p>}
-            </section>
+            </div>
           )}
-        </div>
-        {filteredComments.length > 0 && (
-          <section className="mt-20 md:mt-32 ">
-            <div className="filter max-w-4xl mx-auto">
-              <h3 className="pb-3 px-6 md:px-0 section-title">
-                See what the community has shared
-              </h3>
-            </div>
-            <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
-              <div className="masonry-2-col md:masonry-3-col">
-                {filteredComments.map((post) => (
-                  <div
-                    key={post.id}
-                    className="break-inside mb-3 bg-white overflow-hidden"
-                  >
-                    {post.image.length > 0 && (
-                      <Image
-                        loader={customLoader}
-                        src={post.image}
-                        width="1080"
-                        height="720"
-                        alt={post.title}
-                      />
-                    )}
-                    <div className="px-3 py-3">
-                      <p className="text-gray-700 text-sm">
-                        {truncateComment(post.comment)}
-                      </p>
-                      <span>
-                        <i className="text-gray-400 text-xs">
-                          Comment by {post.username} on{" "}
-                          {post.timestamp &&
-                            format(new Date(post.timestamp), "MMM dd, yyyy")}
-                        </i>
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <br />
-            </div>
-          </section>
-        )}
+        </Section>
       </div>
+      {filteredComments.length > 0 && (
+        <section className="mt-20 md:mt-32 ">
+          <div className="filter max-w-4xl mx-auto">
+            <h3 className="pb-3 px-6 md:px-0 section-title">
+              See what the community has shared
+            </h3>
+          </div>
+          <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
+            <div className="masonry-2-col md:masonry-3-col">
+              {filteredComments.map((post) => (
+                <div
+                  key={post.id}
+                  className="break-inside mb-3 bg-white overflow-hidden"
+                >
+                  {post.image.length > 0 && (
+                    <Image
+                      loader={customLoader}
+                      src={post.image}
+                      width="1080"
+                      height="720"
+                      alt={post.title}
+                    />
+                  )}
+                  <div className="px-3 py-3">
+                    <p className="text-gray-700 text-sm">
+                      {truncateComment(post.comment)}
+                    </p>
+                    <span>
+                      <i className="text-gray-400 text-xs">
+                        Comment by {post.username} on{" "}
+                        {post.timestamp &&
+                          format(new Date(post.timestamp), "MMM dd, yyyy")}
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <br />
+          </div>
+        </section>
+      )}
+
       <Footer siteId={query.site} />
     </>
   );

@@ -47,8 +47,8 @@ export const Field = ({
         <>
           <img
             className="w-full object-center object-cover"
-            width="366"
-            height="241"
+            width="540"
+            height="360"
             src={value.inner.value}
           />
           <Button

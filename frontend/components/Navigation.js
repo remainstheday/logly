@@ -14,25 +14,24 @@ export default function Navigation({ siteId }) {
         <div className="w-full relative mx-auto flex flex-wrap items-center justify-end text-right">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link href={`/${siteId}`} passHref>
-              <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
+              <a className="text-sm font-bold leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-white">
                 <Image
                   loader={customLoader}
                   src="/Logo.png"
-                  className="w-1/3"
                   alt="logly-logo"
-                  width="50"
-                  height="50"
+                  width="25"
+                  height="35"
                 />
               </a>
             </Link>
             <button
-              className="cursor-pointer text-xl mr-6 leading-none py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="scroll -mt-4 cursor-pointer text-xl leading-none border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => updateMobileMenu(!mobileMenu)}
             >
-              <span className="block relative w-8 h-0.5 rounded-sm bg-black"></span>
-              <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
-              <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
+              <span className="block relative w-8 h-1 rounded-sm bg-black"></span>
+              <span className="block relative w-8 h-1 rounded-sm bg-black mt-1"></span>
+              <span className="block relative w-8 h-1 rounded-sm bg-black mt-1"></span>
             </button>
           </div>
           <div

@@ -35,7 +35,7 @@ export default function Experience({ experience, experiences, comments }) {
     <>
       <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
-        <section className="px-3 lg:px-0 md:mx-auto">
+        <Section>
           <BackLink
             href={`/${query.site}/experiences`}
             text={"Pick Experience"}
@@ -51,11 +51,11 @@ export default function Experience({ experience, experiences, comments }) {
           </div>
 
           {experience.description && (
-            <Section className="wysiwyg-editor prose">
+            <div className="wysiwyg-editor prose">
               <DocumentRenderer document={experience.description.document} />
-            </Section>
+            </div>
           )}
-        </section>
+        </Section>
 
         {experience.relatedArtifacts && experience.relatedArtifacts.length > 0 && (
           <Section title="Exhibition Preview">

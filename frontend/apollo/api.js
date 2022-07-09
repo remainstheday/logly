@@ -87,6 +87,7 @@ export const GET_ARTIFACTS_BY_SITE_ID = gql`
       url
       status
       siteId
+      audioFile
       description {
         document
       }

@@ -51,7 +51,7 @@ export default function Artifact({
     <>
       <Header siteId={query.site} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
-        <section className="px-3 lg:px-0 md:mx-auto">
+        <Section>
           <BackLink href={`${experience.url}`} text={"Back to Experience"} />
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1>{artifact.title}</h1>
@@ -72,46 +72,53 @@ export default function Artifact({
             />
           </div>
 
-          {hasAudioFile && <AudioPlayer audioFile={artifact.audioFile} />}
-        </section>
+          {hasAudioFile && (
+            <div className="my-6">
+              <AudioPlayer audioFile={artifact.audioFile} />
+            </div>
+          )}
 
-        {hasDescription && (
-          <Section className="formatted-content wysiwyg-editor">
-            <DocumentRenderer document={artifact.description.document} />
-          </Section>
-        )}
-        {similarArtifacts.length > 0 && (
-          <Section>
-            <SectionLink href={`${experience.url}`} text={"Go To Experience"} />
-            <hr />
-            <div className="w-full mt-4">
-              <div className="flex flex-wrap">
-                {similarArtifacts.map((artifact, index) => (
-                  <div className="w-1/2 my-4 px-0.5" key={index}>
-                    <Link href={`${experience.url}/${artifact.url}`} passHref>
-                      <a>
-                        <Image
-                          loader={customLoader}
-                          src={
-                            artifact.artifactImages
-                              ? artifact.artifactImages
-                              : "/stock-museum-1.jpg"
-                          }
-                          width="430"
-                          height="281"
-                          className="w-full px-1"
-                          alt={artifact.title}
-                        />
-                        <h3 className="font-bold">{artifact.artist}</h3>
-                        <h4>{artifact.title}</h4>
-                      </a>
-                    </Link>
-                  </div>
-                ))}
+          {hasDescription && (
+            <div className="formatted-content wysiwyg-editor">
+              <DocumentRenderer document={artifact.description.document} />
+            </div>
+          )}
+          {similarArtifacts.length > 0 && (
+            <div>
+              <SectionLink
+                href={`${experience.url}`}
+                text={"Go To Experience"}
+              />
+              <hr />
+              <div className="w-full mt-4">
+                <div className="flex flex-wrap">
+                  {similarArtifacts.map((artifact, index) => (
+                    <div className="w-1/2 my-4 px-0.5" key={index}>
+                      <Link href={`${experience.url}/${artifact.url}`} passHref>
+                        <a>
+                          <Image
+                            loader={customLoader}
+                            src={
+                              artifact.artifactImages
+                                ? artifact.artifactImages
+                                : "/stock-museum-1.jpg"
+                            }
+                            width="430"
+                            height="281"
+                            className="w-full px-1"
+                            alt={artifact.title}
+                          />
+                          <h3 className="font-bold">{artifact.artist}</h3>
+                          <h4>{artifact.title}</h4>
+                        </a>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </Section>
-        )}
+          )}
+        </Section>
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
