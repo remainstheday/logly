@@ -5,15 +5,10 @@ import { GET_ALL_SITES, GET_SITE_CONTENT } from "apollo/api";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
-import Image from "next/image";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import React from "react";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function About({ content }) {
   const { query } = useRouter();
@@ -28,14 +23,8 @@ export default function About({ content }) {
           <PageTitle largeText={content.title} />
           <div className="mt-6">
             {content.staticPageImages && (
-              <div className="flex relative my-16">
-                <Image
-                  loader={customLoader}
-                  src={content.staticPageImages}
-                  width="1080"
-                  height="720"
-                  alt={content.title}
-                />
+              <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
+                <img src={content.staticPageImages} alt={content.title} />
               </div>
             )}
             {content.description && (

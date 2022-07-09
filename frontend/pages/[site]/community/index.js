@@ -3,7 +3,6 @@ import BackLink from "components/BackLink";
 import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
 import React, { useState } from "react";
-import Image from "next/image";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import { ADD_COMMENT, GET_ALL_COMMENTS, GET_ALL_SITES } from "apollo/api";
 import { truncateComment } from "utils/truncateText";
@@ -15,10 +14,6 @@ import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import Section from "components/Section";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function Community({ comments = [] }) {
   const { query } = useRouter();
@@ -143,13 +138,9 @@ export default function Community({ comments = [] }) {
                   className="break-inside mb-3 bg-white overflow-hidden"
                 >
                   {post.image.length > 0 && (
-                    <Image
-                      loader={customLoader}
-                      src={post.image}
-                      width="1080"
-                      height="720"
-                      alt={post.title}
-                    />
+                    <div className="aspect-w-16 aspect-h-9">
+                      <img src={post.image} alt={post.title} />
+                    </div>
                   )}
                   <div className="px-3 py-3">
                     <p className="text-gray-700 text-sm">

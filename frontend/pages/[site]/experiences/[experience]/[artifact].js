@@ -10,7 +10,6 @@ import {
   GET_EXPERIENCES_BY_SITE_ID,
 } from "apollo/api";
 import Link from "next/link";
-import Image from "next/image";
 import React from "react";
 import SectionLink from "components/SectionLink";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
@@ -21,10 +20,6 @@ import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function Artifact({
   artifact,
@@ -58,16 +53,13 @@ export default function Artifact({
             <h2>{artifact.artist}</h2>
           </div>
 
-          <div className="flex relative my-5">
-            <Image
-              loader={customLoader}
+          <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
+            <img
               src={
                 artifact.artifactImages
                   ? artifact.artifactImages
                   : "/stock-museum-1.jpg"
               }
-              width="1080"
-              height="720"
               alt={artifact.title}
             />
           </div>
@@ -95,16 +87,13 @@ export default function Artifact({
                   {similarArtifacts.map((artifact, index) => (
                     <div className="w-1/2 my-4 px-0.5" key={index}>
                       <Link href={`${experience.url}/${artifact.url}`} passHref>
-                        <a>
-                          <Image
-                            loader={customLoader}
+                        <a className="aspect-w-16 aspect-h-9">
+                          <img
                             src={
                               artifact.artifactImages
                                 ? artifact.artifactImages
                                 : "/stock-museum-1.jpg"
                             }
-                            width="430"
-                            height="281"
                             className="w-full px-1"
                             alt={artifact.title}
                           />

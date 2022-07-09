@@ -8,7 +8,6 @@ import {
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_CONTENT,
 } from "apollo/api";
-import Image from "next/image";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import CommentCard from "components/CommentCard";
@@ -17,10 +16,6 @@ import Link from "next/link";
 import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function IndexPage({ content, experiences, comments }) {
   const { query } = useRouter();
@@ -36,18 +31,12 @@ export default function IndexPage({ content, experiences, comments }) {
             <PageTitle smallText={"welcome to"} largeText={content.title} />
           )}
           {content.staticPageImages && (
-            <div className="flex relative my-16">
-              <Image
-                loader={customLoader}
-                src={content.staticPageImages}
-                width="1080"
-                height="720"
-                alt={content.title}
-              />
+            <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
+              <img src={content.staticPageImages} alt={content.title} />
             </div>
           )}
           {content.description && (
-            <div className="wysiwyg-editor">
+            <div className="my-8 wysiwyg-editor">
               <DocumentRenderer document={content.description.document} />
             </div>
           )}
@@ -59,19 +48,20 @@ export default function IndexPage({ content, experiences, comments }) {
               {experiences.map((item, index) => (
                 <div className="snap-center shrink-0 w-full my-3" key={index}>
                   <div className="shrink-0 flex flex-col">
-                    <Link href={`${item.url}`} passHref>
-                      <a>
-                        <Image
-                          loader={customLoader}
+                    <Link href={item.url} passHref>
+                      <a className="aspect-w-16 aspect-h-9">
+                        <img
                           src={
                             item.experienceImages
                               ? item.experienceImages
                               : "/stock-museum-1.jpg"
                           }
-                          width={1080}
-                          height={720}
                           alt={item.title}
                         />
+                      </a>
+                    </Link>
+                    <Link href={item.url} passHref>
+                      <a>
                         <strong>{item.title}</strong>
                       </a>
                     </Link>

@@ -1,9 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function Thumbnail({
   href,
@@ -14,9 +9,8 @@ export default function Thumbnail({
 }) {
   return (
     <Link href={href} passHref>
-      <a>
-        <Image
-          loader={customLoader}
+      <a className="aspect-w-16 aspect-h-9">
+        <img
           src={image}
           width={`${imgWidth}`}
           height={`${imgHeight}`}

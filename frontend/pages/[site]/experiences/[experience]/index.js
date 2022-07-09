@@ -11,7 +11,6 @@ import {
 } from "apollo/api";
 import Link from "next/link";
 import React from "react";
-import Image from "next/image";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import SocialForm from "components/SocialForm";
@@ -19,10 +18,6 @@ import Section from "components/Section";
 import CommentCard from "components/CommentCard";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function Experience({ experience, experiences, comments }) {
   const { query } = useRouter();
@@ -64,17 +59,13 @@ export default function Experience({ experience, experiences, comments }) {
                 {experience.relatedArtifacts.map((artifact, index) => (
                   <div className="my-4" key={index}>
                     <Link href={`${experience.url}/${artifact.url}`} passHref>
-                      <a>
-                        <Image
-                          loader={customLoader}
+                      <a className="aspect-w-16 aspect-h-9">
+                        <img
                           src={
                             artifact.artifactImages
                               ? artifact.artifactImages
                               : "/stock-museum-1.jpg"
                           }
-                          width="436"
-                          height="281"
-                          className="w-full px-1"
                           alt={artifact.title}
                         />
                         <h3 className="font-bold">{artifact.artist}</h3>
@@ -94,16 +85,13 @@ export default function Experience({ experience, experiences, comments }) {
                 <div className="snap-center shrink-0 w-full my-3" key={index}>
                   <div className="shrink-0 flex flex-col">
                     <Link href={`${item.url}`} passHref>
-                      <a>
-                        <Image
-                          loader={customLoader}
+                      <a className="aspect-w-16 aspect-h-9">
+                        <img
                           src={
                             item.experienceImages
                               ? item.experienceImages
                               : "/stock-museum-1.jpg"
                           }
-                          width={1080}
-                          height={720}
                           alt={item.title}
                         />
                         <strong>{item.title}</strong>
