@@ -1,7 +1,6 @@
 import { GET_ALL_SITES, GET_EXPERIENCES_BY_SITE_ID } from "apollo/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import Thumbnail from "components/Thumbnail";
 import BackLink from "components/BackLink";
 import React from "react";
 import PageTitle from "components/PageTitle";
@@ -9,6 +8,7 @@ import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import { useRouter } from "next/router";
 import Section from "components/Section";
+import Link from "next/link";
 
 export default function Experience({ experiences }) {
   const { query } = useRouter();
@@ -22,19 +22,27 @@ export default function Experience({ experiences }) {
           <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
 
           <div className="mt-6 grid grid-cols-2 gap-4">
-            {experiences.map((experience) => (
-              <div key={experience.id}>
-                <Thumbnail
-                  href={experience.url}
-                  title={experience.title}
-                  image={
-                    experience.experienceImages
-                      ? experience.experienceImages
-                      : "/stock-museum-1.jpg"
-                  }
-                  imgWidth={700}
-                  imgHeight={512}
-                />
+            {experiences.map((item, index) => (
+              <div className="snap-center shrink-0 w-full my-3" key={index}>
+                <div className="shrink-0 flex flex-col">
+                  <Link href={item.url} passHref>
+                    <a className="aspect-w-16 aspect-h-9">
+                      <img
+                        src={
+                          item.experienceImages
+                            ? item.experienceImages
+                            : "/stock-museum-1.jpg"
+                        }
+                        alt={item.title}
+                      />
+                    </a>
+                  </Link>
+                  <Link href={item.url} passHref>
+                    <a>
+                      <strong>{item.title}</strong>
+                    </a>
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
