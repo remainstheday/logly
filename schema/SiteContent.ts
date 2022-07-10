@@ -66,7 +66,41 @@ export const SiteContent = list({
       },
     }),
     title: defaults.title,
-    staticPageImages: defaults.images("Page Image"),
+    siteLogo: text({
+      ui: {
+        views: require.resolve("../fields/logo-upload/view.tsx"),
+        createView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+        itemView: {
+          fieldMode: ({ session, context, item }) => {
+            return item.name !== "Home" ? "hidden" : "edit";
+          },
+        },
+      },
+    }),
+    logoWidth: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+        itemView: {
+          fieldMode: ({ session, context, item }) => {
+            return item.name !== "Home" ? "hidden" : "edit";
+          },
+        },
+      },
+    }),
+    logoHeight: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+        itemView: {
+          fieldMode: ({ session, context, item }) => {
+            return item.name !== "Home" ? "hidden" : "edit";
+          },
+        },
+      },
+    }),
+    staticPageImages: defaults.images("Banner Image"),
     description: defaults.document,
     url: defaults.url,
     siteId: defaults.siteId,

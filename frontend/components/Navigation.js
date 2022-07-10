@@ -1,8 +1,24 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_SITE_CONTENT } from "apollo/api";
 
 export default function Navigation({ siteId }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
+  const [logo, setLogo] = useState({ url: "/Logo.png", width: 25, height: 35 });
+  const { data } = useQuery(GET_SITE_CONTENT, {
+    variables: siteId,
+  });
+  useEffect(() => {
+    if (data) {
+      setLogo({
+        url: data.siteContents[1].siteLogo,
+        width: data.siteContents[1].logoWidth,
+        height: data.siteContents[1].logoHeight,
+      });
+    }
+  }, [data]);
+
   return (
     <>
       <nav className="relative flex items-center justify-between py-3 w-full rounded">
@@ -10,7 +26,13 @@ export default function Navigation({ siteId }) {
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
             <Link href={`/${siteId}`} passHref>
               <a className="text-sm font-bold leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-white">
-                <img src="/Logo.png" alt="logly-logo" width="25" height="35" />
+                <img
+                  src={logo.url}
+                  alt={siteId}
+                  width={logo.width}
+                  height={logo.height}
+                  style={{ maxWidth: 200, maxHeight: 100 }}
+                />
               </a>
             </Link>
             <button

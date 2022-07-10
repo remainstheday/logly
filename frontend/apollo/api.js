@@ -18,6 +18,9 @@ export const GET_SITE_CONTENT = gql`
       name
       title
       siteId
+      siteLogo
+      logoWidth
+      logoHeight
       staticPageImages
       description {
         document

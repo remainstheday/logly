@@ -410,6 +410,9 @@ type SiteContent {
   id: ID!
   name: String
   title: String
+  siteLogo: String
+  logoWidth: String
+  logoHeight: String
   staticPageImages: String
   description: SiteContent_description_Document
   url: String
@@ -432,6 +435,9 @@ input SiteContentWhereInput {
   id: IDFilter
   name: StringFilter
   title: StringFilter
+  siteLogo: StringFilter
+  logoWidth: StringFilter
+  logoHeight: StringFilter
   staticPageImages: StringFilter
   url: StringFilter
   siteId: StringFilter
@@ -441,6 +447,9 @@ input SiteContentOrderByInput {
   id: OrderDirection
   name: OrderDirection
   title: OrderDirection
+  siteLogo: OrderDirection
+  logoWidth: OrderDirection
+  logoHeight: OrderDirection
   staticPageImages: OrderDirection
   url: OrderDirection
   siteId: OrderDirection
@@ -449,6 +458,9 @@ input SiteContentOrderByInput {
 input SiteContentUpdateInput {
   name: String
   title: String
+  siteLogo: String
+  logoWidth: String
+  logoHeight: String
   staticPageImages: String
   description: JSON
   url: String
@@ -463,6 +475,9 @@ input SiteContentUpdateArgs {
 input SiteContentCreateInput {
   name: String
   title: String
+  siteLogo: String
+  logoWidth: String
+  logoHeight: String
   staticPageImages: String
   description: JSON
   url: String

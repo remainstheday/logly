@@ -59,6 +59,9 @@ model SiteContent {
   id               String @id @default(uuid()) @postgresql.Uuid
   name             String @default("")
   title            String @default("")
+  siteLogo         String @default("")
+  logoWidth        String @default("")
+  logoHeight       String @default("")
   staticPageImages String @default("")
   description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   url              String @unique @default("")
