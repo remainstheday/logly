@@ -20,7 +20,7 @@ export default function About({ content }) {
       <div className="max-w-4xl mx-auto min-h-screen">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
-          <PageTitle smallText="About" largeText={content.title} />
+          <PageTitle largeText={content.title} />
           <div className="mt-6">
             {content.staticPageImages && (
               <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
