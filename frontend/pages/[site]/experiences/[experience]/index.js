@@ -19,7 +19,12 @@ import CommentCard from "components/CommentCard";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
-export default function Experience({ experience, experiences, comments }) {
+export default function Experience({
+  experience,
+  experiences,
+  artifacts,
+  comments,
+}) {
   const { query } = useRouter();
   if (!experience || !experiences) return <PageLoading />;
   const similarExperiences = experiences.filter(
@@ -52,11 +57,11 @@ export default function Experience({ experience, experiences, comments }) {
           )}
         </Section>
 
-        {experience.relatedArtifacts && experience.relatedArtifacts.length > 0 && (
+        {artifacts && artifacts.length > 0 && (
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-4">
-                {experience.relatedArtifacts.map((artifact, index) => (
+                {artifacts.map((artifact, index) => (
                   <div className="snap-center shrink-0 w-full my-3" key={index}>
                     <div className="shrink-0 flex flex-col">
                       <Link href={`${experience.url}/${artifact.url}`} passHref>
@@ -202,7 +207,9 @@ export async function getStaticProps({ params }) {
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
-
+      artifacts: experience.relatedArtifacts.filter(
+        (artifact) => artifact.status === "published"
+      ),
       comments: comments.data.comments.filter(
         (comment) => comment.image && comment.experienceURL === experience.url
       ),

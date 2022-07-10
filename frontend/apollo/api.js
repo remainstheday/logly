@@ -38,6 +38,7 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
         artifactImages
         title
         artist
+        status
       }
       description {
         document
