@@ -1,12 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import Image from "next/image";
 import React, { useState } from "react";
 import Script from "next/script";
-
-const customLoader = ({ src }) => {
-  return src;
-};
 
 export default function PublicHeader() {
   const [mobileMenu, updateMobileMenu] = useState(false);
@@ -46,7 +41,7 @@ export default function PublicHeader() {
                   gtag('config', 'UA-212210451-1');
                 `}
       </Script>
-      <header className="pt-4 max-w-4xl mx-auto md:mx-auto">
+      <header className="max-w-4xl px-6 lg:px-0 my-8 md:mx-auto pt-4 mx-auto md:mx-auto">
         <div className="flex flex-wrap pt-2">
           <div className="w-full">
             <nav className="relative flex items-center justify-between py-3 w-full rounded">
@@ -54,23 +49,22 @@ export default function PublicHeader() {
                 <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
                   <Link href={`/`} passHref>
                     <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
-                      <Image
-                        loader={customLoader}
+                      <img
                         src="/Logo.png"
                         alt="logly-logo"
-                        width="50"
-                        height="50"
+                        width="25"
+                        height="35"
                       />
                     </a>
                   </Link>
                   <button
-                    className="cursor-pointer text-xl mr-6 leading-none py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+                    className="scroll -mt-4 cursor-pointer text-xl leading-none border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
                     type="button"
                     onClick={() => updateMobileMenu(!mobileMenu)}
                   >
-                    <span className="block relative w-8 h-0.5 rounded-sm bg-black"></span>
-                    <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
-                    <span className="block relative w-8 h-0.5 rounded-sm bg-black mt-1"></span>
+                    <span className="block relative w-8 h-1 rounded-sm bg-black"></span>
+                    <span className="block relative w-8 h-1 rounded-sm bg-black mt-1"></span>
+                    <span className="block relative w-8 h-1 rounded-sm bg-black mt-1"></span>
                   </button>
                 </div>
                 <div
