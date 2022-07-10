@@ -76,36 +76,44 @@ export default function Artifact({
             </div>
           )}
           {similarArtifacts.length > 0 && (
-            <div>
-              <SectionLink
-                href={`${experience.url}`}
-                text={"Go To Experience"}
-              />
-              <hr />
+            <Section title="Exhibition Preview">
               <div className="w-full mt-4">
-                <div className="flex flex-wrap">
+                <div className="grid grid-cols-2 gap-4">
                   {similarArtifacts.map((artifact, index) => (
-                    <div className="w-1/2 my-4 px-0.5" key={index}>
-                      <Link href={`${experience.url}/${artifact.url}`} passHref>
-                        <a className="aspect-w-16 aspect-h-9">
-                          <img
-                            src={
-                              artifact.artifactImages
-                                ? artifact.artifactImages
-                                : "/stock-museum-1.jpg"
-                            }
-                            className="w-full px-1"
-                            alt={artifact.title}
-                          />
-                          <h3 className="font-bold">{artifact.artist}</h3>
-                          <h4>{artifact.title}</h4>
-                        </a>
-                      </Link>
+                    <div
+                      className="snap-center shrink-0 w-full my-3"
+                      key={index}
+                    >
+                      <div className="shrink-0 flex flex-col">
+                        <Link
+                          href={`${experience.url}/${artifact.url}`}
+                          passHref
+                        >
+                          <a className="aspect-w-16 aspect-h-9">
+                            <img
+                              src={
+                                artifact.artifactImages
+                                  ? artifact.artifactImages
+                                  : "/stock-museum-1.jpg"
+                              }
+                              alt={artifact.title}
+                            />
+                          </a>
+                        </Link>
+                        <Link
+                          href={`${experience.url}/${artifact.url}`}
+                          passHref
+                        >
+                          <a>
+                            <strong>{artifact.title}</strong>
+                          </a>
+                        </Link>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
+            </Section>
           )}
         </Section>
 

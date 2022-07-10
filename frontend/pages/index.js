@@ -52,7 +52,7 @@ export default function IndexPage() {
             <div className="block -mt-12 text-right hidden sm:block">
               <Image
                 loader={customLoader}
-                src="/illu_5.png"
+                src="/images/illu_5.png"
                 alt="logly-illustration"
                 width="350"
                 height="350"
@@ -69,7 +69,7 @@ export default function IndexPage() {
               <div className="block text-center">
                 <Image
                   loader={customLoader}
-                  src="/mobile-logly-homepage.png"
+                  src="/images/mobile-logly-homepage.png"
                   alt="logly-logo"
                   width="175"
                   height="355"
@@ -82,7 +82,7 @@ export default function IndexPage() {
               <div className="block text-center">
                 <Image
                   loader={customLoader}
-                  src="/mobile-logly-experiences.png"
+                  src="/images/mobile-logly-experiences.png"
                   alt="logly-logo"
                   width="175"
                   height="355"
@@ -94,7 +94,7 @@ export default function IndexPage() {
               <div className="block text-center">
                 <Image
                   loader={customLoader}
-                  src="/mobile-logly-community.png"
+                  src="/images/mobile-logly-community.png"
                   alt="logly-logo"
                   width="175"
                   height="355"
@@ -122,7 +122,7 @@ export default function IndexPage() {
               <div className="block text-center sm:w-1/2">
                 <Image
                   loader={customLoader}
-                  src="/homepage-desktop-admin-3.png"
+                  src="/images/homepage-desktop-admin-3.png"
                   alt="logly admin interface"
                   width="425"
                   height="250"
@@ -140,7 +140,7 @@ export default function IndexPage() {
                 <div className="block text-right hidden sm:block">
                   <Image
                     loader={customLoader}
-                    src="/illu_1.png"
+                    src="/images/illu_1.png"
                     alt="logly illustration 1"
                     width="350"
                     height="350"
@@ -161,7 +161,7 @@ export default function IndexPage() {
                 <div className="block text-left hidden sm:block">
                   <Image
                     loader={customLoader}
-                    src="/illu_2.png"
+                    src="/images/illu_2.png"
                     alt="logly illustration 2"
                     width="350"
                     height="350"
@@ -171,7 +171,7 @@ export default function IndexPage() {
               <div className="block text-center sm:w-1/2 order-1">
                 <Image
                   loader={customLoader}
-                  src="/homepage-desktop-admin-1.png"
+                  src="/images/homepage-desktop-admin-1.png"
                   alt="logly-logo"
                   width="425"
                   height="250"
@@ -191,7 +191,7 @@ export default function IndexPage() {
               <div className="block text-center sm:w-1/2">
                 <Image
                   loader={customLoader}
-                  src="/homepage-desktop-admin-2.png"
+                  src="/images/homepage-desktop-admin-2.png"
                   alt="logly-logo"
                   width="425"
                   height="250"
@@ -208,7 +208,7 @@ export default function IndexPage() {
                 <div className="block text-right hidden sm:block">
                   <Image
                     loader={customLoader}
-                    src="/illu_3.png"
+                    src="/images/illu_3.png"
                     alt="logly illustration 3"
                     width="350"
                     height="350"

@@ -10,16 +10,6 @@ export const GET_ALL_SITES = gql`
   }
 `;
 
-export const GET_SITE_BY_URL = gql`
-  query Site($url: String) {
-    site(where: { url: $url }) {
-      siteId
-      title
-      url
-    }
-  }
-`;
-
 export const GET_SITE_CONTENT = gql`
   query SiteContents($siteId: String) {
     siteContents(where: { siteId: { equals: $siteId } }) {
@@ -106,53 +96,6 @@ export const GET_ALL_ARTIFACTS = gql`
       status
       description {
         document
-      }
-      artifactImages
-    }
-  }
-`;
-
-export const GET_EXPERIENCE_BY_SLUG = gql`
-  query Experience($url: String) {
-    experience(where: { url: $url }) {
-      title
-      url
-      startDate
-      endDate
-      status
-      description {
-        document
-      }
-      experienceImages
-      relatedArtifacts {
-        title
-        artist
-        url
-        artifactImages
-      }
-    }
-  }
-`;
-
-export const GET_ARTIFACT_BY_SLUG = gql`
-  query Artifact($url: String) {
-    artifact(where: { url: $url }) {
-      id
-      title
-      artist
-      url
-      status
-      description {
-        document
-      }
-      audioFile
-      qrCodes
-      relatedExperiences {
-        id
-        title
-        url
-        startDate
-        endDate
       }
       artifactImages
     }
