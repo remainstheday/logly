@@ -119,7 +119,7 @@ export default function IndexPage() {
           </h2>
           <div>
             <div className="flex flex-col sm:flex-row mt-12">
-              <div className="block text-center sm:w-1/2">
+              <div className="block text-center order-2 sm:order-1 sm:w-1/2">
                 <Image
                   loader={customLoader}
                   src="/images/homepage-desktop-admin-3.png"
@@ -129,7 +129,7 @@ export default function IndexPage() {
                 />
               </div>
 
-              <div className="sm:w-1/2">
+              <div className="sm:w-1/2 mb-4">
                 <h3 className="font-bold text-center sm:text-left text-2xl">
                   A Digital Guide Builder
                 </h3>
@@ -150,7 +150,7 @@ export default function IndexPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
-              <div className="sm:w-1/2 order-2 sm:order-1">
+              <div className="sm:w-1/2 mb-4">
                 <h3 className="font-bold text-center sm:text-left text-2xl">
                   A Publishing Tool
                 </h3>
@@ -168,7 +168,7 @@ export default function IndexPage() {
                   />
                 </div>
               </div>
-              <div className="block text-center sm:w-1/2 order-1">
+              <div className="block text-center sm:w-1/2">
                 <Image
                   loader={customLoader}
                   src="/images/homepage-desktop-admin-1.png"
@@ -179,7 +179,7 @@ export default function IndexPage() {
                 <Link href="/register" passHref>
                   <a
                     style={{ backgroundColor: "#002FA7" }}
-                    className="w-44 mx-auto mt-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="w-44 mx-auto mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
                     Give Logly a Try
                   </a>
@@ -188,7 +188,7 @@ export default function IndexPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
-              <div className="block text-center sm:w-1/2">
+              <div className="block text-center sm:w-1/2 order-2 sm:order-1">
                 <Image
                   loader={customLoader}
                   src="/images/homepage-desktop-admin-2.png"
@@ -197,8 +197,8 @@ export default function IndexPage() {
                   height="250"
                 />
               </div>
-              <div className="sm:w-1/2">
-                <h3 className="font-bold text-2xl text-center sm:text-left">
+              <div className="sm:w-1/2 mb-4">
+                <h3 className="font-bold text-2xl text-center order-1 sm:order-2 sm:text-left">
                   A Content Management System
                 </h3>
                 <p>

@@ -5,7 +5,7 @@ import { GET_SITE_CONTENT } from "apollo/api";
 
 export default function Navigation({ siteId }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
-  const [logo, setLogo] = useState({ url: "/Logo.png", width: 25, height: 35 });
+  const [logo, setLogo] = useState({ url: undefined, width: 25, height: 35 });
   const { data } = useQuery(GET_SITE_CONTENT, {
     variables: siteId,
   });
@@ -36,7 +36,7 @@ export default function Navigation({ siteId }) {
               </a>
             </Link>
             <button
-              className="scroll -mt-4 cursor-pointer text-xl leading-none border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+              className="scroll absolute right-1 top-4 -mt-4 cursor-pointer text-xl leading-none border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
               onClick={() => updateMobileMenu(!mobileMenu)}
             >
