@@ -4,7 +4,12 @@ import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
 import React, { useState } from "react";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import { ADD_COMMENT, GET_ALL_COMMENTS, GET_ALL_SITES } from "apollo/api";
+import {
+  ADD_COMMENT,
+  GET_ALL_COMMENTS,
+  GET_ALL_SITES,
+  GET_SITE_CONTENT,
+} from "apollo/api";
 import { truncateComment } from "utils/truncateText";
 import { Formik } from "formik";
 import ImageUploader from "components/ImageUploader";
@@ -14,12 +19,15 @@ import { useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { useRouter } from "next/router";
 import Section from "components/Section";
+import PageLoading from "components/PageLoading";
 
-export default function Community({ comments = [] }) {
+export default function Community({ content, comments = [] }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
+
+  if (!content) return <PageLoading />;
 
   const handleFormSubmit = async (username, comment) => {
     await Promise.resolve(processCloudinaryImage(uploadedImage)).then(
@@ -56,7 +64,14 @@ export default function Community({ comments = [] }) {
 
   return (
     <>
-      <Header siteId={query.site} />
+      <Header
+        siteId={query.site}
+        logo={{
+          url: content.siteLogo,
+          width: content.logoWidth,
+          height: content.logoHeight,
+        }}
+      />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -188,9 +203,13 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
-
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
+  });
   return addApolloState(apolloClient, {
     props: {
+      content: content.data.siteContents.find((item) => item.name === "Home"),
       comments: comments.data.comments.filter(
         (item) => item.siteId === params.site
       ),

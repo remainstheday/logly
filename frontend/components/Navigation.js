@@ -1,23 +1,8 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_SITE_CONTENT } from "apollo/api";
+import { useState } from "react";
 
-export default function Navigation({ siteId }) {
+export default function Navigation({ siteId, logo }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
-  const [logo, setLogo] = useState({ url: undefined, width: 25, height: 35 });
-  const { data } = useQuery(GET_SITE_CONTENT, {
-    variables: siteId,
-  });
-  useEffect(() => {
-    if (data) {
-      setLogo({
-        url: data.siteContents[1].siteLogo,
-        width: data.siteContents[1].logoWidth,
-        height: data.siteContents[1].logoHeight,
-      });
-    }
-  }, [data]);
 
   return (
     <>
@@ -27,7 +12,7 @@ export default function Navigation({ siteId }) {
             <Link href={`/${siteId}`} passHref>
               <a className="text-sm font-bold leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-white">
                 <img
-                  src={logo.url}
+                  src={logo && logo.url ? logo.url : "/Logo.png"}
                   alt={siteId}
                   width={logo.width}
                   height={logo.height}

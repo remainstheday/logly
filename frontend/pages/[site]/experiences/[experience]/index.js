@@ -8,6 +8,7 @@ import {
   GET_ALL_EXPERIENCES,
   GET_ALL_SITES,
   GET_EXPERIENCES_BY_SITE_ID,
+  GET_SITE_CONTENT,
 } from "apollo/api";
 import Link from "next/link";
 import React from "react";
@@ -21,6 +22,7 @@ import { useRouter } from "next/router";
 
 export default function Experience({
   experience,
+  content,
   experiences,
   artifacts,
   comments,
@@ -33,7 +35,14 @@ export default function Experience({
 
   return (
     <>
-      <Header siteId={query.site} />
+      <Header
+        siteId={query.site}
+        logo={{
+          url: content.siteLogo,
+          width: content.logoWidth,
+          height: content.logoHeight,
+        }}
+      />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <BackLink
@@ -195,6 +204,11 @@ export async function getStaticProps({ params }) {
     variables: { siteId: params.site },
   });
 
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
+  });
+
   if (!experience || experience.status !== "published") {
     return {
       notFound: true,
@@ -204,6 +218,7 @@ export async function getStaticProps({ params }) {
   return addApolloState(apolloClient, {
     props: {
       experience,
+      content: content.data.siteContents.find((item) => item.name === "Home"),
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
