@@ -25,7 +25,14 @@ export default function IndexPage({ content, experiences, comments }) {
 
   return (
     <>
-      <Header siteId={query.site} />
+      <Header
+        siteId={query.site}
+        logo={{
+          url: content.siteLogo,
+          width: content.logoWidth,
+          height: content.logoHeight,
+        }}
+      />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           {content.title && (

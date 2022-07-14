@@ -10,13 +10,20 @@ import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function About({ content }) {
+export default function About({ siteLogo, content }) {
   const { query } = useRouter();
   if (!content) return <PageLoading />;
 
   return (
     <>
-      <Header siteId={query.site} />
+      <Header
+        siteId={query.site}
+        logo={{
+          url: siteLogo.siteLogo,
+          width: siteLogo.logoWidth,
+          height: siteLogo.logoHeight,
+        }}
+      />
       <div className="max-w-4xl mx-auto min-h-screen">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -66,6 +73,7 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
+      siteLogo: content.data.siteContents.find((item) => item.name === "Home"),
       content: content.data.siteContents.find(
         (item) => item.url === `${params.site}/about`
       ),
