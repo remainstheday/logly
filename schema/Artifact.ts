@@ -105,7 +105,7 @@ export const Artifact = list({
                     {
                       experienceId: relatedExperience.id,
                       artifactId: artifact.id,
-                      url: `${process.env.FRONTEND_URL}${experience.url}/${artifact.url}`,
+                      url: `${process.env.FRONTEND_URL}${experience.url}/${artifact.url}?social=true`,
                     },
                   ],
                 },

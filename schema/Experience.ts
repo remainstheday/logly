@@ -102,7 +102,7 @@ export const Experience = list({
                     {
                       experienceId: experience.id,
                       artifactId: artifact.id,
-                      url: `${process.env.FRONTEND_URL}${experience.url}/${artifact.url}`,
+                      url: `${process.env.FRONTEND_URL}${experience.url}/${artifact.url}?social=true`,
                     },
                   ],
                 },
@@ -145,7 +145,7 @@ export const Experience = list({
         : item!.url;
       const experienceId = item ? item.id : resolvedData.id;
       const qrCodes = [
-        { experienceId, url: `${process.env.FRONTEND_URL}${url}` },
+        { experienceId, url: `${process.env.FRONTEND_URL}${url}?social=true` },
       ];
 
       return {
