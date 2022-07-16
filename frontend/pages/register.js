@@ -34,10 +34,11 @@ export default function Register() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...values, url: `/${values.url}` }),
+      body: JSON.stringify({ siteId: values.siteId, name: values.name, email: values.email, password: values.password}),
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.error) {
           throw new Error(data.error);
         }

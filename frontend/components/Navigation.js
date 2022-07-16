@@ -14,8 +14,8 @@ export default function Navigation({ siteId, logo }) {
                 <img
                   src={logo && logo.url ? logo.url : "/Logo.png"}
                   alt={siteId}
-                  width={logo.width}
-                  height={logo.height}
+                  width={logo.width.length > 0 ? logo.width : 30}
+                  height={logo.height.length > 0 ? logo.height : 30}
                   style={{ maxWidth: 200, maxHeight: 100 }}
                 />
               </a>
