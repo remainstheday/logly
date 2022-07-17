@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
-import Script from "next/script";
 
 export default function PublicHeader() {
   const [mobileMenu, updateMobileMenu] = useState(false);
@@ -28,19 +27,6 @@ export default function PublicHeader() {
           href="/favicon-16x16.png"
         />
       </Head>
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-212210451-1"
-      ></Script>
-
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'UA-212210451-1');
-                `}
-      </Script>
       <header className="max-w-4xl px-6 lg:px-0 my-8 md:mx-auto pt-4 mx-auto md:mx-auto">
         <div className="flex flex-wrap pt-2">
           <div className="w-full">

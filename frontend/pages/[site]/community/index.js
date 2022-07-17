@@ -10,16 +10,15 @@ import {
   GET_ALL_SITES,
   GET_SITE_CONTENT,
 } from "apollo/api";
-import { truncateComment } from "utils/truncateText";
 import { Formik } from "formik";
 import ImageUploader from "components/ImageUploader";
 import ClientOnly from "components/ClientOnly";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 import { useMutation } from "@apollo/client";
-import { format } from "date-fns";
 import { useRouter } from "next/router";
 import Section from "components/Section";
 import PageLoading from "components/PageLoading";
+import CommentCard from "../../../components/CommentCard";
 
 export default function Community({ content, comments = [] }) {
   const { query } = useRouter();
@@ -147,28 +146,29 @@ export default function Community({ content, comments = [] }) {
           <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
             <div className="masonry-2-col md:masonry-3-col">
               {filteredComments.map((post) => (
-                <div
-                  key={post.id}
-                  className="break-inside mb-3 bg-white overflow-hidden"
-                >
-                  {post.image.length > 0 && (
-                    <div className="aspect-w-16 aspect-h-9">
-                      <img src={post.image} alt={post.title} />
-                    </div>
-                  )}
-                  <div className="px-3 py-3">
-                    <p className="text-gray-700 text-sm">
-                      {truncateComment(post.comment)}
-                    </p>
-                    <span>
-                      <i className="text-gray-400 text-xs">
-                        Comment by {post.username} on{" "}
-                        {post.timestamp &&
-                          format(new Date(post.timestamp), "MMM dd, yyyy")}
-                      </i>
-                    </span>
-                  </div>
-                </div>
+                <CommentCard comment={post} key={post.id} />
+                // <div
+                //   key={post.id}
+                //   className="break-inside mb-3 bg-white overflow-hidden"
+                // >
+                //   {post.image.length > 0 && (
+                //     <div className="aspect-w-16 aspect-h-9">
+                //       <img src={post.image} alt={post.title} />
+                //     </div>
+                //   )}
+                //   <div className="px-3 py-3">
+                //     <p className="text-gray-700 text-sm">
+                //       {truncateComment(post.comment)}
+                //     </p>
+                //     <span>
+                //       <i className="text-gray-400 text-xs">
+                //         Comment by {post.username} on{" "}
+                //         {post.timestamp &&
+                //           format(new Date(post.timestamp), "MMM dd, yyyy")}
+                //       </i>
+                //     </span>
+                //   </div>
+                // </div>
               ))}
             </div>
             <br />

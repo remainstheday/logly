@@ -128,7 +128,7 @@ export default function Artifact({
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm artifactURL={artifact.url} siteId={query.site} />
+            <SocialForm artifactId={artifact.url} siteId={query.site} />
           </Section>
         )}
 
@@ -213,7 +213,7 @@ export async function getStaticProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-  if (!artifact || !experience || artifact.status !== "published") {
+  if (!artifact || !experience || !content || artifact.status !== "published") {
     return {
       notFound: true,
     };

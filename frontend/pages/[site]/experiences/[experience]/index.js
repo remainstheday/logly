@@ -133,7 +133,7 @@ export default function Experience({
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm experienceURL={experience.url} siteId={query.site} />
+            <SocialForm experienceId={experience.url} siteId={query.site} />
           </Section>
         )}
 
@@ -209,7 +209,7 @@ export async function getStaticProps({ params }) {
     variables: { siteId: params.site },
   });
 
-  if (!experience || experience.status !== "published") {
+  if (!experience || !content || experience.status !== "published") {
     return {
       notFound: true,
     };

@@ -8,8 +8,8 @@ import { ADD_COMMENT } from "apollo/api";
 import Link from "next/link";
 
 export default function SocialForm({
-  artifactURL = "",
-  experienceURL = "",
+  artifactId = "",
+  experienceId = "",
   siteId = "",
 }) {
   const [uploadedImage, setUploadedImage] = useState();
@@ -23,8 +23,9 @@ export default function SocialForm({
             username,
             comment,
             image: cloudinaryImage ? cloudinaryImage : "",
-            artifactURL,
-            experienceURL,
+            artifactId,
+            experienceId,
+            siteId,
             timestamp: new Date(Date.now()),
           },
         });
