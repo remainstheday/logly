@@ -2,6 +2,7 @@ import {
   GET_ALL_SITES,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_CONTENT,
+  GET_SITE_LOGO,
 } from "apollo/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
@@ -14,19 +15,12 @@ import { useRouter } from "next/router";
 import Section from "components/Section";
 import Link from "next/link";
 
-export default function Experience({ experiences, content }) {
+export default function Experience({ experiences, logo }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading />;
   return (
     <>
-      <Header
-        siteId={query.site}
-        logo={{
-          url: content.siteLogo,
-          width: content.logoWidth,
-          height: content.logoHeight,
-        }}
-      />
+      <Header siteId={query.site} logo={logo} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -82,18 +76,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
-  const experiences = await apolloClient.query({
-    query: GET_EXPERIENCES_BY_SITE_ID,
+  const siteContents = await apolloClient.query({
+    query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
+  const experiences = await apolloClient.query({
+    query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
 
   return addApolloState(apolloClient, {
     props: {
-      content: content.data.siteContents.find((item) => item.name === "Home"),
+      logo: siteContents.data.siteContents[1],
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),

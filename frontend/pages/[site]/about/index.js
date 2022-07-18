@@ -1,7 +1,7 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import { GET_ALL_SITES, GET_SITE_CONTENT } from "apollo/api";
+import { GET_ALL_SITES, GET_SITE_CONTENT, GET_SITE_LOGO } from "apollo/api";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
@@ -10,20 +10,13 @@ import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import React from "react";
 
-export default function About({ siteLogo, content }) {
+export default function About({ logo, content }) {
   const { query } = useRouter();
   if (!content) return <PageLoading />;
 
   return (
     <>
-      <Header
-        siteId={query.site}
-        logo={{
-          url: siteLogo.siteLogo,
-          width: siteLogo.logoWidth,
-          height: siteLogo.logoHeight,
-        }}
-      />
+      <Header siteId={query.site} logo={logo} />
       <div className="max-w-4xl mx-auto min-h-screen">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -66,6 +59,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
+  const siteContents = await apolloClient.query({
+    query: GET_SITE_LOGO,
+    variables: { siteId: params.site },
+  });
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
@@ -73,7 +70,7 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      siteLogo: content.data.siteContents.find((item) => item.name === "Home"),
+      logo: siteContents.data.siteContents[1],
       content: content.data.siteContents.find(
         (item) => item.url === `${params.site}/about`
       ),

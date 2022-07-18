@@ -8,7 +8,7 @@ import {
   ADD_COMMENT,
   GET_ALL_COMMENTS,
   GET_ALL_SITES,
-  GET_SITE_CONTENT,
+  GET_SITE_LOGO,
 } from "apollo/api";
 import { Formik } from "formik";
 import ImageUploader from "components/ImageUploader";
@@ -20,13 +20,11 @@ import Section from "components/Section";
 import PageLoading from "components/PageLoading";
 import CommentCard from "../../../components/CommentCard";
 
-export default function Community({ content, comments = [] }) {
+export default function Community({ logo, comments = [] }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
-
-  if (!content) return <PageLoading />;
 
   const handleFormSubmit = async (username, comment) => {
     await Promise.resolve(processCloudinaryImage(uploadedImage)).then(
@@ -63,14 +61,7 @@ export default function Community({ content, comments = [] }) {
 
   return (
     <>
-      <Header
-        siteId={query.site}
-        logo={{
-          url: content.siteLogo,
-          width: content.logoWidth,
-          height: content.logoHeight,
-        }}
-      />
+      <Header siteId={query.site} logo={logo} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -199,17 +190,18 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
+  const siteContents = await apolloClient.query({
+    query: GET_SITE_LOGO,
+    variables: { siteId: params.site },
+  });
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
-    variables: { siteId: params.site },
-  });
+
   return addApolloState(apolloClient, {
     props: {
-      content: content.data.siteContents.find((item) => item.name === "Home"),
+      logo: siteContents.data.siteContents[1],
       comments: comments.data.comments.filter(
         (item) => item.siteId === params.site
       ),

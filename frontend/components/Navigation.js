@@ -12,10 +12,10 @@ export default function Navigation({ siteId, logo }) {
             <Link href={`/${siteId}`} passHref>
               <a className="text-sm font-bold leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-white">
                 <img
-                  src={logo && logo.url ? logo.url : "/Logo.png"}
+                  src={logo && logo.siteLogo ? logo.siteLogo : "/Logo.png"}
                   alt={siteId}
-                  width={logo.width.length > 0 ? logo.width : 30}
-                  height={logo.height.length > 0 ? logo.height : 30}
+                  width={logo.logoWidth.length > 0 ? logo.logoWidth : 30}
+                  height={logo.logoHeight.length > 0 ? logo.logoHeight : 30}
                   style={{ maxWidth: 200, maxHeight: 100 }}
                 />
               </a>

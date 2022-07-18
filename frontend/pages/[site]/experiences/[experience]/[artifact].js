@@ -2,13 +2,10 @@ import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import {
-  GET_ALL_ARTIFACTS,
-  GET_ALL_COMMENTS,
-  GET_ALL_SITES,
   GET_ALL_EXPERIENCES,
-  GET_ARTIFACTS_BY_SITE_ID,
+  GET_ARTIFACTS,
   GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_CONTENT,
+  GET_SITE_LOGO,
 } from "apollo/api";
 import Link from "next/link";
 import React from "react";
@@ -23,14 +20,15 @@ import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 
 export default function Artifact({
+  logo,
   artifact,
-  content,
   experience,
   comments,
   relatedArtifacts,
 }) {
-  const { query } = useRouter();
-  if (!artifact || !experience) return <PageLoading />;
+  const { query, router } = useRouter();
+  if ((router && router.isFallback) || !artifact || !experience)
+    return <PageLoading />;
 
   const similarArtifacts = relatedArtifacts.filter(
     (item) => item.url !== artifact.url
@@ -43,17 +41,9 @@ export default function Artifact({
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
-
   return (
     <>
-      <Header
-        siteId={query.site}
-        logo={{
-          url: content.siteLogo,
-          width: content.logoWidth,
-          height: content.logoHeight,
-        }}
-      />
+      <Header siteId={query.site} logo={logo} />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <BackLink href={`${experience.url}`} text={"Back to Experience"} />
@@ -155,65 +145,51 @@ export default function Artifact({
 
 export async function getStaticPaths() {
   const apolloClient = initializeApollo();
-  const sites = await apolloClient.query({
-    query: GET_ALL_SITES,
-  });
   const experiences = await apolloClient.query({
     query: GET_ALL_EXPERIENCES,
   });
-  const artifacts = await apolloClient.query({
-    query: GET_ALL_ARTIFACTS,
-  });
-
-  const paths = sites.data.sites
-    .map((site) =>
-      experiences.data.experiences
-        .map((experience) =>
-          artifacts.data.artifacts.map((artifact) => ({
-            params: {
-              site: site.url,
-              experience: experience.url,
-              artifact: `${experience.url}/${artifact.url}`,
-            },
-          }))
-        )
-        .flat()
-    )
-    .flat();
+  let paths = [];
+  experiences.data.experiences.map((experience) =>
+    experience.relatedArtifacts.map((artifact) => {
+      return paths.push({
+        params: {
+          site: experience.siteId,
+          experience: experience.url,
+          artifact: artifact.url,
+        },
+      });
+    })
+  );
 
   return {
     paths,
-    fallback: true,
+    fallback: "blocking",
   };
 }
 
 export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
-  const artifacts = await apolloClient.query({
-    query: GET_ARTIFACTS_BY_SITE_ID,
+  const siteContents = await apolloClient.query({
+    query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
-  const comments = await apolloClient.query({
-    query: GET_ALL_COMMENTS,
-    variables: { siteId: params.site },
-  });
-
   const experience = experiences.data.experiences.filter(
     (experience) =>
       experience.url === `/${params.site}/experiences/${params.experience}`
   )[0];
-  const artifact = artifacts.data.artifacts.filter(
-    (item) => item.url === params.artifact
-  )[0];
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
-    variables: { siteId: params.site },
+  const artifacts = await apolloClient.query({
+    query: GET_ARTIFACTS,
+    variables: { url: params.artifact },
   });
-  if (!artifact || !experience || !content || artifact.status !== "published") {
+  const artifact = artifacts.data.artifacts.filter(
+    (artifact) => artifact.siteId === params.site
+  )[0];
+
+  if (!artifact || !experience || artifact.status !== "published") {
     return {
       notFound: true,
     };
@@ -221,10 +197,10 @@ export async function getStaticProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
+      logo: siteContents.data.siteContents[1],
       artifact,
+      comments: [], // TODO: get comments by artifactID
       experience,
-      content: content.data.siteContents.find((item) => item.name === "Home"),
-      comments: comments.data.comments,
       relatedArtifacts: experience.relatedArtifacts,
     },
     revalidate: 1,

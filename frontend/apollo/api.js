@@ -37,11 +37,15 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
       url
       siteId
       relatedArtifacts {
-        url
-        artifactImages
+        id
         title
         artist
+        url
         status
+        description {
+          document
+        }
+        artifactImages
       }
       description {
         document
@@ -64,6 +68,17 @@ export const GET_ALL_EXPERIENCES = gql`
       description {
         document
       }
+      relatedArtifacts {
+        id
+        title
+        artist
+        url
+        status
+        description {
+          document
+        }
+        artifactImages
+      }
       experienceImages
       startDate
       endDate
@@ -72,32 +87,32 @@ export const GET_ALL_EXPERIENCES = gql`
   }
 `;
 
-export const GET_ARTIFACTS_BY_SITE_ID = gql`
-  query Experiences($siteId: String) {
-    artifacts(where: { siteId: { equals: $siteId } }) {
+export const GET_ARTIFACTS = gql`
+  query Artifacts($url: String) {
+    artifacts(where: { url: { contains: $url } }) {
       id
       title
       artist
       url
       status
       siteId
-      audioFile
-      description {
-        document
+      relatedExperiences {
+        id
+        title
+        url
+        siteId
+        relatedArtifacts {
+          id
+          title
+          artist
+          url
+          artifactImages
+        }
+        experienceImages
+        startDate
+        endDate
+        status
       }
-      artifactImages
-    }
-  }
-`;
-
-export const GET_ALL_ARTIFACTS = gql`
-  {
-    artifacts {
-      id
-      title
-      artist
-      url
-      status
       description {
         document
       }
@@ -150,6 +165,16 @@ export const ADD_COMMENT = gql`
       artifactURL
       timestamp
       siteId
+    }
+  }
+`;
+
+export const GET_SITE_LOGO = gql`
+  query SiteContents($siteId: String) {
+    siteContents(where: { siteId: { equals: $siteId } }) {
+      siteLogo
+      logoWidth
+      logoHeight
     }
   }
 `;

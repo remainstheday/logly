@@ -19,8 +19,12 @@ import { useRouter } from "next/router";
 import Banner from "components/Banner";
 
 export default function IndexPage({ content, experiences, comments }) {
-  const { query } = useRouter();
-  if (!content || !experiences || !comments) return <PageLoading />;
+  const { query, router } = useRouter();
+
+  // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+  if ((router && router.isFallback) || !content || !experiences || !comments)
+    return <PageLoading />;
   const filteredComments = comments.filter((comment) => comment.image);
 
   return (
@@ -28,9 +32,9 @@ export default function IndexPage({ content, experiences, comments }) {
       <Header
         siteId={query.site}
         logo={{
-          url: content.siteLogo,
-          width: content.logoWidth,
-          height: content.logoHeight,
+          siteLogo: content.siteLogo,
+          logoWidth: content.logoWidth,
+          logoHeight: content.logoHeight,
         }}
       />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
@@ -109,14 +113,18 @@ export async function getStaticPaths() {
     query: GET_ALL_SITES,
   });
 
-  const paths =
-    data.sites.map((item) => ({
-      params: { site: item.url },
-    })) || [];
+  let paths = [];
+  data.sites.map((item) => {
+    return paths.push({
+      params: {
+        site: item.siteId,
+      },
+    });
+  });
 
   return {
     paths,
-    fallback: true,
+    fallback: "blocking",
   };
 }
 

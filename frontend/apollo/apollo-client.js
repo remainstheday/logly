@@ -17,6 +17,11 @@ function createApolloClient() {
     ssrMode: typeof window === "undefined",
     link: httpLink,
     cache: new InMemoryCache(),
+    defaultOptions: {
+      query: {
+        fetchPolicy: "no-cache",
+      },
+    },
   });
 }
 
