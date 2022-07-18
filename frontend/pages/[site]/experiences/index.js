@@ -1,7 +1,6 @@
 import {
   GET_ALL_SITES,
   GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_CONTENT,
   GET_SITE_LOGO,
 } from "apollo/api";
 import Header from "components/Header";

@@ -17,7 +17,6 @@ import processCloudinaryImage from "utils/processCloudinaryImage";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import Section from "components/Section";
-import PageLoading from "components/PageLoading";
 import CommentCard from "../../../components/CommentCard";
 
 export default function Community({ logo, comments = [] }) {
