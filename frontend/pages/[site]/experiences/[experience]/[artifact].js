@@ -118,7 +118,7 @@ export default function Artifact({
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm artifactId={artifact.url} siteId={query.site} />
+            <SocialForm artifactId={artifact.title} siteId={query.site} />
           </Section>
         )}
 

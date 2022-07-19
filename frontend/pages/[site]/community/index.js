@@ -61,7 +61,7 @@ export default function Community({ logo, comments = [] }) {
   return (
     <>
       <Header siteId={query.site} logo={logo} />
-      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+      <div className={`max-w-4xl mx-auto md:mx-auto h-screen`}>
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle largeText={"Community"} />
@@ -133,32 +133,11 @@ export default function Community({ logo, comments = [] }) {
               See what the community has shared
             </h3>
           </div>
+
           <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
             <div className="masonry-2-col md:masonry-3-col">
               {filteredComments.map((post) => (
                 <CommentCard comment={post} key={post.id} />
-                // <div
-                //   key={post.id}
-                //   className="break-inside mb-3 bg-white overflow-hidden"
-                // >
-                //   {post.image.length > 0 && (
-                //     <div className="aspect-w-16 aspect-h-9">
-                //       <img src={post.image} alt={post.title} />
-                //     </div>
-                //   )}
-                //   <div className="px-3 py-3">
-                //     <p className="text-gray-700 text-sm">
-                //       {truncateComment(post.comment)}
-                //     </p>
-                //     <span>
-                //       <i className="text-gray-400 text-xs">
-                //         Comment by {post.username} on{" "}
-                //         {post.timestamp &&
-                //           format(new Date(post.timestamp), "MMM dd, yyyy")}
-                //       </i>
-                //     </span>
-                //   </div>
-                // </div>
               ))}
             </div>
             <br />

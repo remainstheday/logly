@@ -38,7 +38,7 @@ export default function SocialForm({
     return (
       <p className="mt-6 mb-56">
         Thank you for participating. Your comment has been added to the{" "}
-        <Link href={`${siteId}/community`} passHref>
+        <Link href={`/${siteId}/community`} passHref>
           <a className="text-blue-600 visited:text-purple-60">Community Page</a>
         </Link>
         !

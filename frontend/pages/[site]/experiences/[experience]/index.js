@@ -125,7 +125,7 @@ export default function Experience({
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm experienceId={experience.url} siteId={query.site} />
+            <SocialForm experienceId={experience.title} siteId={query.site} />
           </Section>
         )}
 
