@@ -4,7 +4,12 @@ import PageTitle from "components/PageTitle";
 import Footer from "components/Footer";
 import React, { useState } from "react";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import { ADD_COMMENT, GET_ALL_COMMENTS, GET_SITE_LOGO } from "apollo/api";
+import {
+  ADD_COMMENT,
+  GET_ALL_COMMENTS,
+  GET_ALL_SITES,
+  GET_SITE_LOGO,
+} from "apollo/api";
 import { Formik } from "formik";
 import ImageUploader from "components/ImageUploader";
 import ClientOnly from "components/ClientOnly";
@@ -143,41 +148,39 @@ export default function Community({ logo, comments = [] }) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const apolloClient = initializeApollo();
-//   const sites = await apolloClient.query({
-//     query: GET_ALL_SITES,
-//   });
-//
-//   const paths = sites.data.sites.map((item) => ({
-//     params: {
-//       site: item.siteId,
-//     },
-//   }));
-//
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const sites = await apolloClient.query({
+    query: GET_ALL_SITES,
+  });
 
-export async function getServerSideProps({ params }) {
+  const paths = sites.data.sites.map((item) => ({
+    params: {
+      site: item.siteId,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
-  const comments = await apolloClient.query({
-    query: GET_ALL_COMMENTS,
-    variables: { siteId: params.site },
-  });
+  // const comments = await apolloClient.query({
+  //   query: GET_ALL_COMMENTS,
+  //   variables: { siteId: params.site },
+  // });
 
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
-      comments: comments.data.comments.filter(
-        (item) => item.siteId === params.site
-      ),
+      comments: [],
     },
   });
 }
