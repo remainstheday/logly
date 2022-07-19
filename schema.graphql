@@ -491,7 +491,9 @@ type Comment {
   image: String
   comment: String
   experienceURL: String
+  experienceTitle: String
   artifactURL: String
+  artifactTitle: String
   siteId: String
 }
 
@@ -509,7 +511,9 @@ input CommentWhereInput {
   image: StringFilter
   comment: StringFilter
   experienceURL: StringFilter
+  experienceTitle: StringFilter
   artifactURL: StringFilter
+  artifactTitle: StringFilter
   siteId: StringFilter
 }
 
@@ -520,7 +524,9 @@ input CommentOrderByInput {
   image: OrderDirection
   comment: OrderDirection
   experienceURL: OrderDirection
+  experienceTitle: OrderDirection
   artifactURL: OrderDirection
+  artifactTitle: OrderDirection
   siteId: OrderDirection
 }
 
@@ -530,7 +536,9 @@ input CommentUpdateInput {
   image: String
   comment: String
   experienceURL: String
+  experienceTitle: String
   artifactURL: String
+  artifactTitle: String
   siteId: String
 }
 
@@ -545,7 +553,9 @@ input CommentCreateInput {
   image: String
   comment: String
   experienceURL: String
+  experienceTitle: String
   artifactURL: String
+  artifactTitle: String
   siteId: String
 }
 

@@ -8,7 +8,9 @@ export const Comment = list({
     image: defaults.comment.image,
     comment: defaults.comment.comment,
     experienceURL: defaults.comment.experienceURL,
+    experienceTitle: defaults.comment.experienceTitle,
     artifactURL: defaults.comment.artifactURL,
+    artifactTitle: defaults.comment.artifactTitle,
     siteId: defaults.siteId,
   },
   access: {

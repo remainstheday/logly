@@ -147,7 +147,21 @@ export const defaults = {
         listView: { fieldMode: "read" },
       },
     }),
+    experienceTitle: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+    }),
     experienceURL: text({
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "read" },
+      },
+    }),
+    artifactTitle: text({
       ui: {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },

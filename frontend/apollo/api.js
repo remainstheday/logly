@@ -131,7 +131,9 @@ export const GET_ALL_COMMENTS = gql`
       timestamp
       siteId
       experienceURL
+      experienceTitle
       artifactURL
+      artifactTitle
     }
   }
 `;
