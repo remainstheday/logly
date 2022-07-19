@@ -490,10 +490,7 @@ type Comment {
   username: String
   image: String
   comment: String
-  experienceURL: String
-  experienceTitle: String
-  artifactURL: String
-  artifactTitle: String
+  query: JSON
   siteId: String
 }
 
@@ -510,10 +507,6 @@ input CommentWhereInput {
   username: StringFilter
   image: StringFilter
   comment: StringFilter
-  experienceURL: StringFilter
-  experienceTitle: StringFilter
-  artifactURL: StringFilter
-  artifactTitle: StringFilter
   siteId: StringFilter
 }
 
@@ -523,10 +516,6 @@ input CommentOrderByInput {
   username: OrderDirection
   image: OrderDirection
   comment: OrderDirection
-  experienceURL: OrderDirection
-  experienceTitle: OrderDirection
-  artifactURL: OrderDirection
-  artifactTitle: OrderDirection
   siteId: OrderDirection
 }
 
@@ -535,10 +524,7 @@ input CommentUpdateInput {
   username: String
   image: String
   comment: String
-  experienceURL: String
-  experienceTitle: String
-  artifactURL: String
-  artifactTitle: String
+  query: JSON
   siteId: String
 }
 
@@ -552,10 +538,7 @@ input CommentCreateInput {
   username: String
   image: String
   comment: String
-  experienceURL: String
-  experienceTitle: String
-  artifactURL: String
-  artifactTitle: String
+  query: JSON
   siteId: String
 }
 

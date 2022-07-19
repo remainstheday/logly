@@ -113,6 +113,16 @@ export const defaults = {
     },
   }),
   comment: {
+    query: json({
+      defaultValue: {},
+      ui: {
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: {
+          fieldMode: ({ session, context }) => "read",
+        },
+      },
+    }),
     timestamp: timestamp({
       ui: {
         createView: { fieldMode: "hidden" },
@@ -141,34 +151,6 @@ export const defaults = {
       label: "Image",
     }),
     comment: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    experienceTitle: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    experienceURL: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    artifactTitle: text({
-      ui: {
-        createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: { fieldMode: "read" },
-      },
-    }),
-    artifactURL: text({
       ui: {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },

@@ -1,8 +1,4 @@
-import {
-  GET_ALL_SITES,
-  GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_LOGO,
-} from "apollo/api";
+import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
@@ -57,23 +53,24 @@ export default function Experience({ experiences, logo }) {
   );
 }
 
-export async function getStaticPaths() {
-  const apolloClient = initializeApollo();
-  const sites = await apolloClient.query({
-    query: GET_ALL_SITES,
-  });
-  const paths =
-    sites.data.sites.map((item) => ({
-      params: { site: item.url },
-    })) || [];
+// export async function getStaticPaths() {
+//   const apolloClient = initializeApollo();
+//   const sites = await apolloClient.query({
+//     query: GET_ALL_SITES,
+//   });
+//   const paths = sites.data.sites.map((item) => ({
+//     params: {
+//       site: item.siteId,
+//     },
+//   }));
+//
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
 
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -91,6 +88,5 @@ export async function getStaticProps({ params }) {
         (experience) => experience.status === "published"
       ),
     },
-    revalidate: 1,
   });
 }

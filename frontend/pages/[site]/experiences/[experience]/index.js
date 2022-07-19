@@ -3,11 +3,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
-import {
-  GET_ALL_EXPERIENCES,
-  GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_LOGO,
-} from "apollo/api";
+import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
 import Link from "next/link";
 import React from "react";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
@@ -125,11 +121,7 @@ export default function Experience({
 
         {query.social === "true" && (
           <Section title="Share Thoughts and Images">
-            <SocialForm
-              experienceTitle={experience.title}
-              experienceURL={experience.url}
-              siteId={query.site}
-            />
+            <SocialForm query={query} />
           </Section>
         )}
 
@@ -154,31 +146,25 @@ export default function Experience({
   );
 }
 
-export async function getStaticPaths() {
-  const apolloClient = initializeApollo();
+// export async function getStaticPaths() {
+//   const apolloClient = initializeApollo();
+//   const experiences = await apolloClient.query({
+//     query: GET_ALL_EXPERIENCES,
+//   });
+//   const paths = experiences.data.experiences.map((experience) => ({
+//     params: {
+//       site: experience.siteId,
+//       experience: experience.url,
+//     },
+//   }));
+//
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
 
-  const experiences = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
-  });
-
-  let paths = [];
-
-  experiences.data.experiences.map((experience) => {
-    return paths.push({
-      params: {
-        site: experience.siteId,
-        experience: experience.url,
-      },
-    });
-  });
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -212,6 +198,6 @@ export async function getStaticProps({ params }) {
       ),
       comments: [],
     },
-    revalidate: 1,
+    // revalidate: 60,
   });
 }

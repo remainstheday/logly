@@ -3,7 +3,6 @@ import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
 import {
-  GET_ALL_COMMENTS,
   GET_ALL_SITES,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_CONTENT,
@@ -109,22 +108,19 @@ export default function IndexPage({ content, experiences, comments }) {
 
 export async function getStaticPaths() {
   const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query({
+  const sites = await apolloClient.query({
     query: GET_ALL_SITES,
   });
 
-  let paths = [];
-  data.sites.map((item) => {
-    return paths.push({
-      params: {
-        site: item.siteId,
-      },
-    });
-  });
+  const paths = sites.data.sites.map((item) => ({
+    params: {
+      site: item.siteId,
+    },
+  }));
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: true,
   };
 }
 
@@ -141,10 +137,10 @@ export async function getStaticProps({ params }) {
     variables: { siteId: params.site },
   });
 
-  const comments = await apolloClient.query({
-    query: GET_ALL_COMMENTS,
-    variables: { siteId: params.site },
-  });
+  // const comments = await apolloClient.query({
+  //   query: GET_ALL_COMMENTS,
+  //   variables: { siteId: params.site },
+  // });
 
   return addApolloState(apolloClient, {
     props: {
@@ -152,8 +148,8 @@ export async function getStaticProps({ params }) {
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
-      comments: comments.data.comments,
+      comments: [],
     },
-    revalidate: 1,
+    revalidate: 60,
   });
 }

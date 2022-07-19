@@ -1,7 +1,7 @@
 import Header from "components/Header";
 import Footer from "components/Footer";
 import BackLink from "components/BackLink";
-import { GET_ALL_SITES, GET_SITE_CONTENT, GET_SITE_LOGO } from "apollo/api";
+import { GET_SITE_CONTENT, GET_SITE_LOGO } from "apollo/api";
 import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
@@ -40,24 +40,47 @@ export default function About({ logo, content }) {
   );
 }
 
-export async function getStaticPaths() {
-  const apolloClient = initializeApollo();
-  const { data } = await apolloClient.query({
-    query: GET_ALL_SITES,
-  });
+// export async function getStaticPaths() {
+//   const apolloClient = initializeApollo();
+//   const sites = await apolloClient.query({
+//     query: GET_ALL_SITES,
+//   });
+//
+//   const paths = sites.data.sites.map((item) => ({
+//     params: {
+//       site: item.siteId,
+//     },
+//   }));
+//
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
 
-  const paths =
-    data.sites.map((item) => ({
-      params: { site: `${item.url}` },
-    })) || [];
+// export async function getStaticProps({ params }) {
+//   const apolloClient = initializeApollo();
+//   const siteContents = await apolloClient.query({
+//     query: GET_SITE_LOGO,
+//     variables: { siteId: params.site },
+//   });
+//   const content = await apolloClient.query({
+//     query: GET_SITE_CONTENT,
+//     variables: { siteId: params.site },
+//   });
+//
+//   return addApolloState(apolloClient, {
+//     props: {
+//       logo: siteContents.data.siteContents[1],
+//       content: content.data.siteContents.find(
+//         (item) => item.url === `${params.site}/about`
+//       ),
+//     },
+//     revalidate: 60,
+//   });
+// }
 
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -67,7 +90,6 @@ export async function getStaticProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
@@ -75,6 +97,5 @@ export async function getStaticProps({ params }) {
         (item) => item.url === `${params.site}/about`
       ),
     },
-    revalidate: 1,
   });
 }
