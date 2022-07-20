@@ -14,8 +14,6 @@ export const Styles = css`
 
   .qr-codes-container .qr-code {
     display: flex;
-    vertical-align: middle;
-    align-items: center;
     margin: 1em 0;
     border: 1px solid #e1e5e9;
     padding: 0.5em;
@@ -23,9 +21,17 @@ export const Styles = css`
     background: #fafbfc;
   }
 
-  .qr-codes-container a {
-    font-size: 16px;
-    margin: 0 10px;
+  .qr-codes .qr-actions {
+    width: 70%;
+  }
+
+  .qr-codes .qr-actions a {
+    display: block;
+  }
+
+  .qr-codes .qr-actions .qr-buttons {
+    text-align: right;
+    margin-bottom: 25px;
   }
 
   .print-qr-codes {

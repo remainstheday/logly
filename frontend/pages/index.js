@@ -4,7 +4,7 @@ import Image from "next/image";
 import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import Script from "next/script";
-import { ArrowForwardOutline } from "react-ionicons";
+// import { ArrowForwardOutline } from "react-ionicons";
 import PublicFooter from "components/PublicFooter";
 
 const customLoader = ({ src }) => {
@@ -34,19 +34,19 @@ export default function IndexPage() {
               <strong>
                 cultural institutions can learn from their audience.
               </strong>
-              <Link href="/register" passHref>
-                <a
-                  style={{ backgroundColor: "#002FA7" }}
-                  className="w-44 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Get Started
-                  <ArrowForwardOutline
-                    style={{ verticalAlign: "middle", color: "#fff" }}
-                    height="1.5em"
-                    width="1.5em"
-                  />
-                </a>
-              </Link>
+              {/*<Link href="/register" passHref>*/}
+              {/*  <a*/}
+              {/*    style={{ backgroundColor: "#002FA7" }}*/}
+              {/*    className="w-44 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"*/}
+              {/*  >*/}
+              {/*    Get Started*/}
+              {/*    <ArrowForwardOutline*/}
+              {/*      style={{ verticalAlign: "middle", color: "#fff" }}*/}
+              {/*      height="1.5em"*/}
+              {/*      width="1.5em"*/}
+              {/*    />*/}
+              {/*  </a>*/}
+              {/*</Link>*/}
             </p>
 
             <div className="block -mt-12 text-right hidden sm:block">
@@ -103,14 +103,14 @@ export default function IndexPage() {
               </div>
             </div>
           </div>
-          <Link href="/register" passHref>
-            <a
-              style={{ backgroundColor: "#002FA7" }}
-              className="w-44 mx-auto mt-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Get Started
-            </a>
-          </Link>
+          {/*<Link href="/register" passHref>*/}
+          {/*  <a*/}
+          {/*    style={{ backgroundColor: "#002FA7" }}*/}
+          {/*    className="w-44 mx-auto mt-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"*/}
+          {/*  >*/}
+          {/*    Get Started*/}
+          {/*  </a>*/}
+          {/*</Link>*/}
         </section>
 
         <section className="mt-24 px-3">
@@ -176,14 +176,14 @@ export default function IndexPage() {
                   width="425"
                   height="250"
                 />
-                <Link href="/register" passHref>
-                  <a
-                    style={{ backgroundColor: "#002FA7" }}
-                    className="w-44 mx-auto mt-20 sm:mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    Give Logly a Try
-                  </a>
-                </Link>
+                {/*<Link href="/register" passHref>*/}
+                {/*  <a*/}
+                {/*    style={{ backgroundColor: "#002FA7" }}*/}
+                {/*    className="w-44 mx-auto mt-20 sm:mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"*/}
+                {/*  >*/}
+                {/*    Give Logly a Try*/}
+                {/*  </a>*/}
+                {/*</Link>*/}
               </div>
             </div>
 
@@ -223,11 +223,14 @@ export default function IndexPage() {
           <strong className="block text-center">
             Sign up for Logly News and Updates
           </strong>
+          <i className="block text-center">
+            We respect your privacy. Unsubscribe at any time.
+          </i>
 
           <Script src="https://f.convertkit.com/ckjs/ck.5.js"></Script>
           <form
             action="https://app.convertkit.com/forms/3337562/subscriptions"
-            className="seva-form formkit-form "
+            className="seva-form formkit-form block text-center"
             method="post"
             data-sv-form="3337562"
             data-uid="32f877138b"
@@ -272,9 +275,6 @@ export default function IndexPage() {
               </div>
             </div>
           </form>
-          <i className="block text-center">
-            We respect your privacy. Unsubscribe at any time.
-          </i>
         </div>
       </div>
       <PublicFooter />

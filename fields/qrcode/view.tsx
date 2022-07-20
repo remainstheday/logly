@@ -2,7 +2,7 @@ import React from "react";
 import { FieldProps } from "@keystone-6/core/types";
 import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
 import { controller } from "@keystone-6/core/fields/types/json/views";
-import QRCode from "qrcode.react";
+import QRCode, { QRCodeCanvas } from "qrcode.react";
 import { useReactToPrint } from "react-to-print";
 import { Styles } from "./Styles";
 import { Global } from "@emotion/react";
@@ -17,6 +17,10 @@ const imageOptions = {
   height: 50,
 };
 
+const truncateComment = (text: string) => {
+  return text.length > 75 ? text.slice(0, 75 - 1) + "..." : text;
+};
+
 export const Field = ({
   field,
   value,
@@ -25,10 +29,7 @@ export const Field = ({
 }: FieldProps<typeof controller>) => {
   const QRCodes = value ? JSON.parse(value) : [];
   const componentRef = React.useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
-
+  console.log(field);
   const handleClick = (elementId: string) => {
     saveSvgAsPng.saveSvgAsPng(
       document.getElementById(elementId),
@@ -56,23 +57,37 @@ export const Field = ({
                 experienceId: string;
                 artifactId: string;
               }) => (
-                <div className="qr-code" key={qrcode.url}>
-                  <QRCode
-                    id={qrcode.url}
-                    key={qrcode.url}
-                    size={80}
-                    value={qrcode.url}
-                    renderAs="svg"
-                  />
-                  <a href={qrcode.url}>{qrcode.url}</a>
-                  <Button
-                    tone="active"
-                    style={{ marginLeft: 25 }}
-                    onClick={() => handleClick(qrcode.url)}
-                  >
-                    Download
-                  </Button>
-                </div>
+                <>
+                  <div className="qr-code" key={qrcode.url}>
+                    <div>
+                      <QRCodeCanvas
+                        id={qrcode.url}
+                        key={qrcode.url}
+                        size={150}
+                        value={qrcode.url}
+                      />
+                    </div>
+                    <div className="qr-actions">
+                      <div className="qr-buttons">
+                        <Button
+                          tone="active"
+                          style={{ marginLeft: 25 }}
+                          onClick={() => handleClick(qrcode.url)}
+                        >
+                          Download
+                        </Button>
+                        {/*<Button*/}
+                        {/*  tone="negative"*/}
+                        {/*  style={{ marginLeft: 25 }}*/}
+                        {/*  onClick={() => handleClick(qrcode.url)}*/}
+                        {/*>*/}
+                        {/*  Delete*/}
+                        {/*</Button>*/}
+                      </div>
+                      <a href={qrcode.url}>{qrcode.url}</a>
+                    </div>
+                  </div>
+                </>
               )
             )}
         </div>

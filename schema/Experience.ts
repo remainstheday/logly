@@ -82,7 +82,16 @@ export const Experience = list({
     },
   },
   hooks: {
-    afterOperation: async ({ item, resolvedData, context }) => {
+    afterOperation: async ({
+      item,
+      operation,
+      originalItem,
+      resolvedData,
+      context,
+    }) => {
+      if (operation === "delete") {
+        console.log(originalItem);
+      }
       if (item && resolvedData && resolvedData.relatedArtifacts) {
         const experience = await context.prisma.experience.findUnique({
           where: { id: item.id },

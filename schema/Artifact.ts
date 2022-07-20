@@ -86,7 +86,7 @@ export const Artifact = list({
   },
 
   hooks: {
-    afterOperation: async ({ item, resolvedData, context }) => {
+    afterOperation: async ({ item, operation, resolvedData, context }) => {
       if (item && resolvedData && resolvedData.relatedExperiences) {
         const artifact = await context.prisma.artifact.findUnique({
           where: { id: item.id },

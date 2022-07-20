@@ -74,11 +74,11 @@ export default function PublicHeader() {
                         <a className="text-right">Pricing</a>
                       </Link>
                     </li>
-                    <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
-                      <Link href="/register" passHref>
-                        <a>Login/Sign up</a>
-                      </Link>
-                    </li>
+                    {/*<li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">*/}
+                    {/*  <Link href="/register" passHref>*/}
+                    {/*    <a>Login/Sign up</a>*/}
+                    {/*  </Link>*/}
+                    {/*</li>*/}
                   </ul>
                 </div>
               </div>
