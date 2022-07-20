@@ -3,7 +3,12 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
-import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
+import {
+  GET_ALL_COMMENTS,
+  GET_ALL_EXPERIENCES,
+  GET_EXPERIENCES_BY_SITE_ID,
+  GET_SITE_LOGO,
+} from "apollo/api";
 import Link from "next/link";
 import React from "react";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
@@ -146,25 +151,25 @@ export default function Experience({
   );
 }
 
-// export async function getStaticPaths() {
-//   const apolloClient = initializeApollo();
-//   const experiences = await apolloClient.query({
-//     query: GET_ALL_EXPERIENCES,
-//   });
-//   const paths = experiences.data.experiences.map((experience) => ({
-//     params: {
-//       site: experience.siteId,
-//       experience: experience.url,
-//     },
-//   }));
-//
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const experiences = await apolloClient.query({
+    query: GET_ALL_EXPERIENCES,
+  });
+  const paths = experiences.data.experiences.map((experience) => ({
+    params: {
+      site: experience.siteId,
+      experience: experience.url,
+    },
+  }));
 
-export async function getServerSideProps({ params }) {
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -172,6 +177,10 @@ export async function getServerSideProps({ params }) {
   });
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
+    variables: { siteId: params.site },
+  });
+  const comments = await apolloClient.query({
+    query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
 
@@ -186,6 +195,10 @@ export async function getServerSideProps({ params }) {
     };
   }
 
+  const filteredComments = comments.data.comments.filter(
+    (comment) => comment.query.experience === params.experience
+  );
+
   return addApolloState(apolloClient, {
     props: {
       experience,
@@ -196,8 +209,8 @@ export async function getServerSideProps({ params }) {
       artifacts: experience.relatedArtifacts.filter(
         (artifact) => artifact.status === "published"
       ),
-      comments: [],
+      comments: filteredComments,
     },
-    // revalidate: 60,
+    revalidate: 60,
   });
 }

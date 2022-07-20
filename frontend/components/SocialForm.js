@@ -20,6 +20,7 @@ export default function SocialForm({ query }) {
             comment,
             image: cloudinaryImage ? cloudinaryImage : "",
             query,
+            siteId: query.site,
             timestamp: new Date(Date.now()),
           },
         });

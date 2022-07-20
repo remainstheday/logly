@@ -3,7 +3,6 @@ import { useState } from "react";
 
 export default function Navigation({ siteId, logo }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
-
   return (
     <>
       <nav className="relative flex items-center justify-between py-3 w-full rounded">

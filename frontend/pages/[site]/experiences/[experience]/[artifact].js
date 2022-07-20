@@ -2,6 +2,8 @@ import BackLink from "components/BackLink";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import {
+  GET_ALL_COMMENTS,
+  GET_ALL_EXPERIENCES,
   GET_ARTIFACTS,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
@@ -29,13 +31,8 @@ export default function Artifact({
   if ((router && router.isFallback) || !artifact || !experience)
     return <PageLoading />;
 
-  console.log(query);
   const similarArtifacts = relatedArtifacts.filter(
     (item) => item.url !== artifact.url
-  );
-
-  const filteredComments = comments.filter(
-    (comment) => comment.image && comment.artifactURL === artifact.url
   );
 
   const hasDescription =
@@ -122,10 +119,10 @@ export default function Artifact({
           </Section>
         )}
 
-        {filteredComments.length > 0 && (
+        {comments.length > 0 && (
           <Section title="See What the Community has Shared">
             <div className="py-6 grid md:grid-cols-2 gap-4">
-              {filteredComments.map((comment) => (
+              {comments.map((comment) => (
                 <CommentCard key={comment.id} comment={comment} />
               ))}
             </div>
@@ -143,31 +140,31 @@ export default function Artifact({
   );
 }
 
-// export async function getStaticPaths() {
-//   const apolloClient = initializeApollo();
-//   const experiences = await apolloClient.query({
-//     query: GET_ALL_EXPERIENCES,
-//   });
-//   let paths = [];
-//   experiences.data.experiences.map((experience) =>
-//     experience.relatedArtifacts.map((artifact) => {
-//       return paths.push({
-//         params: {
-//           site: experience.siteId,
-//           experience: experience.url,
-//           artifact: artifact.url,
-//         },
-//       });
-//     })
-//   );
-//
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
+export async function getStaticPaths() {
+  const apolloClient = initializeApollo();
+  const experiences = await apolloClient.query({
+    query: GET_ALL_EXPERIENCES,
+  });
+  let paths = [];
+  experiences.data.experiences.map((experience) =>
+    experience.relatedArtifacts.map((artifact) => {
+      return paths.push({
+        params: {
+          site: experience.siteId,
+          experience: experience.url,
+          artifact: artifact.url,
+        },
+      });
+    })
+  );
 
-export async function getServerSideProps({ params }) {
+  return {
+    paths,
+    fallback: "blocking",
+  };
+}
+
+export async function getStaticProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -177,6 +174,11 @@ export async function getServerSideProps({ params }) {
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
+  const comments = await apolloClient.query({
+    query: GET_ALL_COMMENTS,
+    variables: { siteId: params.site },
+  });
+
   const experience = experiences.data.experiences.filter(
     (experience) =>
       experience.url === `/${params.site}/experiences/${params.experience}`
@@ -195,14 +197,18 @@ export async function getServerSideProps({ params }) {
     };
   }
 
+  const filteredComments = comments.data.comments.filter(
+    (comment) => comment.query.artifact === artifact.url
+  );
+
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
       artifact,
-      comments: [], // TODO: get comments by artifactID
+      comments: filteredComments,
       experience,
       relatedArtifacts: experience.relatedArtifacts,
     },
-    // revalidate: 60,
+    revalidate: 60,
   });
 }

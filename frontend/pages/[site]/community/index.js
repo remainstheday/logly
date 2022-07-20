@@ -34,21 +34,8 @@ export default function Community({ logo, comments = [] }) {
             comment,
             image: cloudinaryImage ? cloudinaryImage : "",
             query,
-            timestamp: new Date(Date.now()),
             siteId: query.site,
-          },
-          update: (cache, { data }) => {
-            const { comments } = cache.readQuery({
-              query: GET_ALL_COMMENTS,
-              variables: { siteId: query.site },
-            });
-
-            cache.writeQuery({
-              query: GET_ALL_COMMENTS,
-              data: {
-                comments: [data.createComment, ...comments],
-              },
-            });
+            timestamp: new Date(Date.now()),
           },
           onCompleted: (data) =>
             updateFilteredComments([data.createComment, ...comments]),
@@ -60,7 +47,7 @@ export default function Community({ logo, comments = [] }) {
   return (
     <>
       <Header siteId={query.site} logo={logo} />
-      <div className={`max-w-4xl mx-auto md:mx-auto h-screen`}>
+      <div className={`max-w-4xl mx-auto md:mx-auto`}>
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle largeText={"Community"} />
@@ -127,14 +114,8 @@ export default function Community({ logo, comments = [] }) {
       </div>
       {filteredComments.length > 0 && (
         <section className="mt-20 md:mt-32 ">
-          <div className="filter max-w-4xl mx-auto">
-            <h3 className="pb-3 px-6 md:px-0 section-title">
-              See what the community has shared
-            </h3>
-          </div>
-
           <div className="w-full bg-slate-100 shadow-inner py-6 px-3">
-            <div className="masonry-2-col md:masonry-3-col">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {filteredComments.map((post) => (
                 <CommentCard comment={post} key={post.id} />
               ))}
@@ -177,6 +158,7 @@ export async function getStaticProps({ params }) {
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
+
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],

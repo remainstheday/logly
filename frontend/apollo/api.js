@@ -140,8 +140,7 @@ export const ADD_COMMENT = gql`
     $username: String!
     $comment: String!
     $image: String!
-    $artifactURL: String
-    $experienceURL: String
+    $query: JSON!
     $timestamp: DateTime!
     $siteId: String!
   ) {
@@ -150,9 +149,8 @@ export const ADD_COMMENT = gql`
         username: $username
         comment: $comment
         image: $image
-        artifactURL: $artifactURL
-        experienceURL: $experienceURL
         timestamp: $timestamp
+        query: $query
         siteId: $siteId
       }
     ) {
@@ -160,9 +158,8 @@ export const ADD_COMMENT = gql`
       username
       comment
       image
-      experienceURL
-      artifactURL
       timestamp
+      query
       siteId
     }
   }
