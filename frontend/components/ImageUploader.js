@@ -13,6 +13,8 @@ const editImage = (image, done) => {
     src: imageFile,
     imageState,
     enableUtils: false,
+    // Enforce widescreen 16:9 aspect ratio
+    imageCropAspectRatio: 16 / 9,
   });
 
   editor.on("close", () => {});

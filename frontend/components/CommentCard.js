@@ -13,7 +13,13 @@ export default function CommentCard({ comment }) {
 
   return (
     <div className="bg-white max-w-sm my-8 mx-3 rounded overflow-hidden shadow-lg ">
-      <img className="w-full" src={imageSource} alt="Sunset in the mountains" />
+      <div className="aspect-w-16 aspect-h-9">
+        <img
+          className="w-full"
+          src={imageSource}
+          alt={`social image for ${comment.query.site}`}
+        />
+      </div>
       <div className="flex flex-col content-between">
         <div className="px-6 py-4 flex-1">
           <p className="text-gray-700 text-base">

@@ -3,7 +3,6 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import {
   GET_ALL_COMMENTS,
-  GET_ALL_EXPERIENCES,
   GET_ARTIFACTS,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
@@ -140,31 +139,7 @@ export default function Artifact({
   );
 }
 
-export async function getStaticPaths() {
-  const apolloClient = initializeApollo();
-  const experiences = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
-  });
-  let paths = [];
-  experiences.data.experiences.map((experience) =>
-    experience.relatedArtifacts.map((artifact) => {
-      return paths.push({
-        params: {
-          site: experience.siteId,
-          experience: experience.url,
-          artifact: artifact.url,
-        },
-      });
-    })
-  );
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -209,6 +184,5 @@ export async function getStaticProps({ params }) {
       experience,
       relatedArtifacts: experience.relatedArtifacts,
     },
-    revalidate: 60,
   });
 }

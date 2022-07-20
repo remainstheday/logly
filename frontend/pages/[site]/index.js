@@ -3,7 +3,7 @@ import Header from "components/Header";
 import PageTitle from "components/PageTitle";
 import SectionLink from "components/SectionLink";
 import {
-  GET_ALL_SITES,
+  GET_ALL_COMMENTS,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_CONTENT,
 } from "apollo/api";
@@ -24,7 +24,6 @@ export default function IndexPage({ content, experiences, comments }) {
   // initially until getStaticProps() finishes running
   if ((router && router.isFallback) || !content || !experiences || !comments)
     return <PageLoading />;
-  const filteredComments = comments.filter((comment) => comment.image);
 
   return (
     <>
@@ -85,17 +84,17 @@ export default function IndexPage({ content, experiences, comments }) {
           </Section>
         )}
 
-        {filteredComments.length > 0 && (
-          <Section title="Community">
+        {comments.length > 0 && (
+          <Section title="See What the Community has Shared">
             <div className="py-6 grid md:grid-cols-2 gap-4">
-              {filteredComments.map((comment) => (
+              {comments.map((comment) => (
                 <CommentCard key={comment.id} comment={comment} />
               ))}
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink
-                href={`/${query.site}/community`}
-                text={"Discover Community"}
+                href={`${query.site}/community`}
+                text={"Discover the Community"}
               />
             </div>
           </Section>
@@ -106,25 +105,7 @@ export default function IndexPage({ content, experiences, comments }) {
   );
 }
 
-export async function getStaticPaths() {
-  const apolloClient = initializeApollo();
-  const sites = await apolloClient.query({
-    query: GET_ALL_SITES,
-  });
-
-  const paths = sites.data.sites.map((item) => ({
-    params: {
-      site: item.siteId,
-    },
-  }));
-
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
 
   const experiences = await apolloClient.query({
@@ -137,10 +118,10 @@ export async function getStaticProps({ params }) {
     variables: { siteId: params.site },
   });
 
-  // const comments = await apolloClient.query({
-  //   query: GET_ALL_COMMENTS,
-  //   variables: { siteId: params.site },
-  // });
+  const comments = await apolloClient.query({
+    query: GET_ALL_COMMENTS,
+    variables: { siteId: params.site },
+  });
 
   return addApolloState(apolloClient, {
     props: {
@@ -148,8 +129,7 @@ export async function getStaticProps({ params }) {
       experiences: experiences.data.experiences.filter(
         (experience) => experience.status === "published"
       ),
-      comments: [],
+      comments: comments.data.comments,
     },
-    revalidate: 60,
   });
 }

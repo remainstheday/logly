@@ -5,7 +5,6 @@ import SectionLink from "components/SectionLink";
 import { format } from "date-fns";
 import {
   GET_ALL_COMMENTS,
-  GET_ALL_EXPERIENCES,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
 } from "apollo/api";
@@ -151,25 +150,7 @@ export default function Experience({
   );
 }
 
-export async function getStaticPaths() {
-  const apolloClient = initializeApollo();
-  const experiences = await apolloClient.query({
-    query: GET_ALL_EXPERIENCES,
-  });
-  const paths = experiences.data.experiences.map((experience) => ({
-    params: {
-      site: experience.siteId,
-      experience: experience.url,
-    },
-  }));
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
     query: GET_SITE_LOGO,
@@ -211,6 +192,5 @@ export async function getStaticProps({ params }) {
       ),
       comments: filteredComments,
     },
-    revalidate: 60,
   });
 }

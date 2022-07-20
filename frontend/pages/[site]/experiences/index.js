@@ -53,23 +53,6 @@ export default function Experience({ experiences, logo }) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const apolloClient = initializeApollo();
-//   const sites = await apolloClient.query({
-//     query: GET_ALL_SITES,
-//   });
-//   const paths = sites.data.sites.map((item) => ({
-//     params: {
-//       site: item.siteId,
-//     },
-//   }));
-//
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
-
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
   const siteContents = await apolloClient.query({
