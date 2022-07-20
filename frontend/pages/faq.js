@@ -12,7 +12,7 @@ export default function Faq() {
           <h1 className="text-5xl text-center mb-10">FAQ</h1>
           <h3 className="text-lg mt-12 font-bold">1. Why do I need Logly?</h3>
           <p>
-            Logly offers a low barrier of entry for users of a skill-levels to
+            Logly offers a low barrier of entry for users of all skill levels to
             create interactive digital guides and audio tours. It can be used by
             institutions of all sizes, is cost-effective, and easy to use. Logly
             also provides museums and cultural institutions with a sophisticated
