@@ -172,15 +172,15 @@ export async function getStaticProps({ params }) {
     query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
-  // const comments = await apolloClient.query({
-  //   query: GET_ALL_COMMENTS,
-  //   variables: { siteId: params.site },
-  // });
 
+  const comments = await apolloClient.query({
+    query: GET_ALL_COMMENTS,
+    variables: { siteId: params.site },
+  });
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
-      comments: [],
+      comments: comments.data.comments,
     },
   });
 }

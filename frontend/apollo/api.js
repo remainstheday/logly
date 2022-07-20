@@ -130,10 +130,7 @@ export const GET_ALL_COMMENTS = gql`
       image
       timestamp
       siteId
-      experienceURL
-      experienceTitle
-      artifactURL
-      artifactTitle
+      query
     }
   }
 `;
