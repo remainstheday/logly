@@ -117,10 +117,8 @@ export const defaults = {
       defaultValue: {},
       ui: {
         createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
-        listView: {
-          fieldMode: ({ session, context }) => "read",
-        },
+        itemView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
       },
     }),
     timestamp: timestamp({
@@ -155,6 +153,21 @@ export const defaults = {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },
         listView: { fieldMode: "read" },
+      },
+    }),
+    siteId: text({
+      ui: {
+        createView: {
+          fieldMode: ({ session, context }) => "hidden",
+        },
+        itemView: {
+          fieldMode: ({ session, context, item }) =>
+            session.data.isAdmin ? "read" : "hidden",
+        },
+        listView: {
+          fieldMode: ({ session, context }) =>
+            session.data.isAdmin ? "read" : "hidden",
+        },
       },
     }),
   },

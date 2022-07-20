@@ -5,7 +5,7 @@ import { defaults } from "./defaults";
 // We use the term 'Site' to be more inclusive for future clients. All other data lists are tied to a SiteId.
 export const Site = list({
   ui: {
-    isHidden: true,
+    isHidden: ({ session, context }) => !session?.data.isAdmin,
   },
   fields: {
     siteId: defaults.siteId,

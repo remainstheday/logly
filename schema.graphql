@@ -486,10 +486,10 @@ input SiteContentCreateInput {
 
 type Comment {
   id: ID!
-  timestamp: DateTime
   username: String
-  image: String
+  timestamp: DateTime
   comment: String
+  image: String
   query: JSON
   siteId: String
 }
@@ -503,27 +503,27 @@ input CommentWhereInput {
   OR: [CommentWhereInput!]
   NOT: [CommentWhereInput!]
   id: IDFilter
-  timestamp: DateTimeNullableFilter
   username: StringFilter
-  image: StringFilter
+  timestamp: DateTimeNullableFilter
   comment: StringFilter
+  image: StringFilter
   siteId: StringFilter
 }
 
 input CommentOrderByInput {
   id: OrderDirection
-  timestamp: OrderDirection
   username: OrderDirection
-  image: OrderDirection
+  timestamp: OrderDirection
   comment: OrderDirection
+  image: OrderDirection
   siteId: OrderDirection
 }
 
 input CommentUpdateInput {
-  timestamp: DateTime
   username: String
-  image: String
+  timestamp: DateTime
   comment: String
+  image: String
   query: JSON
   siteId: String
 }
@@ -534,10 +534,10 @@ input CommentUpdateArgs {
 }
 
 input CommentCreateInput {
-  timestamp: DateTime
   username: String
-  image: String
+  timestamp: DateTime
   comment: String
+  image: String
   query: JSON
   siteId: String
 }

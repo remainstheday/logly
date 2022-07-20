@@ -71,10 +71,10 @@ model SiteContent {
 
 model Comment {
   id        String    @id @default(uuid()) @postgresql.Uuid
-  timestamp DateTime?
   username  String    @default("")
-  image     String    @default("")
+  timestamp DateTime?
   comment   String    @default("")
+  image     String    @default("")
   query     Json?     @default("{}")
   siteId    String    @default("")
 }

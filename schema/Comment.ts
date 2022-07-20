@@ -3,12 +3,21 @@ import { defaults } from "./defaults";
 
 export const Comment = list({
   fields: {
-    timestamp: defaults.comment.timestamp,
     username: defaults.comment.username,
-    image: defaults.comment.image,
+    timestamp: defaults.comment.timestamp,
     comment: defaults.comment.comment,
+    image: defaults.comment.image,
     query: defaults.comment.query,
-    siteId: defaults.siteId,
+    siteId: defaults.comment.siteId,
+  },
+  ui: {
+    hideCreate: true,
+    listView: {
+      initialColumns: ["username", "timestamp", "comment"],
+    },
+    itemView: {
+      defaultFieldMode: ({}) => "read",
+    },
   },
   access: {
     item: {
@@ -16,6 +25,31 @@ export const Comment = list({
       update: () => false,
       delete: ({ session, context, item }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
+    },
+    filter: {
+      query: ({ session }) => {
+        if (session && session.data.isAdmin) return true;
+        if (session && session?.data.siteId) {
+          return {
+            siteId: {
+              equals: session.data.siteId,
+            },
+          };
+        }
+        return true;
+      },
+      update: ({ session }) => {
+        if (session && session.data.isAdmin) return true;
+        return session?.data.siteId
+          ? { siteId: { equals: session.data.siteId } }
+          : { isAdmin: { equals: true } };
+      },
+      delete: ({ session }) => {
+        if (session && session.data.isAdmin) return true;
+        return session?.data.siteId
+          ? { siteId: { equals: session.data.siteId } }
+          : { isAdmin: { equals: true } };
+      },
     },
   },
 });
