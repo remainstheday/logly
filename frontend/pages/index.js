@@ -179,7 +179,7 @@ export default function IndexPage() {
                 <Link href="/register" passHref>
                   <a
                     style={{ backgroundColor: "#002FA7" }}
-                    className="w-44 mx-auto mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className="w-44 mx-auto mt-20 sm:mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   >
                     Give Logly a Try
                   </a>
