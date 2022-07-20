@@ -3,7 +3,7 @@ import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import PublicFooter from "components/PublicFooter";
 import Link from "next/link";
-import { ArrowForwardOutline } from "react-ionicons";
+// import { ArrowForwardOutline } from "react-ionicons";
 
 export default function Pricing() {
   return (

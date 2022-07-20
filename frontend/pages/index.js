@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
 import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
