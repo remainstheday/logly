@@ -22,16 +22,16 @@ export const Experience = list({
   access: {
     operation: {
       query: () => true,
-      create: ({ session, context, operation }) =>
+      create: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
-      update: ({ session, context }) =>
+      update: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
       delete: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
     },
     item: {
       create: ({}) => true,
-      update: ({ session, context, inputData, item }) => {
+      update: ({ session, inputData, item }) => {
         if (session?.data.isAdmin) return true;
         if (session.data.siteId && session.data.siteId === item.siteId)
           return true;

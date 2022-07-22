@@ -1,8 +1,7 @@
 import { list } from "@keystone-6/core";
-import { json, relationship, text } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
-import { ItemAccess, OperationAccess } from "./access";
+import { OperationAccess } from "./access";
 
 require("dotenv").config();
 

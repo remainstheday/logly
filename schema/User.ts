@@ -13,15 +13,15 @@ export const User = list({
       defaultValue: false,
       ui: {
         createView: {
-          fieldMode: ({ session, context }) =>
+          fieldMode: ({ session }) =>
             session.data.isAdmin ? "edit" : "hidden",
         },
         itemView: {
-          fieldMode: ({ session, context, item }) =>
+          fieldMode: ({ session }) =>
             session.data.isAdmin ? "edit" : "hidden",
         },
         listView: {
-          fieldMode: ({ session, context }) =>
+          fieldMode: ({ session }) =>
             session.data.isAdmin ? "read" : "hidden",
         },
       },
