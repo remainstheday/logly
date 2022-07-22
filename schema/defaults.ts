@@ -85,31 +85,26 @@ export const defaults = {
     isIndexed: "unique",
     ui: {
       createView: {
-        fieldMode: ({ session, context }) => "hidden",
+        fieldMode: ({}) => "hidden",
       },
       itemView: {
-        fieldMode: ({ session, context, item }) =>
-          session.data.isAdmin ? "read" : "hidden",
+        fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
       },
       listView: {
-        fieldMode: ({ session, context }) =>
-          session.data.isAdmin ? "read" : "hidden",
+        fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
       },
     },
   }),
   siteId: text({
     ui: {
       createView: {
-        fieldMode: ({ session, context }) =>
-          session.data.isAdmin ? "edit" : "hidden",
+        fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
       },
       itemView: {
-        fieldMode: ({ session, context, item }) =>
-          session.data.isAdmin ? "edit" : "hidden",
+        fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
       },
       listView: {
-        fieldMode: ({ session, context }) =>
-          session.data.isAdmin ? "read" : "hidden",
+        fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
       },
     },
   }),
@@ -127,7 +122,7 @@ export const defaults = {
         createView: { fieldMode: "hidden" },
         itemView: { fieldMode: "read" },
         listView: {
-          fieldMode: ({ session, context }) => "read",
+          fieldMode: () => "read",
         },
       },
     }),
@@ -159,14 +154,14 @@ export const defaults = {
     siteId: text({
       ui: {
         createView: {
-          fieldMode: ({ session, context }) => "hidden",
+          fieldMode: () => "hidden",
         },
         itemView: {
-          fieldMode: ({ session, context, item }) =>
+          fieldMode: ({ session }) =>
             session.data.isAdmin ? "read" : "hidden",
         },
         listView: {
-          fieldMode: ({ session, context }) =>
+          fieldMode: ({ session }) =>
             session.data.isAdmin ? "read" : "hidden",
         },
       },

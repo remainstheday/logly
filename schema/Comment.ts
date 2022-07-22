@@ -23,7 +23,7 @@ export const Comment = list({
     item: {
       create: () => true,
       update: () => false,
-      delete: ({ session, context, item }) =>
+      delete: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
     },
     filter: {

@@ -12,8 +12,8 @@ export const SiteContent = list({
       delete: OperationAccess.adminOrSiteCuratorOnly,
     },
     item: {
-      create: ({}) => true,
-      update: ({ session, context, inputData, item }) => {
+      create: () => true,
+      update: ({ session, inputData, item }) => {
         if (session?.data.isAdmin) return true;
         if (session.data.siteId && session.data.siteId === item.siteId)
           return true;
@@ -61,7 +61,7 @@ export const SiteContent = list({
     name: text({
       ui: {
         itemView: {
-          fieldMode: ({ session, context, item }) => "read",
+          fieldMode: () => "read",
         },
       },
     }),
@@ -72,7 +72,7 @@ export const SiteContent = list({
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
         itemView: {
-          fieldMode: ({ session, context, item }) => {
+          fieldMode: ({ item }) => {
             return item.name !== "Home" ? "hidden" : "edit";
           },
         },
@@ -83,7 +83,7 @@ export const SiteContent = list({
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
         itemView: {
-          fieldMode: ({ session, context, item }) => {
+          fieldMode: ({ item }) => {
             return item.name !== "Home" ? "hidden" : "edit";
           },
         },
@@ -94,7 +94,7 @@ export const SiteContent = list({
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
         itemView: {
-          fieldMode: ({ session, context, item }) => {
+          fieldMode: ({ item }) => {
             return item.name !== "Home" ? "hidden" : "edit";
           },
         },

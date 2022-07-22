@@ -16,13 +16,6 @@ type InputData = {
   siteId: string;
 };
 
-// export const OperationAccess = {
-//   adminOnly: ({ session }: { session: Session }) => session?.data.isAdmin,
-//   adminOrSiteCuratorOnly: ({ session }: { session: Session }) =>
-//     session?.data.isAdmin || session?.data.siteId.length > 0,
-//   anyone: () => true,
-// };
-
 export const OperationAccess = {
   adminOnly: ({ session }: { session: Session }) => session?.data.isAdmin,
   adminOrSiteCuratorOnly: ({ session }: { session: Session }) =>
