@@ -100,11 +100,12 @@ export const defaults = {
   siteId: text({
     ui: {
       createView: {
-        fieldMode: ({ session, context }) => "hidden",
+        fieldMode: ({ session, context }) =>
+          session.data.isAdmin ? "edit" : "hidden",
       },
       itemView: {
         fieldMode: ({ session, context, item }) =>
-          session.data.isAdmin ? "read" : "hidden",
+          session.data.isAdmin ? "edit" : "hidden",
       },
       listView: {
         fieldMode: ({ session, context }) =>
