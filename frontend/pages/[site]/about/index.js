@@ -9,10 +9,11 @@ import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import React from "react";
+import PosterImage from "../../../components/PosterImage";
 
 export default function About({ logo, content }) {
   const { query } = useRouter();
-  if (!content) return <PageLoading />;
+  if (!content) return <PageLoading siteId={query.site} />;
 
   return (
     <>
@@ -23,9 +24,10 @@ export default function About({ logo, content }) {
           <PageTitle largeText={content.title} />
           <div className="mt-6">
             {content.staticPageImages && (
-              <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
-                <img src={content.staticPageImages} alt={content.title} />
-              </div>
+              <PosterImage
+                image={content.staticPageImages}
+                title={content.title}
+              />
             )}
             {content.description && (
               <div className="wysiwyg-editor">
@@ -39,46 +41,6 @@ export default function About({ logo, content }) {
     </>
   );
 }
-
-// export async function getStaticPaths() {
-//   const apolloClient = initializeApollo();
-//   const sites = await apolloClient.query({
-//     query: GET_ALL_SITES,
-//   });
-//
-//   const paths = sites.data.sites.map((item) => ({
-//     params: {
-//       site: item.siteId,
-//     },
-//   }));
-//
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   const apolloClient = initializeApollo();
-//   const siteContents = await apolloClient.query({
-//     query: GET_SITE_LOGO,
-//     variables: { siteId: params.site },
-//   });
-//   const content = await apolloClient.query({
-//     query: GET_SITE_CONTENT,
-//     variables: { siteId: params.site },
-//   });
-//
-//   return addApolloState(apolloClient, {
-//     props: {
-//       logo: siteContents.data.siteContents[1],
-//       content: content.data.siteContents.find(
-//         (item) => item.url === `${params.site}/about`
-//       ),
-//     },
-//     revalidate: 60,
-//   });
-// }
 
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();

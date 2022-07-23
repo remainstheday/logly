@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function Experience({ experiences, logo }) {
   const { query } = useRouter();
-  if (!experiences) return <PageLoading />;
+  if (!experiences) return <PageLoading siteId={query.site} />;
   return (
     <>
       <Header siteId={query.site} logo={logo} />
