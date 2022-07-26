@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -6,39 +6,46 @@ import PublicHeader from "components/PublicHeader";
 import PublicFooter from "components/PublicFooter";
 
 const registrationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(2, "too short!")
+    .max(50, "too long!")
+    .required(" *Required"),
   siteId: Yup.string()
     .min(3, "too short!")
     .max(50, "too long!")
-    .lowercase("must be lowercase")
-    .required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
-  emailConfirmation: Yup.string().oneOf(
-    [Yup.ref("email"), null],
-    "emails must match"
-  ),
+    .lowercase(" *must be lowercase")
+    .required(" *Required"),
+  email: Yup.string().email(" *Invalid email").required(" *Required"),
+  emailConfirmation: Yup.string()
+    .oneOf([Yup.ref("email"), null], " *emails must match")
+    .required(" *Required"),
   password: Yup.string()
     .min(8, "Passwords must be at least 8 characters")
-    .required("password is required"),
-  terms: Yup.boolean().required("required"),
+    .required(" *Required"),
+  terms: Yup.boolean().oneOf([true], " *Required").required(" *Required"),
 });
 export default function Register() {
   const stripeRef = useRef();
-  const [userErrors, setUserErrors] = useState(undefined);
+  const [userErrors, setUserErrors] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const postFormData = async (values, setSubmitting) => {
-    setUserErrors(undefined);
+    setUserErrors(null);
     setLoading(true);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ siteId: values.siteId, name: values.name, email: values.email, password: values.password}),
+      body: JSON.stringify({
+        siteId: values.siteId,
+        name: values.name,
+        email: values.email,
+        password: values.password,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         if (data.error) {
           throw new Error(data.error);
         }
@@ -46,7 +53,7 @@ export default function Register() {
       })
       .then(async (data) => {
         setLoading(false);
-        setUserErrors(undefined);
+        setUserErrors(null);
         setSubmitting(false);
         if (data.success) stripeRef.current.click();
       })
@@ -98,7 +105,7 @@ export default function Register() {
             }}
             validationSchema={registrationSchema}
             onSubmit={(values, { setSubmitting }) => {
-              postFormData(values, setSubmitting);
+              postFormData(values, setSubmitting).then((r) => console.log(r));
             }}
           >
             {({
@@ -108,8 +115,9 @@ export default function Register() {
               handleChange,
               handleSubmit,
               isSubmitting,
+              isValidating,
             }) => (
-              <form
+              <Form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
               >
@@ -119,20 +127,17 @@ export default function Register() {
                     htmlFor="name"
                   >
                     Full Name
+                    {errors.name && touched.name ? (
+                      <span className="text-red-600">{errors.name}</span>
+                    ) : null}
                   </label>
                   <input
                     type="text"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="name"
-                    onChange={(e) => {
-                      setUserErrors(null);
-                      handleChange(e);
-                    }}
+                    onChange={(e) => handleChange(e)}
                     value={values.name}
                   />
-                  {errors.name && touched.name ? (
-                    <p className="text-red-600">{errors.name}</p>
-                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -140,20 +145,17 @@ export default function Register() {
                     htmlFor="email"
                   >
                     Email
+                    {errors.email && touched.email ? (
+                      <span className="text-red-600">{errors.email}</span>
+                    ) : null}
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     name="email"
-                    onChange={(e) => {
-                      setUserErrors(null);
-                      handleChange(e);
-                    }}
+                    onChange={(e) => handleChange(e)}
                     value={values.email}
                   />
-                  {errors.email && touched.email ? (
-                    <p className="text-red-600">{errors.email}</p>
-                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -161,41 +163,37 @@ export default function Register() {
                     htmlFor="email"
                   >
                     Confirm Email
+                    {errors.emailConfirmation && touched.emailConfirmation ? (
+                      <span className="text-red-600">
+                        {errors.emailConfirmation}
+                      </span>
+                    ) : null}
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="email"
                     name="emailConfirmation"
                     value={values.emailConfirmation}
-                    onChange={(e) => {
-                      setUserErrors(null);
-                      handleChange(e);
-                    }}
+                    onChange={(e) => handleChange(e)}
                   />
-                  {errors.confirmEmail && touched.confirmEmail ? (
-                    <p className="text-red-600">{errors.confirmEmail}</p>
-                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold"
                     htmlFor="siteId"
                   >
-                    Organization Name
+                    Organization Name{" "}
+                    {errors.siteId && touched.siteId ? (
+                      <span className="text-red-600">{errors.siteId}</span>
+                    ) : null}
                   </label>
                   <input
                     type="text"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="siteId"
-                    onChange={(e) => {
-                      setUserErrors(null);
-                      handleChange(e);
-                    }}
+                    onChange={(e) => handleChange(e)}
                     value={values.siteId}
                   />
-                  {errors.siteId && touched.siteId ? (
-                    <p className="text-red-600">{errors.siteId}</p>
-                  ) : null}
                 </div>
                 <div className="mb-4">
                   <label
@@ -203,27 +201,21 @@ export default function Register() {
                     htmlFor="password"
                   >
                     Password
+                    {errors.password && touched.password ? (
+                      <span className="text-red-600">{errors.password}</span>
+                    ) : null}
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     type="password"
                     name="password"
-                    onChange={(e) => {
-                      setUserErrors(null);
-                      handleChange(e);
-                    }}
+                    onChange={(e) => handleChange(e)}
                     value={values.password}
                   />
-                  {errors.password && touched.password ? (
-                    <p className="text-red-600">{errors.password}</p>
-                  ) : null}
+
                   <div className="my-4">
-                    <input
-                      type="checkbox"
-                      name="terms-conditions"
-                      value={values.terms}
-                    />
-                    <label htmlFor="terms-conditions">
+                    <Field type="checkbox" name="terms" />
+                    <label htmlFor="terms">
                       {" "}
                       I agree to Logly’s{" "}
                       <Link href="/terms-of-use" passHref>
@@ -239,18 +231,19 @@ export default function Register() {
                       </Link>
                       .
                     </label>
+                    {errors.terms && touched.terms ? (
+                      <p className="text-red-600">{errors.terms}</p>
+                    ) : null}
                   </div>
                 </div>
                 <button
                   type="submit"
-                  style={{ backgroundColor: "#002FA7" }}
-                  className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  disabled={isSubmitting}
+                  className={`bg-[#002FA7] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
                 >
                   {loading ? "Loading..." : "Continue to Payment"}
                 </button>
                 {userErrors && <p className="text-red-600">{userErrors}</p>}
-              </form>
+              </Form>
             )}
           </Formik>
           <form

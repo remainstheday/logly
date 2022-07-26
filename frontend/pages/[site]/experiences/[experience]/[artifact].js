@@ -7,7 +7,6 @@ import {
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
 } from "apollo/api";
-import Link from "next/link";
 import React from "react";
 import SectionLink from "components/SectionLink";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";

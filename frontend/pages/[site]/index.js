@@ -11,12 +11,11 @@ import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import CommentCard from "components/CommentCard";
 import React from "react";
-import Link from "next/link";
 import Section from "components/Section";
 import { useRouter } from "next/router";
 import PosterImage from "components/PosterImage";
-import DescriptionContent from "../../components/DescriptionContent";
-import RelatedItemsGrid from "../../components/RelatedItemsGrid";
+import DescriptionContent from "components/DescriptionContent";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
 
 export default function IndexPage({ content, experiences, comments }) {
   const { query, router } = useRouter();
