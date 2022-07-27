@@ -1,5 +1,5 @@
 import { list } from "@keystone-6/core";
-import { text } from "@keystone-6/core/fields";
+import { json, text } from "@keystone-6/core/fields";
 import { defaults } from "./defaults";
 import { OperationAccess } from "./access";
 
@@ -102,6 +102,15 @@ export const SiteContent = list({
     }),
     staticPageImages: defaults.images("Banner Image"),
     description: defaults.document,
+    qrCode: json({
+      defaultValue: [],
+      ui: {
+        views: require.resolve("../fields/qrcode/view.tsx"),
+        createView: { fieldMode: "hidden" },
+        itemView: { fieldMode: "read" },
+        listView: { fieldMode: "hidden" },
+      },
+    }),
     url: defaults.url,
     siteId: defaults.siteId,
   },

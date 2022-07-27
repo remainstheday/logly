@@ -65,6 +65,7 @@ model SiteContent {
   logoHeight       String @default("")
   staticPageImages String @default("")
   description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  qrCode           Json?  @default("[]")
   url              String @unique @default("")
   siteId           String @default("")
 }
