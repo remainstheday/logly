@@ -1,15 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const GET_ALL_SITES = gql`
-  {
-    sites {
-      siteId
-      title
-      url
-    }
-  }
-`;
-
 export const GET_SITE_CONTENT = gql`
   query SiteContents($siteId: String) {
     siteContents(where: { siteId: { equals: $siteId } }) {
@@ -49,35 +39,6 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
       }
       description {
         document
-      }
-      experienceImages
-      startDate
-      endDate
-      status
-    }
-  }
-`;
-
-export const GET_ALL_EXPERIENCES = gql`
-  query Experiences {
-    experiences {
-      id
-      title
-      url
-      siteId
-      description {
-        document
-      }
-      relatedArtifacts {
-        id
-        title
-        artist
-        url
-        status
-        description {
-          document
-        }
-        artifactImages
       }
       experienceImages
       startDate

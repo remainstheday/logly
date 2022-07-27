@@ -27,7 +27,7 @@ export default function Experience({
 }) {
   const { query, router } = useRouter();
   if ((router && router.isFallback) || !experience || !experiences)
-    return <PageLoading />;
+    return <PageLoading siteId={query.site} />;
   const similarExperiences = experiences.filter(
     (similarExperience) => similarExperience.url !== experience.url
   );

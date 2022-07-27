@@ -11,11 +11,11 @@ import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import CommentCard from "components/CommentCard";
 import React from "react";
-import Link from "next/link";
 import Section from "components/Section";
-import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
-import Banner from "components/Banner";
+import PosterImage from "components/PosterImage";
+import DescriptionContent from "components/DescriptionContent";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
 
 export default function IndexPage({ content, experiences, comments }) {
   const { query, router } = useRouter();
@@ -23,7 +23,7 @@ export default function IndexPage({ content, experiences, comments }) {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if ((router && router.isFallback) || !content || !experiences || !comments)
-    return <PageLoading />;
+    return <PageLoading siteId={query.site} />;
 
   return (
     <>
@@ -37,46 +37,14 @@ export default function IndexPage({ content, experiences, comments }) {
       />
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
-          {content.title && (
-            <PageTitle smallText={"welcome to"} largeText={content.title} />
-          )}
-          {content.staticPageImages && (
-            <Banner image={content.staticPageImages} title={content.title} />
-          )}
-          {content.description && (
-            <div className="my-8 wysiwyg-editor">
-              <DocumentRenderer document={content.description.document} />
-            </div>
-          )}
+          <PageTitle smallText={"welcome to"} largeText={content.title} />
+          <PosterImage image={content.staticPageImages} title={content.title} />
+          <DescriptionContent content={content.description.content} />
         </Section>
 
         {experiences.length > 0 && (
           <Section title="Pick an Experience">
-            <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
-              {experiences.map((item, index) => (
-                <div className="snap-center shrink-0 w-full my-3" key={index}>
-                  <div className="shrink-0 flex flex-col">
-                    <Link href={item.url} passHref>
-                      <a className="aspect-w-16 aspect-h-9">
-                        <img
-                          src={
-                            item.experienceImages
-                              ? item.experienceImages
-                              : "/stock-museum-1.jpg"
-                          }
-                          alt={item.title}
-                        />
-                      </a>
-                    </Link>
-                    <Link href={item.url} passHref>
-                      <a>
-                        <strong>{item.title}</strong>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <RelatedItemsGrid experiences={experiences} />
             <SectionLink
               href={`/${query.site}/experiences`}
               text={"See all experiences"}

@@ -1,10 +1,8 @@
 import React from "react";
-// import Link from "next/link";
 import Image from "next/image";
 import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import Script from "next/script";
-// import { ArrowForwardOutline } from "react-ionicons";
 import PublicFooter from "components/PublicFooter";
 
 const customLoader = ({ src }) => {

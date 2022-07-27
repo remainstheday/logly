@@ -1,4 +1,5 @@
-import "../styles/globals.css";
+import "styles/imports.css";
+import "styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "apollo/apollo-client";
 import * as gtag from "config/gtag";

@@ -7,7 +7,6 @@ import {
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
 } from "apollo/api";
-import Link from "next/link";
 import React from "react";
 import SectionLink from "components/SectionLink";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
@@ -18,6 +17,7 @@ import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
 
 export default function Artifact({
   logo,
@@ -28,11 +28,7 @@ export default function Artifact({
 }) {
   const { query, router } = useRouter();
   if ((router && router.isFallback) || !artifact || !experience)
-    return <PageLoading />;
-
-  const similarArtifacts = relatedArtifacts.filter(
-    (item) => item.url !== artifact.url
-  );
+    return <PageLoading siteId={query.site} />;
 
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
@@ -70,43 +66,10 @@ export default function Artifact({
               <DocumentRenderer document={artifact.description.document} />
             </div>
           )}
-          {similarArtifacts.length > 0 && (
+          {relatedArtifacts.length > 0 && (
             <Section title="Exhibition Preview">
               <div className="w-full mt-4">
-                <div className="grid grid-cols-2 gap-4">
-                  {similarArtifacts.map((artifact, index) => (
-                    <div
-                      className="snap-center shrink-0 w-full my-3"
-                      key={index}
-                    >
-                      <div className="shrink-0 flex flex-col">
-                        <Link
-                          href={`${experience.url}/${artifact.url}`}
-                          passHref
-                        >
-                          <a className="aspect-w-16 aspect-h-9">
-                            <img
-                              src={
-                                artifact.artifactImages
-                                  ? artifact.artifactImages
-                                  : "/stock-museum-1.jpg"
-                              }
-                              alt={artifact.title}
-                            />
-                          </a>
-                        </Link>
-                        <Link
-                          href={`${experience.url}/${artifact.url}`}
-                          passHref
-                        >
-                          <a>
-                            <strong>{artifact.title}</strong>
-                          </a>
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <RelatedItemsGrid items={relatedArtifacts} />
               </div>
             </Section>
           )}
@@ -166,6 +129,12 @@ export async function getServerSideProps({ params }) {
     (artifact) => artifact.siteId === params.site
   )[0];
 
+  const relatedArtifacts = experience.relatedArtifacts.map((artifact) => ({
+    ...artifact,
+    url: `${experience.url}/${artifact.url}`,
+    image: artifact.artifactImages,
+  }));
+
   if (!artifact || !experience || artifact.status !== "published") {
     return {
       notFound: true,
@@ -182,7 +151,11 @@ export async function getServerSideProps({ params }) {
       artifact,
       comments: filteredComments,
       experience,
-      relatedArtifacts: experience.relatedArtifacts,
+      relatedArtifacts: relatedArtifacts.filter(
+        (item) =>
+          item.status === "published" &&
+          item.url !== `${experience.url}/${artifact.url}` // we shouldn't recommend the current page
+      ),
     },
   });
 }
