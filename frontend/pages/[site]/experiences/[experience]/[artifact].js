@@ -17,7 +17,7 @@ import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
-import RelatedItemsGrid from "../../../../components/RelatedItemsGrid";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
 
 export default function Artifact({
   logo,
@@ -152,7 +152,9 @@ export async function getServerSideProps({ params }) {
       comments: filteredComments,
       experience,
       relatedArtifacts: relatedArtifacts.filter(
-        (item) => item.status === "published" && item.url !== artifact.url // we shouldn't recommend the current page
+        (item) =>
+          item.status === "published" &&
+          item.url !== `${experience.url}/${artifact.url}` // we shouldn't recommend the current page
       ),
     },
   });
