@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function CommentCard({ comment }) {
   if (!comment) return <></>;
   const imageSource =
-    comment.image.length > 0 ? comment.image : "/stock-museum-2.jpg";
+    comment.image.length > 0 ? comment.image : "/images/empty-comment-illu.png";
   const site = comment.query.site;
   const experience = comment.query.experience || null;
   const artifact = comment.query.artifact || null;
@@ -15,7 +15,7 @@ export default function CommentCard({ comment }) {
     <div className="bg-white max-w-sm my-8 mx-3 rounded overflow-hidden shadow-lg ">
       <div className="aspect-w-16 aspect-h-9">
         <img
-          className="w-full"
+          className={comment.image.length > 0 ? "w-full" : "w-1/2 mx-auto"}
           src={imageSource}
           alt={`social image for ${comment.query.site}`}
         />

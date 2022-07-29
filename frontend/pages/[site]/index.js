@@ -19,7 +19,6 @@ import RelatedItemsGrid from "components/RelatedItemsGrid";
 
 export default function IndexPage({ content, experiences, comments }) {
   const { query, router } = useRouter();
-
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if ((router && router.isFallback) || !content || !experiences || !comments)
@@ -44,7 +43,7 @@ export default function IndexPage({ content, experiences, comments }) {
 
         {experiences.length > 0 && (
           <Section title="Pick an Experience">
-            <RelatedItemsGrid experiences={experiences} />
+            <RelatedItemsGrid items={experiences} />
             <SectionLink
               href={`/${query.site}/experiences`}
               text={"See all experiences"}
