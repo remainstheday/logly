@@ -415,6 +415,7 @@ type SiteContent {
   logoHeight: String
   staticPageImages: String
   description: SiteContent_description_Document
+  qrCode: JSON
   url: String
   siteId: String
 }
@@ -463,6 +464,7 @@ input SiteContentUpdateInput {
   logoHeight: String
   staticPageImages: String
   description: JSON
+  qrCode: JSON
   url: String
   siteId: String
 }
@@ -480,6 +482,7 @@ input SiteContentCreateInput {
   logoHeight: String
   staticPageImages: String
   description: JSON
+  qrCode: JSON
   url: String
   siteId: String
 }
