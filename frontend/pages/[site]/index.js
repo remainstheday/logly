@@ -90,12 +90,20 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
 
+  const filteredExperiences = experiences.data.experiences.map((experience) => {
+    if (experience.status === "published") {
+      return {
+        ...experience,
+        image: experience.experienceImages,
+      };
+    }
+    return [];
+  });
+
   return addApolloState(apolloClient, {
     props: {
       content: content.data.siteContents.find((item) => item.name === "Home"),
-      experiences: experiences.data.experiences.filter(
-        (experience) => experience.status === "published"
-      ),
+      experiences: filteredExperiences,
       comments: comments.data.comments,
     },
   });
