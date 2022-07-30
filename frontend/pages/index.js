@@ -4,6 +4,8 @@ import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import Script from "next/script";
 import PublicFooter from "components/PublicFooter";
+import { ArrowForwardOutline } from "react-ionicons";
+import Link from "next/link";
 
 const customLoader = ({ src }) => {
   return src;
@@ -32,19 +34,19 @@ export default function IndexPage() {
               <strong>
                 cultural institutions can learn from their audience.
               </strong>
-              {/*<Link href="/register" passHref>*/}
-              {/*  <a*/}
-              {/*    style={{ backgroundColor: "#002FA7" }}*/}
-              {/*    className="w-44 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"*/}
-              {/*  >*/}
-              {/*    Get Started*/}
-              {/*    <ArrowForwardOutline*/}
-              {/*      style={{ verticalAlign: "middle", color: "#fff" }}*/}
-              {/*      height="1.5em"*/}
-              {/*      width="1.5em"*/}
-              {/*    />*/}
-              {/*  </a>*/}
-              {/*</Link>*/}
+              <Link href="/register" passHref>
+                <a
+                  style={{ backgroundColor: "#002FA7" }}
+                  className="w-44 mt-4 flex flex-row justify-between text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  Get Started
+                  <ArrowForwardOutline
+                    style={{ verticalAlign: "middle", color: "#fff" }}
+                    height="1.5em"
+                    width="1.5em"
+                  />
+                </a>
+              </Link>
             </p>
 
             <div className="block -mt-12 text-right hidden sm:block">
@@ -101,14 +103,14 @@ export default function IndexPage() {
               </div>
             </div>
           </div>
-          {/*<Link href="/register" passHref>*/}
-          {/*  <a*/}
-          {/*    style={{ backgroundColor: "#002FA7" }}*/}
-          {/*    className="w-44 mx-auto mt-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"*/}
-          {/*  >*/}
-          {/*    Get Started*/}
-          {/*  </a>*/}
-          {/*</Link>*/}
+          <Link href="/register" passHref>
+            <a
+              style={{ backgroundColor: "#002FA7" }}
+              className="w-44 mx-auto mt-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Get Started
+            </a>
+          </Link>
         </section>
 
         <section className="mt-24 px-3">
@@ -174,14 +176,14 @@ export default function IndexPage() {
                   width="425"
                   height="250"
                 />
-                {/*<Link href="/register" passHref>*/}
-                {/*  <a*/}
-                {/*    style={{ backgroundColor: "#002FA7" }}*/}
-                {/*    className="w-44 mx-auto mt-20 sm:mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"*/}
-                {/*  >*/}
-                {/*    Give Logly a Try*/}
-                {/*  </a>*/}
-                {/*</Link>*/}
+                <Link href="/register" passHref>
+                  <a
+                    style={{ backgroundColor: "#002FA7" }}
+                    className="w-44 mx-auto mt-20 sm:mt-4 mb-4 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Give Logly a Try
+                  </a>
+                </Link>
               </div>
             </div>
 

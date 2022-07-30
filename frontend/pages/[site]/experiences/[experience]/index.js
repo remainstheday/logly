@@ -138,7 +138,7 @@ export default function Experience({
             </div>
             <div className="mt-6 px-6 md:px-0">
               <SectionLink
-                href={`${query.site}/community`}
+                href={`/${query.site}/community`}
                 text={"Discover the Community"}
               />
             </div>
