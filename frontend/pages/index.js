@@ -4,6 +4,8 @@ import Section from "components/Section";
 import PublicHeader from "components/PublicHeader";
 import Script from "next/script";
 import PublicFooter from "components/PublicFooter";
+import { ArrowForwardOutline } from "react-ionicons";
+import Link from "next/link";
 
 const customLoader = ({ src }) => {
   return src;
