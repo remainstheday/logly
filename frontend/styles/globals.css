@@ -220,6 +220,11 @@ blockquote cite {
   list-style-type: upper-roman;
 }
 
+.wysiwyg-editor a {
+  color: #002FA7;
+  text-decoration: underline;
+}
+
 
 @media (max-width: 980px) {
   blockquote {
