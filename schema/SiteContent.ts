@@ -107,7 +107,7 @@ export const SiteContent = list({
       ui: {
         views: require.resolve("../fields/qrcode/view.tsx"),
         createView: { fieldMode: "hidden" },
-        itemView: { fieldMode: "read" },
+        itemView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
       },
     }),

@@ -94,7 +94,6 @@ export default withAuth(
                 title: `About ${newSite.title}`,
                 url: `${newSite.url}/about`,
                 siteId: newSite.siteId,
-                qrCodes: [{ url: `${newSite.url}/about` }],
               },
             });
             await context.query.SiteContent.createOne({
@@ -103,10 +102,6 @@ export default withAuth(
                 title: newSite.title,
                 url: newSite.url,
                 siteId: newSite.siteId,
-                qrCodes: [
-                  { url: `${newSite.url}/` },
-                  { url: `${newSite.url}/community` },
-                ],
               },
             });
             return res.json({
