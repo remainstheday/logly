@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function CommentCard({ comment }) {
   if (!comment) return <></>;
   const imageSource =
-    comment.image.length > 0 ? comment.image : "/images/empty-comment-illu.png";
+    comment.image.length > 0 ? comment.image : "/images/empty-comment-illu.png"; // TODO: pass experience image
   const site = comment.query.site;
   const experience = comment.query.experience || null;
   const artifact = comment.query.artifact || null;
