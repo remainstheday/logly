@@ -75,13 +75,19 @@ export default function IndexPage({ content, experiences, comments }) {
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
 
-  const experiences = await apolloClient.query({
-    query: GET_EXPERIENCES_BY_SITE_ID,
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
 
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
+  if (!content) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const experiences = await apolloClient.query({
+    query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
 
