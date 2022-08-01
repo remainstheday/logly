@@ -80,7 +80,8 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
 
-  if (!content) {
+  if (!content || (content.data && content.data.siteContents.length < 1)) {
+    console.log("notFound");
     return {
       notFound: true,
     };
