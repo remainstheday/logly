@@ -21,7 +21,7 @@ export default function IndexPage({ content, experiences, comments }) {
   const { query, router } = useRouter();
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
-  if ((router && router.isFallback) || !content || !experiences || !comments)
+  if ((router && router.isFallback) || !content)
     return <PageLoading siteId={query.site} />;
 
   return (
@@ -79,13 +79,9 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-
-  if (!content || (content.data && content.data.siteContents.length < 1)) {
-    console.log("notFound");
-    return {
-      notFound: true,
-    };
-  }
+  const homepageContent = content.data.siteContents.find(
+    (item) => item.name === "Home"
+  );
 
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
@@ -97,19 +93,23 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
 
-  const filteredExperiences = experiences.data.experiences.map((experience) => {
-    if (experience.status === "published") {
-      return {
-        ...experience,
-        image: experience.experienceImages,
-      };
-    }
-    return [];
-  });
+  const filteredExperiences = experiences.data.experiences
+    .map((experience) => ({
+      ...experience,
+      image: experience.experienceImages,
+    }))
+    .filter((item) => item.status === "published");
+
+  if (!content || (content.data && content.data.siteContents.length < 1)) {
+    console.log("page not found");
+    return {
+      notFound: true,
+    };
+  }
 
   return addApolloState(apolloClient, {
     props: {
-      content: content.data.siteContents.find((item) => item.name === "Home"),
+      content: homepageContent,
       experiences: filteredExperiences,
       comments: comments.data.comments,
     },

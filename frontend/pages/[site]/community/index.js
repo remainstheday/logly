@@ -130,7 +130,7 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
-
+  const logo = siteContents.data.siteContents[1];
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
@@ -138,7 +138,7 @@ export async function getServerSideProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      logo: siteContents.data.siteContents[1],
+      logo,
       comments: comments.data.comments,
     },
   });

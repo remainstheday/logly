@@ -19,7 +19,8 @@ function createApolloClient() {
     cache: new InMemoryCache(),
     defaultOptions: {
       query: {
-        fetchPolicy: "no-cache",
+        // fetchPolicy: 'no-cache',
+        fetchPolicy: "network-only", // Used for first execution
       },
     },
   });

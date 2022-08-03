@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 export default function RelatedItemsGrid({ items }) {
-  if (!items) return <></>;
+  if (!items || items.length < 1) return <></>;
 
   return (
     <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
