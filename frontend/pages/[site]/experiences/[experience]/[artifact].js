@@ -108,6 +108,7 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
+  const logo = siteContents.data.siteContents[1];
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
@@ -129,11 +130,17 @@ export async function getServerSideProps({ params }) {
     (artifact) => artifact.siteId === params.site
   )[0];
 
-  const relatedArtifacts = experience.relatedArtifacts.map((artifact) => ({
-    ...artifact,
-    url: `${experience.url}/${artifact.url}`,
-    image: artifact.artifactImages,
-  }));
+  const relatedArtifacts = experience.relatedArtifacts
+    .map((artifact) => ({
+      ...artifact,
+      url: `${experience.url}/${artifact.url}`,
+      image: artifact.artifactImages,
+    }))
+    .filter(
+      (item) =>
+        item.status === "published" &&
+        item.url !== `${experience.url}/${artifact.url}` // we shouldn't recommend the current page
+    );
 
   if (!artifact || !experience || artifact.status !== "published") {
     return {
@@ -147,15 +154,11 @@ export async function getServerSideProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      logo: siteContents.data.siteContents[1],
+      logo,
       artifact,
       comments: filteredComments,
       experience,
-      relatedArtifacts: relatedArtifacts.filter(
-        (item) =>
-          item.status === "published" &&
-          item.url !== `${experience.url}/${artifact.url}` // we shouldn't recommend the current page
-      ),
+      relatedArtifacts,
     },
   });
 }

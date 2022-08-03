@@ -17,6 +17,7 @@ import Section from "components/Section";
 import CommentCard from "components/CommentCard";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
 
 export default function Experience({
   logo,
@@ -61,31 +62,32 @@ export default function Experience({
         {artifacts && artifacts.length > 0 && (
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
-              <div className="grid grid-cols-2 gap-4">
-                {artifacts.map((artifact, index) => (
-                  <div className="snap-center shrink-0 w-full my-3" key={index}>
-                    <div className="shrink-0 flex flex-col">
-                      <Link href={`${experience.url}/${artifact.url}`} passHref>
-                        <a className="aspect-w-16 aspect-h-9">
-                          <img
-                            src={
-                              artifact.artifactImages
-                                ? artifact.artifactImages
-                                : "/stock-museum-1.jpg"
-                            }
-                            alt={artifact.title}
-                          />
-                        </a>
-                      </Link>
-                      <Link href={`${experience.url}/${artifact.url}`} passHref>
-                        <a>
-                          <strong>{artifact.title}</strong>
-                        </a>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <RelatedItemsGrid items={artifacts} />
+              {/*<div className="grid grid-cols-2 gap-4">*/}
+              {/*  {artifacts.map((artifact, index) => (*/}
+              {/*    <div className="snap-center shrink-0 w-full my-3" key={index}>*/}
+              {/*      <div className="shrink-0 flex flex-col">*/}
+              {/*        <Link href={`${experience.url}/${artifact.url}`} passHref>*/}
+              {/*          <a className="aspect-w-16 aspect-h-9">*/}
+              {/*            <img*/}
+              {/*              src={*/}
+              {/*                artifact.artifactImages*/}
+              {/*                  ? artifact.artifactImages*/}
+              {/*                  : "/stock-museum-1.jpg"*/}
+              {/*              }*/}
+              {/*              alt={artifact.title}*/}
+              {/*            />*/}
+              {/*          </a>*/}
+              {/*        </Link>*/}
+              {/*        <Link href={`${experience.url}/${artifact.url}`} passHref>*/}
+              {/*          <a>*/}
+              {/*            <strong>{artifact.title}</strong>*/}
+              {/*          </a>*/}
+              {/*        </Link>*/}
+              {/*      </div>*/}
+              {/*    </div>*/}
+              {/*  ))}*/}
+              {/*</div>*/}
             </div>
           </Section>
         )}
@@ -156,6 +158,7 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
+  const logo = siteContents.data.siteContents[1];
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
@@ -180,16 +183,34 @@ export async function getServerSideProps({ params }) {
     (comment) => comment.query.experience === params.experience
   );
 
+  const relatedArtifacts = experience.relatedArtifacts
+    .map((artifact) => ({
+      ...artifact,
+      url: `${experience.url}/${artifact.url}`,
+      image: artifact.artifactImages,
+    }))
+    .filter(
+      (item) =>
+        item.status === "published" &&
+        item.url !== `${experience.url}/${artifact.url}` // we shouldn't recommend the current page
+    );
+
+  const filteredExperiences = experiences.data.experiences.map((experience) => {
+    if (experience.status === "published") {
+      return {
+        ...experience,
+        image: experience.experienceImages,
+      };
+    }
+    return [];
+  });
+
   return addApolloState(apolloClient, {
     props: {
       experience,
-      logo: siteContents.data.siteContents[1],
-      experiences: experiences.data.experiences.filter(
-        (experience) => experience.status === "published"
-      ),
-      artifacts: experience.relatedArtifacts.filter(
-        (artifact) => artifact.status === "published"
-      ),
+      logo,
+      experiences: filteredExperiences,
+      artifacts: relatedArtifacts,
       comments: filteredComments,
     },
   });
