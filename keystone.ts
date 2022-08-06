@@ -22,14 +22,6 @@ const { withAuth } = createAuth({
   },
 });
 
-// todo:
-// create new user object from req
-// test if email already exists
-// test if site id already exists
-// convert site ID into a valid url
-// create a has paid/ not paid flag for user
-// handle error logging without crashing
-// todo: {"message":"Issue registering a new account: Prisma error: Unique constraint failed on the fields: (`url`)"}
 export default withAuth(
   config({
     server: {
