@@ -8,7 +8,6 @@ import {
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
 } from "apollo/api";
-import Link from "next/link";
 import React from "react";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
@@ -29,9 +28,6 @@ export default function Experience({
   const { query, router } = useRouter();
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
-  const similarExperiences = experiences.filter(
-    (similarExperience) => similarExperience.url !== experience.url
-  );
 
   return (
     <>
@@ -63,60 +59,13 @@ export default function Experience({
           <Section title="Exhibition Preview">
             <div className="w-full mt-4">
               <RelatedItemsGrid items={artifacts} />
-              {/*<div className="grid grid-cols-2 gap-4">*/}
-              {/*  {artifacts.map((artifact, index) => (*/}
-              {/*    <div className="snap-center shrink-0 w-full my-3" key={index}>*/}
-              {/*      <div className="shrink-0 flex flex-col">*/}
-              {/*        <Link href={`${experience.url}/${artifact.url}`} passHref>*/}
-              {/*          <a className="aspect-w-16 aspect-h-9">*/}
-              {/*            <img*/}
-              {/*              src={*/}
-              {/*                artifact.artifactImages*/}
-              {/*                  ? artifact.artifactImages*/}
-              {/*                  : "/stock-museum-1.jpg"*/}
-              {/*              }*/}
-              {/*              alt={artifact.title}*/}
-              {/*            />*/}
-              {/*          </a>*/}
-              {/*        </Link>*/}
-              {/*        <Link href={`${experience.url}/${artifact.url}`} passHref>*/}
-              {/*          <a>*/}
-              {/*            <strong>{artifact.title}</strong>*/}
-              {/*          </a>*/}
-              {/*        </Link>*/}
-              {/*      </div>*/}
-              {/*    </div>*/}
-              {/*  ))}*/}
-              {/*</div>*/}
             </div>
           </Section>
         )}
-        {similarExperiences.length > 0 && (
+        {experiences.length > 0 && (
           <Section title="Similar Experiences">
-            <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
-              {similarExperiences.map((item, index) => (
-                <div className="snap-center shrink-0 w-full my-3" key={index}>
-                  <div className="shrink-0 flex flex-col">
-                    <Link href={item.url} passHref>
-                      <a className="aspect-w-16 aspect-h-9">
-                        <img
-                          src={
-                            item.experienceImages
-                              ? item.experienceImages
-                              : "/stock-museum-1.jpg"
-                          }
-                          alt={item.title}
-                        />
-                      </a>
-                    </Link>
-                    <Link href={item.url} passHref>
-                      <a>
-                        <strong>{item.title}</strong>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              ))}
+            <div className="w-full mt-4">
+              <RelatedItemsGrid items={experiences} />
             </div>
             <SectionLink
               href={`/${query.site}/experiences?viewAll=true`}
@@ -189,21 +138,17 @@ export async function getServerSideProps({ params }) {
       url: `${experience.url}/${artifact.url}`,
       image: artifact.artifactImages,
     }))
-    .filter(
-      (item) =>
-        item.status === "published" &&
-        item.url !== `${experience.url}/${artifact.url}` // we shouldn't recommend the current page
-    );
+    .filter((item) => item.status === "published");
 
-  const filteredExperiences = experiences.data.experiences.map((experience) => {
-    if (experience.status === "published") {
-      return {
-        ...experience,
-        image: experience.experienceImages,
-      };
-    }
-    return [];
-  });
+  const filteredExperiences = experiences.data.experiences
+    .map((filteredExperience) => ({
+      ...filteredExperience,
+      url: filteredExperience.url,
+      image: filteredExperience.experienceImages,
+    }))
+    .filter(
+      (item) => item.status === "published" && item.url !== experience.url
+    );
 
   return addApolloState(apolloClient, {
     props: {
