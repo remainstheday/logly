@@ -29,7 +29,6 @@ export const Field = ({
 }: FieldProps<typeof controller>) => {
   const QRCodes = value ? JSON.parse(value) : [];
   const componentRef = React.useRef(null);
-  console.log(field);
   const handleClick = (elementId: string) => {
     saveSvgAsPng.saveSvgAsPng(
       document.getElementById(elementId),

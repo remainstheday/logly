@@ -8,9 +8,9 @@ import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import PageLoading from "components/PageLoading";
 import { useRouter } from "next/router";
 import Section from "components/Section";
-import Link from "next/link";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
 
-export default function Experience({ experiences, logo }) {
+export default function Experiences({ experiences, logo }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading siteId={query.site} />;
   return (
@@ -21,31 +21,11 @@ export default function Experience({ experiences, logo }) {
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
 
-          <div className="mt-6 grid grid-cols-2 gap-4">
-            {experiences.map((item, index) => (
-              <div className="snap-center shrink-0 w-full my-3" key={index}>
-                <div className="shrink-0 flex flex-col">
-                  <Link href={item.url} passHref>
-                    <a className="aspect-w-16 aspect-h-9">
-                      <img
-                        src={
-                          item.experienceImages
-                            ? item.experienceImages
-                            : "/stock-museum-1.jpg"
-                        }
-                        alt={item.title}
-                      />
-                    </a>
-                  </Link>
-                  <Link href={item.url} passHref>
-                    <a>
-                      <strong>{item.title}</strong>
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          {experiences.length > 0 && (
+            <div className="w-full mt-4">
+              <RelatedItemsGrid items={experiences} />
+            </div>
+          )}
         </Section>
       </div>
       <Footer siteId={query.site} />
@@ -64,12 +44,17 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
 
+  const filteredExperiences = experiences.data.experiences
+    .map((experience) => ({
+      ...experience,
+      image: experience.experienceImages,
+    }))
+    .filter((experience) => experience.status === "published");
+  console.log(filteredExperiences);
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
-      experiences: experiences.data.experiences.filter(
-        (experience) => experience.status === "published"
-      ),
+      experiences: filteredExperiences,
     },
   });
 }
