@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function RelatedItemsGrid({ items }) {
   if (!items || items.length < 1) return <></>;
@@ -11,8 +12,11 @@ export default function RelatedItemsGrid({ items }) {
           <div className="shrink-0 flex flex-col">
             <Link href={item.url} passHref>
               <a className="aspect-w-16 aspect-h-9">
-                <img
-                  src={item.image ? item.image : "/stock-museum-1.jpg"}
+                <Image
+                  layout="fill"
+                  placeholder="blur"
+                  blurDataURL="/images/loading-skeleton.gif"
+                  src={item.image}
                   alt={item.title}
                 />
               </a>

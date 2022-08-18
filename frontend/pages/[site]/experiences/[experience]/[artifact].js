@@ -18,6 +18,7 @@ import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
+import PosterImage from "../../../../components/PosterImage";
 
 export default function Artifact({
   logo,
@@ -44,16 +45,14 @@ export default function Artifact({
             <h2>{artifact.artist}</h2>
           </div>
 
-          <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
-            <img
-              src={
-                artifact.artifactImages
-                  ? artifact.artifactImages
-                  : "/stock-museum-1.jpg"
-              }
-              alt={artifact.title}
-            />
-          </div>
+          <PosterImage
+            image={
+              artifact.artifactImages
+                ? artifact.artifactImages
+                : "/stock-museum-1.jpg"
+            }
+            title={artifact.title}
+          />
 
           {hasAudioFile && (
             <div className="my-6">
