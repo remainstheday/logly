@@ -15,7 +15,7 @@ export default function RelatedItemsGrid({ items }) {
                 <Image
                   layout="fill"
                   placeholder="blur"
-                  blurDataURL="/stock-museum-1.jpg"
+                  blurDataURL="/images/loading-skeleton.gif"
                   src={item.image}
                   alt={item.title}
                 />
