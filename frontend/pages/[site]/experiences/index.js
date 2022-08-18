@@ -50,7 +50,7 @@ export async function getServerSideProps({ params }) {
       image: experience.experienceImages,
     }))
     .filter((experience) => experience.status === "published");
-  console.log(filteredExperiences);
+
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
