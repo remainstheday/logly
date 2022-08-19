@@ -18,7 +18,7 @@ import AudioPlayer from "components/AudioPlayer";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
-import PosterImage from "../../../../components/PosterImage";
+import PosterImage from "components/PosterImage";
 
 export default function Artifact({
   logo,
@@ -35,9 +35,9 @@ export default function Artifact({
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} />
-      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+      <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`${experience.url}`} text={"Back to Experience"} />
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
@@ -97,7 +97,7 @@ export default function Artifact({
         )}
       </div>
       <Footer siteId={query.site} />
-    </>
+    </div>
   );
 }
 

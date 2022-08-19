@@ -108,15 +108,7 @@ export default function Register() {
               postFormData(values, setSubmitting).then((r) => console.log(r));
             }}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              isValidating,
-            }) => (
+            {({ values, errors, touched, handleChange, handleSubmit }) => (
               <Form
                 onSubmit={handleSubmit}
                 className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"

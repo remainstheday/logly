@@ -25,7 +25,7 @@ export default function IndexPage({ content, experiences, comments }) {
     return <PageLoading siteId={query.site} />;
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header
         siteId={query.site}
         logo={{
@@ -34,7 +34,7 @@ export default function IndexPage({ content, experiences, comments }) {
           logoHeight: content.logoHeight,
         }}
       />
-      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+      <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <PageTitle smallText={"welcome to"} largeText={content.title} />
           <PosterImage image={content.staticPageImages} title={content.title} />
@@ -68,7 +68,7 @@ export default function IndexPage({ content, experiences, comments }) {
         )}
       </div>
       <Footer siteId={query.site} />
-    </>
+    </div>
   );
 }
 

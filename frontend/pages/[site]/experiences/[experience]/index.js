@@ -30,9 +30,9 @@ export default function Experience({
     return <PageLoading siteId={query.site} />;
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} />
-      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+      <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink
             href={`/${query.site}/experiences`}
@@ -97,7 +97,7 @@ export default function Experience({
         )}
       </div>
       <Footer siteId={query.site} />
-    </>
+    </div>
   );
 }
 

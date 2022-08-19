@@ -9,16 +9,16 @@ import Section from "components/Section";
 import { DocumentRenderer } from "@keystone-6/document-renderer";
 import { useRouter } from "next/router";
 import React from "react";
-import PosterImage from "../../../components/PosterImage";
+import PosterImage from "components/PosterImage";
 
 export default function About({ logo, content }) {
   const { query } = useRouter();
   if (!content) return <PageLoading siteId={query.site} />;
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} />
-      <div className="max-w-4xl mx-auto min-h-screen">
+      <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle largeText={content.title} />
@@ -38,7 +38,7 @@ export default function About({ logo, content }) {
         </Section>
       </div>
       <Footer siteId={query.site} />
-    </>
+    </div>
   );
 }
 

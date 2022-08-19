@@ -40,9 +40,9 @@ export default function Community({ logo, comments = [] }) {
   };
 
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} />
-      <div className={`max-w-4xl mx-auto md:mx-auto`}>
+      <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle largeText={"Community"} />
@@ -120,7 +120,7 @@ export default function Community({ logo, comments = [] }) {
         </section>
       )}
       <Footer siteId={query.site} />
-    </>
+    </div>
   );
 }
 

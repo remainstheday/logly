@@ -14,22 +14,22 @@ export default function Experiences({ experiences, logo }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading siteId={query.site} />;
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} />
-      <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
+      <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
           <PageTitle smallText={"Pick Your"} largeText={"Experience"} />
 
           {experiences.length > 0 && (
             <div className="w-full mt-4">
-              <RelatedItemsGrid items={experiences} />
+              <RelatedItemsGrid items={experiences} mobileSideScroll={false} />
             </div>
           )}
         </Section>
       </div>
       <Footer siteId={query.site} />
-    </>
+    </div>
   );
 }
 

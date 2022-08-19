@@ -8,7 +8,7 @@ export default function PosterImage({ image, title }) {
       <Image
         layout="fill"
         placeholder="blur"
-        blurDataURL="/stock-museum-1.jpg"
+        blurDataURL="/loading-skeleton.gif"
         src={image}
         alt={title}
       />

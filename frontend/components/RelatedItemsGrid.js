@@ -2,11 +2,17 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function RelatedItemsGrid({ items }) {
+export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
   if (!items || items.length < 1) return <></>;
 
   return (
-    <div className="custom-scrollbar relative w-full flex gap-6 my-6 snap-x snap-mandatory overflow-x-auto md:inline-grid md:gap-2 md:grid-cols-2">
+    <div
+      className={
+        mobileSideScroll
+          ? "custom-scrollbar snap-x snap-mandatory overflow-x-auto relative w-full flex gap-6 my-6 md:inline-grid md:gap-2 md:grid-cols-2"
+          : "relative w-full gap-6 my-6 md:inline-grid md:gap-2 md:grid-cols-2"
+      }
+    >
       {items.map((item, index) => (
         <div className="snap-center shrink-0 w-full my-3" key={index}>
           <div className="shrink-0 flex flex-col">

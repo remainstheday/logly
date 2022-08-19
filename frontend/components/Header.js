@@ -26,7 +26,7 @@ export default function Header({ siteId, logo }) {
         />
       </Head>
 
-      <header className="max-w-4xl px-6 lg:px-0 my-8 md:mx-auto pt-4 mx-auto md:mx-auto">
+      <header className="w-full max-w-4xl px-6 lg:px-0 my-8 md:mx-auto pt-4 mx-auto md:mx-auto">
         <div className="flex flex-wrap pt-2">
           <div className="w-full">
             <Navigation siteId={siteId} logo={logo} />
