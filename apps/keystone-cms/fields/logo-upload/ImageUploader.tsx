@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { openDefaultEditor } from "../../local_modules/pintura";
+import { openDefaultEditor } from "pintura";
 import { Button } from "@keystone-ui/button";
 
 // This function is called when the user taps the edit button, it opens the editor and returns the modified file when done

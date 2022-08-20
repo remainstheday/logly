@@ -1,0 +1,25 @@
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        ".next/**",
+        ".keystone/admin/.next/**",
+        ".keystone/**"
+      ]
+    },
+    "dev": {
+      "cache": false
+    },
+    "clean": {
+      "cache": false
+    }
+  },
+  "globalDependencies": [
+    "tsconfig.json",
+    ".prettierrc.json",
+    ".eslintrc.json",
+  ]
+}

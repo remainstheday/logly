@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
-import { openDefaultEditor } from "../../local_modules/pintura";
+import { openDefaultEditor } from "pintura";
 import Image from "next/image";
 import { Button } from "@keystone-ui/button";
 

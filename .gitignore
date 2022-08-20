@@ -15,9 +15,9 @@ keystone.db
 /coverage
 
 # next.js
-/.next/
+/apps/keystone-cms/.keystone/
 /out/
-/frontend/.next/
+/apps/frontend/.next/
 
 # production
 /build
