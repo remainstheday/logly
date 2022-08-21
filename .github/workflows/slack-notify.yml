@@ -1,5 +1,5 @@
 on: push
-name: Slack Notification Demo
+name: Slack Notification
 jobs:
   slackNotification:
     name: Slack Notification
@@ -10,3 +10,7 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: dev-updates
+          SLACK_COLOR: ${{job.status}}
+          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png
+          SLACK_USERNAME: github_actions
