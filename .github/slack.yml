@@ -1,0 +1,20 @@
+name: Docker Build and Push
+
+on:
+  push:
+    branches: [ staging, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      REPOSITORY_URL: docker.pkg.github.com
+      IMAGE_NAME: ${{ github.repository }}/alerta-cli
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#dev-updates'
+        if: always()
