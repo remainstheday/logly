@@ -38,7 +38,7 @@ export default function IndexPage({ content, experiences, comments }) {
         <Section>
           <PageTitle smallText={"welcome to"} largeText={content.title} />
           <PosterImage image={content.staticPageImages} title={content.title} />
-          <DescriptionContent content={content.description.content} />
+          <DescriptionContent content={content.description.document} />
         </Section>
 
         {experiences.length > 0 && (
@@ -106,7 +106,7 @@ export async function getServerSideProps({ params }) {
       notFound: true,
     };
   }
-
+console.log(homepageContent)
   return addApolloState(apolloClient, {
     props: {
       content: homepageContent,
