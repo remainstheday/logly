@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://Logly.world">
-    <img src="https://github.com/Logly-Studio/logly/blob/master/apps/frontend/Logo.png?raw=true" height="128">
+    <img src="https://github.com/Logly-Studio/logly/blob/master/apps/keystone-cms/Logo.png?raw=true" height="128">
     <h1 align="center">Logly Studio</h1>
   </a>
 </p>
