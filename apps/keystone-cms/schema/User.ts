@@ -8,7 +8,19 @@ import { defaults } from "./defaults";
 // todo: listen to stripe API for hasPaid
 export const User = list({
   fields: {
-    siteId: defaults.siteId,
+    siteId: text({
+      ui: {
+        createView: {
+          fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
+        },
+        itemView: {
+          fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
+        },
+        listView: {
+          fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
+        },
+      },
+    }),
     isAdmin: checkbox({
       defaultValue: false,
       ui: {

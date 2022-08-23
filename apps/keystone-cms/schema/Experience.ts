@@ -78,7 +78,7 @@ export const Experience = list({
   ui: {
     listView: {
       // These are the default columns that will be displayed in the list view
-      initialColumns: ["title", "status", "startDate", "endDate"],
+      initialColumns: ["title", "status", "siteId", "startDate", "endDate"],
     },
   },
   hooks: {
@@ -89,9 +89,6 @@ export const Experience = list({
       resolvedData,
       context,
     }) => {
-      if (operation === "delete") {
-        console.log(originalItem);
-      }
       if (item && resolvedData && resolvedData.relatedArtifacts) {
         const experience = await context.prisma.experience.findUnique({
           where: { id: item.id },
@@ -145,17 +142,13 @@ export const Experience = list({
     resolveInput: async ({ resolvedData, item, context }) => {
       const { title } = resolvedData;
       const experienceId = item ? item.id : resolvedData.id;
-      let siteId = resolvedData.siteId ? resolvedData.siteId : undefined;
+      let siteId = (item && item.siteId) ? item!.siteId : context.session.data.siteId;
       const url = resolvedData.title
           ? `/${siteId}/experiences/${convertStringToURL(title)}`
           : item!.url;
       const qrCodes = [
         { experienceId, url: `${process.env.FRONTEND_URL}${url}?social=true` },
       ];
-
-      if ((item === undefined || item.siteId === "") && resolvedData.siteId === undefined) {
-        siteId = context.session.data.siteId;
-      }
 
       return {
         ...resolvedData,

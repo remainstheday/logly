@@ -85,10 +85,10 @@ export const defaults = {
     isIndexed: "unique",
     ui: {
       createView: {
-        fieldMode: ({}) => "hidden",
+        fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
       },
       itemView: {
-        fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
+        fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
       },
       listView: {
         fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),

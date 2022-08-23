@@ -41,8 +41,10 @@ export default function Experience({
 
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1 className="experience-title">{experience.title}</h1>
+
+
             <h3>
-              {format(new Date(experience.startDate), "MMMM dd, yyyy")}
+              {experience.startDate && format(new Date(experience.startDate), "MMMM dd, yyyy")}
               {experience.endDate &&
                 ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
             </h3>

@@ -154,7 +154,7 @@ export default withAuth(
       url: process.env.DATABASE_URL!,
       idField: { kind: "uuid" },
       useMigrations: true,
-      enableLogging: false,
+      enableLogging: true,
       async onConnect(context) {
         const defaultSite = await context.prisma.site.count({
           where: { siteId: { equals: "logly-studio" } },
