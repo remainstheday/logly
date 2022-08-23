@@ -132,20 +132,24 @@ export const Artifact = list({
         }
       }
     },
+    // Programmatically set the siteId for newly created Artifacts.
+    // note: if an admin edits an existing artifact we should not change the siteId.
+    // note: when admins create new artifacts
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { relatedExperiences, title } = resolvedData;
-      const siteId = resolvedData.siteId
-        ? undefined
-        : context.session.data.siteId;
-      const artifactId = item ? item.id : resolvedData.id;
+      const { title } = resolvedData;
+      let siteId = resolvedData.siteId ? resolvedData.siteId : undefined;
       const url = resolvedData.title
-        ? `${convertStringToURL(title)}`
-        : undefined;
+          ? `${convertStringToURL(title)}`
+          : undefined;
+
+      if ((item === undefined || item.siteId === "") && resolvedData.siteId === undefined) {
+          siteId = context.session.data.siteId;
+      }
 
       return {
         ...resolvedData,
         url,
-        siteId,
+        siteId
       };
     },
   },

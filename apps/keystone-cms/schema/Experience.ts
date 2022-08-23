@@ -143,19 +143,19 @@ export const Experience = list({
       }
     },
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { relatedArtifacts, title } = resolvedData;
-
-      // these should return undefined if the data already exists so we don't mutate them
-      const siteId = resolvedData.siteId
-        ? undefined
-        : context.session.data.siteId;
-      const url = resolvedData.title
-        ? `/${siteId}/experiences/${convertStringToURL(title)}`
-        : item!.url;
+      const { title } = resolvedData;
       const experienceId = item ? item.id : resolvedData.id;
+      let siteId = resolvedData.siteId ? resolvedData.siteId : undefined;
+      const url = resolvedData.title
+          ? `/${siteId}/experiences/${convertStringToURL(title)}`
+          : item!.url;
       const qrCodes = [
         { experienceId, url: `${process.env.FRONTEND_URL}${url}?social=true` },
       ];
+
+      if ((item === undefined || item.siteId === "") && resolvedData.siteId === undefined) {
+        siteId = context.session.data.siteId;
+      }
 
       return {
         ...resolvedData,

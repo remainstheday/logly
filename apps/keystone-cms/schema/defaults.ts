@@ -101,7 +101,7 @@ export const defaults = {
         fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
       },
       itemView: {
-        fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
+        fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
       },
       listView: {
         fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
