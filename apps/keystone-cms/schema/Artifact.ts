@@ -137,14 +137,10 @@ export const Artifact = list({
     // note: when admins create new artifacts
     resolveInput: async ({ resolvedData, item, context }) => {
       const { title } = resolvedData;
-      let siteId = resolvedData.siteId ? resolvedData.siteId : undefined;
+      let siteId = (item && item.siteId) ? item!.siteId : context.session.data.siteId;
       const url = resolvedData.title
           ? `${convertStringToURL(title)}`
-          : undefined;
-
-      if ((item === undefined || item.siteId === "") && resolvedData.siteId === undefined) {
-          siteId = context.session.data.siteId;
-      }
+          : item!.url;
 
       return {
         ...resolvedData,

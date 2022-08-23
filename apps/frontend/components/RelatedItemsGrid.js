@@ -1,6 +1,5 @@
-import React from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
   if (!items || items.length < 1) return <></>;
@@ -22,7 +21,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
                   layout="fill"
                   placeholder="blur"
                   blurDataURL="/images/loading-skeleton.gif"
-                  src={item.image}
+                  src={item.image ? item.image : "/images/stock-museum-2.jpg"}
                   alt={item.title}
                 />
               </a>

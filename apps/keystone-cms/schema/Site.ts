@@ -12,34 +12,32 @@ export const Site = list({
     title: defaults.title,
     url: defaults.url,
   },
-  hooks: {  //`/${siteId}/experiences/${convertStringToURL(title)}`
+  hooks: {
     afterOperation: async ({
-                             item,
-                             operation,
-                             originalItem,
-                             resolvedData,
-                             context,
-                           }) => {
-
-        if(operation === 'create') {
-            await context.query.SiteContent.createOne({
-                data: {
-                    name: "About",
-                    title: `About ${resolvedData.title}`,
-                    url: `${resolvedData.url}/about`,
-                    siteId: resolvedData.siteId,
-                },
-            });
-            await context.query.SiteContent.createOne({
-                data: {
-                    name: "Home",
-                    title: resolvedData.title,
-                    url: resolvedData.url,
-                    siteId: resolvedData.siteId,
-                },
-            });
-        }
-
-    }
-  }
+      item,
+      operation,
+      originalItem,
+      resolvedData,
+      context,
+    }) => {
+      if (operation === "create") {
+        await context.query.SiteContent.createOne({
+          data: {
+            name: "About",
+            title: `About ${resolvedData.title}`,
+            url: `${resolvedData.url}/about`,
+            siteId: resolvedData.siteId,
+          },
+        });
+        await context.query.SiteContent.createOne({
+          data: {
+            name: "Home",
+            title: resolvedData.title,
+            url: resolvedData.url,
+            siteId: resolvedData.siteId,
+          },
+        });
+      }
+    },
+  },
 });
