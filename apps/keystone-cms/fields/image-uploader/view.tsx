@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FieldProps } from "@keystone-6/core/types";
 import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
 import { controller } from "@keystone-6/core/fields/types/text/views";
@@ -8,16 +8,33 @@ import { injectGlobal } from "@emotion/css";
 import { Global } from "@emotion/react";
 import { Styles } from "./Styles";
 import { Button } from "@keystone-ui/button";
+// import tailwindConfig from '../../tailwind.config';
+// import Head from "next/head";
+// import Script from "next/script";
+
+const styles = `
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+      @apply overflow-x-hidden
+  }
+}
+`
+
 
 export const Field = ({
   field,
   value,
   onChange,
 }: FieldProps<typeof controller>) => {
+  // const [isTailwindLoaded, setTailwindLoaded] = useState(typeof window !== 'undefined' && !!window?.tailwind)
   const handleFileUpload = async (file: FileList) => {
     await Promise.resolve(processCloudinaryFile(file[0])).then(
       (cloudinaryFile) => {
-        if (onChange)
+        if (onChange) {
           onChange({
             kind: "create",
             inner: {
@@ -25,6 +42,7 @@ export const Field = ({
               value: cloudinaryFile ? cloudinaryFile : "",
             },
           });
+        }
       }
     );
   };
@@ -40,17 +58,21 @@ export const Field = ({
   };
 
   return (
+      <>
+        {/*<script src="https://cdn.tailwindcss.com?plugins=forms,aspect-ratio"></script>*/}
+        {/*{isTailwindLoaded && <script>tailwind.config = {JSON.stringify(tailwindConfig)}</script>}*/}
+        {/*{isTailwindLoaded && <style type="text/tailwindcss">{styles}</style>}*/}
+        {/*<Script src="https://cdn.tailwindcss.com" onLoad={() => setTailwindLoaded(true)} />*/}
+
+
     <FieldContainer>
       <Global styles={Styles} />
       <FieldLabel>{field.label}</FieldLabel>
       {value.inner && value.inner?.value && (
         <>
-          <img
-            className="w-full object-center object-cover"
-            width="540"
-            height="360"
-            src={value.inner.value}
-          />
+          <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
+            <img style={{maxWidth: '100%'}} src={value.inner.value}/>
+          </div>
           <Button
             style={{ display: "block" }}
             tone="negative"
@@ -66,6 +88,7 @@ export const Field = ({
         />
       )}
     </FieldContainer>
+      </>
   );
 };
 
