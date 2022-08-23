@@ -80,7 +80,7 @@ export const Artifact = list({
   ui: {
     listView: {
       // These are the default columns that will be displayed in the list view
-      initialColumns: ["title", "status", "relatedExperiences"],
+      initialColumns: ["title", "status", "siteId", "relatedExperiences"],
     },
   },
 
