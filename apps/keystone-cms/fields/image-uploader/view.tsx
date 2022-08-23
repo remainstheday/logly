@@ -70,7 +70,7 @@ export const Field = ({
       <FieldLabel>{field.label}</FieldLabel>
       {value.inner && value.inner?.value && (
         <>
-          <div className="mt-16 mb-8 aspect-w-16 aspect-h-9">
+          <div className="mt-16 mb-8 aspect-w-16 aspect-h-9 max-w-full">
             <img style={{maxWidth: '100%'}} src={value.inner.value}/>
           </div>
           <Button

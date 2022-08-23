@@ -52,17 +52,25 @@ export default function ImageUploader({ onUpload }) {
     },
   });
 
+  const handleDeleteFile = (e) => {
+    e.preventDefault();
+    setUploadedImage([])
+  }
+
   const thumbs = uploadedImage.map((file) => (
     <div className="" key={file.name}>
       <div className="w-full min-h-80 overflow-hidden group-hover:opacity-75">
+        <div className="aspect-w-16 aspect-h-9">
         <Image
           src={file.preview}
-          className="w-full object-center object-cover"
-          width="366"
-          height="241"
+          layout="fill"
           alt={file.name}
         />
+        </div>
       </div>
+      <button className="bg-black px-4 my-4 rounded" onClick={handleDeleteFile}>
+        Change Image
+      </button>
     </div>
   ));
 
@@ -76,7 +84,7 @@ export default function ImageUploader({ onUpload }) {
 
   return (
     <>
-      {uploadedImage.length > 0 && <div>{thumbs}</div>}
+      {uploadedImage.length > 0 && <>{thumbs}</>}
       {uploadedImage.length === 0 && (
         <div {...getRootProps({ className: "dropzone" })}>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
