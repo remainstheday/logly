@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useDropzone } from "react-dropzone";
-import "pintura/pintura.css";
-import { openDefaultEditor } from "pintura";
 import Image from "next/image";
+import { openDefaultEditor } from "pintura";
+import "pintura/pintura.css";
+import { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 // This function is called when the user taps the edit button, it opens the editor and returns the modified file when done
 const editImage = (image, done) => {
@@ -54,22 +54,18 @@ export default function ImageUploader({ onUpload }) {
 
   const handleDeleteFile = (e) => {
     e.preventDefault();
-    setUploadedImage([])
-  }
+    setUploadedImage([]);
+  };
 
   const thumbs = uploadedImage.map((file) => (
     <div className="" key={file.name}>
       <div className="w-full min-h-80 overflow-hidden group-hover:opacity-75">
         <div className="aspect-w-16 aspect-h-9">
-        <Image
-          src={file.preview}
-          layout="fill"
-          alt={file.name}
-        />
+          <Image src={file.preview} layout="fill" alt={file.name} />
         </div>
       </div>
       <button className="bg-black px-4 my-4 rounded" onClick={handleDeleteFile}>
-        Change Image
+        Remove Image
       </button>
     </div>
   ));
