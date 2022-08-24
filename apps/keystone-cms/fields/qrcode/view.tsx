@@ -1,12 +1,12 @@
-import React from "react";
-import { FieldProps } from "@keystone-6/core/types";
-import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
-import { controller } from "@keystone-6/core/fields/types/json/views";
-import QRCode, { QRCodeCanvas } from "qrcode.react";
-import { useReactToPrint } from "react-to-print";
-import { Styles } from "./Styles";
 import { Global } from "@emotion/react";
+import { controller } from "@keystone-6/core/fields/types/json/views";
+import { FieldProps } from "@keystone-6/core/types";
 import { Button } from "@keystone-ui/button";
+import { FieldContainer } from "@keystone-ui/fields";
+import QRCode, { QRCodeCanvas } from "qrcode.react";
+import React from "react";
+import { Styles } from "./Styles";
+
 const saveSvgAsPng = require("save-svg-as-png");
 
 const imageOptions = {
@@ -15,10 +15,6 @@ const imageOptions = {
   backgroundColor: "white",
   width: 50,
   height: 50,
-};
-
-const truncateComment = (text: string) => {
-  return text.length > 75 ? text.slice(0, 75 - 1) + "..." : text;
 };
 
 export const Field = ({
