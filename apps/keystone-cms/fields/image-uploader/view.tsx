@@ -1,13 +1,13 @@
-import React from "react";
-import { FieldProps } from "@keystone-6/core/types";
-import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
-import { controller } from "@keystone-6/core/fields/types/text/views";
-import { processCloudinaryFile } from "../utils/processCloudinaryFile";
-import ImageUploader from "./ImageUploader";
 import { injectGlobal } from "@emotion/css";
 import { Global } from "@emotion/react";
-import { Styles } from "./Styles";
+import { controller } from "@keystone-6/core/fields/types/text/views";
+import { FieldProps } from "@keystone-6/core/types";
 import { Button } from "@keystone-ui/button";
+import { FieldContainer, FieldLabel } from "@keystone-ui/fields";
+import React from "react";
+import { processCloudinaryFile } from "../utils/processCloudinaryFile";
+import ImageUploader from "./ImageUploader";
+import { Styles } from "./Styles";
 // import tailwindConfig from '../../tailwind.config';
 // import Head from "next/head";
 // import Script from "next/script";
@@ -22,8 +22,7 @@ const styles = `
       @apply overflow-x-hidden
   }
 }
-`
-
+`;
 
 export const Field = ({
   field,
@@ -57,38 +56,50 @@ export const Field = ({
     }
   };
 
+  // @ts-ignore
   return (
-      <>
-        {/*<script src="https://cdn.tailwindcss.com?plugins=forms,aspect-ratio"></script>*/}
-        {/*{isTailwindLoaded && <script>tailwind.config = {JSON.stringify(tailwindConfig)}</script>}*/}
-        {/*{isTailwindLoaded && <style type="text/tailwindcss">{styles}</style>}*/}
-        {/*<Script src="https://cdn.tailwindcss.com" onLoad={() => setTailwindLoaded(true)} />*/}
+    <>
+      {/*<script src="https://cdn.tailwindcss.com?plugins=forms,aspect-ratio"></script>*/}
+      {/*{isTailwindLoaded && <script>tailwind.config = {JSON.stringify(tailwindConfig)}</script>}*/}
+      {/*{isTailwindLoaded && <style type="text/tailwindcss">{styles}</style>}*/}
+      {/*<Script src="https://cdn.tailwindcss.com" onLoad={() => setTailwindLoaded(true)} />*/}
 
-
-    <FieldContainer>
-      <Global styles={Styles} />
-      <FieldLabel>{field.label}</FieldLabel>
-      {value.inner && value.inner?.value && (
-        <>
-          <div className="mt-16 mb-8 aspect-w-16 aspect-h-9 max-w-full">
-            <img style={{maxWidth: '100%'}} src={value.inner.value}/>
-          </div>
-          <Button
-            style={{ display: "block" }}
-            tone="negative"
-            onClick={handleDeleteFile}
-          >
-            Delete Image
-          </Button>
-        </>
-      )}
-      {value.inner && value.inner.value.length === 0 && (
-        <ImageUploader
-          onUpload={(image: FileList) => handleFileUpload(image)}
-        />
-      )}
-    </FieldContainer>
-      </>
+      <FieldContainer>
+        <Global styles={Styles} />
+        <FieldLabel>{field.label}</FieldLabel>
+        {
+          // @ts-ignore
+          value.inner && value.inner?.value && (
+            <>
+              <div className="mt-16 mb-8 aspect-w-16 aspect-h-9 max-w-full">
+                <img
+                  style={{ maxWidth: "100%" }}
+                  src={
+                    // @ts-ignore
+                    value.inner?.value
+                  }
+                />
+              </div>
+              <Button
+                style={{ display: "block" }}
+                tone="negative"
+                onClick={handleDeleteFile}
+              >
+                Delete Image
+              </Button>
+            </>
+          )
+        }
+        {
+          // @ts-ignore
+          value.inner && value.inner.value.length === 0 && (
+            <ImageUploader
+              onUpload={(image: FileList) => handleFileUpload(image)}
+            />
+          )
+        }
+      </FieldContainer>
+    </>
   );
 };
 
