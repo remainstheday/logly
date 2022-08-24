@@ -1,7 +1,7 @@
 import { list } from "@keystone-6/core";
 import convertStringToURL from "../utils/convertStringToURL";
-import { defaults } from "./defaults";
 import { OperationAccess } from "./access";
+import { defaults } from "./defaults";
 
 require("dotenv").config();
 
@@ -136,16 +136,18 @@ export const Artifact = list({
     // note: if an admin edits an existing artifact we should not change the siteId.
     // note: when admins create new artifacts
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { title } = resolvedData;
-      let siteId = (item && item.siteId) ? item!.siteId : context.session.data.siteId;
-      const url = resolvedData.title
-          ? `${convertStringToURL(title)}`
-          : item!.url;
+      const { title, siteId } = resolvedData;
+      const updatedSiteId = siteId
+        ? siteId
+        : item && item.siteId
+        ? item.siteId
+        : context.session.data.siteId;
+      const url = title ? `${convertStringToURL(title)}` : item!.url;
 
       return {
         ...resolvedData,
         url,
-        siteId
+        siteId: updatedSiteId,
       };
     },
   },

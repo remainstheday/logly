@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function PublicHeader() {
   const [mobileMenu, updateMobileMenu] = useState(false);
@@ -36,7 +36,7 @@ export default function PublicHeader() {
                   <Link href={`/`} passHref>
                     <a className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
                       <img
-                        src="/Logo.png"
+                        src="/images/Logo.png"
                         alt="logly-logo"
                         width="25"
                         height="35"

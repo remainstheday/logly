@@ -1,24 +1,23 @@
-import BackLink from "components/BackLink";
-import Footer from "components/Footer";
-import Header from "components/Header";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 import {
   GET_ALL_COMMENTS,
   GET_ARTIFACTS,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
 } from "apollo/api";
-import React from "react";
-import SectionLink from "components/SectionLink";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import PageLoading from "components/PageLoading";
-import SocialForm from "components/SocialForm";
-import CommentCard from "components/CommentCard";
-import Section from "components/Section";
 import AudioPlayer from "components/AudioPlayer";
-import { DocumentRenderer } from "@keystone-6/document-renderer";
-import { useRouter } from "next/router";
-import RelatedItemsGrid from "components/RelatedItemsGrid";
+import BackLink from "components/BackLink";
+import CommentCard from "components/CommentCard";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import PageLoading from "components/PageLoading";
 import PosterImage from "components/PosterImage";
+import RelatedItemsGrid from "components/RelatedItemsGrid";
+import Section from "components/Section";
+import SectionLink from "components/SectionLink";
+import SocialForm from "components/SocialForm";
+import { useRouter } from "next/router";
 
 export default function Artifact({
   logo,
@@ -49,7 +48,7 @@ export default function Artifact({
             image={
               artifact.artifactImages
                 ? artifact.artifactImages
-                : "/stock-museum-1.jpg"
+                : "/images/stock-museum-1.jpg"
             }
             title={artifact.title}
           />

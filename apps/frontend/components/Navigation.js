@@ -11,7 +11,9 @@ export default function Navigation({ siteId, logo }) {
             <Link href={`/${siteId}`} passHref>
               <a className="text-sm font-bold leading-relaxed inline-block mr-4 whitespace-nowrap uppercase text-white">
                 <img
-                  src={logo && logo.siteLogo ? logo.siteLogo : "/Logo.png"}
+                  src={
+                    logo && logo.siteLogo ? logo.siteLogo : "/images/Logo.png"
+                  }
                   alt={siteId}
                   width={
                     logo && logo.logoWidth.length > 0 ? logo.logoWidth : 30

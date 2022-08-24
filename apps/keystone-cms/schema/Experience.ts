@@ -139,13 +139,23 @@ export const Experience = list({
         }
       }
     },
+    // If an experience is created without a siteId, assign the current user's siteId to the experience.
+    // if a siteIde already exists use that.
+    // if an admin manually enters a siteId on a new experience use that.
     resolveInput: async ({ resolvedData, item, context }) => {
-      const { title } = resolvedData;
+      const { title, siteId } = resolvedData;
+      console.log(resolvedData);
       const experienceId = item ? item.id : resolvedData.id;
-      let siteId = (item && item.siteId) ? item!.siteId : context.session.data.siteId;
-      const url = resolvedData.title
-          ? `/${siteId}/experiences/${convertStringToURL(title)}`
-          : item!.url;
+      const updatedSiteId = siteId
+        ? siteId
+        : item && item.siteId
+        ? item!.siteId
+        : context.session.data.siteId;
+
+      const url = title
+        ? `/${updatedSiteId}/experiences/${convertStringToURL(title)}`
+        : item!.url;
+
       const qrCodes = [
         { experienceId, url: `${process.env.FRONTEND_URL}${url}?social=true` },
       ];
@@ -154,7 +164,7 @@ export const Experience = list({
         ...resolvedData,
         qrCodes,
         url,
-        siteId,
+        siteId: updatedSiteId,
       };
     },
   },
