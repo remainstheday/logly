@@ -2,15 +2,11 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "apollo/apollo-client";
 
 import Script from "next/script";
-import { useEffect } from "react";
 import "styles/globals.css";
 import "styles/imports.css";
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
-  // const [formattedDate, setFormattedDate] = useState(new Date());
-
-  useEffect(() => setFormattedDate(new Date()), []);
 
   return (
     <ApolloProvider client={apolloClient}>
