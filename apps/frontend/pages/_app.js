@@ -13,18 +13,20 @@ export default function App({ Component, pageProps }) {
   const [formattedDate, setFormattedDate] = useState(null);
 
   useEffect(() => {
-    setFormattedDate(new Date().toLocaleDateString("en-US"));
+    setFormattedDate(new Date());
 
     const handleRouteChange = (url) => {
       gtag.pageview(url);
     };
     router.events.on("routeChangeComplete", handleRouteChange);
     router.events.on("hashChangeComplete", handleRouteChange);
+
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
       router.events.off("hashChangeComplete", handleRouteChange);
     };
   }, [router.events]);
+
   return (
     <ApolloProvider client={apolloClient}>
       {/* Global Site Tag (gtag.js) - Google Analytics */}
@@ -41,7 +43,7 @@ export default function App({ Component, pageProps }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', ${formattedDate});
             gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: ${router.pathname},
+              page_path: 'window.location.pathname',
             });
           `,
         }}

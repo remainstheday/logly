@@ -6,7 +6,11 @@ export default function Document() {
   const router = useRouter();
   const [formattedDate, setFormattedDate] = useState(null);
 
-  useEffect(() => setFormattedDate(new Date().toLocaleDateString("en-US")), []);
+  useEffect(() => {
+    console.log(router);
+    setFormattedDate(new Date());
+  }),
+    [];
   return (
     <Html>
       <Head>
@@ -22,7 +26,7 @@ export default function Document() {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', ${formattedDate});
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: ${router.pathname});
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: 'window.location.pathname'});
             `,
           }}
         />
