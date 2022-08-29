@@ -1,7 +1,9 @@
 import { Head, Html, Main, NextScript } from "next/document";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Document() {
+  const router = useRouter();
   const [formattedDate, setFormattedDate] = useState(null);
 
   useEffect(() => setFormattedDate(new Date().toLocaleDateString("en-US")), []);
@@ -20,7 +22,7 @@ export default function Document() {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', ${formattedDate});
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: window.location.pathname });
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { page_path: ${router.pathname});
             `,
           }}
         />

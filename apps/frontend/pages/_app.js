@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', ${formattedDate});
             gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
+              page_path: ${router.pathname},
             });
           `,
         }}
