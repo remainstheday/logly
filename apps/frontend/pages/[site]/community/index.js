@@ -21,10 +21,7 @@ export default function Community({ logo, comments = [] }) {
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
   const [formattedDate, setFormattedDate] = useState(null);
 
-  useEffect(
-    () => setFormattedDate(new Date(date).toLocaleDateString("en-US")),
-    []
-  );
+  useEffect(() => setFormattedDate(new Date()), []);
 
   const handleFormSubmit = async (username, comment) => {
     await Promise.resolve(processCloudinaryImage(uploadedImage)).then(
