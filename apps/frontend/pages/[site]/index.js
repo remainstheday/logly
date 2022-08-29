@@ -1,21 +1,20 @@
-import Footer from "components/Footer";
-import Header from "components/Header";
-import PageTitle from "components/PageTitle";
-import SectionLink from "components/SectionLink";
 import {
   GET_ALL_COMMENTS,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_CONTENT,
 } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import PageLoading from "components/PageLoading";
 import CommentCard from "components/CommentCard";
-import React from "react";
-import Section from "components/Section";
-import { useRouter } from "next/router";
-import PosterImage from "components/PosterImage";
 import DescriptionContent from "components/DescriptionContent";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import PageLoading from "components/PageLoading";
+import PageTitle from "components/PageTitle";
+import PosterImage from "components/PosterImage";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
+import Section from "components/Section";
+import SectionLink from "components/SectionLink";
+import { useRouter } from "next/router";
 
 export default function IndexPage({ content, experiences, comments }) {
   const { query, router } = useRouter();
@@ -106,7 +105,6 @@ export async function getServerSideProps({ params }) {
       notFound: true,
     };
   }
-console.log(homepageContent)
   return addApolloState(apolloClient, {
     props: {
       content: homepageContent,
