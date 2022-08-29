@@ -3,17 +3,17 @@ import { useApollo } from "apollo/apollo-client";
 import * as gtag from "config/gtag";
 import { useRouter } from "next/router";
 import Script from "next/script";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import "styles/globals.css";
 import "styles/imports.css";
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
   const router = useRouter();
-    const [formattedDate, setFormattedDate] = useState(null);
+  const [formattedDate, setFormattedDate] = useState(null);
 
   useEffect(() => {
-      setFormattedDate(new Date(date).toLocaleDateString("en-US")),
+    setFormattedDate(new Date(date).toLocaleDateString("en-US"));
 
     const handleRouteChange = (url) => {
       gtag.pageview(url);
