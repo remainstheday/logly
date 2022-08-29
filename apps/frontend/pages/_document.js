@@ -4,10 +4,7 @@ import { useEffect, useState } from "react";
 export default function Document() {
   const [formattedDate, setFormattedDate] = useState(null);
 
-  useEffect(
-    () => setFormattedDate(new Date(date).toLocaleDateString("en-US")),
-    []
-  );
+  useEffect(() => setFormattedDate(new Date().toLocaleDateString("en-US")), []);
   return (
     <Html>
       <Head>

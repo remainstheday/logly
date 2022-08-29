@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
   const [formattedDate, setFormattedDate] = useState(null);
 
   useEffect(() => {
-    setFormattedDate(new Date(date).toLocaleDateString("en-US"));
+    setFormattedDate(new Date().toLocaleDateString("en-US"));
 
     const handleRouteChange = (url) => {
       gtag.pageview(url);
