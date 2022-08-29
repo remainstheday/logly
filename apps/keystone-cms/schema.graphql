@@ -104,6 +104,7 @@ type Experience {
   startDate: DateTime
   endDate: DateTime
   experienceImages: String
+  altText: String
   description: Experience_description_Document
   relatedArtifacts(
     where: ArtifactWhereInput! = {}
@@ -143,6 +144,7 @@ input ExperienceWhereInput {
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   experienceImages: StringFilter
+  altText: StringFilter
   relatedArtifacts: ArtifactManyRelationFilter
   url: StringFilter
   siteId: StringFilter
@@ -179,6 +181,7 @@ input ExperienceOrderByInput {
   startDate: OrderDirection
   endDate: OrderDirection
   experienceImages: OrderDirection
+  altText: OrderDirection
   url: OrderDirection
   siteId: OrderDirection
 }
@@ -189,6 +192,7 @@ input ExperienceUpdateInput {
   startDate: DateTime
   endDate: DateTime
   experienceImages: String
+  altText: String
   description: JSON
   relatedArtifacts: ArtifactRelateToManyForUpdateInput
   url: String
@@ -214,6 +218,7 @@ input ExperienceCreateInput {
   startDate: DateTime
   endDate: DateTime
   experienceImages: String
+  altText: String
   description: JSON
   relatedArtifacts: ArtifactRelateToManyForCreateInput
   url: String
@@ -232,6 +237,8 @@ type Artifact {
   title: String
   artist: String
   artifactImages: String
+  caption: String
+  altText: String
   audioFile: String
   description: Artifact_description_Document
   relatedExperiences(
@@ -269,6 +276,8 @@ input ArtifactWhereInput {
   title: StringFilter
   artist: StringFilter
   artifactImages: StringFilter
+  caption: StringFilter
+  altText: StringFilter
   audioFile: StringFilter
   relatedExperiences: ExperienceManyRelationFilter
   url: StringFilter
@@ -294,6 +303,8 @@ input ArtifactOrderByInput {
   title: OrderDirection
   artist: OrderDirection
   artifactImages: OrderDirection
+  caption: OrderDirection
+  altText: OrderDirection
   audioFile: OrderDirection
   url: OrderDirection
   siteId: OrderDirection
@@ -304,6 +315,8 @@ input ArtifactUpdateInput {
   title: String
   artist: String
   artifactImages: String
+  caption: String
+  altText: String
   audioFile: String
   description: JSON
   relatedExperiences: ExperienceRelateToManyForUpdateInput
@@ -329,6 +342,8 @@ input ArtifactCreateInput {
   title: String
   artist: String
   artifactImages: String
+  caption: String
+  altText: String
   audioFile: String
   description: JSON
   relatedExperiences: ExperienceRelateToManyForCreateInput

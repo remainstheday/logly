@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { truncateComment } from "utils/truncateText";
 
 export default function CommentCard({ comment }) {
-  const [commentDate, setCommentDate] = useState(new Date(comment.timestamp));
+  const [commentDate, setCommentDate] = useState(null);
   const imageSource =
     comment.image.length > 0 ? comment.image : "/images/empty-comment-illu.png"; // TODO: pass experience image
   const site = comment.query.site;
   const experience = comment.query.experience || null;
   const artifact = comment.query.artifact || null;
 
-  useEffect(() => setCommentDate(new Date(comment.timestamp)));
+  useEffect(() => setCommentDate(new Date(comment.timestamp)), []);
   if (!comment) return <></>;
   return (
     <div className="bg-white max-w-sm my-8 mx-3 rounded overflow-hidden shadow-lg ">
@@ -30,7 +30,9 @@ export default function CommentCard({ comment }) {
           <span>
             <i className="text-gray-400 text-xs bottom-2">
               {`Comment by ${comment.username} on ${
-                comment.timestamp && format(commentDate, "MMM dd, yyyy")
+                comment.timestamp &&
+                commentDate &&
+                format(commentDate, "MMM dd, yyyy")
               }`}
             </i>
           </span>

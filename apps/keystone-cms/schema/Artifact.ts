@@ -11,6 +11,8 @@ export const Artifact = list({
     title: defaults.title,
     artist: defaults.artist,
     artifactImages: defaults.images("Artifact Image"),
+    caption: defaults.caption,
+    altText: defaults.altText,
     audioFile: defaults.audioFile,
     description: defaults.document,
     relatedExperiences: defaults.relatedExperiences,

@@ -55,6 +55,8 @@ export default function Artifact({
                 : "/images/stock-museum-1.jpg"
             }
             title={artifact.title}
+            altText={artifact.altText}
+            caption={artifact.caption}
           />
 
           {hasAudioFile && (

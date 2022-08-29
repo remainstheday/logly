@@ -27,17 +27,13 @@ export default function Experience({
   comments,
 }) {
   const { query, router } = useRouter();
-  const [formattedStartDate, setFormattedStartDate] = useState(
-    new Date(experience.startDate)
-  );
-  const [formattedEndDate, setFormattedEndDate] = useState(
-    new Date(experience.endDate)
-  );
+  const [formattedStartDate, setFormattedStartDate] = useState(null);
+  const [formattedEndDate, setFormattedEndDate] = useState(null);
 
   useEffect(() => {
     setFormattedStartDate(new Date(experience.startDate));
     setFormattedEndDate(new Date(experience.endDate));
-  });
+  }, []);
 
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
@@ -60,8 +56,10 @@ export default function Experience({
 
             <h3>
               {experience.startDate &&
+                formattedStartDate &&
                 format(formattedStartDate, "MMMM dd, yyyy")}
               {experience.endDate &&
+                formattedEndDate &&
                 ` - ${format(formattedEndDate, "MMM dd, yyyy")}`}
             </h3>
           </div>
