@@ -36,11 +36,14 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
           document
         }
         artifactImages
+        altText
+        caption
       }
       description {
         document
       }
       experienceImages
+      altText
       startDate
       endDate
       status
@@ -57,6 +60,8 @@ export const GET_ARTIFACTS = gql`
       url
       status
       siteId
+      caption
+      altText
       relatedExperiences {
         id
         title
@@ -70,6 +75,7 @@ export const GET_ARTIFACTS = gql`
           artifactImages
         }
         experienceImages
+        altText
         startDate
         endDate
         status

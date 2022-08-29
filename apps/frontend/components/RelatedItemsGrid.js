@@ -22,7 +22,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
                   placeholder="blur"
                   blurDataURL="/images/loading-skeleton.gif"
                   src={item.image ? item.image : "/images/stock-museum-2.jpg"}
-                  alt={item.title}
+                  alt={item.altText || item.title}
                 />
               </a>
             </Link>

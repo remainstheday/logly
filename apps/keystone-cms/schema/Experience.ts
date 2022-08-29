@@ -10,6 +10,7 @@ export const Experience = list({
     startDate: timestamp(),
     endDate: timestamp(),
     experienceImages: defaults.images("Experience Image"),
+    altText: defaults.altText,
     description: defaults.document,
     relatedArtifacts: relationship({
       ref: "Artifact.relatedExperiences",
@@ -144,7 +145,6 @@ export const Experience = list({
     // if an admin manually enters a siteId on a new experience use that.
     resolveInput: async ({ resolvedData, item, context }) => {
       const { title, siteId } = resolvedData;
-      console.log(resolvedData);
       const experienceId = item ? item.id : resolvedData.id;
       const updatedSiteId = siteId
         ? siteId

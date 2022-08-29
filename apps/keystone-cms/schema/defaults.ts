@@ -38,6 +38,8 @@ export const defaults = {
         itemView: { fieldMode: "edit" },
       },
     }),
+  caption: text({ label: "Image Caption" }),
+  altText: text({ label: "Image Alt Text" }),
   audioFile: text({
     ui: {
       views: require.resolve("../fields/audiofile/view.tsx"),
