@@ -1,16 +1,18 @@
-import React from "react";
-import { truncateComment } from "utils/truncateText";
 import { format } from "date-fns";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { truncateComment } from "utils/truncateText";
 
 export default function CommentCard({ comment }) {
-  if (!comment) return <></>;
+  const [commentDate, setCommentDate] = useState(new Date(comment.timestamp));
   const imageSource =
     comment.image.length > 0 ? comment.image : "/images/empty-comment-illu.png"; // TODO: pass experience image
   const site = comment.query.site;
   const experience = comment.query.experience || null;
   const artifact = comment.query.artifact || null;
 
+  useEffect(() => setCommentDate(new Date(comment.timestamp)));
+  if (!comment) return <></>;
   return (
     <div className="bg-white max-w-sm my-8 mx-3 rounded overflow-hidden shadow-lg ">
       <div className="aspect-w-16 aspect-h-9">
@@ -28,8 +30,7 @@ export default function CommentCard({ comment }) {
           <span>
             <i className="text-gray-400 text-xs bottom-2">
               {`Comment by ${comment.username} on ${
-                comment.timestamp &&
-                format(new Date(comment.timestamp), "MMM dd, yyyy")
+                comment.timestamp && format(commentDate, "MMM dd, yyyy")
               }`}
             </i>
           </span>
