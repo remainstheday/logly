@@ -1,16 +1,19 @@
-import "styles/imports.css";
-import "styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "apollo/apollo-client";
 import * as gtag from "config/gtag";
-import Script from "next/script";
 import { useRouter } from "next/router";
+import Script from "next/script";
 import { useEffect } from "react";
+import "styles/globals.css";
+import "styles/imports.css";
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
   const router = useRouter();
+  let gtagDate = undefined;
   useEffect(() => {
+    gtagDate = new Date();
+
     const handleRouteChange = (url) => {
       gtag.pageview(url);
     };
@@ -35,7 +38,7 @@ export default function App({ Component, pageProps }) {
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            gtag('js', ${gtagDate});
             gtag('config', '${gtag.GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
