@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 
 export default function PosterImage({ image, title }) {
@@ -8,7 +7,7 @@ export default function PosterImage({ image, title }) {
       <Image
         layout="fill"
         placeholder="blur"
-        blurDataURL="/loading-skeleton.gif"
+        blurDataURL="/images/loading-skeleton.gif"
         src={image}
         alt={title}
       />

@@ -1,9 +1,8 @@
-import React from "react";
-import Section from "components/Section";
-import PublicHeader from "components/PublicHeader";
 import PublicFooter from "components/PublicFooter";
+import PublicHeader from "components/PublicHeader";
+import Section from "components/Section";
 
-export default function PrivacyPolicy() {
+export default function TermsOfUse() {
   return (
     <>
       <PublicHeader />
@@ -186,7 +185,7 @@ export default function PrivacyPolicy() {
               Use the Site in a manner inconsistent with any applicable laws or
               regulations.{" "}
             </li>
-            <li>Engage in unauthorized framing of or linking to the Site. </li>
+            <li>Engage in unauthorized framing of or linking to the Site.</li>
             <li>
               Upload or transmit (or attempt to upload or to transmit) viruses,
               Trojan horses, or other material, including excessive use of

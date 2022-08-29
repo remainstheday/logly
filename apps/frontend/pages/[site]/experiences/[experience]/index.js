@@ -1,22 +1,22 @@
-import BackLink from "components/BackLink";
-import Footer from "components/Footer";
-import Header from "components/Header";
-import SectionLink from "components/SectionLink";
-import { format } from "date-fns";
+import { DocumentRenderer } from "@keystone-6/document-renderer";
 import {
   GET_ALL_COMMENTS,
   GET_EXPERIENCES_BY_SITE_ID,
   GET_SITE_LOGO,
 } from "apollo/api";
-import React from "react";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import PageLoading from "components/PageLoading";
-import SocialForm from "components/SocialForm";
-import Section from "components/Section";
+import BackLink from "components/BackLink";
 import CommentCard from "components/CommentCard";
-import { DocumentRenderer } from "@keystone-6/document-renderer";
-import { useRouter } from "next/router";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import PageLoading from "components/PageLoading";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
+import Section from "components/Section";
+import SectionLink from "components/SectionLink";
+import SocialForm from "components/SocialForm";
+import { format } from "date-fns";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Experience({
   logo,
@@ -31,6 +31,9 @@ export default function Experience({
 
   return (
     <div className="flex flex-col h-screen">
+      <Head>
+        <title>{experience.title}</title>
+      </Head>
       <Header siteId={query.site} logo={logo} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
@@ -42,9 +45,9 @@ export default function Experience({
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
             <h1 className="experience-title">{experience.title}</h1>
 
-
             <h3>
-              {experience.startDate && format(new Date(experience.startDate), "MMMM dd, yyyy")}
+              {experience.startDate &&
+                format(new Date(experience.startDate), "MMMM dd, yyyy")}
               {experience.endDate &&
                 ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
             </h3>

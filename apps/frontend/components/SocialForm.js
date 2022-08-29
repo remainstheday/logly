@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import ImageUploader from "components/ImageUploader";
 import { useMutation } from "@apollo/client";
-import ClientOnly from "components/ClientOnly";
-import { Formik } from "formik";
-import processCloudinaryImage from "utils/processCloudinaryImage";
 import { ADD_COMMENT } from "apollo/api";
+import ClientOnly from "components/ClientOnly";
+import ImageUploader from "components/ImageUploader";
+import { Formik } from "formik";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import processCloudinaryImage from "utils/processCloudinaryImage";
 
 export default function SocialForm({ query }) {
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
+  const [formattedDate, setFormattedDate] = useState(null);
+
+  useEffect(() => setFormattedDate(new Date()), []);
 
   const handleFormSubmit = async (username, comment) => {
     await Promise.resolve(processCloudinaryImage(uploadedImage)).then(
@@ -21,7 +24,7 @@ export default function SocialForm({ query }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             query,
             siteId: query.site,
-            timestamp: new Date(Date.now()),
+            timestamp: formattedDate,
           },
         });
       }

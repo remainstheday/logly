@@ -1,24 +1,27 @@
-import Header from "components/Header";
-import BackLink from "components/BackLink";
-import PageTitle from "components/PageTitle";
-import Footer from "components/Footer";
-import React, { useState } from "react";
-import { addApolloState, initializeApollo } from "apollo/apollo-client";
-import { ADD_COMMENT, GET_ALL_COMMENTS, GET_SITE_LOGO } from "apollo/api";
-import { Formik } from "formik";
-import ImageUploader from "components/ImageUploader";
-import ClientOnly from "components/ClientOnly";
-import processCloudinaryImage from "utils/processCloudinaryImage";
 import { useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
-import Section from "components/Section";
+import { ADD_COMMENT, GET_ALL_COMMENTS, GET_SITE_LOGO } from "apollo/api";
+import { addApolloState, initializeApollo } from "apollo/apollo-client";
+import BackLink from "components/BackLink";
+import ClientOnly from "components/ClientOnly";
 import CommentCard from "components/CommentCard";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import ImageUploader from "components/ImageUploader";
+import PageTitle from "components/PageTitle";
+import Section from "components/Section";
+import { Formik } from "formik";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import processCloudinaryImage from "utils/processCloudinaryImage";
 
 export default function Community({ logo, comments = [] }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
   const [addComment, { data, loading, error }] = useMutation(ADD_COMMENT);
+  const [formattedDate, setFormattedDate] = useState(null);
+
+  useEffect(() => setFormattedDate(new Date()), []);
 
   const handleFormSubmit = async (username, comment) => {
     await Promise.resolve(processCloudinaryImage(uploadedImage)).then(
@@ -30,7 +33,7 @@ export default function Community({ logo, comments = [] }) {
             image: cloudinaryImage ? cloudinaryImage : "",
             query,
             siteId: query.site,
-            timestamp: new Date(Date.now()),
+            timestamp: formattedDate,
           },
           onCompleted: (data) =>
             updateFilteredComments([data.createComment, ...comments]),

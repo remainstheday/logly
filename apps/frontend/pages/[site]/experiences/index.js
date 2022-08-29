@@ -1,20 +1,23 @@
 import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import BackLink from "components/BackLink";
-import React from "react";
-import PageTitle from "components/PageTitle";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
+import BackLink from "components/BackLink";
+import Footer from "components/Footer";
+import Header from "components/Header";
 import PageLoading from "components/PageLoading";
-import { useRouter } from "next/router";
-import Section from "components/Section";
+import PageTitle from "components/PageTitle";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
+import Section from "components/Section";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Experiences({ experiences, logo }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading siteId={query.site} />;
   return (
     <div className="flex flex-col h-screen">
+      <Head>
+        <title>{query.site} Experiences</title>
+      </Head>
       <Header siteId={query.site} logo={logo} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
