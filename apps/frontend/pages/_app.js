@@ -4,6 +4,7 @@ import { useApollo } from "apollo/apollo-client";
 import Script from "next/script";
 import "styles/globals.css";
 import "styles/imports.css";
+import ClientOnly from "../components/ClientOnly";
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
@@ -21,15 +22,17 @@ export default function App({ Component, pageProps }) {
         strategy="beforeInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=UA-212210451-1`}
       />
-      <Script id="gtag-init" strategy="beforeInteractive">
-        {`
+      <ClientOnly>
+        <Script id="gtag-init" strategy="beforeInteractive">
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
         
             gtag('config', 'UA-212210451-1');
         `}
-      </Script>
+        </Script>
+      </ClientOnly>
       <Component {...pageProps} />
     </ApolloProvider>
   );
