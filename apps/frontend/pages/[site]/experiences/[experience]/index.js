@@ -17,6 +17,7 @@ import SocialForm from "components/SocialForm";
 import { format } from "date-fns";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Experience({
   logo,
@@ -26,6 +27,18 @@ export default function Experience({
   comments,
 }) {
   const { query, router } = useRouter();
+  const [formattedStartDate, setFormattedStartDate] = useState(
+    new Date(experience.startDate)
+  );
+  const [formattedEndDate, setFormattedEndDate] = useState(
+    new Date(experience.endDate)
+  );
+
+  useEffect(() => {
+    setFormattedStartDate(new Date(experience.startDate));
+    setFormattedEndDate(new Date(experience.endDate));
+  });
+
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
 
@@ -47,9 +60,9 @@ export default function Experience({
 
             <h3>
               {experience.startDate &&
-                format(new Date(experience.startDate), "MMMM dd, yyyy")}
+                format(formattedStartDate, "MMMM dd, yyyy")}
               {experience.endDate &&
-                ` - ${format(new Date(experience.endDate), "MMM dd, yyyy")}`}
+                ` - ${format(formattedEndDate, "MMM dd, yyyy")}`}
             </h3>
           </div>
 
