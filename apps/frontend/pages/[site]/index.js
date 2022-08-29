@@ -14,6 +14,7 @@ import PosterImage from "components/PosterImage";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
 import SectionLink from "components/SectionLink";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function IndexPage({ content, experiences, comments }) {
@@ -25,6 +26,9 @@ export default function IndexPage({ content, experiences, comments }) {
 
   return (
     <div className="flex flex-col h-screen">
+      <Head>
+        <title>{content.title}</title>
+      </Head>
       <Header
         siteId={query.site}
         logo={{

@@ -2,11 +2,15 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "apollo/apollo-client";
 
 import Script from "next/script";
+import { useEffect, useState } from "react";
 import "styles/globals.css";
 import "styles/imports.css";
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps);
+  const [formattedDate, setFormattedDate] = useState(null);
+
+  useEffect(() => setFormattedDate(new Date()), []);
 
   return (
     <ApolloProvider client={apolloClient}>
@@ -25,7 +29,7 @@ export default function App({ Component, pageProps }) {
         {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+            gtag('js', ${formattedDate});
         
             gtag('config', 'UA-212210451-1');
         `}
