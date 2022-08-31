@@ -7,8 +7,11 @@ export default function PublicHeader() {
   return (
     <>
       <Head>
-        <title>Logly</title>
-        <meta name="description" content="Next generation museum tours" />
+        <title>Logly.world - A COMMUNITY, A CLASSROOM, AND AN ARCHIVE.</title>
+        <meta
+          name="description"
+          content="Logly cultural institutions to easily build digital guides and instantly create immersive experiences for guests."
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
@@ -25,6 +28,21 @@ export default function PublicHeader() {
           type="image/png"
           sizes="16x16"
           href="/favicon-16x16.png"
+        />
+        <meta property="og:url" content="https://logly.world" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Logly is a community, a classroom, and an archive."
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta
+          property="og:description"
+          content="Our platform enables cultural institutions to easily build digital guides and instantly create immersive experiences for guests. By providing an interactive space, visitors can share their thoughts with others — and cultural institutions can learn from their audience."
+        />
+        <meta
+          property="og:image"
+          content="https://logly.world/images/illu_5.png"
         />
       </Head>
       <header className="max-w-4xl px-6 lg:px-0 my-8 md:mx-auto pt-4 mx-auto md:mx-auto">
