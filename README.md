@@ -13,9 +13,14 @@ with the backend using [Postgres](https://www.postgresql.org/), [GraphQL](https:
 !!! Before running this project you need to have a postgresQL database to connect to.
 
 - `git clone https://github.com/Logly-Studio/logly.git`
-- inside the root directory
-  - `yarn install`
-  - `yarn dev`
+- `touch apps/keystone-cms/.env` (make sure to add the required environment variables)
+- `touch apps/frontend/.env.local` (make sure to add the required environment variables)
+- `yarn install`
+- `yarn dev`
+
+To Build the project:
+
+- `yarn build`
 
 ## Requirements
 
