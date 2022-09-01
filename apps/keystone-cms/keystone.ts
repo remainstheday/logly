@@ -173,7 +173,18 @@ export default withAuth(
       },
     },
     ui: {
-      isAccessAllowed: (context) => !!context.session?.data,
+      // isAccessAllowed: (context) => !!context.session?.data,
+      isAccessAllowed: ({ req, session }) => {
+        // skip access check for public pages
+        if (['/signup', '/custom-login'].includes((req as any)?.originalUrl)) {
+          return true;
+        }
+        // allow all logged in users
+        return !!session?.data;
+        // only allow admins
+        // return !!session?.data?.isAdmin;
+      },
+      publicPages: ['/custom-login']
     },
     lists: {
       Site,
