@@ -10,7 +10,7 @@ with the backend using [Postgres](https://www.postgresql.org/), [GraphQL](https:
 
 ## Quickstart
 
-!!! Before running this project you need to have a postgresQL database to connect to.
+> :warning: Before running this project you need to have a running postgresQL database AND proper environment variables.
 
 - `git clone https://github.com/Logly-Studio/logly.git`
 - `touch apps/keystone-cms/.env` (make sure to add the required environment variables)
