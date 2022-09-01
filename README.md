@@ -14,7 +14,8 @@ with the backend using [Postgres](https://www.postgresql.org/), [GraphQL](https:
 
 - `git clone https://github.com/Logly-Studio/logly.git`
 - `touch apps/keystone-cms/.env` (make sure to add the required environment variables)
-- `touch apps/frontend/.env.local` (make sure to add the required environment variables)
+- `touch apps/frontend/.env.local`
+- add the following line to `.env.local` `NEXT_PUBLIC_GRAPHQL_URL='http://localhost:3000/api/graphql'`
 - `yarn install`
 - `yarn dev`
 
@@ -35,12 +36,14 @@ In order to run this project locally you will need a `.env` file in the root dir
 `.env`:
 
 ```dotenv
-SESSION_SECRET=
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_KEY=
-CLOUDINARY_SECRET=
+SESSION_SECRET=xxxxxxxxxxxxxxx
 DATABASE_PROVIDER=postgresql
-DATABASE_URL=
+CLOUDINARY_SECRET=xxxxxxxxxxxxxx
+CLOUDINARY_KEY=xxxxxxxxxxxxxx
+CLOUDINARY_CLOUD_NAME=xxxxxxx
+FRONTEND_URL=http://localhost:3001
+DATABASE_URL=postgresql://<insert system user name>:@localhost:5432/postgres?schema=public
+ADMIN_PASSWORD=testpassword123
 ```
 
 `.env.local`:
