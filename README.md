@@ -52,27 +52,6 @@ ADMIN_PASSWORD=testpassword123
 API_URL='http://localhost:3000/api/graphql'
 ```
 
-## Getting Started
-
-> ✅ Make sure you have the correct environment variables
-
-With our environment variables in place we can start the project using the following commands:
-
-```Bash
-yarn dev # starts Keystone in development mode on localhost:3000
-```
-
-That will run Keystone but we also need to boot up the Next.js app:
-
-```Bash
-cd frontend/
-yarn dev
-```
-
-## Vercel & Railway hosting
-
-Since the Keystone code runs on a Node.js server we use Railway for hosting the admin CMS and Database. All images and assets are hosted in Cloudinary with the static front-end pages hosted on Vercel.
-
 ## Cloudinary API
 
 Cloudinary is used to host all uploaded assets.
