@@ -7,9 +7,7 @@ import PublicFooter from "components/PublicFooter";
 import { ArrowForwardOutline } from "react-ionicons";
 import Link from "next/link";
 
-const customLoader = ({ src }) => {
-  return src;
-};
+
 
 export default function IndexPage() {
   return (
@@ -51,7 +49,8 @@ export default function IndexPage() {
 
             <div className="block -mt-12 text-right hidden sm:block">
               <Image
-                loader={customLoader}
+                placeholder="blur"
+                blurDataURL="/images/loading-skeleton.gif"
                 src="/images/illu_5.png"
                 alt="logly-illustration"
                 width="350"
@@ -68,7 +67,6 @@ export default function IndexPage() {
             <div className="w-full mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
-                  loader={customLoader}
                   src="/images/mobile-logly-homepage.png"
                   alt="logly-logo"
                   width="175"
@@ -81,7 +79,7 @@ export default function IndexPage() {
             <div className="mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
-                  loader={customLoader}
+                   
                   src="/images/mobile-logly-experiences.png"
                   alt="logly-logo"
                   width="175"
@@ -93,7 +91,7 @@ export default function IndexPage() {
             <div className="mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
-                  loader={customLoader}
+                   
                   src="/images/mobile-logly-community.png"
                   alt="logly-logo"
                   width="175"
@@ -121,7 +119,7 @@ export default function IndexPage() {
             <div className="flex flex-col sm:flex-row mt-12">
               <div className="block text-center order-2 sm:order-1 sm:w-1/2">
                 <Image
-                  loader={customLoader}
+                   
                   src="/images/homepage-desktop-admin-3.png"
                   alt="logly admin interface"
                   width="425"
@@ -139,7 +137,7 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-right hidden sm:block">
                   <Image
-                    loader={customLoader}
+                     
                     src="/images/illu_1.png"
                     alt="logly illustration 1"
                     width="350"
@@ -160,7 +158,7 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-left hidden sm:block">
                   <Image
-                    loader={customLoader}
+                    
                     src="/images/illu_2.png"
                     alt="logly illustration 2"
                     width="350"
@@ -170,7 +168,7 @@ export default function IndexPage() {
               </div>
               <div className="block text-center sm:w-1/2">
                 <Image
-                  loader={customLoader}
+                  
                   src="/images/homepage-desktop-admin-1.png"
                   alt="logly-logo"
                   width="425"
@@ -190,7 +188,7 @@ export default function IndexPage() {
             <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
               <div className="block text-center sm:w-1/2 order-2 sm:order-1">
                 <Image
-                  loader={customLoader}
+                   
                   src="/images/homepage-desktop-admin-2.png"
                   alt="logly-logo"
                   width="425"
@@ -207,7 +205,7 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-right hidden sm:block">
                   <Image
-                    loader={customLoader}
+                     
                     src="/images/illu_3.png"
                     alt="logly illustration 3"
                     width="350"
