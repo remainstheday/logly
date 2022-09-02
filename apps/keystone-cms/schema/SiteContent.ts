@@ -1,7 +1,7 @@
 import { list } from "@keystone-6/core";
 import { json, text } from "@keystone-6/core/fields";
-import { defaults } from "./defaults";
 import { OperationAccess } from "./access";
+import { defaults } from "./defaults";
 
 export const SiteContent = list({
   fields: {
@@ -64,12 +64,11 @@ export const SiteContent = list({
   access: {
     operation: {
       query: OperationAccess.anyone,
-      create: ({ session }) =>
-          !!session?.data.isAdmin || !!session?.data.siteId,
+      create: OperationAccess.anyone,
       update: ({ session }) =>
-          !!session?.data.isAdmin || !!session?.data.siteId,
+        !!session?.data.isAdmin || !!session?.data.siteId,
       delete: ({ session }) =>
-          !!session?.data.isAdmin || !!session?.data.siteId,
+        !!session?.data.isAdmin || !!session?.data.siteId,
     },
     item: {
       create: () => true,

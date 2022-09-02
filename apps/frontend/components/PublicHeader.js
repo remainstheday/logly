@@ -45,7 +45,7 @@ export default function PublicHeader() {
           content="https://logly.world/images/illu_5.png"
         />
       </Head>
-      <header className="max-w-4xl px-6 lg:px-0 my-8 md:mx-auto pt-4 mx-auto md:mx-auto">
+      <header className="max-w-4xl px-6 lg:px-0 my-8 pt-4 mx-auto md:mx-auto">
         <div className="flex flex-wrap pt-2">
           <div className="w-full">
             <nav className="relative flex items-center justify-between py-3 w-full rounded">
@@ -76,7 +76,7 @@ export default function PublicHeader() {
                     mobileMenu ? "visible" : "invisible"
                   } flex pr-6 bg-white absolute pt-6 w-1/2 sm:w-1/3 h-screen right-0 top-12 z-10 lg:visible lg:static lg:pt-0 lg:w-auto lg:h-auto lg:pr-0 lg:flex-grow`}
                 >
-                  <ul className="flex flex-col lg:flex-row list-none ml-auto text-right text-right space-x-12">
+                  <ul className="flex flex-col lg:flex-row list-none ml-auto text-right space-x-12">
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75 ">
                       <Link href="/contact" passHref>
                         <a className="text-right">Contact</a>
