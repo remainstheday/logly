@@ -5,8 +5,10 @@
   </a>
 </p>
 
-Logly is a digital space for museums & their communities to connect, share, and create. This project is primarily built on [Keystone 6](https://keystonejs.com/) and [Next.js](https://nextjs.org/)
-with the backend using [Postgres](https://www.postgresql.org/), [GraphQL](https://graphql.org/), & [Apollo](https://www.apollographql.com/).
+Logly is a digital space for museums & their communities to connect, share, and create. This project is primarily built
+on [Keystone 6](https://keystonejs.com/) and [Next.js](https://nextjs.org/)
+with the backend using [Postgres](https://www.postgresql.org/), [GraphQL](https://graphql.org/),
+& [Apollo](https://www.apollographql.com/).
 
 ## Quickstart
 
@@ -31,7 +33,8 @@ This codebase requires the following items before you can run the project locall
 - **Cloudinary API token**. We use this for hosting any uploaded assets.
 - **environment variables**. See below
 
-In order to run this project locally you will need a `.env` file in the root directory `/` AND a `.env.local` file inside `frontend/` with the following items:
+In order to run this project locally you will need a `.env` file in the root directory `/` AND a `.env.local` file
+inside `frontend/` with the following items:
 
 `.env`:
 
@@ -66,4 +69,5 @@ Next.js is an ideal React.js micro-framework for rendering SEO friendly static w
 
 ## Keystone.js
 
-For Logly's admin UI we are using a javascript based CMS called Keystone. Keystone CMS has extensive documentation and a very active community for finding support.
+For Logly's admin UI we are using a javascript based CMS called Keystone. Keystone CMS has extensive documentation and a
+very active community for finding support.
