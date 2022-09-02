@@ -28,11 +28,7 @@ export default withAuth(
   config({
     server: {
       cors: {
-        origin: [
-          `${process.env.FRONTEND_URL}`,
-          `${process.env.WEBSITE_URL}`,
-          "http://localhost:3001/register",
-        ],
+        origin: [`${process.env.FRONTEND_URL}`, `${process.env.WEBSITE_URL}`],
         credentials: true,
       },
       extendExpressApp: (app, createContext) => {
