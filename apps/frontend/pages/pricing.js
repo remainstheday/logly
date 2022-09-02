@@ -29,7 +29,7 @@ export default function Pricing() {
               <h3 className="font-bold text-1xl my-4">
                 $99/month (or save with annual billing)
               </h3>
-              <Link href="/contact">
+              <Link href="/register">
                 <a
                   style={{ backgroundColor: "#002FA7" }}
                   className="w-44 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -62,7 +62,7 @@ export default function Pricing() {
                 us help you realize your vision.
               </i>
               <br />
-              <Link href="/contact">
+              <Link href="/register">
                 <a
                   style={{ backgroundColor: "#002FA7" }}
                   className="w-44 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
