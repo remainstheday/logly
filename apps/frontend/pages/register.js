@@ -1,9 +1,9 @@
-import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
-import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
-import PublicHeader from "components/PublicHeader";
 import PublicFooter from "components/PublicFooter";
+import PublicHeader from "components/PublicHeader";
+import { Field, Form, Formik } from "formik";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import * as Yup from "yup";
 
 const registrationSchema = Yup.object().shape({
   name: Yup.string()
@@ -32,17 +32,20 @@ export default function Register() {
   const postFormData = async (values, setSubmitting) => {
     setUserErrors(null);
     setLoading(true);
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newUser`, {
+    const formData = {
+      siteId: values.siteId.trim(),
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    };
+
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/restapi/newUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
-      body: JSON.stringify({
-        siteId: values.siteId,
-        name: values.name,
-        email: values.email,
-        password: values.password,
-      }),
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
