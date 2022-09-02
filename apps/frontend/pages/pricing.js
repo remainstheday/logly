@@ -34,7 +34,7 @@ export default function Pricing() {
                   style={{ backgroundColor: "#002FA7" }}
                   className="w-44 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                  Get in Touch
+                  Sign Up Now
                 </a>
               </Link>
               {/*<Link href="/register" passHref>*/}
@@ -67,7 +67,7 @@ export default function Pricing() {
                   style={{ backgroundColor: "#002FA7" }}
                   className="w-44 text-center block hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 >
-                  Get in Touch
+                  Sign Up Now
                 </a>
               </Link>
             </div>
