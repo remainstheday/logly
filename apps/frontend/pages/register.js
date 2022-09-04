@@ -22,6 +22,10 @@ const registrationSchema = Yup.object().shape({
   password: Yup.string()
     .min(8, "Passwords must be at least 8 characters")
     .required(" *Required"),
+  passwordConfirmation: Yup.string()
+    .oneOf([Yup.ref("password"), null], " *passwords must match")
+    .min(8, "Passwords must be at least 8 characters")
+    .required(" *Required"),
   terms: Yup.boolean().oneOf([true], " *Required").required(" *Required"),
 });
 export default function Register() {
@@ -103,6 +107,7 @@ export default function Register() {
               email: "",
               emailConfirmation: "",
               password: "",
+              passwordConfirmation: "",
               terms: false,
             }}
             validationSchema={registrationSchema}
@@ -205,6 +210,26 @@ export default function Register() {
                     name="password"
                     onChange={(e) => handleChange(e)}
                     value={values.password}
+                  />
+
+                  <label
+                    className="block text-gray-700 text-sm font-bold"
+                    htmlFor="passwordConfirmation"
+                  >
+                    Confirm Password
+                    {errors.passwordConfirmation &&
+                    touched.passwordConfirmation ? (
+                      <span className="text-red-600">
+                        {errors.passwordConfirmation}
+                      </span>
+                    ) : null}
+                  </label>
+                  <input
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                    type="password"
+                    name="passwordConfirmation"
+                    onChange={(e) => handleChange(e)}
+                    value={values.passwordConfirmation}
                   />
 
                   <div className="my-4">
