@@ -14,7 +14,7 @@ import { useRouter } from '@keystone-6/core/admin-ui/router';
 import { LoadingDots } from '@keystone-ui/loading';
 import { useRedirect } from '@keystone-6/auth/src/lib/useFromRedirect';
 
-export default function CustomLogin () {
+export default function Login () {
   const mutationName = 'authenticateUserWithPassword'
   const identityField = "email"
   const secretField = "password"

@@ -176,7 +176,7 @@ export default withAuth(
       // isAccessAllowed: (context) => !!context.session?.data,
       isAccessAllowed: ({ req, session }) => {
         // skip access check for public pages
-        if (['/signup', '/custom-login'].includes((req as any)?.originalUrl)) {
+        if (['/signup', '/login'].includes((req as any)?.originalUrl)) {
           return true;
         }
         // allow all logged in users
@@ -184,7 +184,7 @@ export default withAuth(
         // only allow admins
         // return !!session?.data?.isAdmin;
       },
-      publicPages: ['/custom-login']
+      publicPages: ['/login']
     },
     lists: {
       Site,
