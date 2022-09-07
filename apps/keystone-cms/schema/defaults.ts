@@ -10,6 +10,15 @@ import { document } from "@keystone-6/fields-document";
 export const defaults = {
   artist: text({ validation: { isRequired: true } }),
   title: text({ label: "Page Title", validation: { isRequired: true } }),
+  dateCreated: timestamp({
+    defaultValue: { kind: "now" },
+    validation: { isRequired: true },
+    ui: {
+      createView: { fieldMode: "hidden" },
+      listView: { fieldMode: "read" },
+      itemView: { fieldMode: "read" },
+    },
+  }),
   qrCodes: json({
     defaultValue: [],
     ui: {

@@ -7,6 +7,7 @@ export const Experience = list({
   fields: {
     status: defaults.status,
     title: defaults.title,
+    dateCreated: defaults.dateCreated,
     startDate: timestamp(),
     endDate: timestamp(),
     experienceImages: defaults.images("Experience Image"),
@@ -79,7 +80,14 @@ export const Experience = list({
   ui: {
     listView: {
       // These are the default columns that will be displayed in the list view
-      initialColumns: ["title", "status", "siteId", "startDate", "endDate"],
+      initialColumns: [
+        "title",
+        "status",
+        "siteId",
+        "startDate",
+        "endDate",
+        "dateCreated",
+      ],
     },
   },
   hooks: {

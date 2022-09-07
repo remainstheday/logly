@@ -101,6 +101,7 @@ type Experience {
   id: ID!
   status: ExperienceStatusType
   title: String
+  dateCreated: DateTime
   startDate: DateTime
   endDate: DateTime
   experienceImages: String
@@ -141,6 +142,7 @@ input ExperienceWhereInput {
   id: IDFilter
   status: ExperienceStatusTypeNullableFilter
   title: StringFilter
+  dateCreated: DateTimeFilter
   startDate: DateTimeNullableFilter
   endDate: DateTimeNullableFilter
   experienceImages: StringFilter
@@ -155,6 +157,17 @@ input ExperienceStatusTypeNullableFilter {
   in: [ExperienceStatusType!]
   notIn: [ExperienceStatusType!]
   not: ExperienceStatusTypeNullableFilter
+}
+
+input DateTimeFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeFilter
 }
 
 input DateTimeNullableFilter {
@@ -178,6 +191,7 @@ input ExperienceOrderByInput {
   id: OrderDirection
   status: OrderDirection
   title: OrderDirection
+  dateCreated: OrderDirection
   startDate: OrderDirection
   endDate: OrderDirection
   experienceImages: OrderDirection
@@ -189,6 +203,7 @@ input ExperienceOrderByInput {
 input ExperienceUpdateInput {
   status: ExperienceStatusType
   title: String
+  dateCreated: DateTime
   startDate: DateTime
   endDate: DateTime
   experienceImages: String
@@ -215,6 +230,7 @@ input ExperienceUpdateArgs {
 input ExperienceCreateInput {
   status: ExperienceStatusType
   title: String
+  dateCreated: DateTime
   startDate: DateTime
   endDate: DateTime
   experienceImages: String
@@ -235,6 +251,7 @@ type Artifact {
   id: ID!
   status: ArtifactStatusType
   title: String
+  dateCreated: DateTime
   artist: String
   artifactImages: String
   caption: String
@@ -274,6 +291,7 @@ input ArtifactWhereInput {
   id: IDFilter
   status: ArtifactStatusTypeNullableFilter
   title: StringFilter
+  dateCreated: DateTimeFilter
   artist: StringFilter
   artifactImages: StringFilter
   caption: StringFilter
@@ -301,6 +319,7 @@ input ArtifactOrderByInput {
   id: OrderDirection
   status: OrderDirection
   title: OrderDirection
+  dateCreated: OrderDirection
   artist: OrderDirection
   artifactImages: OrderDirection
   caption: OrderDirection
@@ -313,6 +332,7 @@ input ArtifactOrderByInput {
 input ArtifactUpdateInput {
   status: ArtifactStatusType
   title: String
+  dateCreated: DateTime
   artist: String
   artifactImages: String
   caption: String
@@ -340,6 +360,7 @@ input ArtifactUpdateArgs {
 input ArtifactCreateInput {
   status: ArtifactStatusType
   title: String
+  dateCreated: DateTime
   artist: String
   artifactImages: String
   caption: String

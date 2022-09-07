@@ -23,6 +23,7 @@ model Experience {
   id               String               @id @default(uuid()) @postgresql.Uuid
   status           ExperienceStatusType @default(draft)
   title            String               @default("")
+  dateCreated      DateTime             @default(now())
   startDate        DateTime?
   endDate          DateTime?
   experienceImages String               @default("")
@@ -38,6 +39,7 @@ model Artifact {
   id                 String             @id @default(uuid()) @postgresql.Uuid
   status             ArtifactStatusType @default(draft)
   title              String             @default("")
+  dateCreated        DateTime           @default(now())
   artist             String             @default("")
   artifactImages     String             @default("")
   caption            String             @default("")
