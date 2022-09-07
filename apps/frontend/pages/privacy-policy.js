@@ -18,6 +18,7 @@ export default function PrivacyPolicy() {
             <a href="https://logly.world">https://logly.world</a>, and other
             sites we own and operate.{" "}
           </p>
+          <br></br>
           <p>
             This policy is effective as of 29 June 2022 and was last updated on
             29 June 2022.{" "}
@@ -41,6 +42,7 @@ export default function PrivacyPolicy() {
             technical details that occur in conjunction with any errors you may
             encounter.{" "}
           </p>
+          <br></br>
           <p>
             Please be aware that while this information may not be personally
             identifying by itself, it may be possible to combine it with other
@@ -83,6 +85,7 @@ export default function PrivacyPolicy() {
             following purposes, and personal information will not be further
             processed in a manner that is incompatible with these purposes:{" "}
           </p>
+          <br></br>
           <p>
             Please be aware that we may combine information we collect about you
             with general information or research data we receive from other
@@ -96,6 +99,7 @@ export default function PrivacyPolicy() {
             acceptable means to prevent loss and theft, as well as unauthorized
             access, disclosure, copying, use, or modification.{" "}
           </p>
+          <br></br>
           <p>
             Although we will do our best to protect the personal information you
             provide to us, we advise that no method of electronic transmission
@@ -103,6 +107,7 @@ export default function PrivacyPolicy() {
             security. We will comply with laws applicable to us in respect of
             any data breach.{" "}
           </p>
+          <br></br>
           <p>
             You are responsible for selecting any password and its overall
             security strength, ensuring the security of your own information
@@ -119,6 +124,7 @@ export default function PrivacyPolicy() {
             information is no longer required, we will delete it or make it
             anonymous by removing all details that identify you.{" "}
           </p>
+          <br></br>
           <p>
             However, if necessary, we may retain your personal information for
             our compliance with a legal, accounting, or reporting obligation or
@@ -192,6 +198,7 @@ export default function PrivacyPolicy() {
             retain the right to request details of any personal information we
             hold about you.{" "}
           </p>
+          <br></br>
           <p>
             If we receive personal information about you from a third party, we
             will protect it as set out in this privacy policy. If you are a
@@ -199,6 +206,7 @@ export default function PrivacyPolicy() {
             represent and warrant that you have such persons consent to provide
             the personal information to us.{" "}
           </p>
+          <br></br>
           <p>
             If you have previously agreed to us using your personal information
             for direct marketing purposes, you may change your mind at any time.
@@ -207,6 +215,7 @@ export default function PrivacyPolicy() {
             need to request specific information from you to help us confirm
             your identity.{" "}
           </p>
+          <br></br>
           <p>
             If you believe that any information we hold about you is inaccurate,
             out of date, incomplete, irrelevant, or misleading, please contact
@@ -214,6 +223,7 @@ export default function PrivacyPolicy() {
             reasonable steps to correct any information found to be inaccurate,
             incomplete, misleading, or out of date.{" "}
           </p>
+          <br></br>
           <p>
             If you believe that we have breached a relevant data protection law
             and wish to make a complaint, please contact us using the details
