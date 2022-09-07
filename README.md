@@ -53,7 +53,7 @@ ADMIN_PASSWORD=testpassword123
 
 ```dotenv
 API_URL='http://localhost:3000/api/graphql'
-CMS_URL='http://locolhost:3000'
+NEXT_PUBLIC_CMS_URL='http://localhost:3000'
 NEXT_PUBLIC_GRAPHQL_URL='http://localhost:3000/api/graphql'
 ```
 

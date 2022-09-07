@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function PublicHeader() {
   const [mobileMenu, updateMobileMenu] = useState(false);
+  console.log('NEXT_PUBLIC_CMS_URL', process.env.NEXT_PUBLIC_CMS_URL);
   return (
     <>
       <Head>
@@ -98,9 +99,9 @@ export default function PublicHeader() {
                       </Link>
                     </li>
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
-                      <Link href={`${process.env.CMS_URL}/custom-login`} passHref>
-                        <a>Login</a>
-                      </Link>
+                      <a href={`${process.env.NEXT_PUBLIC_CMS_URL}/custom-login`} >
+                        Login
+                      </a>
                     </li>
                   </ul>
                 </div>
