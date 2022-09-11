@@ -9,6 +9,7 @@ export const Artifact = list({
   fields: {
     status: defaults.status,
     title: defaults.title,
+    dateCreated: defaults.dateCreated,
     artist: defaults.artist,
     artifactImages: defaults.images("Artifact Image"),
     caption: defaults.caption,
@@ -82,7 +83,13 @@ export const Artifact = list({
   ui: {
     listView: {
       // These are the default columns that will be displayed in the list view
-      initialColumns: ["title", "status", "siteId", "relatedExperiences"],
+      initialColumns: [
+        "title",
+        "status",
+        "siteId",
+        "relatedExperiences",
+        "dateCreated",
+      ],
     },
   },
 

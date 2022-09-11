@@ -21,9 +21,9 @@ export default function TermsOfUse() {
             States and have our registered office at 2627 W Walton St #3,
             Chicago, IL 60622, USA, Chicago, IL 60622. You agree that by
             accessing the Site, you have read, understood, and agree to be bound
-            by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE
+            by all of these Terms of Use. <br></br> <br></br>  IF YOU DO NOT AGREE WITH ALL OF THESE
             TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE
-            AND YOU MUST DISCONTINUE USE IMMEDIATELY. Supplemental terms and
+            AND YOU MUST DISCONTINUE USE IMMEDIATELY. <br></br> <br></br>Supplemental terms and
             conditions or documents that may be posted on the Site from time to
             time are hereby expressly incorporated herein by reference. We
             reserve the right, in our sole discretion, to make changes or
@@ -35,7 +35,7 @@ export default function TermsOfUse() {
             apply. You will be subject to, and will be deemed to have been made
             aware of and to have accepted, the changes in any revised Terms of
             Use by your continued use of the Site after the date such revised
-            Terms of Use are posted. The information provided on the Site is not
+            Terms of Use are posted.<br></br> <br></br> The information provided on the Site is not
             intended for distribution to or use by any person or entity in any
             jurisdiction or country where such distribution or use would be
             contrary to law or regulation or which would subject us to any
@@ -43,12 +43,12 @@ export default function TermsOfUse() {
             Accordingly, those persons who choose to access the Site from other
             locations do so on their own initiative and are solely responsible
             for compliance with local laws, if and to the extent local laws are
-            applicable. The Site is not tailored to comply with
+            applicable. <br></br> <br></br>The Site is not tailored to comply with
             industry-specific regulations (Health Insurance Portability and
             Accountability Act (HIPAA), Federal Information Security Management
             Act (FISMA), etc.), so if your interactions would be subjected to
             such laws, you may not use this Site. You may not use the Site in a
-            way that would violate the Gramm-Leach-Bliley Act (GLBA). The Site
+            way that would violate the Gramm-Leach-Bliley Act (GLBA). <br></br> <br></br>The Site
             is intended for users who are at least 18 years old. Persons under
             the age of 18 are not permitted to use or register for the Site.
           </p>
@@ -71,7 +71,7 @@ export default function TermsOfUse() {
             aggregated, republished, uploaded, posted, publicly displayed,
             encoded, translated, transmitted, distributed, sold, licensed, or
             otherwise exploited for any commercial purpose whatsoever, without
-            our express prior written permission. Provided that you are eligible
+            our express prior written permission. <br></br> <br></br>Provided that you are eligible
             to use the Site, you are granted a limited license to access and use
             the Site and to download or print a copy of any portion of the
             Content to which you have properly gained access solely for your
@@ -90,7 +90,7 @@ export default function TermsOfUse() {
             non-human means, whether through a bot, script or otherwise; (6) you
             will not use the Site for any illegal or unauthorized purpose; and
             (7) your use of the Site will not violate any applicable law or
-            regulation. If you provide any information that is untrue,
+            regulation. <br></br> <br></br>If you provide any information that is untrue,
             inaccurate, not current, or incomplete, we have the right to suspend
             or terminate your account and refuse any and all current or future
             use of the Site (or any portion thereof).{" "}
@@ -114,6 +114,7 @@ export default function TermsOfUse() {
               <li>Discover</li>
               <li>PayPal</li>
             </ul>
+            <br></br> 
             You may be required to purchase or pay a fee to access some of our
             services. You agree to provide current, complete, and accurate
             purchase and account information for all purchases made via the
@@ -123,13 +124,13 @@ export default function TermsOfUse() {
             contact you as needed. We bill you through an online billing account
             for purchases made via the Site. Sales tax will be added to the
             price of purchases as deemed required by us. We may change prices at
-            any time. All payments shall be in U.S. dollars. You agree to pay
+            any time. All payments shall be in U.S. dollars. <br></br> <br></br>You agree to pay
             all charges or fees at the prices then in effect for your purchases,
             and you authorize us to charge your chosen payment provider for any
             such amounts upon making your purchase. If your purchase is subject
             to recurring charges, then you consent to our charging your payment
             method on a recurring basis without requiring your prior approval
-            for each recurring charge, until you notify us of your cancellation.
+            for each recurring charge, until you notify us of your cancellation.<br></br> <br></br>
             We reserve the right to correct any errors or mistakes in pricing,
             even if we have already requested or received payment. We also
             reserve the right to refuse any order placed through the Site.
@@ -138,7 +139,7 @@ export default function TermsOfUse() {
           <p>
             You can cancel your subscription at any time by contacting us using
             the contact information provided below. Your cancellation will take
-            effect at the end of the current paid term. If you are unsatisfied
+            effect at the end of the current paid term. <br></br> <br></br>If you are unsatisfied
             with our services, please email us at hello@logly.world or call us
             at (202) 695-2385.
           </p>
@@ -148,8 +149,8 @@ export default function TermsOfUse() {
             You may not access or use the Site for any purpose other than that
             for which we make the Site available. The Site may not be used in
             connection with any commercial endeavors except those that are
-            specifically endorsed or approved by us. As a user of the Site, you
-            agree not to:
+            specifically endorsed or approved by us. <br></br> <br></br>As a user of the Site, you
+            agree not to: <br></br> <br></br>
           </p>
           <ul className="list-disc ml-4">
             <li>
@@ -279,7 +280,7 @@ export default function TermsOfUse() {
             other users of the Site and through third-party websites. As such,
             any Contributions you transmit may be treated as non-confidential
             and non-proprietary. When you create or make available any
-            Contributions, you thereby represent and warrant that:
+            Contributions, you thereby represent and warrant that: <br></br> <br></br>
           </p>
           <ul className="list-disc ml-4">
             <li>
@@ -368,13 +369,13 @@ export default function TermsOfUse() {
             prepare derivative works of, or incorporate into other works, such
             Contributions, and grant and authorize sublicenses of the foregoing.
             The use and distribution may occur in any media formats and through
-            any media channels. This license will apply to any form, media, or
+            any media channels.<br></br> <br></br> This license will apply to any form, media, or
             technology now known or hereafter developed, and includes our use of
             your name, company name, and franchise name, as applicable, and any
             of the trademarks, service marks, trade names, logos, and personal
             and commercial images you provide. You waive all moral rights in
             your Contributions, and you warrant that moral rights have not
-            otherwise been asserted in your Contributions. We do not assert any
+            otherwise been asserted in your Contributions. <br></br> <br></br>We do not assert any
             ownership over your Contributions. You retain full ownership of all
             of your Contributions and any intellectual property rights or other
             proprietary rights associated with your Contributions. We are not
@@ -382,7 +383,7 @@ export default function TermsOfUse() {
             provided by you in any area on the Site. You are solely responsible
             for your Contributions to the Site and you expressly agree to
             exonerate us from any and all responsibility and to refrain from any
-            legal action against us regarding your Contributions. We have the
+            legal action against us regarding your Contributions. <br></br> <br></br>We have the
             right, in our sole and absolute discretion, (1) to edit, redact, or
             otherwise change any Contributions; (2) to re-categorize any
             Contributions to place them in more appropriate locations on the
@@ -538,7 +539,7 @@ export default function TermsOfUse() {
             information on our Site. We also reserve the right to modify or
             discontinue all or part of the Site without notice at any time. We
             will not be liable to you or any third party for any modification,
-            price change, suspension, or discontinuance of the Site. We cannot
+            price change, suspension, or discontinuance of the Site. <br></br> <br></br>We cannot
             guarantee the Site will be available at all times. We may experience
             hardware, software, or other problems or need to perform maintenance
             related to the Site, resulting in interruptions, delays, or errors.
@@ -562,7 +563,7 @@ export default function TermsOfUse() {
           </p>
           <h3 className="text-2xl bold mt-6 mb-2">19. DISPUTE RESOLUTION</h3>
           <p>
-            Informal Negotiations To expedite resolution and control the cost of
+            <strong>Informal Negotiations </strong> <br></br> <br></br>To expedite resolution and control the cost of
             any dispute, controversy, or claim related to these Terms of Use
             (each “Dispute“ and collectively, the “Disputes”) brought by either
             you or us (individually, a “Party” and collectively, the “Parties”),
@@ -570,7 +571,7 @@ export default function TermsOfUse() {
             those Disputes expressly provided below) informally for at least
             thirty (30) days before initiating arbitration. Such informal
             negotiations commence upon written notice from one Party to the
-            other Party. Binding Arbitration If the Parties are unable to
+            other Party. <br></br> <br></br><strong>Binding Arbitration</strong> <br></br> <br></br> If the Parties are unable to
             resolve a Dispute through informal negotiations, the Dispute (except
             those Disputes expressly excluded below) will be finally and
             exclusively resolved by binding arbitration. YOU UNDERSTAND THAT
@@ -594,7 +595,7 @@ export default function TermsOfUse() {
             Garfield, Oklahoma. Except as otherwise provided herein, the Parties
             may litigate in court to compel arbitration, stay proceedings
             pending arbitration, or to confirm, modify, vacate, or enter
-            judgment on the award entered by the arbitrator. If for any reason,
+            judgment on the award entered by the arbitrator. <br></br> <br></br>If for any reason,
             a Dispute proceeds in court rather than arbitration, the Dispute
             shall be commenced or prosecuted in the state and federal courts
             located in Garfield, Oklahoma, and the Parties hereby consent to,
@@ -603,7 +604,7 @@ export default function TermsOfUse() {
             and federal courts. Application of the United Nations Convention on
             Contracts for the International Sale of Goods and the Uniform
             Computer Information Transaction Act (UCITA) are excluded from these
-            Terms of Use. In no event shall any Dispute brought by either Party
+            Terms of Use. <br></br> <br></br>In no event shall any Dispute brought by either Party
             related in any way to the Site be commenced more than one (1) years
             after the cause of action arose. If this provision is found to be
             illegal or unenforceable, then neither Party will elect to arbitrate
@@ -611,7 +612,8 @@ export default function TermsOfUse() {
             be illegal or unenforceable and such Dispute shall be decided by a
             court of competent jurisdiction within the courts listed for
             jurisdiction above, and the Parties agree to submit to the personal
-            jurisdiction of that court. Restrictions The Parties agree that any
+            jurisdiction of that court. <br></br> <br></br><strong>Restrictions</strong><br></br> <br></br>
+            The Parties agree that any
             arbitration shall be limited to the Dispute between the Parties
             individually. To the full extent permitted by law, (a) no
             arbitration shall be joined with any other proceeding; (b) there is
@@ -619,7 +621,8 @@ export default function TermsOfUse() {
             class-action basis or to utilize class action procedures; and (c)
             there is no right or authority for any Dispute to be brought in a
             purported representative capacity on behalf of the general public or
-            any other persons. Exceptions to Informal Negotiations and
+            any other persons. <br></br> <br></br> <strong>Exceptions</strong><br></br> <br></br>
+            to Informal Negotiations and
             Arbitration The Parties agree that the following Disputes are not
             subject to the above provisions concerning informal negotiations and
             binding arbitration: (a) any Disputes seeking to enforce or protect,
@@ -785,6 +788,7 @@ export default function TermsOfUse() {
             In order to resolve a complaint regarding the Site or to receive
             further information regarding use of the Site, please contact us at:
           </p>
+          <br></br>
           <strong>
             Logly, LLC 2627 W Walton St #3 <br />
             Chicago, IL 60622, USA <br />
