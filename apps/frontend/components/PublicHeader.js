@@ -98,7 +98,7 @@ export default function PublicHeader() {
                       </Link>
                     </li>
                     <li className="py-2 flex justify-end text-sm uppercase font-bold leading-snug text-black hover:opacity-75">
-                      <a href={`${process.env.NEXT_PUBLIC_CMS_URL}/login`} >
+                      <a href={`${process.env.NEXT_PUBLIC_CMS_URL}/signin`} >
                         Login
                       </a>
                     </li>
