@@ -1,5 +1,6 @@
 import Cors from "cors";
 import initMiddleware from "../../config/init-middleware";
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // Initialize the cors middleware
@@ -25,6 +26,7 @@ export default async function handler(req, res) {
           },
         ],
         mode: "subscription",
+        allow_promotion_codes: true,
         success_url: `${process.env.NEXT_PUBLIC_API_URL}`,
         cancel_url: `${req.headers.origin}/`,
         automatic_tax: { enabled: false },
