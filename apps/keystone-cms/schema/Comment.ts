@@ -11,7 +11,7 @@ export const Comment = list({
     siteId: defaults.comment.siteId,
   },
   ui: {
-    hideCreate: true,
+    // hideCreate: true,
     listView: {
       initialColumns: ["username", "timestamp", "comment"],
     },
@@ -22,9 +22,10 @@ export const Comment = list({
   access: {
     item: {
       create: () => true,
-      update: () => false,
+      update: ({ session }) =>
+        session?.data.isAdmin || session?.data.siteId,
       delete: ({ session }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
+        session?.data.isAdmin || session?.data.siteId,
     },
     filter: {
       query: ({ session }) => {
