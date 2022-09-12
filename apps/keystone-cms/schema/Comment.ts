@@ -11,7 +11,7 @@ export const Comment = list({
     siteId: defaults.comment.siteId,
   },
   ui: {
-    // hideCreate: true,
+    hideCreate: true,
     listView: {
       initialColumns: ["username", "timestamp", "comment"],
     },
