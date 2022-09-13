@@ -37,12 +37,12 @@ export const defaults = {
       itemView: { fieldMode: "edit" },
     },
   }),
-  images: (label = "Image Uploads") =>
+  images: (label = "Image Uploads", canCreate = true) =>
     text({
       label,
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),
-        createView: { fieldMode: "edit" },
+        createView: { fieldMode: canCreate ? "edit" : "hidden"},
         listView: { fieldMode: "hidden" },
         itemView: { fieldMode: "edit" },
       },
