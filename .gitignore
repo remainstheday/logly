@@ -46,5 +46,6 @@ latest.dump
 .turbo
 
 # static folder for DigitalOcean App Platform
+_static.tool-versions
 _staticyarn 1.22.19
-nodejs 16.13.2
+
