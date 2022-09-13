@@ -47,7 +47,7 @@ export const SiteContent = list({
         },
       },
     }),
-    staticPageImages: defaults.images("Banner Image"),
+    staticPageImages: defaults.images("Banner Image", false),
     description: defaults.document,
     qrCode: json({
       defaultValue: [],
@@ -71,7 +71,10 @@ export const SiteContent = list({
         !!session?.data.isAdmin || !!session?.data.siteId,
     },
     item: {
-      create: () => true,
+      create: ({session}) => {
+        console.log('can Create', session?.data.isAdmin)
+        return session?.data.isAdmin
+      } ,
       update: ({ session, inputData, item }) => {
         if (session?.data.isAdmin) return true;
         if (session.data.siteId && session.data.siteId === item.siteId)
@@ -121,7 +124,7 @@ export const SiteContent = list({
   },
   ui: {
     hideCreate: ({ session }) => {
-      if (session?.data.isAdmin) return true;
+      if (!session?.data.isAdmin) return true;
       return false;
     },
     hideDelete: ({ session }) => {
@@ -132,5 +135,11 @@ export const SiteContent = list({
       // These are the default columns that will be displayed in the list view
       initialColumns: ["name", "siteId", "title"],
     },
+    createView: {
+      defaultFieldMode: ({ session }) => {
+        if (session?.data.isAdmin) return 'edit';
+        return 'hidden';
+      }
+    }
   },
 });
