@@ -44,8 +44,8 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
       }
       experienceImages
       altText
-      startDate
-      endDate
+      experienceStart
+      experienceEnd
       status
     }
   }
@@ -76,8 +76,8 @@ export const GET_ARTIFACTS = gql`
         }
         experienceImages
         altText
-        startDate
-        endDate
+        experienceStart
+        experienceEnd
         status
       }
       description {

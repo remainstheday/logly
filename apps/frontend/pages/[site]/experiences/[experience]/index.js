@@ -31,8 +31,8 @@ export default function Experience({
   const [formattedEndDate, setFormattedEndDate] = useState(null);
 
   useEffect(() => {
-    setFormattedStartDate(new Date(experience.startDate));
-    setFormattedEndDate(new Date(experience.endDate));
+    setFormattedStartDate(new Date(experience.experienceStart));
+    setFormattedEndDate(new Date(experience.experienceEnd));
   }, []);
 
   if ((router && router.isFallback) || !experience || !experiences)
@@ -55,10 +55,10 @@ export default function Experience({
             <h1 className="experience-title">{experience.title}</h1>
 
             <h3>
-              {experience.startDate &&
+              {experience.experienceStart &&
                 formattedStartDate &&
                 format(formattedStartDate, "MMMM dd, yyyy")}
-              {experience.endDate &&
+              {experience.experienceEnd &&
                 formattedEndDate &&
                 ` - ${format(formattedEndDate, "MMM dd, yyyy")}`}
             </h3>
