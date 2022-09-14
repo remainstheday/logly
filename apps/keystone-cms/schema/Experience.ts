@@ -137,7 +137,7 @@ export const Experience = list({
           );
         });
 
-        const updatedComments = await context.query.Comment.updateMany({
+        await context.query.Comment.updateMany({
           data: [
             ...commentsToUpdate.map((c) => {
               let newQuery = Object.assign({}, c.query);
@@ -156,11 +156,56 @@ export const Experience = list({
           query: "id query",
         });
       }
+      console.log('afteroperation item', item);
+      
+
+      if (item && resolvedData && resolvedData.title) {
+        const url = resolvedData.title
+          ? `/${item.siteId}/experiences/${convertStringToURL(
+              resolvedData.title
+            )}`
+          : item!.url;
+
+        // TODO: this line returns empty[] because Keystone cannot query `relatedExperiences`
+        const relatedArtifacts = await context.query.Artifact.findMany({
+          where: {
+            relatedExperiences: { every: { id: { equals: `${item.id}` } } },
+          },
+        });
+        console.log('relatedArtifacts', relatedArtifacts);
+        
+        relatedArtifacts.map(async (artifact) => {
+          const artifactData = await context.prisma.artifact.findUnique({
+            where: { id: artifact.id },
+          });
+
+          const res = await context.query.Artifact.updateOne({
+            where: { id: `${artifact.id}` },
+            data: {
+              qrCodes: artifactData.qrCodes.map((qrCode: any) => {
+                if (qrCode.experienceId === item.id) {
+                  return {
+                    experienceId: item.id,
+                    artifactId: artifact.id,
+                    url: `${process.env.FRONTEND_URL}${url}/${artifactData.url}?social=true`,
+                  };
+                }
+
+                return qrCode;
+              }),
+            },
+          });
+          console.log('res updateArt', res);
+          return res
+
+        });
+      }
 
       if (item && resolvedData && resolvedData.relatedArtifacts) {
         const experience = await context.prisma.experience.findUnique({
           where: { id: item.id },
         });
+
         if (experience && resolvedData.relatedArtifacts.connect) {
           resolvedData.relatedArtifacts.connect.map(
             async (relatedArtifact: { id: string }) => {
