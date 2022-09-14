@@ -1,5 +1,10 @@
 import { useMutation } from "@apollo/client";
-import { ADD_COMMENT, GET_ALL_COMMENTS, GET_SITE_LOGO } from "apollo/api";
+import {
+  ADD_COMMENT,
+  GET_ALL_COMMENTS,
+  GET_SITE_CONTENT,
+  GET_SITE_LOGO,
+} from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import BackLink from "components/BackLink";
 import ClientOnly from "components/ClientOnly";
@@ -14,7 +19,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 
-export default function Community({ logo, comments = [] }) {
+export default function Community({ logo, comments = [], homePage }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
@@ -41,10 +46,10 @@ export default function Community({ logo, comments = [] }) {
       }
     );
   };
-
+  const metaTitle = `${homePage.title}-Community`;
   return (
     <div className="flex flex-col h-screen">
-      <Header siteId={query.site} logo={logo} />
+      <Header siteId={query.site} logo={logo} title={metaTitle} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -133,7 +138,14 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_LOGO,
     variables: { siteId: params.site },
   });
-  const logo = siteContents.data.siteContents[1];
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
+  });
+  const homepageContent = content.data.siteContents.find(
+    (item) => item.name === "Home"
+  );
+  const logo = content.data.siteContents[1];
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
@@ -143,6 +155,7 @@ export async function getServerSideProps({ params }) {
     props: {
       logo,
       comments: comments.data.comments,
+      homePage: homepageContent,
     },
   });
 }

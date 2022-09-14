@@ -1,4 +1,8 @@
-import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
+import {
+  GET_EXPERIENCES_BY_SITE_ID,
+  GET_SITE_CONTENT,
+  GET_SITE_LOGO,
+} from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
@@ -7,18 +11,16 @@ import PageLoading from "components/PageLoading";
 import PageTitle from "components/PageTitle";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
-import Head from "next/head";
 import { useRouter } from "next/router";
 
-export default function Experiences({ experiences, logo }) {
+export default function Experiences({ experiences, logo, homePage }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading siteId={query.site} />;
+  const metaTitle = `${homePage.title}-Experiences`;
+  console.log(experiences);
   return (
     <div className="flex flex-col h-screen">
-      <Head>
-        <title>{query.site} Experiences</title>
-      </Head>
-      <Header siteId={query.site} logo={logo} />
+      <Header siteId={query.site} logo={logo} title={metaTitle} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -46,6 +48,13 @@ export async function getServerSideProps({ params }) {
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
+  });
+  const homepageContent = content.data.siteContents.find(
+    (item) => item.name === "Home"
+  );
 
   const filteredExperiences = experiences.data.experiences
     .map((experience) => ({
@@ -58,6 +67,7 @@ export async function getServerSideProps({ params }) {
     props: {
       logo: siteContents.data.siteContents[1],
       experiences: filteredExperiences,
+      homePage: homepageContent,
     },
   });
 }
