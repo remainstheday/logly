@@ -24,8 +24,8 @@ model Experience {
   status           ExperienceStatusType @default(draft)
   title            String               @default("")
   dateCreated      DateTime             @default(now())
-  startDate        DateTime?
-  endDate          DateTime?
+  experienceStart  DateTime?            @postgresql.Date
+  experienceEnd    DateTime?            @postgresql.Date
   experienceImages String               @default("")
   altText          String               @default("")
   description      Json                 @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
