@@ -62,6 +62,7 @@ export const GET_ARTIFACTS = gql`
       siteId
       caption
       altText
+      audioFile
       relatedExperiences {
         id
         title
