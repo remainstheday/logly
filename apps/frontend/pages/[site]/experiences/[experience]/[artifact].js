@@ -17,7 +17,6 @@ import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
 import SectionLink from "components/SectionLink";
 import SocialForm from "components/SocialForm";
-import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function Artifact({
@@ -26,6 +25,7 @@ export default function Artifact({
   experience,
   comments,
   relatedArtifacts,
+  homePage,
 }) {
   const { query, router } = useRouter();
   if ((router && router.isFallback) || !artifact || !experience)
@@ -34,12 +34,10 @@ export default function Artifact({
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
+  const metaTitle = `${homePage.title}-${artifact.title}`;
   return (
     <div className="flex flex-col h-screen">
-      <Head>
-        <title>{artifact.title}</title>
-      </Head>
-      <Header siteId={query.site} logo={logo} />
+      <Header siteId={query.site} logo={logo} title={metaTitle} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`${experience.url}`} text={"Back to Experience"} />
@@ -113,6 +111,14 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
   const logo = siteContents.data.siteContents[1];
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
+    variables: { siteId: params.site },
+  });
+  const homepageContent = content.data.siteContents.find(
+    (item) => item.name === "Home"
+  );
+
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
@@ -163,6 +169,7 @@ export async function getServerSideProps({ params }) {
       comments: filteredComments,
       experience,
       relatedArtifacts,
+      homePage: homepageContent,
     },
   });
 }

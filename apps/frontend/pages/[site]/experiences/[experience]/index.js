@@ -40,7 +40,7 @@ export default function Experience({
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
   console.log(experience);
-  const metaTitle = `${homePage.title}-Experiences-${experience.title}`;
+  const metaTitle = `${homePage.title}-${experience.title}`;
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
