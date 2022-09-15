@@ -32,6 +32,7 @@ export const defaults = {
     ref: "Experience.relatedArtifacts",
     many: true,
     ui: {
+      hideCreate: true,
       createView: { fieldMode: "edit" },
       listView: { fieldMode: "read" },
       itemView: { fieldMode: "edit" },
@@ -42,7 +43,7 @@ export const defaults = {
       label,
       ui: {
         views: require.resolve("../fields/image-uploader/view.tsx"),
-        createView: { fieldMode: canCreate ? "edit" : "hidden"},
+        createView: { fieldMode: canCreate ? "edit" : "hidden" },
         listView: { fieldMode: "hidden" },
         itemView: { fieldMode: "edit" },
       },

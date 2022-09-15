@@ -16,6 +16,7 @@ export const Experience = list({
     relatedArtifacts: relationship({
       ref: "Artifact.relatedExperiences",
       many: true,
+      ui: { hideCreate: true },
     }),
     url: defaults.url,
     siteId: defaults.siteId,
