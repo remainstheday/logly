@@ -10,11 +10,14 @@ import PosterImage from "components/PosterImage";
 import Section from "components/Section";
 import { useRouter } from "next/router";
 
-export default function About({ logo, content, homePage }) {
+export default function About({ logo, content }) {
   const { query } = useRouter();
   if (!content) return <PageLoading siteId={query.site} />;
 
-  const metaTitle = `${homePage.title}-About`;
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-About`;
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
@@ -52,16 +55,13 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-  const homepageContent = content.data.siteContents.find(
-    (item) => item.name === "Home"
-  );
+
   return addApolloState(apolloClient, {
     props: {
       logo: siteContents.data.siteContents[1],
       content: content.data.siteContents.find(
         (item) => item.url === `${params.site}/about`
       ),
-      homePage: homepageContent,
     },
   });
 }

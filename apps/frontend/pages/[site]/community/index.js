@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import processCloudinaryImage from "utils/processCloudinaryImage";
 
-export default function Community({ logo, comments = [], homePage }) {
+export default function Community({ logo, comments = [] }) {
   const { query } = useRouter();
   const [filteredComments, updateFilteredComments] = useState(comments);
   const [uploadedImage, setUploadedImage] = useState();
@@ -46,7 +46,11 @@ export default function Community({ logo, comments = [], homePage }) {
       }
     );
   };
-  const metaTitle = `${homePage.title}-Community`;
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-Community`;
+  console.log(query);
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
@@ -142,9 +146,7 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-  const homepageContent = content.data.siteContents.find(
-    (item) => item.name === "Home"
-  );
+
   const logo = content.data.siteContents[1];
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
@@ -155,7 +157,6 @@ export async function getServerSideProps({ params }) {
     props: {
       logo,
       comments: comments.data.comments,
-      homePage: homepageContent,
     },
   });
 }

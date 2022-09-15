@@ -2,7 +2,6 @@ import { DocumentRenderer } from "@keystone-6/document-renderer";
 import {
   GET_ALL_COMMENTS,
   GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_CONTENT,
   GET_SITE_LOGO,
 } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
@@ -25,9 +24,7 @@ export default function Experience({
   experiences,
   artifacts,
   comments,
-  homePage,
 }) {
-  console.log(homePage);
   const { query, router } = useRouter();
   const [formattedStartDate, setFormattedStartDate] = useState(null);
   const [formattedEndDate, setFormattedEndDate] = useState(null);
@@ -40,7 +37,10 @@ export default function Experience({
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
   console.log(experience);
-  const metaTitle = `${homePage.title}-${experience.title}`;
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-${experience.title}`;
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
@@ -132,13 +132,7 @@ export async function getServerSideProps({ params }) {
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
-    variables: { siteId: params.site },
-  });
-  const homepageContent = content.data.siteContents.find(
-    (item) => item.name === "Home"
-  );
+
   const experience = experiences.data.experiences.filter(
     (experience) =>
       experience.url === `/${params.site}/experiences/${params.experience}`
@@ -179,7 +173,6 @@ export async function getServerSideProps({ params }) {
       experiences: filteredExperiences,
       artifacts: relatedArtifacts,
       comments: filteredComments,
-      homePage: homepageContent,
     },
   });
 }

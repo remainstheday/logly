@@ -25,7 +25,6 @@ export default function Artifact({
   experience,
   comments,
   relatedArtifacts,
-  homePage,
 }) {
   const { query, router } = useRouter();
   if ((router && router.isFallback) || !artifact || !experience)
@@ -34,7 +33,10 @@ export default function Artifact({
   const hasDescription =
     artifact.description && artifact.description.document.length > 0;
   const hasAudioFile = artifact.audioFile && artifact.audioFile.length > 0;
-  const metaTitle = `${homePage.title}-${artifact.title}`;
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-${artifact.title}`;
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
@@ -111,13 +113,6 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
   const logo = siteContents.data.siteContents[1];
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
-    variables: { siteId: params.site },
-  });
-  const homepageContent = content.data.siteContents.find(
-    (item) => item.name === "Home"
-  );
 
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
@@ -169,7 +164,6 @@ export async function getServerSideProps({ params }) {
       comments: filteredComments,
       experience,
       relatedArtifacts,
-      homePage: homepageContent,
     },
   });
 }

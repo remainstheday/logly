@@ -23,8 +23,10 @@ export default function IndexPage({ content, experiences, comments }) {
   // initially until getStaticProps() finishes running
   if ((router && router.isFallback) || !content)
     return <PageLoading siteId={query.site} />;
-  // const metaTitle = `${content.title}-Home`;
-  // const metaTitle = `${query.site.split('-').join(' ')}-Home`
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-Home`;
   return (
     <div className="flex flex-col h-screen">
       <Header
@@ -34,7 +36,7 @@ export default function IndexPage({ content, experiences, comments }) {
           logoWidth: content.logoWidth,
           logoHeight: content.logoHeight,
         }}
-        title={query.site}
+        title={metaTitle}
       />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>

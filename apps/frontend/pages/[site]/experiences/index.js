@@ -1,8 +1,4 @@
-import {
-  GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_CONTENT,
-  GET_SITE_LOGO,
-} from "apollo/api";
+import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
@@ -13,11 +9,13 @@ import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
 import { useRouter } from "next/router";
 
-export default function Experiences({ experiences, logo, homePage }) {
+export default function Experiences({ experiences, logo }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading siteId={query.site} />;
-  const metaTitle = `${homePage.title}-Experiences`;
-  console.log(experiences);
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-Experiences`;
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
@@ -48,13 +46,6 @@ export async function getServerSideProps({ params }) {
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
   });
-  const content = await apolloClient.query({
-    query: GET_SITE_CONTENT,
-    variables: { siteId: params.site },
-  });
-  const homepageContent = content.data.siteContents.find(
-    (item) => item.name === "Home"
-  );
 
   const filteredExperiences = experiences.data.experiences
     .map((experience) => ({
@@ -67,7 +58,6 @@ export async function getServerSideProps({ params }) {
     props: {
       logo: siteContents.data.siteContents[1],
       experiences: filteredExperiences,
-      homePage: homepageContent,
     },
   });
 }
