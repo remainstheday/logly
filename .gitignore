@@ -25,6 +25,7 @@ keystone.db
 # misc
 .DS_Store
 *.pem
+.tool-versions
 
 # debug
 npm-debug.log*
@@ -45,4 +46,6 @@ latest.dump
 .turbo
 
 # static folder for DigitalOcean App Platform
-_static
+_static.tool-versions
+_staticyarn 1.22.19
+

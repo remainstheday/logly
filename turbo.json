@@ -20,6 +20,6 @@
   "globalDependencies": [
     "tsconfig.json",
     ".prettierrc.json",
-    ".eslintrc.json",
+    ".eslintrc.json"
   ]
 }

@@ -53,6 +53,8 @@ ADMIN_PASSWORD=testpassword123
 
 ```dotenv
 API_URL='http://localhost:3000/api/graphql'
+NEXT_PUBLIC_CMS_URL='http://localhost:3000'
+NEXT_PUBLIC_GRAPHQL_URL='http://localhost:3000/api/graphql'
 ```
 
 ## Cloudinary API
@@ -68,6 +70,4 @@ Logly's entire codebase is built using a monorepo which allows for sharing depen
 Next.js is an ideal React.js micro-framework for rendering SEO friendly static webpages.
 
 ## Keystone.js
-
-For Logly's admin UI we are using a javascript based CMS called Keystone. Keystone CMS has extensive documentation and a
-very active community for finding support.
+For Logly's admin UI we are using a javascript based CMS called Keystone. Keystone CMS has extensive documentation and a very active community for finding support.

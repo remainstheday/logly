@@ -19,20 +19,13 @@ const { withAuth } = createAuth({
   identityField: "email",
   secretField: "password",
   sessionData: "isAdmin siteId",
-  initFirstItem: {
-    fields: ["name", "email", "password"],
-  },
 });
 
 export default withAuth(
   config({
     server: {
       cors: {
-        origin: [
-          `${process.env.FRONTEND_URL}`,
-          `${process.env.WEBSITE_URL}`,
-          "http://localhost:3001/register",
-        ],
+        origin: [`${process.env.FRONTEND_URL}`],
         credentials: true,
       },
       extendExpressApp: (app, createContext) => {
@@ -173,7 +166,10 @@ export default withAuth(
       },
     },
     ui: {
-      isAccessAllowed: (context) => !!context.session?.data,
+      isAccessAllowed: ({ req, session }) => {
+        return !!session?.data;
+      },
+      publicPages: ["/signin"],
     },
     lists: {
       Site,
@@ -199,9 +195,7 @@ export default withAuth(
         const defaultSite = await context.prisma.site.count({
           where: { siteId: { equals: "logly-studio" } },
         });
-        const defaultUser = await context.prisma.user.count({
-          where: { email: "trentontri@gmail.com" },
-        });
+        const defaultUser = await context.prisma.user.count();
 
         if (defaultSite === 0) {
           await context.query.Site.createOne({
@@ -235,8 +229,8 @@ export default withAuth(
               siteId: "logly-studio",
               isAdmin: true,
               password: `${process.env.ADMIN_PASSWORD}`,
-              name: "Trenton",
-              email: "trentontri@gmail.com",
+              name: `${process.env.ADMIN_EMAIL}`,
+              email: `${process.env.ADMIN_EMAIL}`,
             },
           });
         }

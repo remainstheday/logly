@@ -102,8 +102,8 @@ type Experience {
   status: ExperienceStatusType
   title: String
   dateCreated: DateTime
-  startDate: DateTime
-  endDate: DateTime
+  experienceStart: CalendarDay
+  experienceEnd: CalendarDay
   experienceImages: String
   altText: String
   description: Experience_description_Document
@@ -126,6 +126,8 @@ enum ExperienceStatusType {
 
 scalar DateTime
 
+scalar CalendarDay
+
 type Experience_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
 }
@@ -143,8 +145,8 @@ input ExperienceWhereInput {
   status: ExperienceStatusTypeNullableFilter
   title: StringFilter
   dateCreated: DateTimeFilter
-  startDate: DateTimeNullableFilter
-  endDate: DateTimeNullableFilter
+  experienceStart: CalendarDayNullableFilter
+  experienceEnd: CalendarDayNullableFilter
   experienceImages: StringFilter
   altText: StringFilter
   relatedArtifacts: ArtifactManyRelationFilter
@@ -170,15 +172,15 @@ input DateTimeFilter {
   not: DateTimeFilter
 }
 
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: DateTimeNullableFilter
+input CalendarDayNullableFilter {
+  equals: CalendarDay
+  in: [CalendarDay!]
+  notIn: [CalendarDay!]
+  lt: CalendarDay
+  lte: CalendarDay
+  gt: CalendarDay
+  gte: CalendarDay
+  not: CalendarDayNullableFilter
 }
 
 input ArtifactManyRelationFilter {
@@ -192,8 +194,8 @@ input ExperienceOrderByInput {
   status: OrderDirection
   title: OrderDirection
   dateCreated: OrderDirection
-  startDate: OrderDirection
-  endDate: OrderDirection
+  experienceStart: OrderDirection
+  experienceEnd: OrderDirection
   experienceImages: OrderDirection
   altText: OrderDirection
   url: OrderDirection
@@ -204,8 +206,8 @@ input ExperienceUpdateInput {
   status: ExperienceStatusType
   title: String
   dateCreated: DateTime
-  startDate: DateTime
-  endDate: DateTime
+  experienceStart: CalendarDay
+  experienceEnd: CalendarDay
   experienceImages: String
   altText: String
   description: JSON
@@ -231,8 +233,8 @@ input ExperienceCreateInput {
   status: ExperienceStatusType
   title: String
   dateCreated: DateTime
-  startDate: DateTime
-  endDate: DateTime
+  experienceStart: CalendarDay
+  experienceEnd: CalendarDay
   experienceImages: String
   altText: String
   description: JSON
@@ -548,6 +550,17 @@ input CommentWhereInput {
   siteId: StringFilter
 }
 
+input DateTimeNullableFilter {
+  equals: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  gt: DateTime
+  gte: DateTime
+  not: DateTimeNullableFilter
+}
+
 input CommentOrderByInput {
   id: OrderDirection
   username: OrderDirection
@@ -639,9 +652,6 @@ type Mutation {
     email: String!
     password: String!
   ): UserAuthenticationWithPasswordResult
-  createInitialUser(
-    data: CreateInitialUserInput!
-  ): UserAuthenticationWithPasswordSuccess!
 }
 
 union UserAuthenticationWithPasswordResult =
@@ -655,12 +665,6 @@ type UserAuthenticationWithPasswordSuccess {
 
 type UserAuthenticationWithPasswordFailure {
   message: String!
-}
-
-input CreateInitialUserInput {
-  name: String
-  email: String
-  password: String
 }
 
 type Query {

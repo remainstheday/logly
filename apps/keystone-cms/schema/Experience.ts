@@ -1,5 +1,5 @@
 import { list } from "@keystone-6/core";
-import { relationship, timestamp } from "@keystone-6/core/fields";
+import { calendarDay, relationship } from "@keystone-6/core/fields";
 import convertStringToURL from "../utils/convertStringToURL";
 import { defaults } from "./defaults";
 
@@ -8,14 +8,15 @@ export const Experience = list({
     status: defaults.status,
     title: defaults.title,
     dateCreated: defaults.dateCreated,
-    startDate: timestamp(),
-    endDate: timestamp(),
+    experienceStart: calendarDay(),
+    experienceEnd: calendarDay(),
     experienceImages: defaults.images("Experience Image"),
     altText: defaults.altText,
     description: defaults.document,
     relatedArtifacts: relationship({
       ref: "Artifact.relatedExperiences",
       many: true,
+      ui: { hideCreate: true },
     }),
     url: defaults.url,
     siteId: defaults.siteId,
@@ -28,8 +29,9 @@ export const Experience = list({
         !!session?.data.isAdmin || !!session?.data.siteId,
       update: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
-      delete: ({ session }) =>
-        !!session?.data.isAdmin || !!session?.data.siteId,
+      delete: ({ session }) => {
+        return session?.data?.isAdmin || session?.data?.siteId;
+      },
     },
     item: {
       create: ({}) => true,
@@ -84,13 +86,37 @@ export const Experience = list({
         "title",
         "status",
         "siteId",
-        "startDate",
-        "endDate",
+        "experienceStart",
+        "experienceEnd",
         "dateCreated",
       ],
     },
   },
   hooks: {
+    beforeOperation: async ({
+      context,
+      inputData,
+      listKey,
+      operation,
+      resolvedData,
+      item,
+    }) => {
+      if (operation === "delete") {
+        const artifactsToDelete = await context.query.Artifact.findMany({
+          where: {
+            relatedExperiences: { some: { id: { equals: (item as any).id } } },
+          },
+        });
+
+        const deletedArtifacts = await context.query.Artifact.deleteMany({
+          where: artifactsToDelete.map((a) => {
+            return {
+              id: a.id,
+            };
+          }),
+        });
+      }
+    },
     afterOperation: async ({
       item,
       operation,
@@ -98,6 +124,39 @@ export const Experience = list({
       resolvedData,
       context,
     }) => {
+      if (operation === "delete") {
+        let allComments = await context.query.Comment.findMany({
+          where: { siteId: { equals: (originalItem as any).siteId } },
+          query: "id query siteId",
+        });
+
+        const commentsToUpdate = allComments.filter((comment) => {
+          return (
+            comment.query.experience ==
+            (originalItem.url as string).split("/").reverse()[0]
+          );
+        });
+
+        const updatedComments = await context.query.Comment.updateMany({
+          data: [
+            ...commentsToUpdate.map((c) => {
+              let newQuery = Object.assign({}, c.query);
+              delete newQuery.experience;
+              delete newQuery.artifact;
+              return {
+                where: {
+                  id: c.id,
+                },
+                data: {
+                  query: newQuery,
+                },
+              };
+            }),
+          ],
+          query: "id query",
+        });
+      }
+
       if (item && resolvedData && resolvedData.relatedArtifacts) {
         const experience = await context.prisma.experience.findUnique({
           where: { id: item.id },
