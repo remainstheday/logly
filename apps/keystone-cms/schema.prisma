@@ -21,7 +21,7 @@ model Site {
 
 model Experience {
   id               String               @id @default(uuid()) @postgresql.Uuid
-  status           ExperienceStatusType @default(draft)
+  status           ExperienceStatusType @default(published)
   title            String               @default("")
   dateCreated      DateTime             @default(now())
   experienceStart  DateTime?            @postgresql.Date
@@ -37,7 +37,7 @@ model Experience {
 
 model Artifact {
   id                 String             @id @default(uuid()) @postgresql.Uuid
-  status             ArtifactStatusType @default(draft)
+  status             ArtifactStatusType @default(published)
   title              String             @default("")
   dateCreated        DateTime           @default(now())
   artist             String             @default("")
