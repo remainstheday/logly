@@ -159,6 +159,7 @@ export const Experience = list({
       console.log('afteroperation item', item);
       
 
+      console.log('item.id', item?.id)
       if (item && resolvedData && resolvedData.title) {
         const url = resolvedData.title
           ? `/${item.siteId}/experiences/${convertStringToURL(
@@ -172,6 +173,7 @@ export const Experience = list({
             relatedExperiences: { every: { id: { equals: `${item.id}` } } },
           },
         });
+        
         console.log('relatedArtifacts', relatedArtifacts);
         
         relatedArtifacts.map(async (artifact) => {

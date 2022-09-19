@@ -181,6 +181,8 @@ export const Artifact = list({
     // note: if an admin edits an existing artifact we should not change the siteId.
     // note: when admins create new artifacts
     resolveInput: async ({ resolvedData, item, context }) => {
+
+      console.log('resolveInput artificat', item, resolvedData)
       const { title, siteId } = resolvedData;
       const updatedSiteId = siteId
         ? siteId
