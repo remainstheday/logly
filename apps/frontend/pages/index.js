@@ -1,13 +1,10 @@
-import React from "react";
-import Image from "next/image";
-import Section from "components/Section";
-import PublicHeader from "components/PublicHeader";
-import Script from "next/script";
 import PublicFooter from "components/PublicFooter";
-import { ArrowForwardOutline } from "react-ionicons";
+import PublicHeader from "components/PublicHeader";
+import Section from "components/Section";
+import Image from "next/image";
 import Link from "next/link";
-
-
+import Script from "next/script";
+import { ArrowForwardOutline } from "react-ionicons";
 
 export default function IndexPage() {
   return (
@@ -79,7 +76,6 @@ export default function IndexPage() {
             <div className="mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
-                   
                   src="/images/mobile-logly-experiences.png"
                   alt="logly-logo"
                   width="175"
@@ -91,7 +87,6 @@ export default function IndexPage() {
             <div className="mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
-                   
                   src="/images/mobile-logly-community.png"
                   alt="logly-logo"
                   width="175"
@@ -119,7 +114,6 @@ export default function IndexPage() {
             <div className="flex flex-col sm:flex-row mt-12">
               <div className="block text-center order-2 sm:order-1 sm:w-1/2">
                 <Image
-                   
                   src="/images/homepage-desktop-admin-3.png"
                   alt="logly admin interface"
                   width="425"
@@ -137,7 +131,6 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-right hidden sm:block">
                   <Image
-                     
                     src="/images/illu_1.png"
                     alt="logly illustration 1"
                     width="350"
@@ -158,7 +151,6 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-left hidden sm:block">
                   <Image
-                    
                     src="/images/illu_2.png"
                     alt="logly illustration 2"
                     width="350"
@@ -168,7 +160,6 @@ export default function IndexPage() {
               </div>
               <div className="block text-center sm:w-1/2">
                 <Image
-                  
                   src="/images/homepage-desktop-admin-1.png"
                   alt="logly-logo"
                   width="425"
@@ -188,7 +179,6 @@ export default function IndexPage() {
             <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
               <div className="block text-center sm:w-1/2 order-2 sm:order-1">
                 <Image
-                   
                   src="/images/homepage-desktop-admin-2.png"
                   alt="logly-logo"
                   width="425"
@@ -205,7 +195,6 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-right hidden sm:block">
                   <Image
-                     
                     src="/images/illu_3.png"
                     alt="logly illustration 3"
                     width="350"
@@ -254,7 +243,7 @@ export default function IndexPage() {
                     name="email_address"
                     aria-label="Email Address"
                     placeholder="Email Address"
-                    required=""
+                    required="required"
                     type="email"
                   />
                 </div>
