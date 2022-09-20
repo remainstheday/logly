@@ -15,7 +15,6 @@ import Section from "components/Section";
 import SectionLink from "components/SectionLink";
 import SocialForm from "components/SocialForm";
 import { format } from "date-fns";
-import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -37,13 +36,14 @@ export default function Experience({
 
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
-
+  console.log(experience);
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")}-${experience.title}`;
   return (
     <div className="flex flex-col h-screen">
-      <Head>
-        <title>{experience.title}</title>
-      </Head>
-      <Header siteId={query.site} logo={logo} />
+      <Header siteId={query.site} logo={logo} title={metaTitle} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink
