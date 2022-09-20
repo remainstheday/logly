@@ -7,11 +7,15 @@ export default function processCloudinaryImage(file) {
       "upload_preset",
       `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
     );
+    formData.append({ moderation: "webpurify" });
     fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`, {
       method: "POST",
       body: formData,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
       .then((data) => resolve(data.secure_url))
       .catch((error) => reject(error));
   });
