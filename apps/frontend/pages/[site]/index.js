@@ -27,6 +27,7 @@ export default function IndexPage({ content, experiences, comments }) {
     .split("-")
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ")}-Home`;
+  console.log({ height: content.logoHeight, width: content.logoWidth });
   return (
     <div className="flex flex-col h-screen">
       <Header

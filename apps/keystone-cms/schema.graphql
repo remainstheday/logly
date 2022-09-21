@@ -448,8 +448,8 @@ type SiteContent {
   name: String
   title: String
   siteLogo: String
-  logoWidth: String
-  logoHeight: String
+  logoWidth: Int
+  logoHeight: Int
   staticPageImages: String
   description: SiteContent_description_Document
   qrCode: JSON
@@ -474,11 +474,22 @@ input SiteContentWhereInput {
   name: StringFilter
   title: StringFilter
   siteLogo: StringFilter
-  logoWidth: StringFilter
-  logoHeight: StringFilter
+  logoWidth: IntNullableFilter
+  logoHeight: IntNullableFilter
   staticPageImages: StringFilter
   url: StringFilter
   siteId: StringFilter
+}
+
+input IntNullableFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: IntNullableFilter
 }
 
 input SiteContentOrderByInput {
@@ -497,8 +508,8 @@ input SiteContentUpdateInput {
   name: String
   title: String
   siteLogo: String
-  logoWidth: String
-  logoHeight: String
+  logoWidth: Int
+  logoHeight: Int
   staticPageImages: String
   description: JSON
   qrCode: JSON
@@ -515,8 +526,8 @@ input SiteContentCreateInput {
   name: String
   title: String
   siteLogo: String
-  logoWidth: String
-  logoHeight: String
+  logoWidth: Int
+  logoHeight: Int
   staticPageImages: String
   description: JSON
   qrCode: JSON

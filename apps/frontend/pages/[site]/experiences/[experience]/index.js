@@ -41,6 +41,8 @@ export default function Experience({
     .split("-")
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ")}-${experience.title}`;
+
+  console.log(logo);
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
