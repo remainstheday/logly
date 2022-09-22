@@ -27,9 +27,11 @@ export const SiteContent = list({
     }),
     logoWidth: integer({
       validation: { min: 0, max: 200 },
+      label: "Logo Width (default: 30px)",
       ui: {
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
+
         itemView: {
           fieldMode: ({ item }) => {
             return item.name !== "Home" ? "hidden" : "edit";
@@ -39,6 +41,7 @@ export const SiteContent = list({
     }),
     logoHeight: integer({
       validation: { min: 0, max: 100 },
+      label: "Logo Height (default: 30px)",
       ui: {
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
