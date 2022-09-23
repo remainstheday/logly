@@ -3,6 +3,11 @@ import { useState } from "react";
 
 export default function Navigation({ siteId, logo }) {
   const [mobileMenu, updateMobileMenu] = useState(false);
+  const styles = {
+    height: logo.logoHeight ? logo.logoHeight : 30,
+    width: logo.logoWidth ? logo.logoWidth : 30,
+  };
+
   return (
     <>
       <nav className="relative flex items-center justify-between py-3 w-full rounded">
@@ -15,13 +20,14 @@ export default function Navigation({ siteId, logo }) {
                     logo && logo.siteLogo ? logo.siteLogo : "/images/Logo.png"
                   }
                   alt={siteId}
-                  width={
-                    logo && logo.logoWidth.length > 0 ? logo.logoWidth : 30
-                  }
-                  height={
-                    logo && logo.logoHeight.length > 0 ? logo.logoHeight : 30
-                  }
-                  style={{ maxWidth: 200, maxHeight: 100 }}
+                  width={logo && logo.logoWidth ? logo.logoWidth : 30}
+                  height={logo && logo.logoHeight ? logo.logoHeight : 30}
+                  style={{
+                    maxWidth: 200,
+                    maxHeight: 100,
+                    width: styles.width,
+                    height: styles.height,
+                  }}
                 />
               </a>
             </Link>

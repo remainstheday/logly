@@ -1,5 +1,5 @@
 import { list } from "@keystone-6/core";
-import { json, text } from "@keystone-6/core/fields";
+import { integer, json, text } from "@keystone-6/core/fields";
 import { OperationAccess } from "./access";
 import { defaults } from "./defaults";
 
@@ -25,10 +25,13 @@ export const SiteContent = list({
         },
       },
     }),
-    logoWidth: text({
+    logoWidth: integer({
+      validation: { min: 0, max: 200 },
+      label: "Logo Width (default: 30px)",
       ui: {
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
+
         itemView: {
           fieldMode: ({ item }) => {
             return item.name !== "Home" ? "hidden" : "edit";
@@ -36,7 +39,9 @@ export const SiteContent = list({
         },
       },
     }),
-    logoHeight: text({
+    logoHeight: integer({
+      validation: { min: 0, max: 100 },
+      label: "Logo Height (default: 30px)",
       ui: {
         createView: { fieldMode: "hidden" },
         listView: { fieldMode: "hidden" },
@@ -71,10 +76,10 @@ export const SiteContent = list({
         !!session?.data.isAdmin || !!session?.data.siteId,
     },
     item: {
-      create: ({session}) => {
-        console.log('can Create', session?.data.isAdmin)
-        return session?.data.isAdmin
-      } ,
+      create: ({ session }) => {
+        console.log("can Create", session?.data.isAdmin);
+        return session?.data.isAdmin;
+      },
       update: ({ session, inputData, item }) => {
         if (session?.data.isAdmin) return true;
         if (session.data.siteId && session.data.siteId === item.siteId)
@@ -137,9 +142,9 @@ export const SiteContent = list({
     },
     createView: {
       defaultFieldMode: ({ session }) => {
-        if (session?.data.isAdmin) return 'edit';
-        return 'hidden';
-      }
-    }
+        if (session?.data.isAdmin) return "edit";
+        return "hidden";
+      },
+    },
   },
 });
