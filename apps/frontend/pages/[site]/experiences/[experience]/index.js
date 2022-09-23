@@ -36,11 +36,10 @@ export default function Experience({
 
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
-  console.log(experience);
   const metaTitle = `${query.site
     .split("-")
     .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(" ")}-${experience.title}`;
+    .join(" ")} - ${experience.title}`;
 
   console.log(logo);
   return (

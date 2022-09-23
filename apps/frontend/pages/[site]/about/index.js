@@ -17,7 +17,7 @@ export default function About({ logo, content }) {
   const metaTitle = `${query.site
     .split("-")
     .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(" ")}-About`;
+    .join(" ")} - About`;
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
