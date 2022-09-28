@@ -22,6 +22,7 @@
     "turbo": "latest"
   },
   "resolutions": {
+    "**/@apollo/client": "3.4.17",
     "graphql": "^16.3.0"
   },
   "packageManager": "yarn@1.22.15",
