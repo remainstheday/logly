@@ -60,11 +60,6 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
       const newScrollPos =
         itemWidth * indicatorIndex + Math.floor((itemWidth * 1) / 2);
       carouselContainer.current.scrollLeft = newScrollPos;
-      console.log({
-        newScrollPos,
-        scrollMax: carouselContainer.current.scrollWidth,
-        scrollLeft: carouselContainer.current.scrollLeft,
-      });
     }
   };
 
