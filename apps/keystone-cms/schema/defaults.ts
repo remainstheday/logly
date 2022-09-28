@@ -67,7 +67,7 @@ export const defaults = {
     validation: {
       isRequired: true,
     },
-    defaultValue: "published",
+    defaultValue: "draft",
     ui: {
       displayMode: "radio",
     },
