@@ -54,6 +54,44 @@ export const Site = list({
           });
         }
       }
+      if (operation === "delete") {
+        let siteContents = await context.query.SiteContent.findMany({
+          where: { siteId: { equals: (originalItem as any).siteId } },
+          query: "id siteId",
+        });
+        await context.query.SiteContent.deleteMany({
+          where: siteContents.map(sc => {
+            return {
+              id: sc.id
+            }
+          }),
+          query: "id",
+        });
+        let experiences = await context.query.Experience.findMany({
+          where: { siteId: { equals: (originalItem as any).siteId } },
+          query: "id siteId",
+        });
+        await context.query.Experience.deleteMany({
+          where: experiences.map(sc => {
+            return {
+              id: sc.id
+            }
+          }),
+          query: "id",
+        });
+        let artifacts = await context.query.Artifact.findMany({
+          where: { siteId: { equals: (originalItem as any).siteId } },
+          query: "id siteId",
+        });
+        await context.query.Artifact.deleteMany({
+          where: artifacts.map(sc => {
+            return {
+              id: sc.id
+            }
+          }),
+          query: "id",
+        });
+      }
     },
   },
 });
