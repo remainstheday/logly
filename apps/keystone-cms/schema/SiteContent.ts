@@ -77,7 +77,6 @@ export const SiteContent = list({
     },
     item: {
       create: ({ session }) => {
-        console.log("can Create", session?.data.isAdmin);
         return session?.data.isAdmin;
       },
       update: ({ session, inputData, item }) => {

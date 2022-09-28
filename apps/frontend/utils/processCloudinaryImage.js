@@ -7,7 +7,6 @@ export default function processCloudinaryImage(file) {
       "upload_preset",
       `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
     );
-    formData.append({ moderation: "webpurify" });
     fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_URL}`, {
       method: "POST",
       body: formData,
