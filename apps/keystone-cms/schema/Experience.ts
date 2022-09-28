@@ -156,10 +156,7 @@ export const Experience = list({
           query: "id query",
         });
       }
-      console.log('afteroperation item', item);
-      
 
-      console.log('item.id', item?.id)
       if (item && resolvedData && resolvedData.title) {
         const url = resolvedData.title
           ? `/${item.siteId}/experiences/${convertStringToURL(
@@ -173,9 +170,7 @@ export const Experience = list({
             relatedExperiences: { every: { id: { equals: `${item.id}` } } },
           },
         });
-        
-        console.log('relatedArtifacts', relatedArtifacts);
-        
+
         relatedArtifacts.map(async (artifact) => {
           const artifactData = await context.prisma.artifact.findUnique({
             where: { id: artifact.id },
@@ -197,9 +192,7 @@ export const Experience = list({
               }),
             },
           });
-          console.log('res updateArt', res);
-          return res
-
+          return res;
         });
       }
 
