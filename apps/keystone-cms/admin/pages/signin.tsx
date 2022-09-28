@@ -1,41 +1,44 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import { useState, Fragment, FormEvent, useRef, useEffect } from 'react';
+import { FormEvent, Fragment, useEffect, useRef, useState } from "react";
 
-import { jsx, H1, Stack, VisuallyHidden, Center } from '@keystone-ui/core';
-import { Button } from '@keystone-ui/button';
-import { TextInput } from '@keystone-ui/fields';
-import { Notice } from '@keystone-ui/notice';
+import { Button } from "@keystone-ui/button";
+import { Center, H1, jsx, Stack, VisuallyHidden } from "@keystone-ui/core";
+import { TextInput } from "@keystone-ui/fields";
+import { Notice } from "@keystone-ui/notice";
 
-import { useMutation, gql } from '@keystone-6/core/admin-ui/apollo';
-import { useRawKeystone, useReinitContext } from '@keystone-6/core/admin-ui/context';
-import { useRouter } from '@keystone-6/core/admin-ui/router';
-import { LoadingDots } from '@keystone-ui/loading';
-import { useRedirect } from '@keystone-6/auth/src/lib/useFromRedirect';
+import { useRedirect } from "@keystone-6/auth/src/lib/useFromRedirect";
+import { gql, useMutation } from "@keystone-6/core/admin-ui/apollo";
+import {
+  useRawKeystone,
+  useReinitContext,
+} from "@keystone-6/core/admin-ui/context";
+import { useRouter } from "@keystone-6/core/admin-ui/router";
+import { LoadingDots } from "@keystone-ui/loading";
 
-export default function Login () {
-  const mutationName = 'authenticateUserWithPassword'
-  const identityField = "email"
-  const secretField = "password"
-  const successTypename = 'UserAuthenticationWithPasswordSuccess'
-  const failureTypename = 'UserAuthenticationWithPasswordFailure'
+export default function Login() {
+  const mutationName = "authenticateUserWithPassword";
+  const identityField = "email";
+  const secretField = "password";
+  const successTypename = "UserAuthenticationWithPasswordSuccess";
+  const failureTypename = "UserAuthenticationWithPasswordFailure";
   const mutation = gql`
-    mutation($identity: String!, $secret: String!) {
-      authenticate: ${mutationName}(${identityField}: $identity, ${secretField}: $secret) {
+        mutation($identity: String!, $secret: String!) {
+        authenticate: ${mutationName}(${identityField}: $identity, ${secretField}: $secret) {
         ... on ${successTypename} {
-          item {
-            id
-          }
+        item {
+        id
+        }
         }
         ... on ${failureTypename} {
-          message
+        message
         }
-      }
-    }
-  `;
+        }
+        }
+    `;
 
-  const [state, setState] = useState({ identity: '', secret: '' });
+  const [state, setState] = useState({ identity: "", secret: "" });
 
   const identityFieldRef = useRef<HTMLInputElement>(null);
 
@@ -47,12 +50,12 @@ export default function Login () {
 
   // This useEffect specifically handles ending up on the signin page from a SPA navigation
   useEffect(() => {
-    if (rawKeystone.authenticatedItem.state === 'authenticated') {
+    if (rawKeystone.authenticatedItem.state === "authenticated") {
       router.push(redirect);
     }
   }, [rawKeystone.authenticatedItem, router, redirect]);
 
-  if (rawKeystone.authenticatedItem.state === 'authenticated') {
+  if (rawKeystone.authenticatedItem.state === "authenticated") {
     return (
       <Center fillView>
         <LoadingDots label="Loading page" size="large" />
@@ -61,45 +64,50 @@ export default function Login () {
   }
 
   return (
-      <div css={{
-        width: '100vw',
-        height: '90vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column'
-      }}>
-        <img src="https://logly.world/images/Logo.png" alt="Logly" css={{
-          padding: '10px'
-        }} />
-        <form
-          css={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center'
-          }}
-          onSubmit={async (event: FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
+    <div
+      css={{
+        width: "100vw",
+        height: "90vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <img
+        src="https://logly.world/images/Logo.png"
+        alt="Logly"
+        css={{
+          padding: "10px",
+        }}
+      />
+      <form
+        css={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+        onSubmit={async (event: FormEvent<HTMLFormElement>) => {
+          event.preventDefault();
 
-            try {
-              let result = await mutate({
-                variables: {
-                  identity: state.identity,
-                  secret: state.secret,
-                },
-              });
-              if (result.data.authenticate?.__typename !== successTypename) {
-                return;
-              }
-            } catch (err) {
+          try {
+            let result = await mutate({
+              variables: {
+                identity: state.identity,
+                secret: state.secret,
+              },
+            });
+            if (result.data.authenticate?.__typename !== successTypename) {
               return;
             }
-            reinitContext();
-            router.push(redirect);
-
-          }}
-        >
-        <H1>Sign Into Logly</H1>
+          } catch (err) {
+            return;
+          }
+          reinitContext();
+          router.push(redirect);
+        }}
+      >
+        <H1 style={{ textAlign: "center" }}>Sign In</H1>
         {error && (
           <Notice title="Error" tone="negative">
             {error.message}
@@ -118,7 +126,7 @@ export default function Login () {
             id="identity"
             name="identity"
             value={state.identity}
-            onChange={e => setState({ ...state, identity: e.target.value })}
+            onChange={(e) => setState({ ...state, identity: e.target.value })}
             placeholder={identityField}
             ref={identityFieldRef}
           />
@@ -130,7 +138,7 @@ export default function Login () {
               id="password"
               name="password"
               value={state.secret}
-              onChange={e => setState({ ...state, secret: e.target.value })}
+              onChange={(e) => setState({ ...state, secret: e.target.value })}
               placeholder={secretField}
               type="password"
             />
@@ -146,11 +154,11 @@ export default function Login () {
             data?.authenticate?.__typename === successTypename
           }
           type="submit"
-          css={{ marginTop: '20px'}}
+          css={{ marginTop: "20px" }}
         >
           Sign In
         </Button>
       </form>
-      </div>
+    </div>
   );
-};
+}

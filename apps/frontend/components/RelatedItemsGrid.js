@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
-  if (!items || items.length < 1) return <></>;
   const carouselContainer = useRef(null);
   const carouselIndicatorsContainer = useRef(null);
   const [itemInView, setItemInView] = useState(0);
@@ -62,6 +61,8 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
       carouselContainer.current.scrollLeft = newScrollPos;
     }
   };
+
+  if (!items || items.length < 1) return <></>;
 
   return (
     <div>
