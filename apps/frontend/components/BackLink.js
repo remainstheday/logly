@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ChevronBack } from "react-ionicons";
-import React from "react";
 
 export default function BackLink({ href, text }) {
+  if (!href || !text) return <></>;
   return (
     <Link href={href} passHref>
       <a className="inline-flex text-xs uppercase">
