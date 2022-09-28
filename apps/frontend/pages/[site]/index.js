@@ -14,7 +14,6 @@ import PosterImage from "components/PosterImage";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
 import SectionLink from "components/SectionLink";
-import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function IndexPage({ content, experiences, comments }) {
@@ -23,12 +22,12 @@ export default function IndexPage({ content, experiences, comments }) {
   // initially until getStaticProps() finishes running
   if ((router && router.isFallback) || !content)
     return <PageLoading siteId={query.site} />;
-
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")} - Home`;
   return (
     <div className="flex flex-col h-screen">
-      <Head>
-        <title>{content.title}</title>
-      </Head>
       <Header
         siteId={query.site}
         logo={{
@@ -36,6 +35,7 @@ export default function IndexPage({ content, experiences, comments }) {
           logoWidth: content.logoWidth,
           logoHeight: content.logoHeight,
         }}
+        title={metaTitle}
       />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
@@ -104,7 +104,6 @@ export async function getServerSideProps({ params }) {
     .filter((item) => item.status === "published");
 
   if (!content || (content.data && content.data.siteContents.length < 1)) {
-    console.log("page not found");
     return {
       notFound: true,
     };

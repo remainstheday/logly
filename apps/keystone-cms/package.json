@@ -35,7 +35,8 @@
     "node": "^14.15 || ^16.13"
   },
   "resolutions": {
-    "graphql": "^15.8.0"
+    "graphql": "^15.8.0",
+    "**/@apollo/client": "3.4.17"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.2",

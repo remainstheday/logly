@@ -1,11 +1,11 @@
-import Head from "next/head";
 import Navigation from "components/Navigation";
+import Head from "next/head";
 
-export default function Header({ siteId, logo }) {
+export default function Header({ siteId, logo, title }) {
   return (
     <>
       <Head>
-        <title>Logly</title>
+        <title>{title}</title>
         <meta name="description" content="Next generation museum tours" />
         <link
           rel="apple-touch-icon"

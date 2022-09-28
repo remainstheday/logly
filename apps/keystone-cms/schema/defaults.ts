@@ -69,7 +69,7 @@ export const defaults = {
     },
     defaultValue: "draft",
     ui: {
-      displayMode: "segmented-control",
+      displayMode: "radio",
     },
   }),
   document: document({

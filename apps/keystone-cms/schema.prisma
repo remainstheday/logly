@@ -66,8 +66,8 @@ model SiteContent {
   name             String @default("")
   title            String @default("")
   siteLogo         String @default("")
-  logoWidth        String @default("")
-  logoHeight       String @default("")
+  logoWidth        Int?
+  logoHeight       Int?
   staticPageImages String @default("")
   description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   qrCode           Json?  @default("[]")

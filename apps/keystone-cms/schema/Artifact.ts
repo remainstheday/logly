@@ -101,32 +101,35 @@ export const Artifact = list({
       resolvedData,
       context,
     }) => {
-      if (operation === 'delete') {
-
+      if (operation === "delete") {
         let allComments = await context.query.Comment.findMany({
-          where: { siteId: {equals: (originalItem as any).siteId} },
-          query: 'id query siteId'
+          where: { siteId: { equals: (originalItem as any).siteId } },
+          query: "id query siteId",
         });
 
         const commentsToUpdate = allComments.filter((comment) => {
-          return comment.query.artifact == (originalItem.url as string).split('/').reverse()[0]
-        })
-        const updatedComments = await context.query.Comment.updateMany({
+          return (
+            comment.query.artifact ==
+            (originalItem.url as string).split("/").reverse()[0]
+          );
+        });
+        await context.query.Comment.updateMany({
           data: [
-            ...commentsToUpdate.map(c => {
-              let newQuery = Object.assign({}, c.query)
-              delete newQuery.artifact
+            ...commentsToUpdate.map((c) => {
+              let newQuery = Object.assign({}, c.query);
+              delete newQuery.artifact;
               return {
                 where: {
-                  id: c.id
-                }, 
-                data: { 
-                  query: newQuery
-                }}
-            })
+                  id: c.id,
+                },
+                data: {
+                  query: newQuery,
+                },
+              };
+            }),
           ],
-          query: 'id query'
-        })
+          query: "id query",
+        });
       }
       if (item && resolvedData && resolvedData.relatedExperiences) {
         const artifact = await context.prisma.artifact.findUnique({

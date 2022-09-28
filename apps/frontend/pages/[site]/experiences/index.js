@@ -7,18 +7,18 @@ import PageLoading from "components/PageLoading";
 import PageTitle from "components/PageTitle";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
-import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function Experiences({ experiences, logo }) {
   const { query } = useRouter();
   if (!experiences) return <PageLoading siteId={query.site} />;
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")} - Experiences`;
   return (
     <div className="flex flex-col h-screen">
-      <Head>
-        <title>{query.site} Experiences</title>
-      </Head>
-      <Header siteId={query.site} logo={logo} />
+      <Header siteId={query.site} logo={logo} title={metaTitle} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
