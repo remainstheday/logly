@@ -1,10 +1,5 @@
 import { useMutation } from "@apollo/client";
-import {
-  ADD_COMMENT,
-  GET_ALL_COMMENTS,
-  GET_SITE_CONTENT,
-  GET_SITE_LOGO,
-} from "apollo/api";
+import { ADD_COMMENT, GET_ALL_COMMENTS, GET_SITE_CONTENT } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import BackLink from "components/BackLink";
 import ClientOnly from "components/ClientOnly";
@@ -138,10 +133,6 @@ export default function Community({ logo, comments = [] }) {
 
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
-  const siteContents = await apolloClient.query({
-    query: GET_SITE_LOGO,
-    variables: { siteId: params.site },
-  });
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
