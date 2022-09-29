@@ -181,6 +181,7 @@ export const Artifact = list({
     // note: if an admin edits an existing artifact we should not change the siteId.
     // note: when admins create new artifacts
     resolveInput: async ({ resolvedData, item, context }) => {
+      console.log('resolvedData', resolvedData)
       const { title, siteId } = resolvedData;
       const updatedSiteId = siteId
         ? siteId
@@ -188,12 +189,41 @@ export const Artifact = list({
         ? item.siteId
         : context.session.data.siteId;
       const url = title ? `${convertStringToURL(title)}` : item!.url;
-
-      return {
+      const res = {
         ...resolvedData,
+        title,
         url,
         siteId: updatedSiteId,
-      };
+      }
+      console.log('resolveInput res', res)
+      return res ;
     },
+    validateInput: async ({
+      resolvedData,
+      context,
+      inputData,
+      addValidationError
+    }) => {
+      console.log('validateInput resolvedData', resolvedData)
+      console.log('resolvedData.relatedExperiences.connect', resolvedData.relatedExperiences.connect)
+      if (resolvedData.title || resolvedData.relatedExperiences) {
+        const otherArtifactsOfSameSiteWithSameTitle = await context.query.Artifact.findMany({
+          where: {
+            AND: [
+              {title: { equals: resolvedData.title }},
+              {siteId: {equals: resolvedData.siteId}},
+              {relatedExperiences: {every: {id: {equals: resolvedData.relatedExperiences.connect[0].id}}}}
+            ]
+          },
+          query: 'id title siteId relatedExperiences { id } '
+        });
+  
+        console.log('otherArtifactsOfSameSiteWithSameTitle', otherArtifactsOfSameSiteWithSameTitle);
+        
+        if (otherArtifactsOfSameSiteWithSameTitle.length) {
+          addValidationError('This Experience has already an Artifact with this title')
+        }
+      }
+    }
   },
 });
