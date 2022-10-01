@@ -11,7 +11,10 @@ export default function CommentCard({ comment }) {
   const experience = comment.query.experience || null;
   const artifact = comment.query.artifact || null;
 
-  useEffect(() => setCommentDate(new Date(comment.timestamp)), []);
+  useEffect(
+    () => setCommentDate(new Date(comment.timestamp)),
+    [comment.timestamp]
+  );
   if (!comment) return <></>;
   return (
     <div className="bg-white max-w-sm my-8 mx-3 rounded overflow-hidden shadow-lg ">

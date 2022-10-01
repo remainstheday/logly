@@ -59,22 +59,16 @@ export default async function auth(req, res) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-      async signIn({ user, account, profile, email, credentials }) {
+      async signIn() {
         return true;
       },
       async jwt({ token, user }) {
-        console.log("jwtcallback");
-        console.log("token, user", token, user);
         if (token && user) {
           token.accessToken = user.token;
         }
         return token;
       },
-      async session({ session, token, user }) {
-        console.log("sessioncallback");
-        console.log("session", session);
-        console.log("token", token);
-        console.log("user", user);
+      async session({ session, token }) {
         session.token = token;
         return session;
       },

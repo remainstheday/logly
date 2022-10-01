@@ -32,7 +32,7 @@ export default function Experience({
   useEffect(() => {
     setFormattedStartDate(new Date(experience.experienceStart));
     setFormattedEndDate(new Date(experience.experienceEnd));
-  }, []);
+  }, [experience.experienceStart, experience.experienceEnd]);
 
   if ((router && router.isFallback) || !experience || !experiences)
     return <PageLoading siteId={query.site} />;
