@@ -283,7 +283,6 @@ export const Experience = list({
       context,
       addValidationError
     }) => {
-      console.log('resolvedData', resolvedData)
       const otherExperiencesOfSameSiteWithSameTitle = await context.query.Experience.findMany({
         where: {
           title: { equals: resolvedData.title },

@@ -181,7 +181,6 @@ export const Artifact = list({
     // note: if an admin edits an existing artifact we should not change the siteId.
     // note: when admins create new artifacts
     resolveInput: async ({ resolvedData, item, context }) => {
-      console.log('resolvedData', resolvedData)
       const { title, siteId } = resolvedData;
       const updatedSiteId = siteId
         ? siteId
@@ -195,7 +194,6 @@ export const Artifact = list({
         url,
         siteId: updatedSiteId,
       }
-      console.log('resolveInput res', res)
       return res ;
     },
     validateInput: async ({
@@ -204,8 +202,6 @@ export const Artifact = list({
       inputData,
       addValidationError
     }) => {
-      console.log('validateInput resolvedData', resolvedData)
-      console.log('resolvedData.relatedExperiences.connect', resolvedData.relatedExperiences.connect)
       if (resolvedData.title || resolvedData.relatedExperiences) {
         const otherArtifactsOfSameSiteWithSameTitle = await context.query.Artifact.findMany({
           where: {
@@ -218,7 +214,6 @@ export const Artifact = list({
           query: 'id title siteId relatedExperiences { id } '
         });
   
-        console.log('otherArtifactsOfSameSiteWithSameTitle', otherArtifactsOfSameSiteWithSameTitle);
         
         if (otherArtifactsOfSameSiteWithSameTitle.length) {
           addValidationError('This Experience has already an Artifact with this title')
