@@ -43,8 +43,8 @@ export const User = list({
       validation: { 
         isRequired: true, 
         match: {
-          regex: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/,
-          explanation: 'emails should be written in lowercase and be valid emails'
+          regex: /^(([^A-Z<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/,
+          explanation: 'emails should be written in lowercase and be valid'
         }
       },
       isIndexed: "unique",
