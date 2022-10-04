@@ -40,7 +40,13 @@ export const User = list({
     }),
     name: text({ validation: { isRequired: true } }),
     email: text({
-      validation: { isRequired: true },
+      validation: { 
+        isRequired: true, 
+        match: {
+          regex: /^(([^A-Z<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/,
+          explanation: 'emails should be written in lowercase and be valid'
+        }
+      },
       isIndexed: "unique",
       isFilterable: true,
     }),
