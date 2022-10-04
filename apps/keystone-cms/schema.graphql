@@ -540,6 +540,7 @@ type Comment {
   username: String
   timestamp: DateTime
   comment: String
+  link: String
   image: String
   query: JSON
   siteId: String
