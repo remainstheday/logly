@@ -250,7 +250,11 @@ export const Experience = list({
     // If an experience is created without a siteId, assign the current user's siteId to the experience.
     // if a siteIde already exists use that.
     // if an admin manually enters a siteId on a new experience use that.
-    resolveInput: async ({ resolvedData, item, context }) => {
+    resolveInput: async ({ 
+      resolvedData, 
+      item, 
+      context
+    }) => {
       const { title, siteId } = resolvedData;
       const experienceId = item ? item.id : resolvedData.id;
       const updatedSiteId = siteId
@@ -274,5 +278,21 @@ export const Experience = list({
         siteId: updatedSiteId,
       };
     },
+    validateInput: async ({
+      resolvedData,
+      context,
+      addValidationError
+    }) => {
+      const otherExperiencesOfSameSiteWithSameTitle = await context.query.Experience.findMany({
+        where: {
+          title: { equals: resolvedData.title },
+          siteId: {equals: resolvedData.siteId}
+        },
+      });
+
+      if (otherExperiencesOfSameSiteWithSameTitle.length) {
+        addValidationError('This Site has already an Experience with this title')
+      }
+    }
   },
 });
