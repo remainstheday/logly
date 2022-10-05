@@ -275,19 +275,30 @@ export const Experience = list({
         siteId: updatedSiteId,
       };
     },
-    validateInput: async ({ resolvedData, context, addValidationError }) => {
-      const otherExperiencesOfSameSiteWithSameTitle =
-        await context.query.Experience.findMany({
-          where: {
-            title: { equals: resolvedData.title },
-            siteId: { equals: resolvedData.siteId },
-          },
-        });
+    validateInput: async ({
+      resolvedData,
+      context,
+      inputData,
+      addValidationError,
+    }) => {
+      console.log(resolvedData);
+      if (resolvedData.title || resolvedData.relatedArtifacts) {
+        const otherExperiencessOfSameSiteWithSameTitle =
+          await context.query.Experience.findMany({
+            where: {
+              AND: [
+                { title: { equals: resolvedData.title } },
+                { siteId: { equals: resolvedData.siteId } },
+              ],
+            },
+            query: "id title siteId relatedArtifacts { id } ",
+          });
 
-      if (otherExperiencesOfSameSiteWithSameTitle.length) {
-        addValidationError(
-          "This Site has already an Experience with this title"
-        );
+        if (otherExperiencessOfSameSiteWithSameTitle.length) {
+          addValidationError(
+            "This site already has an Experience with this title"
+          );
+        }
       }
     },
   },
