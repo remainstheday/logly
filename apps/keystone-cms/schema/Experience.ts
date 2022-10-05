@@ -281,7 +281,6 @@ export const Experience = list({
       inputData,
       addValidationError,
     }) => {
-      console.log(resolvedData);
       if (resolvedData.title || resolvedData.relatedArtifacts) {
         const otherExperiencessOfSameSiteWithSameTitle =
           await context.query.Experience.findMany({
