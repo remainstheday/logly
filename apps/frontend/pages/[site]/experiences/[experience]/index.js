@@ -5,6 +5,7 @@ import {
   GET_SITE_LOGO,
 } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
+import AudioPlayer from "components/AudioPlayer";
 import BackLink from "components/BackLink";
 import CommentCard from "components/CommentCard";
 import Footer from "components/Footer";
@@ -41,6 +42,9 @@ export default function Experience({
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ")} - ${experience.title}`;
 
+  const hasAudioFile = experience.audioFile && experience.audioFile.length > 0;
+  console.log(experience);
+
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />
@@ -63,6 +67,12 @@ export default function Experience({
                 ` - ${format(formattedEndDate, "MMM dd, yyyy")}`}
             </h3>
           </div>
+
+          {hasAudioFile && (
+            <div className="my-6">
+              <AudioPlayer audioFile={experience.audioFile} />
+            </div>
+          )}
 
           {experience.description && (
             <div className="wysiwyg-editor prose">

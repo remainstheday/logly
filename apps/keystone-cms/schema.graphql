@@ -106,6 +106,7 @@ type Experience {
   experienceEnd: CalendarDay
   experienceImages: String
   altText: String
+  audioFile: String
   description: Experience_description_Document
   relatedArtifacts(
     where: ArtifactWhereInput! = {}
@@ -149,6 +150,7 @@ input ExperienceWhereInput {
   experienceEnd: CalendarDayNullableFilter
   experienceImages: StringFilter
   altText: StringFilter
+  audioFile: StringFilter
   relatedArtifacts: ArtifactManyRelationFilter
   url: StringFilter
   siteId: StringFilter
@@ -198,6 +200,7 @@ input ExperienceOrderByInput {
   experienceEnd: OrderDirection
   experienceImages: OrderDirection
   altText: OrderDirection
+  audioFile: OrderDirection
   url: OrderDirection
   siteId: OrderDirection
 }
@@ -210,6 +213,7 @@ input ExperienceUpdateInput {
   experienceEnd: CalendarDay
   experienceImages: String
   altText: String
+  audioFile: String
   description: JSON
   relatedArtifacts: ArtifactRelateToManyForUpdateInput
   url: String
@@ -237,6 +241,7 @@ input ExperienceCreateInput {
   experienceEnd: CalendarDay
   experienceImages: String
   altText: String
+  audioFile: String
   description: JSON
   relatedArtifacts: ArtifactRelateToManyForCreateInput
   url: String
