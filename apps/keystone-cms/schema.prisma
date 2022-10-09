@@ -28,6 +28,7 @@ model Experience {
   experienceEnd    DateTime?            @postgresql.Date
   experienceImages String               @default("")
   altText          String               @default("")
+  audioFile        String               @default("")
   description      Json                 @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   relatedArtifacts Artifact[]           @relation("Artifact_relatedExperiences")
   url              String               @unique @default("")

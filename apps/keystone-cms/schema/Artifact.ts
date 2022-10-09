@@ -193,32 +193,42 @@ export const Artifact = list({
         title,
         url,
         siteId: updatedSiteId,
-      }
-      return res ;
+      };
+      return res;
     },
     validateInput: async ({
       resolvedData,
       context,
       inputData,
-      addValidationError
+      addValidationError,
     }) => {
       if (resolvedData.title || resolvedData.relatedExperiences) {
-        const otherArtifactsOfSameSiteWithSameTitle = await context.query.Artifact.findMany({
-          where: {
-            AND: [
-              {title: { equals: resolvedData.title }},
-              {siteId: {equals: resolvedData.siteId}},
-              {relatedExperiences: {every: {id: {equals: resolvedData.relatedExperiences.connect[0].id}}}}
-            ]
-          },
-          query: 'id title siteId relatedExperiences { id } '
-        });
-  
-        
+        const otherArtifactsOfSameSiteWithSameTitle =
+          await context.query.Artifact.findMany({
+            where: {
+              AND: [
+                { title: { equals: resolvedData.title } },
+                { siteId: { equals: resolvedData.siteId } },
+                {
+                  relatedExperiences: {
+                    every: {
+                      id: {
+                        equals: resolvedData.relatedExperiences.connect[0].id,
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+            query: "id title siteId relatedExperiences { id } ",
+          });
+
         if (otherArtifactsOfSameSiteWithSameTitle.length) {
-          addValidationError('This Experience has already an Artifact with this title')
+          addValidationError(
+            "This Experience already has an Artifact with this title"
+          );
         }
       }
-    }
+    },
   },
 });

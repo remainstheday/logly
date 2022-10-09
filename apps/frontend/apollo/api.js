@@ -26,6 +26,7 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
       title
       url
       siteId
+      audioFile
       relatedArtifacts {
         id
         title

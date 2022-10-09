@@ -12,6 +12,7 @@ export const Experience = list({
     experienceEnd: calendarDay(),
     experienceImages: defaults.images("Experience Image"),
     altText: defaults.altText,
+    audioFile: defaults.audioFile,
     description: defaults.document,
     relatedArtifacts: relationship({
       ref: "Artifact.relatedExperiences",
@@ -250,11 +251,7 @@ export const Experience = list({
     // If an experience is created without a siteId, assign the current user's siteId to the experience.
     // if a siteIde already exists use that.
     // if an admin manually enters a siteId on a new experience use that.
-    resolveInput: async ({ 
-      resolvedData, 
-      item, 
-      context
-    }) => {
+    resolveInput: async ({ resolvedData, item, context }) => {
       const { title, siteId } = resolvedData;
       const experienceId = item ? item.id : resolvedData.id;
       const updatedSiteId = siteId
@@ -281,18 +278,27 @@ export const Experience = list({
     validateInput: async ({
       resolvedData,
       context,
-      addValidationError
+      inputData,
+      addValidationError,
     }) => {
-      const otherExperiencesOfSameSiteWithSameTitle = await context.query.Experience.findMany({
-        where: {
-          title: { equals: resolvedData.title },
-          siteId: {equals: resolvedData.siteId}
-        },
-      });
+      if (resolvedData.title || resolvedData.relatedArtifacts) {
+        const otherExperiencessOfSameSiteWithSameTitle =
+          await context.query.Experience.findMany({
+            where: {
+              AND: [
+                { title: { equals: resolvedData.title } },
+                { siteId: { equals: resolvedData.siteId } },
+              ],
+            },
+            query: "id title siteId relatedArtifacts { id } ",
+          });
 
-      if (otherExperiencesOfSameSiteWithSameTitle.length) {
-        addValidationError('This Site has already an Experience with this title')
+        if (otherExperiencessOfSameSiteWithSameTitle.length) {
+          addValidationError(
+            "This site already has an Experience with this title"
+          );
+        }
       }
-    }
+    },
   },
 });
