@@ -63,6 +63,7 @@ export default function IndexPage() {
             <div className="w-full mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
+                  priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067467/website/mobile-logly-homepage_lixjre.png"
                   alt="logly-logo"
                   width="175"
@@ -75,6 +76,7 @@ export default function IndexPage() {
             <div className="mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
+                  priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067467/website/mobile-logly-experiences_inqxnc.png"
                   alt="logly-logo"
                   width="175"
@@ -86,6 +88,7 @@ export default function IndexPage() {
             <div className="mt-12 sm:w-1/3">
               <div className="block text-center">
                 <Image
+                  priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067467/website/mobile-logly-community_wqdgiu.png"
                   alt="logly-logo"
                   width="175"
@@ -113,6 +116,7 @@ export default function IndexPage() {
             <div className="flex flex-col sm:flex-row mt-12">
               <div className="block text-center order-2 sm:order-1 sm:w-1/2">
                 <Image
+                  priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067473/website/homepage-desktop-admin-3_wwikgj.png"
                   alt="logly admin interface"
                   width="425"
@@ -130,6 +134,7 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-right hidden sm:block">
                   <Image
+                    priority
                     src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067451/website/illu_1_sq93cm.png"
                     alt="logly illustration 1"
                     width="350"
@@ -150,6 +155,7 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-left hidden sm:block">
                   <Image
+                    priority
                     src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067451/website/illu_1_sq93cm.png"
                     alt="logly illustration 2"
                     width="350"
@@ -159,6 +165,7 @@ export default function IndexPage() {
               </div>
               <div className="block text-center sm:w-1/2">
                 <Image
+                  priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067473/website/homepage-desktop-admin-1_ltpjdk.png"
                   alt="logly-logo"
                   width="425"
@@ -178,6 +185,7 @@ export default function IndexPage() {
             <div className="flex flex-col sm:flex-row mt-20 sm:mt-48">
               <div className="block text-center sm:w-1/2 order-2 sm:order-1">
                 <Image
+                  priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067473/website/homepage-desktop-admin-2_afscgf.png"
                   alt="logly-logo"
                   width="425"
@@ -194,6 +202,7 @@ export default function IndexPage() {
                 </p>
                 <div className="block text-right hidden sm:block">
                   <Image
+                    priority
                     src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067460/website/illu_3_zvjnjr.png"
                     alt="logly illustration 3"
                     width="350"
