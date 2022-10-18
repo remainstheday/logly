@@ -12,6 +12,7 @@ export const Experience = list({
     experienceEnd: calendarDay(),
     experienceImages: defaults.images("Experience Image"),
     altText: defaults.altText,
+    audioFile: defaults.audioFile,
     description: defaults.document,
     relatedArtifacts: relationship({
       ref: "Artifact.relatedExperiences",
@@ -273,6 +274,31 @@ export const Experience = list({
         url,
         siteId: updatedSiteId,
       };
+    },
+    validateInput: async ({
+      resolvedData,
+      context,
+      inputData,
+      addValidationError,
+    }) => {
+      if (resolvedData.title || resolvedData.relatedArtifacts) {
+        const otherExperiencessOfSameSiteWithSameTitle =
+          await context.query.Experience.findMany({
+            where: {
+              AND: [
+                { title: { equals: resolvedData.title } },
+                { siteId: { equals: resolvedData.siteId } },
+              ],
+            },
+            query: "id title siteId relatedArtifacts { id } ",
+          });
+
+        if (otherExperiencessOfSameSiteWithSameTitle.length) {
+          addValidationError(
+            "This site already has an Experience with this title"
+          );
+        }
+      }
     },
   },
 });

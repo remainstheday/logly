@@ -126,7 +126,7 @@ export default function Login() {
             id="identity"
             name="identity"
             value={state.identity}
-            onChange={(e) => setState({ ...state, identity: e.target.value })}
+            onChange={(e) => setState({ ...state, identity: e.target.value.toLocaleLowerCase() })}
             placeholder={identityField}
             ref={identityFieldRef}
           />

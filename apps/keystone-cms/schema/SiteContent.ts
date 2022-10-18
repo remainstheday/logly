@@ -69,7 +69,8 @@ export const SiteContent = list({
   access: {
     operation: {
       query: OperationAccess.anyone,
-      create: OperationAccess.anyone,
+      create: ({ session }) =>
+        !!session?.data.isAdmin || !!session?.data.siteId,
       update: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
       delete: ({ session }) =>

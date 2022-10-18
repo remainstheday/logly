@@ -46,8 +46,8 @@ export default function IndexPage() {
 
             <div className="block -mt-12 text-right hidden sm:block">
               <Image
+                priority
                 placeholder="blur"
-                blurDataURL="/images/loading-skeleton.gif"
                 src="/images/illu_5.png"
                 alt="logly-illustration"
                 width="350"
