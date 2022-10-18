@@ -17,7 +17,7 @@ export default function Pricing() {
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <h1 className="text-5xl text-center mb-10">Pricing</h1>
-          <div className="antialiased max-w-6xl mx-auto my-12 px-8">
+          <div className="antialiased max-w-6xl mx-auto my-12 md:px-8">
             <div className="relative block md:flex items-center">
               <div className="w-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
                 <div className="text-lg font-medium text-green-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">
@@ -71,7 +71,7 @@ export default function Pricing() {
                   </a>
                 </Link>
               </div>
-              <div className="w-full md:w-1/2 relative z-0 px-8 md:px-0 md:py-16">
+              <div className="w-full md:w-1/2 relative z-0 my-6 md:px-0 md:py-16">
                 <div className="bg-blue-900 text-white rounded-b md:rounded-b-none md:rounded-r shadow-lg overflow-hidden">
                   <div className="text-lg font-medium uppercase p-8 text-center border-b border-blue-800 tracking-wide">
                     Enterprise
