@@ -77,24 +77,31 @@ export default function Pricing() {
                     Enterprise
                   </div>
                   <div className="text-center text-sm sm:text-md max-w-sm mx-auto mt-8 text-blue-200 px-8 lg:px-0">
-                    Looking for something different? Logly is a team of skilled
-                    tech practitioners and experienced museum professionals. Let
-                    us assist you in implementing Logly in your space or
-                    developing a custom solution for your organization’s needs.
-                    Reach out and let us help you realize your vision.
+                    Looking for something different? Logly is a team of
+                    experienced museum professionals and skilled tech
+                    practitioners. Let us assist you in implementing Logly in
+                    your space or developing a custom solution for your
+                    organization’s needs. Reach out and let us help you realize
+                    your vision.
                   </div>
                   <div className="mt-8 border border-blue-800 mx-8 lg:mx-16 flex flex-wrap">
                     <div className="flex items-center justify-center w-1/2 text-center p-4 border-r border-b border-blue-800">
-                      Account management
-                    </div>
-                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-b border-blue-800">
-                      Early Access to new features
+                      Develop Interpretive Materials
                     </div>
                     <div className="flex items-center justify-center w-1/2 text-center p-4 border-r border-blue-800">
-                      Migration assistance
+                      Digitize Collections
                     </div>
                     <div className="flex items-center justify-center w-1/2 text-center p-4">
-                      Dedicated support
+                      Dedicated Support
+                    </div>
+                    <div className="flex items-center justify-center w-1/2 text-center p-4">
+                      Account Management
+                    </div>
+                    <div className="flex items-center justify-center w-1/2 text-center p-4">
+                      Migration Assistance
+                    </div>
+                    <div className="flex items-center justify-center w-1/2 text-center p-4">
+                      Early Access to New Features
                     </div>
                   </div>
                   <Link href="/contact">
