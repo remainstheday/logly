@@ -76,9 +76,7 @@ export const SiteContent = list({
         !!session?.data.isAdmin || !!session?.data.siteId,
     },
     item: {
-      create: ({ session }) => {
-        return session?.data.isAdmin;
-      },
+      create: ({ session }) => true,
       update: ({ session, inputData, item }) => {
         if (session?.data.isAdmin) return true;
         if (session.data.siteId && session.data.siteId === item.siteId)
