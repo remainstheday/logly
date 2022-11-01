@@ -141,8 +141,6 @@ export default withAuth(
       },
     },
     experimental: {
-      /** Enables nextjs graphql api route mode */
-      enableNextJsGraphqlApiEndpoint: true,
       generateNextGraphqlAPI: true,
     },
     graphql: {

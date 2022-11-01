@@ -94,8 +94,7 @@ export const SiteContent = list({
         return false;
       },
       delete: ({ session }) => {
-        if (session?.data.isAdmin) return true;
-        return false;
+        return !!session?.data.isAdmin;
       },
     },
     filter: {
@@ -126,12 +125,10 @@ export const SiteContent = list({
   },
   ui: {
     hideCreate: ({ session }) => {
-      if (!session?.data.isAdmin) return true;
-      return false;
+      return !session?.data.isAdmin;
     },
     hideDelete: ({ session }) => {
-      if (session?.data.isAdmin) return true;
-      return false;
+      return !!session?.data.isAdmin;
     },
     listView: {
       // These are the default columns that will be displayed in the list view
