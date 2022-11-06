@@ -3,7 +3,7 @@ import { controller } from "@keystone-6/core/fields/types/json/views";
 import { FieldProps } from "@keystone-6/core/types";
 import { Button } from "@keystone-ui/button";
 import { FieldContainer } from "@keystone-ui/fields";
-import QRCode, { QRCodeCanvas } from "qrcode.react";
+import QRCode, { QRCodeSVG } from "qrcode.react";
 import React from "react";
 import { Styles } from "./Styles";
 
@@ -52,37 +52,29 @@ export const Field = ({
                 experienceId: string;
                 artifactId: string;
               }) => (
-                <>
-                  <div className="qr-code" key={qrcode.url}>
-                    <div>
-                      <QRCodeCanvas
-                        id={qrcode.url}
-                        key={qrcode.url}
-                        size={150}
-                        value={qrcode.url}
-                      />
-                    </div>
-                    <div className="qr-actions">
-                      <div className="qr-buttons">
-                        <Button
-                          tone="active"
-                          style={{ marginLeft: 25 }}
-                          onClick={() => handleClick(qrcode.url)}
-                        >
-                          Download
-                        </Button>
-                        {/*<Button*/}
-                        {/*  tone="negative"*/}
-                        {/*  style={{ marginLeft: 25 }}*/}
-                        {/*  onClick={() => handleClick(qrcode.url)}*/}
-                        {/*>*/}
-                        {/*  Delete*/}
-                        {/*</Button>*/}
-                      </div>
-                      <a href={qrcode.url}>{qrcode.url}</a>
-                    </div>
+                <div className="qr-code" key={qrcode.url}>
+                  <div>
+                    <QRCodeSVG
+                      className={qrcode.url}
+                      id={qrcode.url}
+                      key={qrcode.url}
+                      size={150}
+                      value={qrcode.url}
+                    />
                   </div>
-                </>
+                  <div className="qr-actions">
+                    <div className="qr-buttons">
+                      <Button
+                        tone="active"
+                        style={{ marginLeft: 25 }}
+                        onClick={() => handleClick(qrcode.url)}
+                      >
+                        Download
+                      </Button>
+                    </div>
+                    <a href={qrcode.url}>{qrcode.url}</a>
+                  </div>
+                </div>
               )
             )}
         </div>
