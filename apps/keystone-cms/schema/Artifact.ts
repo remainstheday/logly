@@ -11,12 +11,12 @@ export const Artifact = list({
     title: defaults.title,
     dateCreated: defaults.dateCreated,
     artist: defaults.artist,
+    relatedExperiences: defaults.relatedExperiences,
     artifactImages: defaults.images("Artifact Image"),
     caption: defaults.caption,
     altText: defaults.altText,
     audioFile: defaults.audioFile,
     description: defaults.document,
-    relatedExperiences: defaults.relatedExperiences,
     url: defaults.url,
     siteId: defaults.siteId,
     qrCodes: defaults.qrCodes,
@@ -200,9 +200,17 @@ export const Artifact = list({
       resolvedData,
       context,
       inputData,
+      operation,
       addValidationError,
     }) => {
-      if (resolvedData.title || resolvedData.relatedExperiences) {
+      if (
+        operation == "create" &&
+        (!resolvedData.relatedExperiences ||
+          !resolvedData.relatedExperiences?.connect ||
+          resolvedData.relatedExperiences?.connect?.length == 0)
+      ) {
+        addValidationError("Artifact needs to be related to an Experience");
+      } else if (resolvedData.title || resolvedData.relatedExperiences) {
         const otherArtifactsOfSameSiteWithSameTitle =
           await context.query.Artifact.findMany({
             where: {

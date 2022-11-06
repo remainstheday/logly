@@ -12,14 +12,6 @@ export const Site = list({
     title: defaults.title,
     url: defaults.url,
   },
-  access: {
-    operation: {
-      query: () => true,
-      create: () => true,
-      update: ({ session }) => session?.data.isAdmin,
-      delete: ({ session }) => session?.data.isAdmin,
-    },
-  },
   hooks: {
     afterOperation: async ({
       item,
@@ -68,10 +60,10 @@ export const Site = list({
           query: "id siteId",
         });
         await context.query.SiteContent.deleteMany({
-          where: siteContents.map((sc) => {
+          where: siteContents.map(sc => {
             return {
-              id: sc.id,
-            };
+              id: sc.id
+            }
           }),
           query: "id",
         });
@@ -80,10 +72,10 @@ export const Site = list({
           query: "id siteId",
         });
         await context.query.Experience.deleteMany({
-          where: experiences.map((sc) => {
+          where: experiences.map(sc => {
             return {
-              id: sc.id,
-            };
+              id: sc.id
+            }
           }),
           query: "id",
         });
@@ -92,10 +84,10 @@ export const Site = list({
           query: "id siteId",
         });
         await context.query.Artifact.deleteMany({
-          where: artifacts.map((sc) => {
+          where: artifacts.map(sc => {
             return {
-              id: sc.id,
-            };
+              id: sc.id
+            }
           }),
           query: "id",
         });

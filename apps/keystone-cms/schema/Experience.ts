@@ -31,7 +31,7 @@ export const Experience = list({
       update: ({ session }) =>
         !!session?.data.isAdmin || !!session?.data.siteId,
       delete: ({ session }) => {
-        return session?.data?.isAdmin || session?.data?.siteId;
+        return !!session?.data?.isAdmin || !!session?.data?.siteId;
       },
     },
     item: {
@@ -43,7 +43,6 @@ export const Experience = list({
 
         if (
           session.data.siteId &&
-          session.data.siteId &&
           inputData &&
           inputData.siteId &&
           inputData.siteId !== session.data.siteId
@@ -52,6 +51,8 @@ export const Experience = list({
 
         return false;
       },
+      delete: ({session, item}) =>
+        session?.data?.isAdmin || item.siteId == session?.data?.siteId
     },
     filter: {
       query: ({ session }) => {
