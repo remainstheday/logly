@@ -260,15 +260,6 @@ type Artifact {
   title: String
   dateCreated: DateTime
   artist: String
-  relatedExperiences(where: ExperienceWhereInput! = {}, orderBy: [ExperienceOrderByInput!]! = [], take: Int, skip: Int! = 0): [Experience!]
-  relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
-  artifactImages: String
-  caption: String
-  altText: String
-  audioFile: String
-  description: Artifact_description_Document
-<<<<<<< HEAD
-=======
   relatedExperiences(
     where: ExperienceWhereInput! = {}
     orderBy: [ExperienceOrderByInput!]! = []
@@ -276,7 +267,11 @@ type Artifact {
     skip: Int! = 0
   ): [Experience!]
   relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
->>>>>>> parent of 2f0faf8 (upgrade keystone)
+  artifactImages: String
+  caption: String
+  altText: String
+  audioFile: String
+  description: Artifact_description_Document
   url: String
   siteId: String
   qrCodes: JSON
