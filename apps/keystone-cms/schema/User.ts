@@ -1,6 +1,5 @@
 import { list } from "@keystone-6/core";
 import { checkbox, password, text } from "@keystone-6/core/fields";
-import { defaults } from "./defaults";
 
 // todo: create a new boolean hasPaid
 // todo: add hasPaid to session
@@ -11,13 +10,44 @@ export const User = list({
     siteId: text({
       ui: {
         createView: {
-          fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
+          fieldMode: ({ session }) =>
+            session.data.isAdmin ? "edit" : "hidden",
         },
         itemView: {
-          fieldMode: ({ session }) => (session.data.isAdmin ? "edit" : "hidden"),
+          fieldMode: ({ session }) =>
+            session.data.isAdmin ? "edit" : "hidden",
         },
         listView: {
-          fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
+          fieldMode: ({ session }) =>
+            session.data.isAdmin ? "read" : "hidden",
+        },
+      },
+      hooks: {
+        validateInput: async ({
+          listKey,
+          operation,
+          inputData,
+          item,
+          resolvedData,
+          context,
+          addValidationError,
+        }) => {
+          const reservedSites = [
+            "contact",
+            "faq",
+            "pricing",
+            "register",
+            "about",
+            "media",
+            "terms-of-use",
+            "privacy-policy",
+          ];
+
+          let error;
+          if (reservedSites.some((site) => site === inputData.siteId)) {
+            error = "reserved keywords cannot be used as an organization name";
+            addValidationError(error);
+          }
         },
       },
     }),
@@ -40,12 +70,13 @@ export const User = list({
     }),
     name: text({ validation: { isRequired: true } }),
     email: text({
-      validation: { 
-        isRequired: true, 
+      validation: {
+        isRequired: true,
         match: {
-          regex: /^(([^A-Z<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/,
-          explanation: 'emails should be written in lowercase and be valid'
-        }
+          regex:
+            /^(([^A-Z<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/,
+          explanation: "emails should be written in lowercase and be valid",
+        },
       },
       isIndexed: "unique",
       isFilterable: true,
