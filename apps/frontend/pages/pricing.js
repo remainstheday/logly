@@ -17,10 +17,10 @@ export default function Pricing() {
       <div className="max-w-4xl mx-auto min-h-screen md:mx-auto">
         <Section>
           <h1 className="text-5xl text-center mb-10">Pricing</h1>
-          <div className="antialiased max-w-6xl mx-auto my-12 md:px-8">
+          <div className="antialiased max-w-6xl mx-auto my-12">
             <div className="relative block md:flex items-center">
-              <div className="w-full md:w-1/2 relative z-1 bg-gray-100 rounded shadow-lg overflow-hidden">
-                <div className="text-lg font-medium text-green-500 uppercase p-8 text-center border-b border-gray-200 tracking-wide">
+              <div className="w-full border border-gray-200 md:w-1/2 relative z-1 bg-gray-100 overflow-hidden">
+                <div className="text-lg font-medium uppercase p-8 text-center border-b border-gray-200 tracking-wide">
                   Logly Premium
                 </div>
                 <div className="block sm:flex md:block lg:flex items-center justify-center">
@@ -30,7 +30,7 @@ export default function Pricing() {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-center mt-3">
+                <div className="flex justify-center mt-3 ">
                   <ul>
                     <li className="flex items-center">
                       <PhonePortraitOutline />
@@ -71,12 +71,12 @@ export default function Pricing() {
                   </a>
                 </Link>
               </div>
-              <div className="w-full md:w-1/2 relative z-0 my-6 md:px-0 md:py-16">
-                <div className="bg-blue-900 text-white rounded-b md:rounded-b-none md:rounded-r shadow-lg overflow-hidden">
-                  <div className="text-lg font-medium uppercase p-8 text-center border-b border-blue-800 tracking-wide">
+              <div className="w-full md:w-1/2 relative z-0 my-6 mx-4">
+                <div className="border-solid border-2 overflow-hidden">
+                  <div className="text-lg font-medium uppercase p-8 text-center border-b tracking-wide">
                     Enterprise
                   </div>
-                  <div className="text-center text-sm sm:text-md max-w-sm mx-auto mt-8 text-blue-200 px-8 lg:px-0">
+                  <div className="text-sm sm:text-md max-w-sm mx-auto mt-8 px-8 lg:px-0">
                     Looking for something different? Logly is a team of
                     experienced museum professionals and skilled tech
                     practitioners. Let us assist you in implementing Logly in
@@ -84,25 +84,25 @@ export default function Pricing() {
                     organization’s needs. Reach out and let us help you realize
                     your vision.
                   </div>
-                  <div className="mt-8 border border-blue-800 mx-8 lg:mx-16 flex flex-wrap">
-                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-r border-b border-blue-800">
+                  <div className="mt-8 border mx-8 lg:mx-16 flex flex-wrap">
+                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-r border-b">
                       Develop Interpretive Materials
                     </div>
-                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-r border-blue-800">
+                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-b">
                       Digitize Collections
                     </div>
-                    <div className="flex items-center justify-center w-1/2 text-center p-4">
+                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-b border-r">
                       Dedicated Support
                     </div>
-                    <div className="flex items-center justify-center w-1/2 text-center p-4">
+                    <div className="flex items-center justify-center w-1/2 text-center p-4 border-b">
                       Account Management
                     </div>
-                    <div className="flex items-center justify-center w-1/2 text-center p-4">
-                      Migration Assistance
-                    </div>
-                    <div className="flex items-center justify-center w-1/2 text-center p-4">
-                      Early Access to New Features
-                    </div>
+                    {/*<div className="flex items-center justify-center w-1/2 text-center p-4 border-b border-r">*/}
+                    {/*  Migration Assistance*/}
+                    {/*</div>*/}
+                    {/*<div className="flex items-center justify-center w-1/2 text-center p-4">*/}
+                    {/*  Early Access to New Features*/}
+                    {/*</div>*/}
                   </div>
                   <Link href="/contact">
                     <a className="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-8 text-md font-semibold text-gray-300 uppercase mt-8">
