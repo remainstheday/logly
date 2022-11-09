@@ -114,7 +114,7 @@ export default function IndexPage() {
           </h2>
           <div>
             <div className="flex flex-col sm:flex-row mt-12">
-              <div className="block text-center order-2 sm:order-1 sm:w-1/2">
+              <div className="block text-center order-1 sm:order-1 sm:w-1/2">
                 <Image
                   priority
                   src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067473/website/homepage-desktop-admin-3_wwikgj.png"
@@ -124,7 +124,7 @@ export default function IndexPage() {
                 />
               </div>
 
-              <div className="sm:w-1/2 mb-4">
+              <div className="sm:w-1/2 order-2 mb-4">
                 <h3 className="font-bold text-center sm:text-left text-2xl">
                   A Digital Guide Builder
                 </h3>
@@ -132,7 +132,7 @@ export default function IndexPage() {
                   With Logly you can easily upload rich text, images, & audio
                   clips for your digital guides — no programming needed!
                 </p>
-                <div className="block text-right hidden sm:block">
+                <div className="block text-left hidden sm:block">
                   <Image
                     priority
                     src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067451/website/illu_1_sq93cm.png"
@@ -156,7 +156,7 @@ export default function IndexPage() {
                 <div className="block text-left hidden sm:block">
                   <Image
                     priority
-                    src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067451/website/illu_1_sq93cm.png"
+                    src="https://res.cloudinary.com/djfxpvrca/image/upload/v1666067460/website/illu_2_cz1mpj.png"
                     alt="logly illustration 2"
                     width="350"
                     height="350"
@@ -192,7 +192,7 @@ export default function IndexPage() {
                   height="250"
                 />
               </div>
-              <div className="sm:w-1/2 mb-4">
+              <div className="sm:w-1/2 mb-4 order-1">
                 <h3 className="font-bold text-2xl text-center order-1 sm:order-2 sm:text-left">
                   A Content Management System
                 </h3>
