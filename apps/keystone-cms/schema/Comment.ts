@@ -49,8 +49,13 @@ export const Comment = list({
       create: () => true,
       update: ({ session }) =>
         session?.data.isAdmin || session?.data.siteId,
-      delete: ({ session }) =>
-        !!session?.data?.isAdmin || !!session?.data?.siteId,
+      delete: ({ session, item }) => {
+        if (session?.data?.isAdmin) return true;
+        return !!(
+          session?.data?.siteId && session.data.siteId === item?.siteId
+        );
+      },
+        
     },
     filter: {
       query: ({ session }) => {
