@@ -84,6 +84,26 @@ export default function Register() {
     }
   }, []);
 
+  const reservedSites = [
+    "contact",
+    "faq",
+    "pricing",
+    "register",
+    "about",
+    "media",
+    "terms of use",
+    "privacy policy",
+    "terms-of-use",
+    "privacy-policy",
+  ];
+  const validateOrgName = (value) => {
+    let error;
+    if (reservedSites.some((site) => site === value)) {
+      error = "*reserved keywords cannot be used as an organization name";
+      return error;
+    }
+  };
+
   return (
     <>
       <PublicHeader />
@@ -186,12 +206,13 @@ export default function Register() {
                       <span className="text-red-600">{errors.siteId}</span>
                     ) : null}
                   </label>
-                  <input
+                  <Field
                     type="text"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
                     name="siteId"
                     onChange={(e) => handleChange(e)}
                     value={values.siteId}
+                    validate={validateOrgName}
                   />
                 </div>
                 <div className="mb-4">
@@ -211,7 +232,8 @@ export default function Register() {
                     onChange={(e) => handleChange(e)}
                     value={values.password}
                   />
-
+                </div>
+                <div className="mb-4">
                   <label
                     className="block text-gray-700 text-sm font-bold"
                     htmlFor="passwordConfirmation"

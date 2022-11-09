@@ -260,11 +260,6 @@ type Artifact {
   title: String
   dateCreated: DateTime
   artist: String
-  artifactImages: String
-  caption: String
-  altText: String
-  audioFile: String
-  description: Artifact_description_Document
   relatedExperiences(
     where: ExperienceWhereInput! = {}
     orderBy: [ExperienceOrderByInput!]! = []
@@ -272,6 +267,11 @@ type Artifact {
     skip: Int! = 0
   ): [Experience!]
   relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
+  artifactImages: String
+  caption: String
+  altText: String
+  audioFile: String
+  description: Artifact_description_Document
   url: String
   siteId: String
   qrCodes: JSON
@@ -300,11 +300,11 @@ input ArtifactWhereInput {
   title: StringFilter
   dateCreated: DateTimeFilter
   artist: StringFilter
+  relatedExperiences: ExperienceManyRelationFilter
   artifactImages: StringFilter
   caption: StringFilter
   altText: StringFilter
   audioFile: StringFilter
-  relatedExperiences: ExperienceManyRelationFilter
   url: StringFilter
   siteId: StringFilter
 }
@@ -341,12 +341,12 @@ input ArtifactUpdateInput {
   title: String
   dateCreated: DateTime
   artist: String
+  relatedExperiences: ExperienceRelateToManyForUpdateInput
   artifactImages: String
   caption: String
   altText: String
   audioFile: String
   description: JSON
-  relatedExperiences: ExperienceRelateToManyForUpdateInput
   url: String
   siteId: String
   qrCodes: JSON
@@ -369,12 +369,12 @@ input ArtifactCreateInput {
   title: String
   dateCreated: DateTime
   artist: String
+  relatedExperiences: ExperienceRelateToManyForCreateInput
   artifactImages: String
   caption: String
   altText: String
   audioFile: String
   description: JSON
-  relatedExperiences: ExperienceRelateToManyForCreateInput
   url: String
   siteId: String
   qrCodes: JSON

@@ -175,6 +175,37 @@ body {
   margin-bottom: 1rem;
 }
 
+.wysiwyg-editor h2 {
+  font-family: "Karla", sans-serif;
+  font-size: 28px;
+  font-style: normal;
+}
+
+.wysiwyg-editor h3 {
+  font-family: "Karla", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+}
+
+.wysiwyg-editor h4 {
+  font-family: "Karla", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+}
+
+.wysiwyg-editor h5 {
+  font-family: "Karla", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+}
+
+.wysiwyg-editor h6 {
+  font-family: "Karla", sans-serif;
+  font-size: 12px;
+  font-style: normal;
+}
+
+
 .formatted-content a {
   text-decoration: underline;
   color: #046bbf;
