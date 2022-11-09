@@ -137,6 +137,8 @@ export const defaults = {
           "register",
           "about",
           "media",
+          "terms of use",
+          "privacy policy",
           "terms-of-use",
           "privacy-policy",
         ];
@@ -223,6 +225,8 @@ export const defaults = {
             "register",
             "about",
             "media",
+            "terms of use",
+            "privacy policy",
             "terms-of-use",
             "privacy-policy",
           ];
