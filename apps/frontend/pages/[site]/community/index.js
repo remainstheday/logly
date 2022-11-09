@@ -144,6 +144,8 @@ export async function getServerSideProps({ params }) {
     variables: { siteId: params.site },
   });
 
+  console.log(comments.data.comments);
+
   return addApolloState(apolloClient, {
     props: {
       logo,

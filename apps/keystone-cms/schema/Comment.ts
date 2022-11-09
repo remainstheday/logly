@@ -1,6 +1,7 @@
-import { graphql, list } from "@keystone-6/core";
-import { virtual } from "@keystone-6/core/fields";
+import { list, graphql } from "@keystone-6/core";
+import { text, virtual } from "@keystone-6/core/fields";
 import { defaults } from "./defaults";
+import { Site } from "./Site";
 
 export const Comment = list({
   fields: {
@@ -9,23 +10,26 @@ export const Comment = list({
     comment: defaults.comment.comment,
     link: virtual({
       ui: {
-        listView: { fieldMode: "hidden" },
-        views: require.resolve("../fields/comment-link/comment-link.tsx"),
+        listView: { fieldMode: 'hidden' },
+        views: require.resolve('../fields/comment-link/comment-link')
       },
       field: graphql.field({
         type: graphql.String,
-        resolve: (item: any) => {
-          let res = `${process.env.FRONTEND_URL}/${item?.query?.site || ""}`;
+        resolve: (item:any) => {
+
+          let res = `${process.env.FRONTEND_URL}/${item?.query?.site || '' }`
 
           if (item.query?.experience) {
-            res += `/experiences/${item.query.experience}`;
+          
+            res += `/experiences/${item.query.experience}`
             if (item.query?.artifact) {
-              res += `/${item.query.artifact}`;
+              res += `/${item.query.artifact}`
             }
+          
           }
-          return res;
-        },
-      }),
+          return res
+        }
+      })
     }),
     image: defaults.comment.image,
     query: defaults.comment.query,
@@ -41,16 +45,12 @@ export const Comment = list({
     },
   },
   access: {
-    operation: {
-      query: () => true,
-      create: () => false,
-      update: () => false,
-      delete: () => false,
-    },
     item: {
       create: () => true,
-      update: ({ session }) => session?.data.isAdmin || session?.data.siteId,
-      delete: ({ session }) => session?.data.isAdmin || session?.data.siteId,
+      update: ({ session }) =>
+        session?.data.isAdmin || session?.data.siteId,
+      delete: ({ session }) =>
+        session?.data.isAdmin || session?.data.siteId,
     },
     filter: {
       query: ({ session }) => {

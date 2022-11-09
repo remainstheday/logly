@@ -1,6 +1,10 @@
 import { list } from "@keystone-6/core";
 import { checkbox, password, text } from "@keystone-6/core/fields";
 
+// todo: create a new boolean hasPaid
+// todo: add hasPaid to session
+// todo: create custom fields in stripe for username, museumId, password, email
+// todo: listen to stripe API for hasPaid
 export const User = list({
   fields: {
     siteId: text({
@@ -16,6 +20,34 @@ export const User = list({
         listView: {
           fieldMode: ({ session }) =>
             session.data.isAdmin ? "read" : "hidden",
+        },
+      },
+      hooks: {
+        validateInput: async ({
+          listKey,
+          operation,
+          inputData,
+          item,
+          resolvedData,
+          context,
+          addValidationError,
+        }) => {
+          const reservedSites = [
+            "contact",
+            "faq",
+            "pricing",
+            "register",
+            "about",
+            "media",
+            "terms-of-use",
+            "privacy-policy",
+          ];
+
+          let error;
+          if (reservedSites.some((site) => site === inputData.siteId)) {
+            error = "reserved keywords cannot be used as an organization name";
+            addValidationError(error);
+          }
         },
       },
     }),
@@ -56,14 +88,6 @@ export const User = list({
         rejectCommon: true,
       },
     }),
-  },
-  access: {
-    operation: {
-      query: () => true,
-      create: () => true,
-      update: ({ session }) => session?.data.isAdmin,
-      delete: ({ session }) => session?.data.isAdmin,
-    },
   },
   ui: {
     isHidden: ({ session }) => !session?.data.isAdmin,

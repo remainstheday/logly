@@ -108,7 +108,12 @@ type Experience {
   altText: String
   audioFile: String
   description: Experience_description_Document
-  relatedArtifacts(where: ArtifactWhereInput! = {}, orderBy: [ArtifactOrderByInput!]! = [], take: Int, skip: Int! = 0): [Artifact!]
+  relatedArtifacts(
+    where: ArtifactWhereInput! = {}
+    orderBy: [ArtifactOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Artifact!]
   relatedArtifactsCount(where: ArtifactWhereInput! = {}): Int
   url: String
   siteId: String
@@ -120,9 +125,9 @@ enum ExperienceStatusType {
   draft
 }
 
-scalar DateTime @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+scalar DateTime
 
-scalar CalendarDay @specifiedBy(url: "https://datatracker.ietf.org/doc/html/rfc3339#section-5.6")
+scalar CalendarDay
 
 type Experience_description_Document {
   document(hydrateRelationships: Boolean! = false): JSON!
@@ -255,13 +260,18 @@ type Artifact {
   title: String
   dateCreated: DateTime
   artist: String
+  relatedExperiences(
+    where: ExperienceWhereInput! = {}
+    orderBy: [ExperienceOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Experience!]
+  relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
   artifactImages: String
   caption: String
   altText: String
   audioFile: String
   description: Artifact_description_Document
-  relatedExperiences(where: ExperienceWhereInput! = {}, orderBy: [ExperienceOrderByInput!]! = [], take: Int, skip: Int! = 0): [Experience!]
-  relatedExperiencesCount(where: ExperienceWhereInput! = {}): Int
   url: String
   siteId: String
   qrCodes: JSON
@@ -290,11 +300,11 @@ input ArtifactWhereInput {
   title: StringFilter
   dateCreated: DateTimeFilter
   artist: StringFilter
+  relatedExperiences: ExperienceManyRelationFilter
   artifactImages: StringFilter
   caption: StringFilter
   altText: StringFilter
   audioFile: StringFilter
-  relatedExperiences: ExperienceManyRelationFilter
   url: StringFilter
   siteId: StringFilter
 }
@@ -331,12 +341,12 @@ input ArtifactUpdateInput {
   title: String
   dateCreated: DateTime
   artist: String
+  relatedExperiences: ExperienceRelateToManyForUpdateInput
   artifactImages: String
   caption: String
   altText: String
   audioFile: String
   description: JSON
-  relatedExperiences: ExperienceRelateToManyForUpdateInput
   url: String
   siteId: String
   qrCodes: JSON
@@ -359,12 +369,12 @@ input ArtifactCreateInput {
   title: String
   dateCreated: DateTime
   artist: String
+  relatedExperiences: ExperienceRelateToManyForCreateInput
   artifactImages: String
   caption: String
   altText: String
   audioFile: String
   description: JSON
-  relatedExperiences: ExperienceRelateToManyForCreateInput
   url: String
   siteId: String
   qrCodes: JSON
@@ -603,7 +613,7 @@ input CommentCreateInput {
 """
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
-scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+scalar JSON
 
 type Mutation {
   createSite(data: SiteCreateInput!): Site
@@ -614,13 +624,19 @@ type Mutation {
   deleteSites(where: [SiteWhereUniqueInput!]!): [Site]
   createExperience(data: ExperienceCreateInput!): Experience
   createExperiences(data: [ExperienceCreateInput!]!): [Experience]
-  updateExperience(where: ExperienceWhereUniqueInput!, data: ExperienceUpdateInput!): Experience
+  updateExperience(
+    where: ExperienceWhereUniqueInput!
+    data: ExperienceUpdateInput!
+  ): Experience
   updateExperiences(data: [ExperienceUpdateArgs!]!): [Experience]
   deleteExperience(where: ExperienceWhereUniqueInput!): Experience
   deleteExperiences(where: [ExperienceWhereUniqueInput!]!): [Experience]
   createArtifact(data: ArtifactCreateInput!): Artifact
   createArtifacts(data: [ArtifactCreateInput!]!): [Artifact]
-  updateArtifact(where: ArtifactWhereUniqueInput!, data: ArtifactUpdateInput!): Artifact
+  updateArtifact(
+    where: ArtifactWhereUniqueInput!
+    data: ArtifactUpdateInput!
+  ): Artifact
   updateArtifacts(data: [ArtifactUpdateArgs!]!): [Artifact]
   deleteArtifact(where: ArtifactWhereUniqueInput!): Artifact
   deleteArtifacts(where: [ArtifactWhereUniqueInput!]!): [Artifact]
@@ -632,21 +648,32 @@ type Mutation {
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
   createSiteContent(data: SiteContentCreateInput!): SiteContent
   createSiteContents(data: [SiteContentCreateInput!]!): [SiteContent]
-  updateSiteContent(where: SiteContentWhereUniqueInput!, data: SiteContentUpdateInput!): SiteContent
+  updateSiteContent(
+    where: SiteContentWhereUniqueInput!
+    data: SiteContentUpdateInput!
+  ): SiteContent
   updateSiteContents(data: [SiteContentUpdateArgs!]!): [SiteContent]
   deleteSiteContent(where: SiteContentWhereUniqueInput!): SiteContent
   deleteSiteContents(where: [SiteContentWhereUniqueInput!]!): [SiteContent]
   createComment(data: CommentCreateInput!): Comment
   createComments(data: [CommentCreateInput!]!): [Comment]
-  updateComment(where: CommentWhereUniqueInput!, data: CommentUpdateInput!): Comment
+  updateComment(
+    where: CommentWhereUniqueInput!
+    data: CommentUpdateInput!
+  ): Comment
   updateComments(data: [CommentUpdateArgs!]!): [Comment]
   deleteComment(where: CommentWhereUniqueInput!): Comment
   deleteComments(where: [CommentWhereUniqueInput!]!): [Comment]
   endSession: Boolean!
-  authenticateUserWithPassword(email: String!, password: String!): UserAuthenticationWithPasswordResult
+  authenticateUserWithPassword(
+    email: String!
+    password: String!
+  ): UserAuthenticationWithPasswordResult
 }
 
-union UserAuthenticationWithPasswordResult = UserAuthenticationWithPasswordSuccess | UserAuthenticationWithPasswordFailure
+union UserAuthenticationWithPasswordResult =
+    UserAuthenticationWithPasswordSuccess
+  | UserAuthenticationWithPasswordFailure
 
 type UserAuthenticationWithPasswordSuccess {
   sessionToken: String!
@@ -658,22 +685,52 @@ type UserAuthenticationWithPasswordFailure {
 }
 
 type Query {
-  sites(where: SiteWhereInput! = {}, orderBy: [SiteOrderByInput!]! = [], take: Int, skip: Int! = 0): [Site!]
+  sites(
+    where: SiteWhereInput! = {}
+    orderBy: [SiteOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Site!]
   site(where: SiteWhereUniqueInput!): Site
   sitesCount(where: SiteWhereInput! = {}): Int
-  experiences(where: ExperienceWhereInput! = {}, orderBy: [ExperienceOrderByInput!]! = [], take: Int, skip: Int! = 0): [Experience!]
+  experiences(
+    where: ExperienceWhereInput! = {}
+    orderBy: [ExperienceOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Experience!]
   experience(where: ExperienceWhereUniqueInput!): Experience
   experiencesCount(where: ExperienceWhereInput! = {}): Int
-  artifacts(where: ArtifactWhereInput! = {}, orderBy: [ArtifactOrderByInput!]! = [], take: Int, skip: Int! = 0): [Artifact!]
+  artifacts(
+    where: ArtifactWhereInput! = {}
+    orderBy: [ArtifactOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Artifact!]
   artifact(where: ArtifactWhereUniqueInput!): Artifact
   artifactsCount(where: ArtifactWhereInput! = {}): Int
-  users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
+  users(
+    where: UserWhereInput! = {}
+    orderBy: [UserOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
-  siteContents(where: SiteContentWhereInput! = {}, orderBy: [SiteContentOrderByInput!]! = [], take: Int, skip: Int! = 0): [SiteContent!]
+  siteContents(
+    where: SiteContentWhereInput! = {}
+    orderBy: [SiteContentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [SiteContent!]
   siteContent(where: SiteContentWhereUniqueInput!): SiteContent
   siteContentsCount(where: SiteContentWhereInput! = {}): Int
-  comments(where: CommentWhereInput! = {}, orderBy: [CommentOrderByInput!]! = [], take: Int, skip: Int! = 0): [Comment!]
+  comments(
+    where: CommentWhereInput! = {}
+    orderBy: [CommentOrderByInput!]! = []
+    take: Int
+    skip: Int! = 0
+  ): [Comment!]
   comment(where: CommentWhereUniqueInput!): Comment
   commentsCount(where: CommentWhereInput! = {}): Int
   keystone: KeystoneMeta!
@@ -687,6 +744,8 @@ type KeystoneMeta {
 }
 
 type KeystoneAdminMeta {
+  enableSignout: Boolean!
+  enableSessionItem: Boolean!
   lists: [KeystoneAdminUIListMeta!]!
   list(key: String!): KeystoneAdminUIListMeta
 }
@@ -708,7 +767,6 @@ type KeystoneAdminUIListMeta {
   fields: [KeystoneAdminUIFieldMeta!]!
   initialSort: KeystoneAdminUISort
   isHidden: Boolean!
-  isSingleton: Boolean
 }
 
 type KeystoneAdminUIFieldMeta {

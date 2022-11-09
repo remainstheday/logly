@@ -37,6 +37,7 @@ export const defaults = {
       listView: { fieldMode: "read" },
       itemView: { fieldMode: "edit" },
     },
+    label: "",
   }),
   images: (label = "Image Uploads", canCreate = true) =>
     text({
@@ -119,6 +120,34 @@ export const defaults = {
         fieldMode: ({ session }) => (session.data.isAdmin ? "read" : "hidden"),
       },
     },
+    hooks: {
+      validateInput: async ({
+        listKey,
+        operation,
+        inputData,
+        item,
+        resolvedData,
+        context,
+        addValidationError,
+      }) => {
+        const reservedSites = [
+          "contact",
+          "faq",
+          "pricing",
+          "register",
+          "about",
+          "media",
+          "terms-of-use",
+          "privacy-policy",
+        ];
+
+        let error;
+        if (reservedSites.some((site) => site === inputData.siteId)) {
+          error = "reserved keywords cannot be used as an organization name";
+          addValidationError(error);
+        }
+      },
+    },
   }),
   comment: {
     query: json({
@@ -175,6 +204,34 @@ export const defaults = {
         listView: {
           fieldMode: ({ session }) =>
             session.data.isAdmin ? "read" : "hidden",
+        },
+      },
+      hooks: {
+        validateInput: async ({
+          listKey,
+          operation,
+          inputData,
+          item,
+          resolvedData,
+          context,
+          addValidationError,
+        }) => {
+          const reservedSites = [
+            "contact",
+            "faq",
+            "pricing",
+            "register",
+            "about",
+            "media",
+            "terms-of-use",
+            "privacy-policy",
+          ];
+
+          let error;
+          if (reservedSites.some((site) => site === inputData.siteId)) {
+            error = "reserved keywords cannot be used as an organization name";
+            addValidationError(error);
+          }
         },
       },
     }),
