@@ -50,7 +50,7 @@ export const Comment = list({
       update: ({ session }) =>
         session?.data.isAdmin || session?.data.siteId,
       delete: ({ session }) =>
-        session?.data.isAdmin || session?.data.siteId,
+        !!session?.data?.isAdmin || !!session?.data?.siteId,
     },
     filter: {
       query: ({ session }) => {
