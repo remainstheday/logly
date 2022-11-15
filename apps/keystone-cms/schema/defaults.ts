@@ -37,7 +37,6 @@ export const defaults = {
       listView: { fieldMode: "read" },
       itemView: { fieldMode: "edit" },
     },
-    label: "Related Experiences",
   }),
   images: (label = "Image Uploads", canCreate = true) =>
     text({
