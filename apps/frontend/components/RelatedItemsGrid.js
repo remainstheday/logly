@@ -21,7 +21,8 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
   }, [itemInView]);
 
   const handleScroll = () => {
-    const itemWidth = carouselContainer.current.scrollWidth / items.length;
+    const numOfItems = items.length > 2 ? 3 : items.length;
+    const itemWidth = carouselContainer.current.scrollWidth / numOfItems;
 
     if (carouselContainer.current.scrollLeft === 0) {
       setItemInView(0);
@@ -44,6 +45,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
   };
 
   const handleClick = (e) => {
+    const numOfItems = items.length > 2 ? 3 : items.length;
     // access the first property of e.target, which has dynamically generated name
     const firstIndex = Object.keys(e.target)[0];
     const indicatorIndex = e.target[firstIndex]["key"]; // index of the indicator clicked
@@ -55,7 +57,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
       carouselContainer.current.scrollLeft =
         carouselContainer.current.scrollWidth;
     } else {
-      const itemWidth = carouselContainer.current.scrollWidth / items.length;
+      const itemWidth = carouselContainer.current.scrollWidth / numOfItems;
       const newScrollPos =
         itemWidth * indicatorIndex + Math.floor((itemWidth * 1) / 2);
       carouselContainer.current.scrollLeft = newScrollPos;
@@ -75,7 +77,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
             : "relative w-full gap-6 my-6 md:inline-grid md:gap-2 md:grid-cols-2"
         }
       >
-        {items.map((item, index) => (
+        {items.slice(0, 3).map((item, index) => (
           <div className="snap-center shrink-0 w-full my-3 " key={index}>
             <div className="shrink-0 flex flex-col">
               <Link href={item.url} passHref>
@@ -103,10 +105,10 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
           className="w-full -translate-y-[40px] h-10 z-10 flex justify-center items-center gap-4 md:opacity-0"
           ref={carouselIndicatorsContainer}
         >
-          {items.map((item, index) => {
+          {items.slice(0, 3).map((item, index) => {
             return (
               <div
-                className="carousel-indicator w-4 h-4 rounded-full bg-blue border-gray-300 border-2"
+                className="carousel-indicator w-4 h-4 rounded-full border-black border"
                 key={index}
                 onClick={handleClick}
               ></div>
