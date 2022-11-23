@@ -48,7 +48,7 @@ model Artifact {
   audioFile          String             @default("")
   description        Json               @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   relatedExperiences Experience[]       @relation("Artifact_relatedExperiences")
-  url                String             @unique @default("")
+  url                String             @default("")
   siteId             String             @default("")
   qrCodes            Json?              @default("[]")
 }
