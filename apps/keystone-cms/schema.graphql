@@ -456,6 +456,7 @@ type SiteContent {
   logoWidth: Int
   logoHeight: Int
   staticPageImages: String
+  altText: String
   description: SiteContent_description_Document
   qrCode: JSON
   url: String
@@ -482,6 +483,7 @@ input SiteContentWhereInput {
   logoWidth: IntNullableFilter
   logoHeight: IntNullableFilter
   staticPageImages: StringFilter
+  altText: StringFilter
   url: StringFilter
   siteId: StringFilter
 }
@@ -505,6 +507,7 @@ input SiteContentOrderByInput {
   logoWidth: OrderDirection
   logoHeight: OrderDirection
   staticPageImages: OrderDirection
+  altText: OrderDirection
   url: OrderDirection
   siteId: OrderDirection
 }
@@ -516,6 +519,7 @@ input SiteContentUpdateInput {
   logoWidth: Int
   logoHeight: Int
   staticPageImages: String
+  altText: String
   description: JSON
   qrCode: JSON
   url: String
@@ -534,6 +538,7 @@ input SiteContentCreateInput {
   logoWidth: Int
   logoHeight: Int
   staticPageImages: String
+  altText: String
   description: JSON
   qrCode: JSON
   url: String
