@@ -12,7 +12,6 @@ export default function processCloudinaryImage(file) {
       body: formData,
     })
       .then((response) => {
-        console.log(response);
         return response.json();
       })
       .then((data) => resolve(data.secure_url))

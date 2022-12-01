@@ -37,7 +37,6 @@ export default function Artifact({
     .split("-")
     .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ")} - ${artifact.title}`;
-  console.log(artifact);
   return (
     <div className="flex flex-col h-screen">
       <Header siteId={query.site} logo={logo} title={metaTitle} />

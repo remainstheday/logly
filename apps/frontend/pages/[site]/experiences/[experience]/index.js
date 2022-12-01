@@ -44,7 +44,6 @@ export default function Experience({
     .join(" ")} - ${experience.title}`;
 
   const hasAudioFile = experience.audioFile && experience.audioFile.length > 0;
-  console.log(experience);
 
   return (
     <div className="flex flex-col h-screen">
