@@ -30,6 +30,7 @@ export default function About({ logo, content }) {
               <PosterImage
                 image={content.staticPageImages}
                 title={content.title}
+                altText={content.altText}
               />
             )}
             {content.description && (

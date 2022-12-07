@@ -12,6 +12,7 @@ export const GET_SITE_CONTENT = gql`
       logoWidth
       logoHeight
       staticPageImages
+      altText
       description {
         document
       }

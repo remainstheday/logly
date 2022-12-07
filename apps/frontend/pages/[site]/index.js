@@ -40,7 +40,11 @@ export default function IndexPage({ content, experiences, comments }) {
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <PageTitle smallText={"welcome to"} largeText={content.title} />
-          <PosterImage image={content.staticPageImages} title={content.title} />
+          <PosterImage
+            image={content.staticPageImages}
+            title={content.title}
+            altText={content.altText}
+          />
           <DescriptionContent content={content.description.document} />
         </Section>
 

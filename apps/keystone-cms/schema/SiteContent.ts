@@ -53,6 +53,13 @@ export const SiteContent = list({
       },
     }),
     staticPageImages: defaults.images("Banner Image", false),
+    altText: text({
+      label: "Image Alt Text",
+      ui: {
+        createView: { fieldMode: "hidden" },
+        listView: { fieldMode: "hidden" },
+      },
+    }),
     description: defaults.document,
     qrCode: json({
       defaultValue: [],

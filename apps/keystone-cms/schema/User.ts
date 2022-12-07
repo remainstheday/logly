@@ -39,6 +39,8 @@ export const User = list({
             "register",
             "about",
             "media",
+            "terms of use",
+            "privacy policy",
             "terms-of-use",
             "privacy-policy",
           ];

@@ -11,6 +11,7 @@ import CommentCard from "components/CommentCard";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import PageLoading from "components/PageLoading";
+import PosterImage from "components/PosterImage";
 import RelatedItemsGrid from "components/RelatedItemsGrid";
 import Section from "components/Section";
 import SectionLink from "components/SectionLink";
@@ -56,6 +57,13 @@ export default function Experience({
           />
 
           <div className="section-title space-y-1 mt-6 mb-6 md:mt-20">
+            {experience.experienceImages && (
+              <PosterImage
+                image={experience.experienceImages}
+                title={experience.title}
+                altText={experience.altText}
+              />
+            )}
             <h1 className="experience-title">{experience.title}</h1>
 
             <h3>

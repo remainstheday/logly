@@ -91,6 +91,8 @@ export default function Register() {
     "register",
     "about",
     "media",
+    "terms of use",
+    "privacy policy",
     "terms-of-use",
     "privacy-policy",
   ];

@@ -42,12 +42,12 @@ model Artifact {
   title              String             @default("")
   dateCreated        DateTime           @default(now())
   artist             String             @default("")
-  relatedExperiences Experience[]       @relation("Artifact_relatedExperiences")
   artifactImages     String             @default("")
   caption            String             @default("")
   altText            String             @default("")
   audioFile          String             @default("")
   description        Json               @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
+  relatedExperiences Experience[]       @relation("Artifact_relatedExperiences")
   url                String             @unique @default("")
   siteId             String             @default("")
   qrCodes            Json?              @default("[]")
@@ -70,6 +70,7 @@ model SiteContent {
   logoWidth        Int?
   logoHeight       Int?
   staticPageImages String @default("")
+  altText          String @default("")
   description      Json   @default("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
   qrCode           Json?  @default("[]")
   url              String @unique @default("")
