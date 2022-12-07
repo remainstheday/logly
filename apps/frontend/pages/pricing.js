@@ -18,8 +18,8 @@ export default function Pricing() {
         <Section>
           <h1 className="text-5xl text-center mb-10">Pricing</h1>
           <div className="antialiased max-w-6xl mx-auto my-12">
-            <div className="relative block md:flex items-center">
-              <div className="w-full border border-gray-200 md:w-1/2 relative z-1 bg-gray-100 overflow-hidden">
+            <div className="relative block md:flex flex-col justify-center items-center sm:flex-row ">
+              <div className="w-full border min-h-[590px] border-gray-200 md:w-1/2 relative z-1 bg-gray-100 overflow-hidden flex flex-col justify-between">
                 <div className="text-lg font-medium uppercase p-8 text-center border-b border-gray-200 tracking-wide">
                   Logly Premium
                 </div>
@@ -65,18 +65,18 @@ export default function Pricing() {
                   </ul>
                 </div>
                 <Link href="/register">
-                  <a className="block flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-8 text-md font-semibold text-gray-800 uppercase mt-16">
+                  <a className="block flex items-center justify-center  bg-gray-200 hover:bg-gray-300 p-8 text-md font-semibold text-gray-800 uppercase mt-16">
                     <span>Create account</span>
                     <span className="font-medium text-gray-700 ml-2">➔</span>
                   </a>
                 </Link>
               </div>
-              <div className="w-full md:w-1/2 relative z-0 my-6 mx-4">
-                <div className="border-solid border-2 overflow-hidden">
+              <div className="w-full  md:w-1/2 relative z-0 my-6 mx-0 md:mx-4">
+                <div className="border-solid min-h-[590px] flex flex-col justify-between border-2 overflow-hidden">
                   <div className="text-lg font-medium uppercase p-8 text-center border-b tracking-wide">
                     Enterprise
                   </div>
-                  <div className="text-sm sm:text-md max-w-sm mx-auto mt-8 px-8 lg:px-0">
+                  <div className="text-sm sm:text-md max-w-sm mx-auto px-8 mt-4 lg:px-0">
                     Looking for something different? Logly is a team of
                     experienced museum professionals and skilled tech
                     practitioners. Let us assist you in implementing Logly in
@@ -84,7 +84,7 @@ export default function Pricing() {
                     organization’s needs. Reach out and let us help you realize
                     your vision.
                   </div>
-                  <div className="mt-8 border mx-8 lg:mx-16 flex flex-wrap">
+                  <div className="mt-4 border mx-8 lg:mx-16 flex flex-wrap">
                     <div className="flex items-center justify-center w-1/2 text-center p-4 border-r border-b">
                       Develop Interpretive Materials
                     </div>
@@ -105,7 +105,7 @@ export default function Pricing() {
                     {/*</div>*/}
                   </div>
                   <Link href="/contact">
-                    <a className="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-8 text-md font-semibold text-gray-300 uppercase mt-8">
+                    <a className="block flex items-center justify-center bg-blue-800 hover:bg-blue-700 p-8 text-md font-semibold text-gray-300 uppercase mt-4 lg:mt-8">
                       <span>Contact sales</span>
                       <span className="font-medium text-gray-300 ml-2">➔</span>
                     </a>
