@@ -51,8 +51,8 @@ export const Experience = list({
 
         return false;
       },
-      delete: ({session, item}) =>
-        session?.data?.isAdmin || item.siteId == session?.data?.siteId
+      delete: ({ session, item }) =>
+        session?.data?.isAdmin || item.siteId == session?.data?.siteId,
     },
     filter: {
       query: ({ session }) => {
@@ -296,7 +296,7 @@ export const Experience = list({
 
         if (otherExperiencessOfSameSiteWithSameTitle.length) {
           addValidationError(
-            "This site already has an Experience with this title"
+            `${resolvedData.siteId} already has an Experience with this title`
           );
         }
       }

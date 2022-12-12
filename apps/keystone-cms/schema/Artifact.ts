@@ -41,7 +41,7 @@ export const Artifact = list({
           inputData &&
           inputData.siteId &&
           inputData.siteId !== session.data.siteId
-        ) 
+        )
           return false;
 
         return false;
@@ -216,9 +216,14 @@ export const Artifact = list({
           !resolvedData.relatedExperiences?.connect ||
           resolvedData.relatedExperiences?.connect?.length > 1)
       ) {
-        addValidationError("Artifact should only be related to a single Experience");
-      } else if (resolvedData.title || resolvedData.relatedExperiences) {
-        const otherArtifactsOfSameSiteWithSameTitle =
+        addValidationError(
+          "Artifact should only be related to a single Experience"
+        );
+      } else if (
+        operation === "create" &&
+        (resolvedData.title || resolvedData.relatedExperiences)
+      ) {
+        const otherArtifactsWithSameTitleAndRelatedExp =
           await context.query.Artifact.findMany({
             where: {
               AND: [
@@ -238,9 +243,23 @@ export const Artifact = list({
             query: "id title siteId relatedExperiences { id } ",
           });
 
-        if (otherArtifactsOfSameSiteWithSameTitle.length) {
+        const otherArtifactsWithSameTitle =
+          await context.query.Artifact.findMany({
+            where: {
+              AND: [
+                { title: { equals: resolvedData.title } },
+                { siteId: { equals: resolvedData.siteId } },
+              ],
+            },
+            query: "id title siteId ",
+          });
+
+        if (
+          otherArtifactsWithSameTitleAndRelatedExp.length ||
+          otherArtifactsWithSameTitle.length
+        ) {
           addValidationError(
-            "This Experience already has an Artifact with this title"
+            `${resolvedData.siteId} already has an Artifact with this title`
           );
         }
       }
