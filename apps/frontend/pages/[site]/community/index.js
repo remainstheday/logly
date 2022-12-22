@@ -42,9 +42,14 @@ export default function Community({ logo, comments = [] }) {
     );
   };
 
+  const metaTitle = `${query.site
+    .split("-")
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(" ")} - Community`;
+
   return (
     <div className="flex flex-col h-screen">
-      <Header siteId={query.site} logo={logo} />
+      <Header siteId={query.site} logo={logo} title={metaTitle} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
