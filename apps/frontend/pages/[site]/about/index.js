@@ -1,5 +1,5 @@
 import { DocumentRenderer } from "@keystone-6/document-renderer";
-import { GET_SITE_CONTENT, GET_SITE_LOGO } from "apollo/api";
+import { GET_SITE_CONTENT } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
@@ -48,10 +48,7 @@ export default function About({ logo, content }) {
 
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
-  const siteContents = await apolloClient.query({
-    query: GET_SITE_LOGO,
-    variables: { siteId: params.site },
-  });
+
   const content = await apolloClient.query({
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
