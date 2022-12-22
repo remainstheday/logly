@@ -1,4 +1,4 @@
-import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_LOGO } from "apollo/api";
+import { GET_EXPERIENCES_BY_SITE_ID, GET_SITE_CONTENT } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import BackLink from "components/BackLink";
 import Footer from "components/Footer";
@@ -38,10 +38,13 @@ export default function Experiences({ experiences, logo }) {
 
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
-  const siteContents = await apolloClient.query({
-    query: GET_SITE_LOGO,
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
+  const homepageContent = content.data.siteContents.find(
+    (item) => item.name === "Home"
+  );
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
@@ -56,7 +59,7 @@ export async function getServerSideProps({ params }) {
 
   return addApolloState(apolloClient, {
     props: {
-      logo: siteContents.data.siteContents[1],
+      logo: homepageContent,
       experiences: filteredExperiences,
     },
   });

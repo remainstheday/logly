@@ -3,7 +3,7 @@ import {
   GET_ALL_COMMENTS,
   GET_ARTIFACTS,
   GET_EXPERIENCES_BY_SITE_ID,
-  GET_SITE_LOGO,
+  GET_SITE_CONTENT,
 } from "apollo/api";
 import { addApolloState, initializeApollo } from "apollo/apollo-client";
 import AudioPlayer from "components/AudioPlayer";
@@ -109,12 +109,11 @@ export default function Artifact({
 
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
-  const siteContents = await apolloClient.query({
-    query: GET_SITE_LOGO,
+  const content = await apolloClient.query({
+    query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-  const logo = siteContents.data.siteContents[1];
-
+  const logo = content.data.siteContents.find((item) => item.name === "Home");
   const experiences = await apolloClient.query({
     query: GET_EXPERIENCES_BY_SITE_ID,
     variables: { siteId: params.site },
