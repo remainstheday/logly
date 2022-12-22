@@ -41,14 +41,10 @@ export default function Community({ logo, comments = [] }) {
       }
     );
   };
-  const metaTitle = `${query.site
-    .split("-")
-    .map((word) => word[0].toUpperCase() + word.slice(1))
-    .join(" ")} - Community`;
 
   return (
     <div className="flex flex-col h-screen">
-      <Header siteId={query.site} logo={logo} title={metaTitle} />
+      <Header siteId={query.site} logo={logo} />
       <div className="flex-grow w-full max-w-4xl mx-auto">
         <Section>
           <BackLink href={`/${query.site}`} text={"Home"} />
@@ -137,14 +133,11 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
-
-  const logo = content.data.siteContents[1];
+  const logo = content.data.siteContents.find((item) => item.name === "Home");
   const comments = await apolloClient.query({
     query: GET_ALL_COMMENTS,
     variables: { siteId: params.site },
   });
-
-  console.log(comments.data.comments);
 
   return addApolloState(apolloClient, {
     props: {
