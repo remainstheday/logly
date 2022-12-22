@@ -56,10 +56,13 @@ export async function getServerSideProps({ params }) {
     query: GET_SITE_CONTENT,
     variables: { siteId: params.site },
   });
+  const homepageContent = content.data.siteContents.find(
+    (item) => item.name === "Home"
+  );
 
   return addApolloState(apolloClient, {
     props: {
-      logo: siteContents.data.siteContents[1],
+      logo: homepageContent,
       content: content.data.siteContents.find(
         (item) => item.url === `${params.site}/about`
       ),
