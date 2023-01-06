@@ -54,7 +54,7 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
 
 export const GET_ARTIFACTS = gql`
   query Artifacts($url: String) {
-    artifacts(where: { url: { contains: $url } }) {
+    artifacts(where: { url: { equals: $url } }) {
       id
       title
       artist
