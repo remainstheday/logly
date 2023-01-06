@@ -72,7 +72,7 @@ export default function Experience({
                 format(formattedStartDate, "MMMM dd, yyyy")}
               {experience.experienceEnd &&
                 formattedEndDate &&
-                ` - ${format(formattedEndDate, "MMM dd, yyyy")}`}
+                ` - ${format(formattedEndDate, "MMMM dd, yyyy")}`}
             </h3>
           </div>
 
