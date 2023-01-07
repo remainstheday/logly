@@ -49,3 +49,6 @@ latest.dump
 _static.tool-versions
 _staticyarn 1.22.19
 
+#vscode
+.vscode
+
