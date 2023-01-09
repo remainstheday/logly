@@ -6,6 +6,13 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
   const carouselContainer = useRef(null);
   const carouselIndicatorsContainer = useRef(null);
   const [itemInView, setItemInView] = useState(0);
+  const sortedItems = items.sort((a, b) => {
+    return a.dateCreated > b.dateCreated
+      ? 1
+      : a.dateCreated < b.dateCreated
+      ? -1
+      : 0;
+  });
 
   useEffect(() => {
     if (carouselIndicatorsContainer.current) {
@@ -75,7 +82,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
             : "relative w-full gap-6 my-6 md:inline-grid md:gap-2 md:grid-cols-2"
         }
       >
-        {items.map((item, index) => (
+        {sortedItems.map((item, index) => (
           <div className="snap-center shrink-0 w-full my-3 " key={index}>
             <div className="shrink-0 flex flex-col">
               <Link href={item.url} passHref>
@@ -103,7 +110,7 @@ export default function RelatedItemsGrid({ items, mobileSideScroll = true }) {
           className="w-full -translate-y-[40px] h-10 z-10 flex justify-center items-center gap-4 md:opacity-0"
           ref={carouselIndicatorsContainer}
         >
-          {items.map((item, index) => {
+          {sortedItems.map((item, index) => {
             return (
               <div
                 className="carousel-indicator w-4 h-4 rounded-full bg-blue border-gray-300 border-2"
