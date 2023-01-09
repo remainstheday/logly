@@ -28,12 +28,14 @@ export const GET_EXPERIENCES_BY_SITE_ID = gql`
       url
       siteId
       audioFile
+      dateCreated
       relatedArtifacts {
         id
         title
         artist
         url
         status
+        dateCreated
         description {
           document
         }
@@ -65,17 +67,20 @@ export const GET_ARTIFACTS = gql`
       caption
       altText
       audioFile
+      dateCreated
       relatedExperiences {
         id
         title
         url
         siteId
+        dateCreated
         relatedArtifacts {
           id
           title
           artist
           url
           artifactImages
+          dateCreated
         }
         experienceImages
         altText
