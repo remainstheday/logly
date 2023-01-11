@@ -288,6 +288,7 @@ type Artifact_description_Document {
 
 input ArtifactWhereUniqueInput {
   id: ID
+  url: String
 }
 
 input ArtifactWhereInput {
